@@ -5,7 +5,7 @@ const LessonList = () => {
     return (
         <div className="mt-6">
             <h2 className="text-2xl font-semibold mb-4">Available Lessons</h2>
-            <div>
+            <div className="grid grid-cols-3 gap-4">
                 {exampleLessons.map((lesson) => (
                     <LessonItem key={lesson.id} lesson={lesson}/>
                 ))}
