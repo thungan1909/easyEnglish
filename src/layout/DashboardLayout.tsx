@@ -1,21 +1,18 @@
 import Navbar from "../components/Navbar";
 
 interface DashboardLayoutProps {
-    children: React.ReactNode;
-  }
+  children: React.ReactNode;
+}
 
-  
-const DashboardLayout = ({children}: DashboardLayoutProps) => {
+
+const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
-    <body className="flex h-screen">
-      {/* <Sidebard /> */}
-      <div className="flex flex-col flex-1">
-        <Navbar />
-        <main className="p-6 h-full overflow-y-auto">
-          {children}
-        </main>
+    <div className="bg-red-50 flex flex-col min-h-screen">
+      <Navbar />
+      <div className="flex-1 overflow-y-auto">
+        {children}
       </div>
-    </body>
+    </div>
   );
 };
 export default DashboardLayout;

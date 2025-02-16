@@ -41,9 +41,9 @@ const Navbar = () => {
         </div>
 
         {/* Fire Streak */}
-        <div className="relative flex items center bg-red-100 text-red-500 px-5 py-2 rounded-full space-x-1">
+        <div className="relative flex items center bg-red-100 text-red-500 px-4 py-2 rounded-full space-x-1">
           <FaFire />
-          <span className="absolute bottom-0 right-2 text-sm  rounded-full">11</span>
+          <span className="rounded-full font-semibold">11</span>
         </div>
 
         {/* Chart & Notifications */}

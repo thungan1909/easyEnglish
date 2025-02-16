@@ -1,13 +1,21 @@
 
-import HeroSection from "../../components/HeroSection";
+import HeroSection from "./HeroSection";
 import DashboardLayout from "../../layout/DashboardLayout";
-import LessonList from "./LessonList";
+import RecentLessons from "./RecentLesson";
+import NewestLesson from "./NewestLesson";
 
 
 const Dashboard = () => {
   return (
     <DashboardLayout>
-      <HeroSection />
+      <div className="px-4">
+        <HeroSection />
+      </div>
+
+      <div className="mt-32 space-y-8">
+        <RecentLessons />
+        <NewestLesson/>
+      </div>
     </DashboardLayout>
   );
 };

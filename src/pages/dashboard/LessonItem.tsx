@@ -1,19 +1,25 @@
-import { FaPlay } from "react-icons/fa";
+import { FaBook, FaPlay } from "react-icons/fa";
 import { Lesson } from "./types";
 
 interface LessonItemProps {
     lesson: Lesson;
-  }
+}
 
-const LessonItem= ({lesson} : LessonItemProps) => {
-    return(
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md flex flex-col items-center">
-        <h3 className="text-lg font-semibold">{lesson.title}</h3>
-        <p className="text-gray-600">{lesson.description}</p>
-        <button className="mt-3 bg-blue-500 px-4 py-2 rounded flex items-center space-x-2">
-            <FaPlay/>
-            <span>Start</span>
-        </button>
+const LessonItem = ({ lesson }: LessonItemProps) => {
+    return (
+        <div key={lesson.id} className="flex flex-col items-center bg-white p-3 rounded-lg shadow-md" >
+            <img src={lesson.image} alt={lesson.title} className="w-32 h-32 rounded-lg object-cover" />
+            <div className="flex flex-col w-full mt-2">
+                <span className="text-sm font-semibold text-gray-900">{lesson.id}</span>
+                <p className="text-sm text-gray-700 line-clamp-2">
+                    {lesson.title}
+                </p>
+                {/* Stats */}
+                <div className="flex text-xs text-gray-500 mt-4 space-x-2">
+                    <FaBook />
+                    <span>{lesson.provider}</span>
+                </div>
+            </div>
         </div>
     )
 }
