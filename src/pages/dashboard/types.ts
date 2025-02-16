@@ -6,3 +6,19 @@ export interface Lesson {
     image: string;
     progress: string;
 }
+
+export interface User {
+    id: string;
+    name: string;
+    avatar: string;
+    grades: string;
+    ranking: string;
+}
+
+export interface RecentUserActivity {
+    id: string;
+    name: string;
+    avatar: string;
+    time: Date;
+    lesson: string;
+}

@@ -1,7 +1,7 @@
-import banner from '../../assets/banner-wele.png'
+import banner from '../../../assets/banner-wele.png'
 const HeroSection = () => {
     return (
-        <div className="relative top-24 left-20 w-180 z-10 bg-white shadow-md rounded-lg p-6 flex">
+        <div className="relative w-180 z-10 bg-white shadow-md rounded-lg p-6 flex">
             {/* Background Image */}
             <img src={banner} alt="Hero" className="absolute inset-0 w-full h-full object-cover rounded-lg" />
 

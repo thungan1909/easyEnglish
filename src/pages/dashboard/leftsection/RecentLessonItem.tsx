@@ -1,5 +1,5 @@
 import { FaBook, FaPlay } from "react-icons/fa";
-import { Lesson } from "./types";
+import { Lesson } from "../types";
 
 interface LessonItemProps {
     lesson: Lesson;
