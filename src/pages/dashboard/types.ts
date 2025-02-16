@@ -22,3 +22,24 @@ export interface RecentUserActivity {
     time: Date;
     lesson: string;
 }
+
+export interface Setting {
+    dots: boolean,
+    infinite: boolean,
+    speed: number,
+    slidesToShow: number,
+    slidesToScroll: number,
+    autoplay: boolean,
+    autoplaySpeed: number,
+}
+
+export interface Slide {
+    image: string;
+    title: string;
+    description: string;
+    stats: {
+        numberPodcast: number;
+        numberParticipant: number;
+        daysLeft: number;
+    };
+}

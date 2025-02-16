@@ -1,8 +1,10 @@
-import { Lesson, RecentUserActivity, User } from "./types";
+import { Lesson, RecentUserActivity, Setting, Slide, User } from "./types";
 import lesson1 from '../../assets/podcast_1059.png'
 import lesson2 from '../../assets/podcast_1036.png'
 import lesson3 from '../../assets/podcast_1365.png'
 import lesson4 from '../../assets/podcast_1366.png'
+import banner from '../../assets/banner.png'
+import bannerWele from '../../assets/banner-wele.png'
 
 export const exampleLessons: Lesson[] = [
   {
@@ -116,4 +118,37 @@ export const exampleUserNewfeed: RecentUserActivity[] = [
     lesson:"About Sleep",
     avatar: lesson4,
   },
+];
+
+export const settingSlider: Setting= {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 5000,
+};
+
+export const exampleSlides: Slide[] = [
+  {
+      image: bannerWele,
+      title: "Chuyến phiêu lưu của WELE the Wallaby",
+      description: "8 tập kể về hành trình của WELE từ Việt Nam qua nhiều nước Đông Nam Á.",
+      stats: {
+          numberPodcast: 4,
+          numberParticipant: 40,
+          daysLeft: 20,
+      }
+  },
+  {
+      image: banner,
+      title: "Hành trình mới của WELE",
+      description: "Khám phá thế giới với WELE cùng những câu chuyện thú vị.",
+      stats: {
+          numberPodcast: 8,
+          numberParticipant: 100,
+          daysLeft: 30,
+      }
+  }
 ];
