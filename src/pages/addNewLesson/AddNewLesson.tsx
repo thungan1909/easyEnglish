@@ -1,8 +1,5 @@
 const AddNewLesson = () => {
-return (
-    <div>Add new
-    </div>
-)
-}
+  return <div>Add new</div>;
+};
 
 export default AddNewLesson;
