@@ -12,14 +12,14 @@ import MostListened from "./rightSection/MostListened";
 const Dashboard = () => {
   return (
     <DashboardLayout>
-      <div className="grid grid-cols-1 md:grid-cols-6 md:gap-48 xl:gap-48">
-        <div className="relative top-24 space-y-8 left-12 md:col-span-3">
+      <div className="grid grid-cols-1 p-8 gap-8 md:grid-cols-6 md:px-16 ">
+        <div className="relative top-24 space-y-8 md:col-span-3 w-full md:w-[720px]">
           <HeroSection />
           <RecentLessons />
           <NewestLesson />
           <RecommendLesson />
         </div>
-        <div className="relative top-24 space-y-8 left-12 md:col-span-2">
+        <div className="relative top-24 space-y-8 md:ml-24 md:col-span-2 md:w-[360px]">
           <RankingList />
           <NewFeeds/>
           <MostListened/>

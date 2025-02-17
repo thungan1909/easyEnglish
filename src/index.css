@@ -25,7 +25,9 @@ a:hover {
 }
 
 html, body {
-  height: 100vh; /* This might break scrolling */
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 

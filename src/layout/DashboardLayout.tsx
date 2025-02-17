@@ -9,7 +9,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <div className="bg-red-50 flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex-1 overflow-y-auto">
+      <div className="max-h-screen overflow-y-auto">
         {children}
       </div>
     </div>
