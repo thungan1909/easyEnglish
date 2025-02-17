@@ -1,10 +1,20 @@
-import { FaBell, FaChartBar, FaCoins, FaFire, FaSearch } from "react-icons/fa";
+import {
+  FaBell,
+  FaChartBar,
+  FaCoins,
+  FaFire,
+  FaPlusCircle,
+  FaSearch,
+} from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import logo from "../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
-    <nav className="flex items-center justify-between shadow-md px-6 py-3 fixed  top-0 w-full backdrop-blur-md bg-white z-50 h-16">
+    <nav className="flex items-center shadow-md px-6 py-3 fixed  top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
       {/* Left Section - Logo & Navigation */}
       <div className="flex items-center gap-x-6">
         {/* Logo */}
@@ -13,9 +23,15 @@ const Navbar = () => {
         {/* Navigation Links */}
         <ul className="flex gap-x-6 text-gray-700 font-semibold">
           <li className="text-red-500 cursor-pointer">Home</li>
-          <li className="cursor-pointer hover:text-red-500 transition">Podcasts</li>
-          <li className="cursor-pointer hover:text-red-500 transition">Challenges</li>
-          <li className="cursor-pointer hover:text-red-500 transition">Classes</li>
+          <li className="cursor-pointer hover:text-red-500 transition">
+            Podcasts
+          </li>
+          <li className="cursor-pointer hover:text-red-500 transition">
+            Challenges
+          </li>
+          <li className="cursor-pointer hover:text-red-500 transition">
+            Classes
+          </li>
           <li className="flex items-center cursor-pointer hover:text-red-500 transition">
             More <IoMdArrowDropdown className="ml-1" />
           </li>
@@ -33,7 +49,12 @@ const Navbar = () => {
       </div>
 
       {/* Right Section - Icons & Profile */}
-      <div className="flex items-center space-x-4">
+      <div className="absolute right-0 flex items-center space-x-4 mr-4">
+        <button className="bg-blue-400 text-white p-3 rounded-full font-semibold flex items-center space-x-2" onClick={() => {navigate('/addnew')}}>
+          <FaPlusCircle />
+          <span> Add new</span>
+        </button>
+
         {/* Coins */}
         <div className="flex items-center space-x-1 bg-orange-100 text-orange-500 px-3 py-2 rounded-full">
           <FaCoins />
