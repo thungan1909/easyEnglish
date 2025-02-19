@@ -1,4 +1,5 @@
 import axios, {
+  Axios,
   AxiosError,
   AxiosResponse,
   InternalAxiosRequestConfig,
@@ -74,9 +75,28 @@ axiosInstance.interceptors.response.use(
         //   `403: You don't have permission to access this page ${window.location.pathname}`
         // );
         return Promise.reject();
-        default: {
-            const errorWrapper:
-        }
+      default: {
+        const errorWrapper: IHttpError = {
+          type: "exception",
+          code: error.code || "Unknow",
+          name: error.name || "Unknow",
+          message: error.message,
+          description: error.message,
+        };
+        return Promise.reject(errorWrapper);
+      }
     }
   }
 );
+
+const getAxiosInstance = (): Axios => axiosInstance;
+
+const getResponseData = <T>(response: AxiosResponse): T => {
+  return response.data?.data;
+};
+
+const getOrginialResponseData = <T>(response: AxiosResponse): T => {
+  return response.data;
+};
+
+export { getAxiosInstance, getResponseData, getOrginialResponseData };

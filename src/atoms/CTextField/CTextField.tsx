@@ -1,52 +1,55 @@
 import { TextField } from "@mui/material";
 import { ITextField } from "./types";
-import { JSX } from "react";
+import { forwardRef } from "react";
 
-const CTextField = ({
-  type = "text",
-  disabled = false,
-  className = undefined,
-  style = {},
-  label,
-  placeholder,
-  value = "",
-  onChange,
-  ...props
-}: ITextField): JSX.Element => {
-  return (
-    <TextField
-      {...props}
-      className={className}
-      label={label}
-      placeholder={placeholder}
-      type={type}
-      disabled={disabled}
-      value={value}
-      onChange={onChange}
-      sx={{
-        "& .MuiOutlinedInput-root": {
-          // borderRadius: "9999px",
-          transition: "all 0.3s ease",
-          "& fieldset": {
-            borderColor: "gray",
+const CTextField = forwardRef<HTMLInputElement, ITextField>(
+  (
+    {
+      type = "text",
+      disabled = false,
+      className,
+      style = {},
+      label,
+      placeholder,
+      value = "",
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <TextField
+        {...props}
+        inputRef={ref}
+        className={className}
+        label={label}
+        placeholder={placeholder}
+        type={type}
+        disabled={disabled}
+        sx={{
+          "& .MuiOutlinedInput-root": {
+            // borderRadius: "9999px",
+            transition: "all 0.3s ease",
+            "& fieldset": {
+              borderColor: "gray",
+            },
+            "&:hover fieldset": {
+              borderColor: "purple",
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "purple",
+            },
           },
-          "&:hover fieldset": {
-            borderColor: "purple",
+          "& .MuiInputLabel-root": {
+            "&.Mui-focused": {
+              color: "purple",
+            },
           },
-          "&.Mui-focused fieldset": {
-            borderColor: "purple",
-          },
-        },
-        "& .MuiInputLabel-root": {
-          "&.Mui-focused": {
-            color: "purple",
-          },
-        },
-        ...style,
-      }}
-      autoFocus={type === "text"}
-    ></TextField>
-  );
-};
+          ...style,
+        }}
+        autoFocus={type === "text"}
+      />
+    );
+  }
+);
 
 export default CTextField;

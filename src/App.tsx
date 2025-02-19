@@ -1,12 +1,41 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import AppRoutes from "./router/AppRoutes.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QUERY_CACHE_TIME_DEFAULT } from "./constants/index.ts";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: QUERY_CACHE_TIME_DEFAULT,
+      retry: 3,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});
+
+(window as any)["queryClient"] = queryClient;
 
 function App() {
+  const theme = createTheme();
+
   return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </ThemeProvider>
+      </LocalizationProvider>
+    </QueryClientProvider>
   );
 }
 

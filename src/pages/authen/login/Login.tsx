@@ -1,11 +1,45 @@
 import { Button, Typography } from "@mui/material";
 import loginImg from "../../../assets/login_img_2.png";
 import CTextField from "../../../atoms/CTextField/CTextField";
+import { useCallback, useState } from "react";
+import { LoginDataDTO } from "../../../types/dtos/login.dto";
+import { useForm } from "react-hook-form";
+import { classValidatorResolver } from "@hookform/resolvers/class-validator";
+import { useLoginMutation } from "../../../apis/hooks/auth.hook";
+import { notify } from "../../../utils/notify";
+import { useNavigate } from "react-router-dom";
+
+const resolver = classValidatorResolver(LoginDataDTO);
 
 const Login = () => {
-  const handleSubmit = () => {
-    console.log("Login attempt");
-  };
+  const [apiError, setApiError] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  const { register, handleSubmit } = useForm<LoginDataDTO>({
+    resolver,
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
+
+  const { mutate: execLogin } = useLoginMutation();
+  console.log("resolver", resolver);
+
+  const submitForm = useCallback((data: any) => {
+    console.log(data);
+    setApiError("");
+    execLogin(data, {
+      onError: (err) => {
+        notify.warning(`Error! ${err.message}`);
+        setApiError(err.message);
+      },
+      onSuccess: () => {
+        navigate("/", { replace: true });
+      },
+    });
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-r to-purple-200">
@@ -37,18 +71,25 @@ const Login = () => {
           <form
             className="mt-6 flex flex-col gap-5 max-w-sm mx-auto  w-full"
             id="login-form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(submitForm)}
           >
-            <CTextField type="text" label="User name" placeholder="User name" />
+            <CTextField
+              type="text"
+              label="User name"
+              placeholder="User name"
+              {...register("username")}
+            />
             <CTextField
               type="password"
               label="Password"
+              {...register("password")}
               placeholder="Password"
             />
             <Button
               variant="contained"
               className="!bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white !py-3 !rounded-full"
               fullWidth
+              type="submit"
             >
               Log In
             </Button>
