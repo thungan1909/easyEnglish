@@ -9,7 +9,7 @@ import {
   LoginOriginalResponse,
 } from "../../types/dtos/login.dto";
 import { IHttpError } from "../../types/dtos/http";
-import { loginMutation } from "../user.api";
+import { checkValidEmail, loginMutation } from "../user.api";
 import { persistToken } from "../../providers/auth";
 import {
   AuthenticationInfo,
@@ -17,11 +17,15 @@ import {
   ScreenPermissionMapType,
   UriPermissionMapType,
 } from "../../types/auth";
+import {
+  CheckExistUsernameDTO,
+  CheckExistUsernameResponse,
+} from "../../types/dtos/user.dto";
 
 export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
 
 export const useLoginMutation = () => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   return useMutation<LoginOriginalResponse, IHttpError, LoginDataDTO>({
     mutationFn: async (data: LoginDataDTO) => {
       return loginMutation.fn(data);
@@ -32,83 +36,83 @@ export const useLoginMutation = () => {
         refreshToken: data?.refresh_token,
       });
 
-      const { data: responseData } = data || {};
-      const { permissions, roles } = responseData || {};
+      // const { data: responseData } = data || {};
+      // const { permissions, roles } = responseData || {};
 
-      const authenticationInfo: AuthenticationInfo = {
-        isAuth: true,
-        roleMap:
-          roles?.reduce<RoleMapType>((obj, role) => {
-            obj[role.code] = role;
-            return obj;
-          }, {}) || {},
-        screenPermissionMap:
-          permissions?.reduce<ScreenPermissionMapType>((obj, item) => {
-            obj[item.screen.code] = {
-              screen_code: item.screen.code,
-              role_code: item.role.code,
-              is_select: item.is_select,
-              is_insert: item.is_insert,
-              is_update: item.is_update,
-              is_delete: item.is_delete,
-            };
-            return obj;
-          }, {}) || {},
-        uriPermissionMap:
-          permissions.reduce<UriPermissionMapType>((obj, item) => {
-            const selectUris =
-              item.select_uris.reduce<UriPermissionMapType>((o, uri) => {
-                o[uri] = {
-                  uri_value: uri,
-                  screen_code: item.screen.code,
-                  role_code: item.role.code,
-                  type: "is_select",
-                };
-                return o;
-              }, {}) || {};
-            const insertUris =
-              item.insert_uris.reduce<UriPermissionMapType>((o, uri) => {
-                o[uri] = {
-                  uri_value: uri,
-                  screen_code: item.screen.code,
-                  role_code: item.role.code,
-                  type: "is_insert",
-                };
-                return o;
-              }, {}) || {};
-            const updateUris =
-              item.update_uris.reduce<UriPermissionMapType>((o, uri) => {
-                o[uri] = {
-                  uri_value: uri,
-                  screen_code: item.screen.code,
-                  role_code: item.role.code,
-                  type: "is_update",
-                };
-                return o;
-              }, {}) || {};
-            const deleteUris =
-              item.delete_uris.reduce<UriPermissionMapType>((o, uri) => {
-                o[uri] = {
-                  uri_value: uri,
-                  screen_code: item.screen.code,
-                  role_code: item.role.code,
-                  type: "is_delete",
-                };
-                return o;
-              }, {}) || {};
-            return Object.assign(
-              obj,
-              selectUris,
-              insertUris,
-              updateUris,
-              deleteUris
-            );
-          }, {}) || {},
-        isFailed: false,
-        processing: false,
-        isExternal: false,
-        isBlocked: false,
-      };
+      // const authenticationInfo: AuthenticationInfo = {
+      //   isAuth: true,
+      //   roleMap:
+      //     roles?.reduce<RoleMapType>((obj, role) => {
+      //       obj[role.code] = role;
+      //       return obj;
+      //     }, {}) || {},
+      //   screenPermissionMap:
+      //     permissions?.reduce<ScreenPermissionMapType>((obj, item) => {
+      //       obj[item.screen.code] = {
+      //         screen_code: item.screen.code,
+      //         role_code: item.role.code,
+      //         is_select: item.is_select,
+      //         is_insert: item.is_insert,
+      //         is_update: item.is_update,
+      //         is_delete: item.is_delete,
+      //       };
+      //       return obj;
+      //     }, {}) || {},
+      //   uriPermissionMap:
+      //     permissions.reduce<UriPermissionMapType>((obj, item) => {
+      //       const selectUris =
+      //         item.select_uris.reduce<UriPermissionMapType>((o, uri) => {
+      //           o[uri] = {
+      //             uri_value: uri,
+      //             screen_code: item.screen.code,
+      //             role_code: item.role.code,
+      //             type: "is_select",
+      //           };
+      //           return o;
+      //         }, {}) || {};
+      //       const insertUris =
+      //         item.insert_uris.reduce<UriPermissionMapType>((o, uri) => {
+      //           o[uri] = {
+      //             uri_value: uri,
+      //             screen_code: item.screen.code,
+      //             role_code: item.role.code,
+      //             type: "is_insert",
+      //           };
+      //           return o;
+      //         }, {}) || {};
+      //       const updateUris =
+      //         item.update_uris.reduce<UriPermissionMapType>((o, uri) => {
+      //           o[uri] = {
+      //             uri_value: uri,
+      //             screen_code: item.screen.code,
+      //             role_code: item.role.code,
+      //             type: "is_update",
+      //           };
+      //           return o;
+      //         }, {}) || {};
+      //       const deleteUris =
+      //         item.delete_uris.reduce<UriPermissionMapType>((o, uri) => {
+      //           o[uri] = {
+      //             uri_value: uri,
+      //             screen_code: item.screen.code,
+      //             role_code: item.role.code,
+      //             type: "is_delete",
+      //           };
+      //           return o;
+      //         }, {}) || {};
+      //       return Object.assign(
+      //         obj,
+      //         selectUris,
+      //         insertUris,
+      //         updateUris,
+      //         deleteUris
+      //       );
+      //     }, {}) || {},
+      //   isFailed: false,
+      //   processing: false,
+      //   isExternal: false,
+      //   isBlocked: false,
+      // };
 
       //   localStorage.setItem(
       //     LOCALSTORAGE_AUTHINFO_KEY,
@@ -116,10 +120,28 @@ export const useLoginMutation = () => {
       //   );
 
       // https://stackoverflow.com/questions/64896159/react-query-reuse-an-item-from-cache-of-items
-      queryClient.setQueryData<AuthenticationInfo>(
-        AUTHENTICATION_QUERY_KEY,
-        authenticationInfo
-      );
+      // queryClient.setQueryData<AuthenticationInfo>(
+      //   AUTHENTICATION_QUERY_KEY,
+      //   authenticationInfo
+      // );
+    },
+  });
+};
+
+export const useCheckExistUsernameMutation = () => {
+  return useMutation<
+    CheckExistUsernameResponse,
+    IHttpError,
+    CheckExistUsernameDTO
+  >({
+    mutationFn: async (data: CheckExistUsernameDTO) => {
+      return checkValidEmail.fn(data);
+    },
+    onSuccess: (data) => {
+      console.log("Email check successful:", data);
+    },
+    onError: (error: IHttpError) => {
+      console.error("Error checking username existence:", error);
     },
   });
 };

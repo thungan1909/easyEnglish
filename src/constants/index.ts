@@ -1,8 +1,11 @@
-export const BASE_URL = import.meta.env.VITE_API_URL;
+// export const BASE_URL = import.meta.env.VITE_API_URL;
+export const BASE_URL = "http://localhost:5000/v1";
 
 export const END_POINTS = {
   AUTH: {
-    LOGIN: "/user/login",
+    LOGIN: "/auth/login",
+    CHECK_EXIST_USERNAME: "/auth/check-exist-username",
+    REGISTER: "/auth/register",
   },
 };
 

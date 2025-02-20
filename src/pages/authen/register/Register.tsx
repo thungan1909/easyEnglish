@@ -3,6 +3,7 @@ import loginImg from "../../../assets/login_img_2.png";
 import CTextField from "../../../atoms/CTextField/CTextField";
 import CButton from "../../../atoms/CButton/CButton";
 import { useState } from "react";
+import { useCheckExistUsernameMutation } from "../../../apis/hooks/auth.hook";
 
 const Register = () => {
   const [email, setEmail] = useState<string>();
@@ -13,6 +14,7 @@ const Register = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   };
+  const { mutate: checkExistUsername } = useCheckExistUsernameMutation();
 
   const handleNextStep = () => {
     console.log(email);
@@ -20,6 +22,18 @@ const Register = () => {
       setError("Invalid email format");
       return;
     }
+
+    checkExistUsername(
+      { username: email },
+      {
+        onError: (err) => {
+          //
+        },
+        onSuccess: () => {
+          //
+        },
+      }
+    );
     setLoading(true);
     setError(null);
   };
@@ -51,7 +65,7 @@ const Register = () => {
             </span>
           </Typography>
 
-          <form className="mt-6 flex flex-col max-w-sm mx-auto gap-2 w-full">
+          <form className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full">
             <div className="flex flex-col">
               <CTextField
                 type="email"

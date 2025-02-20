@@ -25,7 +25,6 @@ const Login = () => {
   });
 
   const { mutate: execLogin } = useLoginMutation();
-  console.log("resolver", resolver);
 
   const submitForm = useCallback((data: any) => {
     console.log(data);

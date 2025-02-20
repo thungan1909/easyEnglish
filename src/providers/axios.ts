@@ -11,17 +11,18 @@ import {
 } from "../types/dtos/http";
 import { getPersistToken, persistToken } from "./auth";
 import { notify } from "../utils/notify";
+import { BASE_URL } from "../constants";
+
+// const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  headers: Object.assign(
-    {},
-    import.meta.env.PROD
-      ? {
-          apiKey: import.meta.env.VITE_GATEWAY_KEY,
-        }
-      : {}
-  ),
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+    ...(import.meta.env.PROD && {
+      apiKey: import.meta.env.VITE_GATEWAY_KEY,
+    }),
+  },
   timeout: 10000,
 });
 
@@ -52,15 +53,15 @@ axiosInstance.interceptors.response.use(
         description: response.data.response_description,
         message: response.data.response_message,
       };
-      console.log(errorWrapper);
       return Promise.reject(errorWrapper);
     }
 
-    persistToken({
-      accessToken: response.data?.access_token,
-      refreshToken: response.data?.refresh_token,
-    });
-
+    if (response.data?.access_token && response.data?.refresh_token) {
+      persistToken({
+        accessToken: response.data.access_token,
+        refreshToken: response.data.refresh_token,
+      });
+    }
     return response;
   },
   (error: AxiosError): Promise<IHttpError> => {
