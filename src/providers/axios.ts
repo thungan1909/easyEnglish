@@ -46,7 +46,13 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse<IOriginalResponse>) => {
-    if (!response?.data?.request_code?.includes("00")) {
+    // If request_code exists and does not include "00", reject it
+    console.log("Response received:", response);
+
+    if (
+      response?.data?.request_code &&
+      !response?.data?.request_code?.includes("00")
+    ) {
       const errorWrapper: IHttpError = {
         type: "controlled",
         code: response.data.response_code,
@@ -56,12 +62,12 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(errorWrapper);
     }
 
-    if (response.data?.access_token && response.data?.refresh_token) {
-      persistToken({
-        accessToken: response.data.access_token,
-        refreshToken: response.data.refresh_token,
-      });
-    }
+    // if (response.data?.access_token && response.data?.refresh_token) {
+    //   persistToken({
+    //     accessToken: response.data.access_token,
+    //     refreshToken: response.data.refresh_token,
+    //   });
+    // }
     return response;
   },
   (error: AxiosError): Promise<IHttpError> => {

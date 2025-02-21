@@ -23,10 +23,10 @@ export type ChangePasswordDataDTO = {
   new_password: string;
 };
 
-export interface CheckExistUsernameDTO {
-  username: string;
+export interface CheckExistEmailDTO {
+  email: string;
 }
 
-export interface CheckExistUsernameResponse {
+export interface CheckExistEmailResponse {
   exists: boolean;
 }

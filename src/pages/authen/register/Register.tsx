@@ -3,7 +3,7 @@ import loginImg from "../../../assets/login_img_2.png";
 import CTextField from "../../../atoms/CTextField/CTextField";
 import CButton from "../../../atoms/CButton/CButton";
 import { useState } from "react";
-import { useCheckExistUsernameMutation } from "../../../apis/hooks/auth.hook";
+import { useCheckExistEmailMutation } from "../../../apis/hooks/auth.hook";
 
 const Register = () => {
   const [email, setEmail] = useState<string>();
@@ -14,7 +14,7 @@ const Register = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   };
-  const { mutate: checkExistUsername } = useCheckExistUsernameMutation();
+  const { mutate: checkExistEmail } = useCheckExistEmailMutation();
 
   const handleNextStep = () => {
     console.log(email);
@@ -23,14 +23,18 @@ const Register = () => {
       return;
     }
 
-    checkExistUsername(
-      { username: email },
+    checkExistEmail(
+      { email: email },
       {
         onError: (err) => {
-          //
+          //   console.log("Email check successful:", data);
         },
-        onSuccess: () => {
-          //
+        onSuccess: (data) => {
+          console.log("Email check successful, passs:", data);
+          if (data.exists) {
+            console.log("EXIST");
+          }
+          console.log("NEXT STEP");
         },
       }
     );

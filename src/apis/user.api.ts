@@ -4,8 +4,8 @@ import { LoginDataDTO, LoginOriginalResponse } from "../types/dtos/login.dto";
 import { getAxiosInstance, getOrginialResponseData } from "../providers/axios";
 import { END_POINTS } from "../constants";
 import {
-  CheckExistUsernameDTO,
-  CheckExistUsernameResponse,
+  CheckExistEmailDTO,
+  CheckExistEmailResponse,
 } from "../types/dtos/user.dto";
 
 export const loginMutation = {
@@ -21,24 +21,17 @@ export const loginMutation = {
   },
 };
 
-export const checkValidEmail = {
-  name: "checkValidEmail",
-  fn: async (
-    data: CheckExistUsernameDTO
-  ): Promise<CheckExistUsernameResponse> => {
+export const checkExistEmail = {
+  name: "checkExistEmail",
+  fn: async (data: CheckExistEmailDTO): Promise<CheckExistEmailResponse> => {
     try {
-      const responseData = getOrginialResponseData<CheckExistUsernameResponse>(
-        await getAxiosInstance().post(
-          END_POINTS.AUTH.CHECK_EXIST_USERNAME,
-          data
-        )
+      const response = getOrginialResponseData<CheckExistEmailResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.CHECK_EXIST_EMAIL, data)
       );
-      console.log(responseData);
-      return responseData;
+
+      return response;
     } catch (error) {
-      // Handle error as needed
-      console.error("Error checking email existence:", error);
-      throw new Error("Failed to check email existence.");
+      throw error;
     }
   },
 };

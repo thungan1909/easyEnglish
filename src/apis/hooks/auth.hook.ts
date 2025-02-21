@@ -9,7 +9,7 @@ import {
   LoginOriginalResponse,
 } from "../../types/dtos/login.dto";
 import { IHttpError } from "../../types/dtos/http";
-import { checkValidEmail, loginMutation } from "../user.api";
+import { checkExistEmail, loginMutation } from "../user.api";
 import { persistToken } from "../../providers/auth";
 import {
   AuthenticationInfo,
@@ -18,8 +18,8 @@ import {
   UriPermissionMapType,
 } from "../../types/auth";
 import {
-  CheckExistUsernameDTO,
-  CheckExistUsernameResponse,
+  CheckExistEmailDTO,
+  CheckExistEmailResponse,
 } from "../../types/dtos/user.dto";
 
 export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
@@ -128,20 +128,10 @@ export const useLoginMutation = () => {
   });
 };
 
-export const useCheckExistUsernameMutation = () => {
-  return useMutation<
-    CheckExistUsernameResponse,
-    IHttpError,
-    CheckExistUsernameDTO
-  >({
-    mutationFn: async (data: CheckExistUsernameDTO) => {
-      return checkValidEmail.fn(data);
-    },
-    onSuccess: (data) => {
-      console.log("Email check successful:", data);
-    },
-    onError: (error: IHttpError) => {
-      console.error("Error checking username existence:", error);
+export const useCheckExistEmailMutation = () => {
+  return useMutation<CheckExistEmailResponse, IHttpError, CheckExistEmailDTO>({
+    mutationFn: async (data: CheckExistEmailDTO) => {
+      return checkExistEmail.fn(data);
     },
   });
 };

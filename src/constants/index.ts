@@ -4,7 +4,7 @@ export const BASE_URL = "http://localhost:5000/v1";
 export const END_POINTS = {
   AUTH: {
     LOGIN: "/auth/login",
-    CHECK_EXIST_USERNAME: "/auth/check-exist-username",
+    CHECK_EXIST_EMAIL: "/auth/check-exist-email",
     REGISTER: "/auth/register",
   },
 };
