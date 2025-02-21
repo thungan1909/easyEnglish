@@ -6,7 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 export interface IButton {
   children?: string | ReactNode;
   className?: string;
-  type?: "contained" | "text" | "outlined";
+  type?: "button" | "submit" | "reset";
   disabled?: boolean;
   onClick?: any;
   icon?: JSX.Element | null;
@@ -18,7 +18,7 @@ export interface IButton {
 
 const CButton = ({
   children,
-  type = "contained",
+  type = "button",
   disabled = false,
   onClick = undefined,
   icon = null,
@@ -30,14 +30,14 @@ const CButton = ({
   return (
     <Button
       className={className}
-      variant={type}
+      type={type}
+      variant="contained"
       disabled={loading ? loading : disabled}
       onClick={onClick}
       startIcon={icon}
       endIcon={leftIcon}
       style={{ ...style }}
       fullWidth
-      autoFocus={type === "contained"}
     >
       {loading ? <CircularProgress size={24.5} /> : children}
     </Button>

@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import loginImg from "../../../assets/login_img_2.png";
-import CTextField from "../../../atoms/CTextField/CTextField";
+import CTextField from "../../../components/atoms/CTextField/CTextField";
 import { useCallback, useState } from "react";
 import { LoginDataDTO } from "../../../types/dtos/login.dto";
 import { useForm } from "react-hook-form";
