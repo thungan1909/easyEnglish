@@ -6,6 +6,8 @@ import { END_POINTS } from "../constants";
 import {
   CheckExistEmailDTO,
   CheckExistEmailResponse,
+  SignUpDTO,
+  SignUpResponse,
 } from "../types/dtos/user.dto";
 
 export const loginMutation = {
@@ -35,3 +37,17 @@ export const checkExistEmail = {
     }
   },
 };
+
+export const signUpMutation = {
+  name: 'signUp',
+  fn: async (data: SignUpDTO): Promise<SignUpResponse> => {
+    try {
+      const response = getOrginialResponseData<SignUpResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.SIGN_UP, data)
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+}

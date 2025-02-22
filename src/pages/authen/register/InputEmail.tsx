@@ -26,18 +26,20 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
     }
 
     setError(null);
-    checkExistEmail(
-      { email: trimmedEmail },
-      {
-        onSuccess: (data) => {
-          if (data.exists) {
-            setError("This email is already in use. Please try another email");
-          } else {
-            onInputEmail(trimmedEmail);
-          }
-        },
-      }
-    );
+    onInputEmail(trimmedEmail)
+  
+    // checkExistEmail(
+    //   { email: trimmedEmail },
+    //   {
+    //     onSuccess: (data) => {
+    //       if (data.exists) {
+    //         setError("This email is already in use. Please try another email");
+    //       } else {
+    //         onInputEmail(trimmedEmail);
+    //       }
+    //     },
+    //   }
+    // );
   };
 
   return (
@@ -66,7 +68,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
           </span>
         </Typography>
 
-        <form className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full">
+        <div className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full">
           <div className="flex flex-col">
             <CTextField
               type="email"
@@ -88,7 +90,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
           >
             Next
           </CButton>
-        </form>
+        </div>
       </div>
     </div>
   );

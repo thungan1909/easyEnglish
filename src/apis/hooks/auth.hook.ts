@@ -9,7 +9,7 @@ import {
   LoginOriginalResponse,
 } from "../../types/dtos/login.dto";
 import { IHttpError } from "../../types/dtos/http";
-import { checkExistEmail, loginMutation } from "../user.api";
+import { checkExistEmail, loginMutation, signUpMutation } from "../user.api";
 import { persistToken } from "../../providers/auth";
 import {
   AuthenticationInfo,
@@ -20,7 +20,10 @@ import {
 import {
   CheckExistEmailDTO,
   CheckExistEmailResponse,
+  SignUpDTO,
+  SignUpResponse,
 } from "../../types/dtos/user.dto";
+import { data } from "react-router-dom";
 
 export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
 
@@ -135,3 +138,11 @@ export const useCheckExistEmailMutation = () => {
     },
   });
 };
+
+export const useSignUpMutation = () => {
+  return useMutation<SignUpResponse, IHttpError,SignUpDTO>({
+    mutationFn: async (data: SignUpDTO) => {
+      return signUpMutation.fn(data)
+    }
+  })
+}

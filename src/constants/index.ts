@@ -5,7 +5,7 @@ export const END_POINTS = {
   AUTH: {
     LOGIN: "/auth/login",
     CHECK_EXIST_EMAIL: "/auth/check-exist-email",
-    REGISTER: "/auth/register",
+    SIGN_UP: "/auth/sign-up",
   },
 };
 

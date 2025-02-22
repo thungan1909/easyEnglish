@@ -34,7 +34,7 @@ const InputBasicInfo = ({
           variant="h5"
           className="text-center font-semibold text-gray-800 p-4"
         >
-          Basic Info Input
+         Register
         </Typography>
         <Typography className="text-center">
           You registered with email
@@ -118,7 +118,7 @@ const InputBasicInfo = ({
             type="submit"
             className="!bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white !py-3 !rounded-full"
           >
-            Register
+            Next
           </CButton>
         </form>
       </div>

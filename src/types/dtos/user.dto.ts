@@ -1,23 +1,3 @@
-export type RoleId = {
-  id: string;
-};
-
-export interface UserListQueryFilter {
-  status?: number | string;
-  fullName?: string;
-  email?: string;
-  role?: RoleId[];
-}
-
-export interface QueryFilterOutputDTO extends UserListQueryFilter {
-  status?: number;
-}
-
-export interface QueryFilterInputDTO extends UserListQueryFilter {
-  status?: string;
-  createDate?: string[];
-}
-
 export type ChangePasswordDataDTO = {
   old_password: string;
   new_password: string;
@@ -29,4 +9,14 @@ export interface CheckExistEmailDTO {
 
 export interface CheckExistEmailResponse {
   exists: boolean;
+}
+
+export interface SignUpResponse {
+
+}
+
+export interface SignUpDTO {
+  email: string;
+  username: string;
+  password: string;
 }

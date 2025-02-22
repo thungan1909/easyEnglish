@@ -6,7 +6,9 @@ import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 import { TUserSignUpSchema, UserSignUpSchema } from "./schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import InputBasicInfo from "./InputAuthenInfo";
+import InputBasicInfo from "./InputBasicInfo";
+import { useSignUpMutation } from "../../../apis/hooks/auth.hook";
+import InputVerificationCode from "./InputVerificationCode";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
@@ -15,6 +17,8 @@ const Register = () => {
   const [currentStep, setCurrentStep] = useState<ESignUpStep>(
     ESignUpStep.InputEmail
   );
+
+  const { mutate: signUpMutation } = useSignUpMutation();
 
   const formInstance = useForm<TUserSignUpSchema>({
     mode: "onChange",
@@ -28,15 +32,30 @@ const Register = () => {
   };
 
   const handleSubmitAuthenInfo = (data: TUserSignUpSchema) => {
+    setCurrentStep(ESignUpStep.InputVerificationCode);
+    CStepperRef.current?.handleNextStep();
+    // signUpMutation({
+    //   email: data.email,
+    //   username: data.username,
+    //   password: data.password
+    // },
+    //   {
+    //     onSuccess: (data) => {
+    //       //
+    //     }
+    //   }
+    // )
     console.log("Submit function called"); // Check if this logs
     console.log(data, "formData");
   };
+
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r to-purple-200">
       <div className="w-1/2 mb-8">
         <CSteppers
-          numberStep={2}
+          numberStep={3}
           currentStep={step}
           changeCurrentStep={setStep}
           ref={CStepperRef}
@@ -52,6 +71,10 @@ const Register = () => {
             formInstance={formInstance}
           />
         )}
+        {currentStep === ESignUpStep.InputVerificationCode && 
+          (<InputVerificationCode  
+            formInstance={formInstance}
+            /> )}
       </div>
     </div>
   );
