@@ -5,9 +5,12 @@ export interface ITextField {
     className?: string;
     type?: "text" | "password" | "email" | "number" | "tel";
     disabled?: boolean;
-    style?: CSSProperties;
+    customStyle?: CSSProperties;
     label?: string;
     placeholder?: string;
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; 
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+    maxLength?: number;
+    inputRef?: React.Ref<HTMLInputElement>; 
   }

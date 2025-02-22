@@ -8,7 +8,10 @@ import {
   CheckExistEmailResponse,
   SignUpDTO,
   SignUpResponse,
+  VerifyEmailDTO,
+  VerifyEmailResponse,
 } from "../types/dtos/user.dto";
+import { data } from "react-router-dom";
 
 export const loginMutation = {
   name: "loginMutation",
@@ -42,10 +45,22 @@ export const signUpMutation = {
   name: 'signUp',
   fn: async (data: SignUpDTO): Promise<SignUpResponse> => {
     try {
-      const response = getOrginialResponseData<SignUpResponse>(
+      return getOrginialResponseData<SignUpResponse>(
         await getAxiosInstance().post(END_POINTS.AUTH.SIGN_UP, data)
       );
-      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+export const verifyEmailMutation = {
+  name: 'verifyEmail', 
+  fn: async (data: VerifyEmailDTO): Promise<VerifyEmailResponse> => {
+    try {
+      return getOrginialResponseData<VerifyEmailResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.VERIFY_EMAIL, data)
+      );
     } catch (error) {
       throw error;
     }

@@ -2,16 +2,18 @@ import { TextField } from "@mui/material";
 import { ITextField } from "./types";
 import { forwardRef } from "react";
 
-const CTextField = forwardRef<HTMLInputElement, ITextField>(
+const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
   (
     {
       type = "text",
       disabled = false,
       className,
-      style = {},
+      customStyle = {},
       label,
       placeholder,
       value = "",
+      maxLength = 50,
+      onKeyDown,
       ...props
     },
     ref
@@ -19,15 +21,22 @@ const CTextField = forwardRef<HTMLInputElement, ITextField>(
     return (
       <TextField
         {...props}
-        inputRef={ref}
-        className={className}
+        ref={ref}
         label={label}
         placeholder={placeholder}
         type={type}
         disabled={disabled}
+        slotProps={{
+          input: {
+            inputProps: {
+              maxLength, style: {
+                ...customStyle
+              }
+            }
+          }
+        }}
         sx={{
           "& .MuiOutlinedInput-root": {
-            // borderRadius: "9999px",
             transition: "all 0.3s ease",
             "& fieldset": {
               borderColor: "gray",
@@ -44,10 +53,19 @@ const CTextField = forwardRef<HTMLInputElement, ITextField>(
               color: "purple",
             },
           },
-          ...style,
+          "& input[type='number']": {
+            MozAppearance: 'textfield', // Firefox
+            '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
+              WebkitAppearance: 'none', // Chrome
+              margin: 0,
+            },
+          }
         }}
-        autoFocus={type === "text"}
-      />
+        onKeyDown={(e) => {
+          if (onKeyDown) {
+            onKeyDown(e as React.KeyboardEvent<HTMLInputElement>);
+          }
+        }} />
     );
   }
 );

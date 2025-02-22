@@ -2,19 +2,45 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 import loginImg from "../../../assets/login_img_2.png";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { TUserSignUpSchema } from "./schemas";
+import { useVerifyEmailMutation } from "../../../apis/hooks/auth.hook";
 
 export interface InputVerificationCodeProps {
   formInstance: UseFormReturn<TUserSignUpSchema>;
 }
 
 const InputVerificationCode = ({ formInstance }: InputVerificationCodeProps) => {
-  const [verificationCode, setVerificationCode] = useState("")
+  const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const { mutate: verifyEmailMutation } = useVerifyEmailMutation()
+
+  const handleChange = (index: number, value: string) => {
+    const newCode = [...code];
+    newCode[index] = value;
+    setCode(newCode)
+
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  }
+
+  const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  }
 
   const handleVerificationEmail = () => {
-    //Call email verification 
+    let verificationCode = code.join('');
+    console.log(verificationCode)
+    
+    verifyEmailMutation({
+      username: formInstance.getValues('username'),
+      email: formInstance.getValues('email'),
+      verifyCode: verificationCode
+    })
   }
 
   return (
@@ -37,7 +63,7 @@ const InputVerificationCode = ({ formInstance }: InputVerificationCodeProps) => 
           Register
         </Typography>
         <Typography className="text-center">
-          A verification send to
+          A verification email was sent to
           <span className="ml-1 font-semibold text-purple-600">
             {formInstance.getValues('email')}
           </span>
@@ -46,18 +72,24 @@ const InputVerificationCode = ({ formInstance }: InputVerificationCodeProps) => 
         <div
           className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full"
         >
-          <div className="flex flex-col">
-
-            <CTextField
-              type="text"
-              label="Verification code"
-              placeholder="Verification code"
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
-            />
-
-
-
+          <div className="flex !space-x-2">
+            {code.map((num, index) => (
+              <CTextField
+                key={index}
+                value={num}
+                type="number"
+                onChange={(e) => handleChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
+                inputRef={(el) => {
+                  inputRefs.current[index] = el; 
+                }}
+                customStyle={{ 
+                  fontSize: '24px', 
+                  textAlign: 'center',
+                }} 
+                maxLength={1}
+              />
+            ))}
           </div>
           <CButton
             fullWidth
