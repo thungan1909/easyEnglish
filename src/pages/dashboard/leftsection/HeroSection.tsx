@@ -24,7 +24,7 @@ const HeroSection = () => {
               alt={slide.title}
               className="absolute inset-0 object-cover rounded-lg w-full h-full "
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-red-300 via-red-400 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-red-400 via-red-400 to-transparent"></div>
 
             <div className="relative text-white flex flex-col space-y-16 justify-between h-full p-6">
               <h1 className="text-xl font-bold max-w-[80%] line-clamp-2">

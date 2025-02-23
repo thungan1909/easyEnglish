@@ -12,7 +12,7 @@ import MostListened from "./rightSection/MostListened";
 const Dashboard = () => {
   return (
     <DashboardLayout>
-      <div className="grid grid-cols-1 p-8 gap-8 md:grid-cols-6 md:px-16 ">
+      <div className="grid grid-cols-1 p-8 gap-8 md:grid-cols-6 md:px-16 md:gap-32">
         <div className="relative top-24 space-y-8 md:col-span-3 w-full md:w-[720px]">
           <HeroSection />
           <RecentLessons />

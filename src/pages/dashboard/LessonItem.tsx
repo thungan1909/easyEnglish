@@ -7,7 +7,7 @@ interface LessonItemProps {
 
 const LessonItem = ({ lesson }: LessonItemProps) => {
     return (
-        <div key={lesson.id} className="bg-yellow-50 flex flex-col items-center p-4 rounded-lg shadow-md" >
+        <div key={lesson.id} className="bg-gradient-to-r from-indigo-100 to bg-purple-200 flex flex-col items-center p-4 rounded-lg shadow-md" >
             <img src={lesson.image} alt={lesson.title} className="w-32 h-32 rounded-lg object-cover" />
             <div className="flex flex-col w-full mt-2">
                 <span className="text-sm font-bold text-gray-900">{lesson.id}</span>

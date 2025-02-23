@@ -9,7 +9,7 @@ const NewFeeds = () => {
             </div>
             <div className="grid gap-3">
                 {exampleUserNewfeed.map((user) => (
-                    <div className="flex flex-cols items-center shadow-xl rounded-lg p-4 bg-yellow-50 space-x-3" key={user.id}>
+                    <div className="flex flex-cols items-center shadow-xl rounded-lg p-4 bg-purple-400 text-white space-x-3" key={user.id}>
                         <img src={user.avatar} alt={user.id} className="w-8 h-8 rounded-full" />
                         <div>
                             <div className="text-xs space-x-2">
@@ -19,7 +19,7 @@ const NewFeeds = () => {
                             </div>
 
                             <div className="space-x-1 text-sm">
-                               <span className="text-green-500">Start to learn</span>
+                               <span className="text-black">Start to learn</span>
                                <span className="font-semibold">{user.lesson}</span>
                             </div>
                         </div>

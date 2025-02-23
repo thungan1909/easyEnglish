@@ -7,7 +7,7 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
-    <div className="bg-red-50 flex flex-col min-h-screen">
+    <div className="bg-gradient-to-r to-purple-200  flex flex-col min-h-screen">
       <Navbar />
       <div className="max-h-screen overflow-y-auto">
         {children}

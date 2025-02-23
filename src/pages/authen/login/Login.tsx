@@ -69,7 +69,7 @@ const Login = () => {
           </Typography>
 
           <form
-            className="mt-6 flex flex-col gap-5 max-w-sm mx-auto  w-full relative"
+            className="mt-6 flex flex-col gap-5 max-w-sm mx-auto w-full relative"
             id="login-form"
             onSubmit={handleSubmit(submitForm)}
           >
