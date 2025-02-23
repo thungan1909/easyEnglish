@@ -10,6 +10,19 @@ export const END_POINTS = {
   },
 };
 
+export const ROUTES_CONSTANTS = {
+  AUTH: {
+    LOGIN: "/login",
+    REGISTER: "/register",
+    FORGOT_PASSWORD: "/forgot-password",
+    DEFAULT: "/",
+    PAGE_NOT_FOUND: "*",
+  },
+  LESSON: {
+    ADD_NEW: "add-new-lesson"
+  }
+}
+
 export const COOKIES = {
   REMEMBER_ME: "rememberLogin",
   ACCESS_TOKEN: "ACCESS_TOKEN",

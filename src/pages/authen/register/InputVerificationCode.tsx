@@ -9,9 +9,10 @@ import { useVerifyEmailMutation } from "../../../apis/hooks/auth.hook";
 
 export interface InputVerificationCodeProps {
   formInstance: UseFormReturn<TUserSignUpSchema>;
+  onSuccessVerify: (isVerified: boolean) => void;
 }
 
-const InputVerificationCode = ({ formInstance }: InputVerificationCodeProps) => {
+const InputVerificationCode = ({ formInstance, onSuccessVerify }: InputVerificationCodeProps) => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { mutate: verifyEmailMutation } = useVerifyEmailMutation()
@@ -35,12 +36,20 @@ const InputVerificationCode = ({ formInstance }: InputVerificationCodeProps) => 
   const handleVerificationEmail = () => {
     let verificationCode = code.join('');
     console.log(verificationCode)
-    
-    verifyEmailMutation({
-      username: formInstance.getValues('username'),
-      email: formInstance.getValues('email'),
-      verifyCode: verificationCode
-    })
+    onSuccessVerify(true);
+
+    // verifyEmailMutation({
+    //   username: formInstance.getValues('username'),
+    //   email: formInstance.getValues('email'),
+    //   verifyCode: verificationCode
+    // },
+    // {
+    //   onSuccess: () => {
+    //     //Success verifycation
+    //     onSuccessVerify(true);
+    //   }
+    // } 
+    // )
   }
 
   return (
@@ -55,7 +64,7 @@ const InputVerificationCode = ({ formInstance }: InputVerificationCodeProps) => 
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
+      <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
         <Typography
           variant="h5"
           className="text-center font-semibold text-gray-800 p-4"
@@ -63,7 +72,7 @@ const InputVerificationCode = ({ formInstance }: InputVerificationCodeProps) => 
           Register
         </Typography>
         <Typography className="text-center">
-          A verification email was sent to
+          A verification email has been sent to
           <span className="ml-1 font-semibold text-purple-600">
             {formInstance.getValues('email')}
           </span>
@@ -81,12 +90,12 @@ const InputVerificationCode = ({ formInstance }: InputVerificationCodeProps) => 
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 inputRef={(el) => {
-                  inputRefs.current[index] = el; 
+                  inputRefs.current[index] = el;
                 }}
-                customStyle={{ 
-                  fontSize: '24px', 
+                customStyle={{
+                  fontSize: '24px',
                   textAlign: 'center',
-                }} 
+                }}
                 maxLength={1}
               />
             ))}

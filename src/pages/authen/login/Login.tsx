@@ -8,6 +8,7 @@ import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { useLoginMutation } from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
+import { ROUTES_CONSTANTS } from "../../../constants";
 
 const resolver = classValidatorResolver(LoginDataDTO);
 
@@ -35,7 +36,7 @@ const Login = () => {
         setApiError(err.message);
       },
       onSuccess: () => {
-        navigate("/", { replace: true });
+        navigate(ROUTES_CONSTANTS.AUTH.DEFAULT, { replace: true });
       },
     });
   }, []);
@@ -68,7 +69,7 @@ const Login = () => {
           </Typography>
 
           <form
-            className="mt-6 flex flex-col gap-5 max-w-sm mx-auto  w-full"
+            className="mt-6 flex flex-col gap-5 max-w-sm mx-auto  w-full relative"
             id="login-form"
             onSubmit={handleSubmit(submitForm)}
           >
@@ -84,6 +85,7 @@ const Login = () => {
               {...register("password")}
               placeholder="Password"
             />
+            <a className="text-end !text-purple-600" href={ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD}>Forgot your password?</a>
             <Button
               variant="contained"
               className="!bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white !py-3 !rounded-full"
@@ -92,6 +94,8 @@ const Login = () => {
             >
               Log In
             </Button>
+            
+            <a className="text-center !text-gray-800" href={ROUTES_CONSTANTS.AUTH.REGISTER}>Create new account</a>
           </form>
         </div>
       </div>

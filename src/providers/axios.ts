@@ -11,7 +11,7 @@ import {
 } from "../types/dtos/http";
 import { getPersistToken, persistToken } from "./auth";
 import { notify } from "../utils/notify";
-import { BASE_URL } from "../constants";
+import { BASE_URL, ROUTES_CONSTANTS } from "../constants";
 
 // const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -74,7 +74,7 @@ axiosInstance.interceptors.response.use(
     switch (error.response?.status) {
       case 401:
         console.log("Unauthenticated 401");
-        window.location.href = "/login";
+        window.location.href = ROUTES_CONSTANTS.AUTH.LOGIN;
         return Promise.reject();
       case 403:
         console.log("Unauthenticated 403");

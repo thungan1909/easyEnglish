@@ -29,7 +29,7 @@ const InputBasicInfo = ({
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
+      <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
         <Typography
           variant="h5"
           className="text-center font-semibold text-gray-800 p-4"
@@ -61,7 +61,7 @@ const InputBasicInfo = ({
                     placeholder="Username"
                   />
                   {fieldState.error && (
-                    <span className="text-red-500">
+                    <span className="text-red-500 text-sm mt-2">
                       {fieldState.error.message}
                     </span>
                   )}
@@ -83,7 +83,7 @@ const InputBasicInfo = ({
                     placeholder="Password"
                   />
                   {fieldState.error && (
-                    <span className="text-red-500">
+                    <span className="text-red-500 text-sm mt-2">
                       {fieldState.error.message}
                     </span>
                   )}
@@ -105,7 +105,7 @@ const InputBasicInfo = ({
                     placeholder="Confirm Password"
                   />
                   {fieldState.error && (
-                    <span className="text-red-500">
+                    <span className="text-red-500 text-sm mt-2">
                       {fieldState.error.message}
                     </span>
                   )}

@@ -28,11 +28,18 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
         disabled={disabled}
         slotProps={{
           input: {
-            inputProps: {
-              maxLength, style: {
-                ...customStyle
-              }
+           inputProps: {
+            maxLength: maxLength,
+            style: {
+              ...customStyle
             }
+           }
+          }
+        }}
+        onInput={(e) => {
+          const target = e.target as HTMLInputElement;
+          if (target.value.length > maxLength) {
+            target.value = target.value.slice(0, maxLength);  //Incase type=text, maxLength not work
           }
         }}
         sx={{

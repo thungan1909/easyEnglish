@@ -54,7 +54,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
+      <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
         <Typography
           variant="h5"
           className="text-center font-semibold text-gray-800 p-4"
@@ -64,7 +64,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
         <Typography className="text-center">
           Welcome to
           <span className="ml-1 font-semibold text-purple-600">
-            Easy English
+            Easy English 
           </span>
         </Typography>
 
@@ -76,6 +76,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              maxLength={50}
             />
             {error && (
               <Typography color="error" variant="body2" className="!mt-1">
