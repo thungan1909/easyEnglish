@@ -10,12 +10,14 @@ import InputBasicInfo from "./InputBasicInfo";
 import { useSignUpMutation } from "../../../apis/hooks/auth.hook";
 import InputVerificationCode from "./InputVerificationCode";
 import RegisterSuccessfully from "./RegisterSuccessfully";
+import { notify } from "../../../utils/notify";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const [step, setStep] = useState(0);
-  const [verificationState, setVerificationState] = useState(false)
+  const [verificationState, setVerificationState] = useState(false);
   const [currentStep, setCurrentStep] = useState<ESignUpStep>(
     ESignUpStep.InputEmail
   );
@@ -34,30 +36,31 @@ const Register = () => {
   };
 
   const handleSubmitAuthenInfo = (data: TUserSignUpSchema) => {
-    setCurrentStep(ESignUpStep.InputVerificationCode);
-    CStepperRef.current?.handleNextStep();
-    // signUpMutation({
-    //   email: data.email,
-    //   username: data.username,
-    //   password: data.password
-    // },
-    //   {
-    //     onSuccess: (data) => {
-    //       //
-    //     }
-    //   }
-    // )
-    console.log("Submit function called"); // Check if this logs
-    console.log(data, "formData");
+    signUpMutation(
+      {
+        email: data.email,
+        username: data.username,
+        password: data.password,
+      },
+      {
+        onSuccess: () => {
+          setCurrentStep(ESignUpStep.InputVerificationCode);
+          CStepperRef.current?.handleNextStep();
+        },
+        onError: () => {
+          notify.error("Something went wrong!");
+          setError("Invalid email format");
+        },
+      }
+    );
   };
-
 
   useEffect(() => {
     if (verificationState) {
       setCurrentStep(ESignUpStep.RegisterSuccessfully);
       CStepperRef.current?.handleNextStep();
     }
-  }, [verificationState])
+  }, [verificationState]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r to-purple-200">
@@ -79,14 +82,16 @@ const Register = () => {
             formInstance={formInstance}
           />
         )}
-        {currentStep === ESignUpStep.InputVerificationCode &&
-          (<InputVerificationCode
+        {currentStep === ESignUpStep.InputVerificationCode && (
+          <InputVerificationCode
             formInstance={formInstance}
             onSuccessVerify={setVerificationState}
-          />)}
+          />
+        )}
 
-        {currentStep === ESignUpStep.RegisterSuccessfully &&
-          (<RegisterSuccessfully />)}
+        {currentStep === ESignUpStep.RegisterSuccessfully && (
+          <RegisterSuccessfully />
+        )}
       </div>
     </div>
   );

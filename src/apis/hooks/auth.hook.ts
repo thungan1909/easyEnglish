@@ -9,7 +9,12 @@ import {
   LoginOriginalResponse,
 } from "../../types/dtos/login.dto";
 import { IHttpError } from "../../types/dtos/http";
-import { checkExistEmail, loginMutation, signUpMutation, verifyEmailMutation } from "../user.api";
+import {
+  checkExistEmail,
+  loginMutation,
+  signUpMutation,
+  verifyEmailMutation,
+} from "../user.api";
 import { persistToken } from "../../providers/auth";
 import {
   AuthenticationInfo,
@@ -25,7 +30,7 @@ import {
   VerifyEmailDTO,
   VerifyEmailResponse,
 } from "../../types/dtos/user.dto";
-import { data } from "react-router-dom";
+import { notify } from "../../utils/notify";
 
 export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
 
@@ -144,15 +149,25 @@ export const useCheckExistEmailMutation = () => {
 export const useSignUpMutation = () => {
   return useMutation<SignUpResponse, IHttpError, SignUpDTO>({
     mutationFn: async (data: SignUpDTO) => {
-      return signUpMutation.fn(data)
-    }
-  })
-}
+      return signUpMutation.fn(data);
+    },
+    onSuccess: () => {},
+    onError: (error) => {
+      console.error("Verification failed", error);
+      notify.error("Something went wrong!");
+    },
+  });
+};
 
 export const useVerifyEmailMutation = () => {
   return useMutation<VerifyEmailResponse, IHttpError, VerifyEmailDTO>({
     mutationFn: async (data: VerifyEmailDTO) => {
-      return verifyEmailMutation.fn(data)
-    }
-  })
-}
+      return verifyEmailMutation.fn(data);
+    },
+    onSuccess: () => {},
+    onError: (error) => {
+      console.error("Verification failed", error);
+      notify.error("Something went wrong!");
+    },
+  });
+};

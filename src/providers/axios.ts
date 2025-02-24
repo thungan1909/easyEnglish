@@ -13,8 +13,6 @@ import { getPersistToken, persistToken } from "./auth";
 import { notify } from "../utils/notify";
 import { BASE_URL, ROUTES_CONSTANTS } from "../constants";
 
-// const API_BASE_URL = import.meta.env.VITE_API_URL;
-
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -46,9 +44,6 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse<IOriginalResponse>) => {
-    // If request_code exists and does not include "00", reject it
-    console.log("Response received:", response);
-
     if (
       response?.data?.request_code &&
       !response?.data?.request_code?.includes("00")
@@ -71,6 +66,14 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error: AxiosError): Promise<IHttpError> => {
+    const errorWrapper: IHttpError = {
+      type: "exception",
+      code: error.code || "Unknow",
+      name: error.name || "Unknow",
+      message: error.message,
+      description: error.message,
+    };
+
     switch (error.response?.status) {
       case 401:
         console.log("Unauthenticated 401");
@@ -78,18 +81,12 @@ axiosInstance.interceptors.response.use(
         return Promise.reject();
       case 403:
         console.log("Unauthenticated 403");
-        // notify.error(
-        //   `403: You don't have permission to access this page ${window.location.pathname}`
-        // );
+        notify.error(
+          `403: You don't have permission to access this page ${window.location.pathname}`
+        );
+        // globalNavigate("/");
         return Promise.reject();
       default: {
-        const errorWrapper: IHttpError = {
-          type: "exception",
-          code: error.code || "Unknow",
-          name: error.name || "Unknow",
-          message: error.message,
-          description: error.message,
-        };
         return Promise.reject(errorWrapper);
       }
     }

@@ -11,7 +11,7 @@ import {
   VerifyEmailDTO,
   VerifyEmailResponse,
 } from "../types/dtos/user.dto";
-import { data } from "react-router-dom";
+import axios from "axios";
 
 export const loginMutation = {
   name: "loginMutation",
@@ -30,11 +30,9 @@ export const checkExistEmail = {
   name: "checkExistEmail",
   fn: async (data: CheckExistEmailDTO): Promise<CheckExistEmailResponse> => {
     try {
-      const response = getOrginialResponseData<CheckExistEmailResponse>(
+      return getOrginialResponseData<CheckExistEmailResponse>(
         await getAxiosInstance().post(END_POINTS.AUTH.CHECK_EXIST_EMAIL, data)
       );
-
-      return response;
     } catch (error) {
       throw error;
     }
@@ -42,7 +40,7 @@ export const checkExistEmail = {
 };
 
 export const signUpMutation = {
-  name: 'signUp',
+  name: "signUp",
   fn: async (data: SignUpDTO): Promise<SignUpResponse> => {
     try {
       return getOrginialResponseData<SignUpResponse>(
@@ -51,18 +49,18 @@ export const signUpMutation = {
     } catch (error) {
       throw error;
     }
-  }
-}
+  },
+};
 
 export const verifyEmailMutation = {
-  name: 'verifyEmail', 
+  name: "verifyEmail",
   fn: async (data: VerifyEmailDTO): Promise<VerifyEmailResponse> => {
     try {
       return getOrginialResponseData<VerifyEmailResponse>(
-        await getAxiosInstance().post(END_POINTS.AUTH.VERIFY_EMAIL, data)
+        await getAxiosInstance().post(END_POINTS.AUTH.VERIFY_USER, data)
       );
     } catch (error) {
       throw error;
     }
-  }
-}
+  },
+};

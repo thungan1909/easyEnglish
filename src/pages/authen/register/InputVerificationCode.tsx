@@ -6,51 +6,57 @@ import { useRef, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { TUserSignUpSchema } from "./schemas";
 import { useVerifyEmailMutation } from "../../../apis/hooks/auth.hook";
+import { notify } from "../../../utils/notify";
 
 export interface InputVerificationCodeProps {
   formInstance: UseFormReturn<TUserSignUpSchema>;
   onSuccessVerify: (isVerified: boolean) => void;
 }
 
-const InputVerificationCode = ({ formInstance, onSuccessVerify }: InputVerificationCodeProps) => {
+const InputVerificationCode = ({
+  formInstance,
+  onSuccessVerify,
+}: InputVerificationCodeProps) => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const { mutate: verifyEmailMutation } = useVerifyEmailMutation()
+  const { mutate: verifyEmailMutation } = useVerifyEmailMutation();
 
   const handleChange = (index: number, value: string) => {
     const newCode = [...code];
     newCode[index] = value;
-    setCode(newCode)
+    setCode(newCode);
 
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
-  }
+  };
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
     if (e.key === "Backspace" && !code[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
-  }
+  };
 
   const handleVerificationEmail = () => {
-    let verificationCode = code.join('');
-    console.log(verificationCode)
-    onSuccessVerify(true);
+    let verificationCode = code.join("");
 
-    // verifyEmailMutation({
-    //   username: formInstance.getValues('username'),
-    //   email: formInstance.getValues('email'),
-    //   verifyCode: verificationCode
-    // },
-    // {
-    //   onSuccess: () => {
-    //     //Success verifycation
-    //     onSuccessVerify(true);
-    //   }
-    // } 
-    // )
-  }
+    verifyEmailMutation(
+      {
+        username: formInstance.getValues("username"),
+        email: formInstance.getValues("email"),
+        verifyCode: verificationCode,
+      },
+      {
+        onSuccess: () => {
+          onSuccessVerify(true);
+        },
+        onError: (error) => {
+          console.error("Registration failed:", error);
+          notify.error("Something went wrong!");
+        },
+      }
+    );
+  };
 
   return (
     <div className="bg-white shadow-2xl rounded-2xl overflow-hidden flex w-full max-w-4xl">
@@ -74,13 +80,11 @@ const InputVerificationCode = ({ formInstance, onSuccessVerify }: InputVerificat
         <Typography className="text-center">
           A verification email has been sent to
           <span className="ml-1 font-semibold text-purple-600">
-            {formInstance.getValues('email')}
+            {formInstance.getValues("email")}
           </span>
         </Typography>
 
-        <div
-          className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full"
-        >
+        <div className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full">
           <div className="flex !space-x-2">
             {code.map((num, index) => (
               <CTextField
@@ -93,8 +97,8 @@ const InputVerificationCode = ({ formInstance, onSuccessVerify }: InputVerificat
                   inputRefs.current[index] = el;
                 }}
                 customStyle={{
-                  fontSize: '24px',
-                  textAlign: 'center',
+                  fontSize: "24px",
+                  textAlign: "center",
                 }}
                 maxLength={1}
               />

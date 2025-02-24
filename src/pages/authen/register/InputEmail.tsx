@@ -4,6 +4,8 @@ import CButton from "../../../components/atoms/CButton/CButton";
 import { useState } from "react";
 import { useCheckExistEmailMutation } from "../../../apis/hooks/auth.hook";
 import loginImg from "../../../assets/login_img_2.png";
+import { toast } from "react-toastify";
+import { notify } from "../../../utils/notify";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;
@@ -25,21 +27,21 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
       return;
     }
 
-    setError(null);
-    onInputEmail(trimmedEmail)
-  
-    // checkExistEmail(
-    //   { email: trimmedEmail },
-    //   {
-    //     onSuccess: (data) => {
-    //       if (data.exists) {
-    //         setError("This email is already in use. Please try another email");
-    //       } else {
-    //         onInputEmail(trimmedEmail);
-    //       }
-    //     },
-    //   }
-    // );
+    checkExistEmail(
+      { email: trimmedEmail },
+      {
+        onSuccess: (data) => {
+          if (data.exists) {
+            setError("This email is already in use. Please try another email");
+          } else {
+            onInputEmail(trimmedEmail);
+          }
+        },
+        onError: () => {
+          notify.error("Something went wrong!");
+        },
+      }
+    );
   };
 
   return (
@@ -64,7 +66,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
         <Typography className="text-center">
           Welcome to
           <span className="ml-1 font-semibold text-purple-600">
-            Easy English 
+            Easy English
           </span>
         </Typography>
 
