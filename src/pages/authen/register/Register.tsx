@@ -12,6 +12,7 @@ import InputVerificationCode from "./InputVerificationCode";
 import RegisterSuccessfully from "./RegisterSuccessfully";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
+import loginImg from "../../../assets/login_img_2.png";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
@@ -70,7 +71,15 @@ const Register = () => {
           ref={CStepperRef}
         />
       </div>
-      <div>
+      <div className="bg-white shadow-2xl rounded-2xl overflow-hidden flex w-full max-w-4xl f-full">
+        <div className="md:w-1/2 md:flex hidden items-center justify-center p-6 bg-gradient-to-r from-indigo-300 to bg-purple-400">
+          <img
+            src={loginImg}
+            alt="Learning illustration"
+            className="object-contain"
+          />
+        </div>
+
         {currentStep === ESignUpStep.InputEmail && (
           <CheckValidEmail onInputEmail={handleSetEmail} />
         )}
@@ -86,7 +95,6 @@ const Register = () => {
             onSuccessVerify={setVerificationState}
           />
         )}
-
         {currentStep === ESignUpStep.RegisterSuccessfully && (
           <RegisterSuccessfully />
         )}

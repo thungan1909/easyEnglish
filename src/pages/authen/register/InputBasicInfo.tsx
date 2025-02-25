@@ -23,106 +23,94 @@ const InputBasicInfo = ({
   } = formInstance;
 
   return (
-    <div className="bg-white shadow-2xl rounded-2xl overflow-hidden flex w-full max-w-4xl">
-      {/* Left Side - Image */}
-      <div className="md:w-1/2 md:flex hidden items-center justify-center p-6 bg-gradient-to-r from-indigo-300 to bg-purple-400">
-        <img
-          src={loginImg}
-          alt="Learning illustration"
-          className="object-contain"
-        />
-      </div>
+    <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
+      <Typography
+        variant="h5"
+        className="text-center font-semibold text-gray-800 p-4"
+      >
+        Register
+      </Typography>
+      <Typography className="text-center">
+        You registered with email
+        <span className="ml-1 font-semibold text-purple-600">
+          {getValues("email") || "Unknown"}
+        </span>
+      </Typography>
 
-      {/* Right Side - Login Form */}
-      <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
-        <Typography
-          variant="h5"
-          className="text-center font-semibold text-gray-800 p-4"
-        >
-          Register
-        </Typography>
-        <Typography className="text-center">
-          You registered with email
-          <span className="ml-1 font-semibold text-purple-600">
-            {getValues("email") || "Unknown"}
-          </span>
-        </Typography>
-
-        <form
-          className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full"
-          onSubmit={handleSubmit(onSubmitProfile)}
-        >
-          <div className="flex flex-col">
-            <Controller
-              name="username"
-              control={control}
-              defaultValue=""
-              render={({ field, fieldState }) => (
-                <>
-                  <CTextField
-                    {...field}
-                    type="text"
-                    label="Username"
-                    placeholder="Username"
-                  />
-                  {fieldState.error && (
-                    <span className="text-red-500 text-sm mt-2">
-                      {fieldState.error.message}
-                    </span>
-                  )}
-                </>
-              )}
-            />
-          </div>
-          <div className="flex flex-col">
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              render={({ field, fieldState }) => (
-                <>
-                  <CTextField
-                    {...field}
-                    type="password"
-                    label="Password"
-                    placeholder="Password"
-                  />
-                  {fieldState.error && (
-                    <span className="text-red-500 text-sm mt-2">
-                      {fieldState.error.message}
-                    </span>
-                  )}
-                </>
-              )}
-            />
-          </div>
-          <div className="flex flex-col">
-            <Controller
-              name="confirmPassword"
-              control={control}
-              defaultValue=""
-              render={({ field, fieldState }) => (
-                <>
-                  <CTextField
-                    {...field}
-                    type="password"
-                    label="Confirm Password"
-                    placeholder="Confirm Password"
-                  />
-                  {fieldState.error && (
-                    <span className="text-red-500 text-sm mt-2">
-                      {fieldState.error.message}
-                    </span>
-                  )}
-                </>
-              )}
-            />
-          </div>
-          <CButton type="submit" disabled={!isValid}>
-            Next
-          </CButton>
-        </form>
-      </div>
+      <form
+        className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full"
+        onSubmit={handleSubmit(onSubmitProfile)}
+      >
+        <div className="flex flex-col">
+          <Controller
+            name="username"
+            control={control}
+            defaultValue=""
+            render={({ field, fieldState }) => (
+              <>
+                <CTextField
+                  {...field}
+                  type="text"
+                  label="Username"
+                  placeholder="Username"
+                />
+                {fieldState.error && (
+                  <span className="text-red-500 text-sm mt-2">
+                    {fieldState.error.message}
+                  </span>
+                )}
+              </>
+            )}
+          />
+        </div>
+        <div className="flex flex-col">
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            render={({ field, fieldState }) => (
+              <>
+                <CTextField
+                  {...field}
+                  type="password"
+                  label="Password"
+                  placeholder="Password"
+                />
+                {fieldState.error && (
+                  <span className="text-red-500 text-sm mt-2">
+                    {fieldState.error.message}
+                  </span>
+                )}
+              </>
+            )}
+          />
+        </div>
+        <div className="flex flex-col">
+          <Controller
+            name="confirmPassword"
+            control={control}
+            defaultValue=""
+            render={({ field, fieldState }) => (
+              <>
+                <CTextField
+                  {...field}
+                  type="password"
+                  label="Confirm Password"
+                  placeholder="Confirm Password"
+                />
+                {fieldState.error && (
+                  <span className="text-red-500 text-sm mt-2">
+                    {fieldState.error.message}
+                  </span>
+                )}
+              </>
+            )}
+          />
+        </div>
+        <CButton type="submit" disabled={!isValid}>
+          Next
+        </CButton>
+      </form>
     </div>
   );
 };

@@ -1,23 +1,25 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import loginImg from "../../../assets/login_img_2.png";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
-import { useCallback, useState } from "react";
 import { LoginDataDTO } from "../../../types/dtos/login.dto";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { useLoginMutation } from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../constants";
+import CButton from "../../../components/atoms/CButton/CButton";
 
 const resolver = classValidatorResolver(LoginDataDTO);
 
 const Login = () => {
-  const [apiError, setApiError] = useState<string>("");
-
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm<LoginDataDTO>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm<LoginDataDTO>({
     resolver,
     defaultValues: {
       username: "",
@@ -25,21 +27,18 @@ const Login = () => {
     },
   });
 
-  const { mutate: execLogin } = useLoginMutation();
+  const { mutate: loginMutation } = useLoginMutation();
 
-  const submitForm = useCallback((data: any) => {
-    console.log(data);
-    setApiError("");
-    execLogin(data, {
+  const onSubmitLogin = (data: LoginDataDTO) => {
+    loginMutation(data, {
       onError: (err) => {
-        notify.warning(`Error! ${err.message}`);
-        setApiError(err.message);
+        notify.error(`Error! ${err.message}`);
       },
       onSuccess: () => {
         navigate(ROUTES_CONSTANTS.AUTH.DEFAULT, { replace: true });
       },
     });
-  }, []);
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-r to-purple-200">
@@ -70,32 +69,69 @@ const Login = () => {
 
           <form
             className="mt-6 flex flex-col gap-5 max-w-sm mx-auto w-full relative"
-            id="login-form"
-            onSubmit={handleSubmit(submitForm)}
+            onSubmit={handleSubmit(onSubmitLogin)}
           >
-            <CTextField
-              type="text"
-              label="User name"
-              placeholder="User name"
-              {...register("username")}
-            />
-            <CTextField
-              type="password"
-              label="Password"
-              {...register("password")}
-              placeholder="Password"
-            />
-            <a className="text-end !text-purple-600" href={ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD}>Forgot your password?</a>
-            <Button
-              variant="contained"
-              className="!bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white !py-3 !rounded-full"
-              fullWidth
-              type="submit"
+            <div className="flex flex-col">
+              <Controller
+                name="username"
+                control={control}
+                defaultValue=""
+                render={({ field, fieldState }) => (
+                  <>
+                    <CTextField
+                      {...field}
+                      type="text"
+                      label="Username"
+                      placeholder="Username"
+                    />
+                    {fieldState.error && (
+                      <span className="text-red-500 text-sm mt-2">
+                        {fieldState.error.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+            <div className="flex flex-col">
+              <Controller
+                name="password"
+                control={control}
+                defaultValue=""
+                render={({ field, fieldState }) => (
+                  <>
+                    <CTextField
+                      {...field}
+                      type="password"
+                      label="Password"
+                      placeholder="Password"
+                    />
+                    {fieldState.error && (
+                      <span className="text-red-500 text-sm mt-2">
+                        {fieldState.error.message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+
+            <a
+              className="text-end !text-purple-600"
+              href={ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD}
             >
+              Forgot your password?
+            </a>
+            <CButton type="submit" disabled={!isValid}>
               Log In
-            </Button>
-            
-            <a className="text-center !text-gray-800" href={ROUTES_CONSTANTS.AUTH.REGISTER}>Create new account</a>
+            </CButton>
+
+            <a
+              className="text-center !text-gray-800"
+              href={ROUTES_CONSTANTS.AUTH.REGISTER}
+            >
+              Create new account
+            </a>
           </form>
         </div>
       </div>

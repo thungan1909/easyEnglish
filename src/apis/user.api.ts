@@ -13,13 +13,10 @@ import {
 } from "../types/dtos/user.dto";
 
 export const loginMutation = {
-  name: "loginMutation",
+  name: "login",
   fn: async (data: LoginDataDTO): Promise<LoginOriginalResponse> => {
     const responseData = getOrginialResponseData<LoginOriginalResponse>(
-      await getAxiosInstance().post(END_POINTS.AUTH.LOGIN, {
-        request_date_time: dayjs(new Date(), "YYYYMMDDHHmmssSSS"),
-        data,
-      })
+      await getAxiosInstance().post(END_POINTS.AUTH.LOGIN, data)
     );
     return responseData;
   },

@@ -62,58 +62,46 @@ const InputVerificationCode = ({
   };
 
   return (
-    <div className="bg-white shadow-2xl rounded-2xl overflow-hidden flex w-full max-w-4xl">
-      {/* Left Side - Image */}
-      <div className="md:w-1/2 md:flex hidden items-center justify-center p-6 bg-gradient-to-r from-indigo-300 to bg-purple-400">
-        <img
-          src={loginImg}
-          alt="Learning illustration"
-          className="object-contain"
-        />
-      </div>
+    <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
+      <Typography
+        variant="h5"
+        className="text-center font-semibold text-gray-800 p-4"
+      >
+        Register
+      </Typography>
+      <Typography className="text-center">
+        A verification email has been sent to
+        <span className="ml-1 font-semibold text-purple-600">
+          {formInstance.getValues("email")}
+        </span>
+      </Typography>
 
-      {/* Right Side - Login Form */}
-      <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
-        <Typography
-          variant="h5"
-          className="text-center font-semibold text-gray-800 p-4"
+      <div className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full">
+        <div className="flex !space-x-2">
+          {code.map((num, index) => (
+            <CTextField
+              key={index}
+              value={num}
+              type="number"
+              onChange={(e) => handleChange(index, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(index, e)}
+              inputRef={(el) => {
+                inputRefs.current[index] = el;
+              }}
+              customStyle={{
+                fontSize: "24px",
+                textAlign: "center",
+              }}
+              maxLength={1}
+            />
+          ))}
+        </div>
+        <CButton
+          disabled={disableButton}
+          onClick={() => handleVerificationEmail()}
         >
           Register
-        </Typography>
-        <Typography className="text-center">
-          A verification email has been sent to
-          <span className="ml-1 font-semibold text-purple-600">
-            {formInstance.getValues("email")}
-          </span>
-        </Typography>
-
-        <div className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full">
-          <div className="flex !space-x-2">
-            {code.map((num, index) => (
-              <CTextField
-                key={index}
-                value={num}
-                type="number"
-                onChange={(e) => handleChange(index, e.target.value)}
-                onKeyDown={(e) => handleKeyDown(index, e)}
-                inputRef={(el) => {
-                  inputRefs.current[index] = el;
-                }}
-                customStyle={{
-                  fontSize: "24px",
-                  textAlign: "center",
-                }}
-                maxLength={1}
-              />
-            ))}
-          </div>
-          <CButton
-            disabled={disableButton}
-            onClick={() => handleVerificationEmail()}
-          >
-            Register
-          </CButton>
-        </div>
+        </CButton>
       </div>
     </div>
   );
