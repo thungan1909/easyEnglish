@@ -1,13 +1,5 @@
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import {
-  LoginDataDTO,
-  LoginOriginalResponse,
-} from "../../types/dtos/login.dto";
+import { useMutation } from "@tanstack/react-query";
+import { TUserSignInSchema } from "../../types/dtos/login.dto";
 import { IHttpError } from "../../types/dtos/http";
 import {
   checkExistEmail,
@@ -16,15 +8,12 @@ import {
   verifyEmailMutation,
 } from "../user.api";
 import { persistToken } from "../../providers/auth";
-import {
-  AuthenticationInfo,
-  RoleMapType,
-  ScreenPermissionMapType,
-  UriPermissionMapType,
-} from "../../types/auth";
+
 import {
   CheckExistEmailDTO,
   CheckExistEmailResponse,
+  LoginDTO,
+  LoginOriginalResponse,
   SignUpDTO,
   SignUpResponse,
   VerifyEmailDTO,
@@ -34,15 +23,12 @@ import {
 export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
 
 export const useLoginMutation = () => {
-  return useMutation<LoginOriginalResponse, IHttpError, LoginDataDTO>({
-    mutationFn: async (data: LoginDataDTO) => {
+  return useMutation<LoginOriginalResponse, IHttpError, LoginDTO>({
+    mutationFn: async (data: LoginDTO) => {
       return loginMutation.fn(data);
     },
     onSuccess: (data) => {
-      persistToken({
-        accessToken: data?.access_token,
-        refreshToken: data?.refresh_token,
-      });
+      console.log(data);
     },
   });
 };

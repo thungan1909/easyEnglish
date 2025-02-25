@@ -9,14 +9,16 @@ const RegisterSuccessfully = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm items-center">
-      <img
-        src={checkImg}
-        alt="Check successfully illustration"
-        className="object-contain w-50"
-      />
+    <div>
+      <div className="flex items-center  justify-center ">
+        <img
+          src={checkImg}
+          alt="Check successfully illustration"
+          className="object-contain w-50"
+        />
+      </div>
       <Typography
-        variant="h6"
+        variant="h5"
         className="text-center font-semibold text-gray-800 !mb-2"
       >
         Registration Successful

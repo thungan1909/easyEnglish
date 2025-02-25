@@ -62,7 +62,7 @@ const Register = () => {
   }, [verificationState]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r to-purple-200">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-r to-purple-200">
       <div className="w-1/2 mb-8">
         <CSteppers
           numberStep={4}
@@ -79,25 +79,26 @@ const Register = () => {
             className="object-contain"
           />
         </div>
-
-        {currentStep === ESignUpStep.InputEmail && (
-          <CheckValidEmail onInputEmail={handleSetEmail} />
-        )}
-        {currentStep === ESignUpStep.InputBasicInfo && (
-          <InputBasicInfo
-            onSubmitProfile={handleSubmitAuthenInfo}
-            formInstance={formInstance}
-          />
-        )}
-        {currentStep === ESignUpStep.InputVerificationCode && (
-          <InputVerificationCode
-            formInstance={formInstance}
-            onSuccessVerify={setVerificationState}
-          />
-        )}
-        {currentStep === ESignUpStep.RegisterSuccessfully && (
-          <RegisterSuccessfully />
-        )}
+        <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
+          {currentStep === ESignUpStep.InputEmail && (
+            <CheckValidEmail onInputEmail={handleSetEmail} />
+          )}
+          {currentStep === ESignUpStep.InputBasicInfo && (
+            <InputBasicInfo
+              onSubmitProfile={handleSubmitAuthenInfo}
+              formInstance={formInstance}
+            />
+          )}
+          {currentStep === ESignUpStep.InputVerificationCode && (
+            <InputVerificationCode
+              formInstance={formInstance}
+              onSuccessVerify={setVerificationState}
+            />
+          )}
+          {currentStep === ESignUpStep.RegisterSuccessfully && (
+            <RegisterSuccessfully />
+          )}
+        </div>
       </div>
     </div>
   );

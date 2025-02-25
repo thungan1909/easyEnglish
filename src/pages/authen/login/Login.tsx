@@ -1,25 +1,37 @@
 import { Typography } from "@mui/material";
 import loginImg from "../../../assets/login_img_2.png";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
-import { LoginDataDTO } from "../../../types/dtos/login.dto";
+import {
+  TUserSignInSchema,
+  UserSignInSchema,
+} from "../../../types/dtos/login.dto";
 import { Controller, useForm } from "react-hook-form";
-import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { useLoginMutation } from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../constants";
 import CButton from "../../../components/atoms/CButton/CButton";
+import { defaultErrorMsg } from "../../../constants/errorMessage";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "../../../hooks/useAuth";
+import { useState } from "react";
+import { ICurrentUser } from "../../../types/auth/user";
 
-const resolver = classValidatorResolver(LoginDataDTO);
+const resolver = zodResolver(UserSignInSchema);
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login, updateToken } = useAuth();
+  const [loginInfo, setLoginInfo] = useState<{
+    userInfo: ICurrentUser;
+    accessToken: string;
+  }>();
 
   const {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<LoginDataDTO>({
+  } = useForm<TUserSignInSchema>({
     resolver,
     defaultValues: {
       username: "",
@@ -29,13 +41,28 @@ const Login = () => {
 
   const { mutate: loginMutation } = useLoginMutation();
 
-  const onSubmitLogin = (data: LoginDataDTO) => {
+  const onSubmitLogin = (data: TUserSignInSchema) => {
     loginMutation(data, {
-      onError: (err) => {
-        notify.error(`Error! ${err.message}`);
+      onError: (error) => {
+        notify.error(error.message || defaultErrorMsg);
       },
-      onSuccess: () => {
-        navigate(ROUTES_CONSTANTS.AUTH.DEFAULT, { replace: true });
+      onSuccess: (res) => {
+        const accessToken = res?.access_token;
+        if (accessToken && res) {
+          const userData = {
+            id: res.user.user_id,
+            email: res.user.user_email,
+            username: res.user.user_name,
+          };
+          updateToken(accessToken);
+
+          setLoginInfo({
+            accessToken,
+            userInfo: userData,
+          });
+          return;
+        }
+        // navigate(ROUTES_CONSTANTS.AUTH.DEFAULT, { replace: true });
       },
     });
   };
@@ -43,7 +70,6 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-r to-purple-200">
       <div className="bg-white shadow-2xl rounded-2xl overflow-hidden flex w-full max-w-4xl">
-        {/* Left Side - Image */}
         <div className="md:w-1/2 md:flex hidden items-center justify-center p-6 bg-gradient-to-r from-indigo-300 to bg-purple-400">
           <img
             src={loginImg}
@@ -52,7 +78,6 @@ const Login = () => {
           />
         </div>
 
-        {/* Right Side - Login Form */}
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
           <Typography
             variant="h5"
@@ -122,9 +147,7 @@ const Login = () => {
             >
               Forgot your password?
             </a>
-            <CButton type="submit" disabled={!isValid}>
-              Log In
-            </CButton>
+            <CButton type="submit">Log In</CButton>
 
             <a
               className="text-center !text-gray-800"

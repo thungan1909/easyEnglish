@@ -1,11 +1,10 @@
-import dayjs from "dayjs";
-
-import { LoginDataDTO, LoginOriginalResponse } from "../types/dtos/login.dto";
 import { getAxiosInstance, getOrginialResponseData } from "../providers/axios";
 import { END_POINTS } from "../constants";
 import {
   CheckExistEmailDTO,
   CheckExistEmailResponse,
+  LoginDTO,
+  LoginOriginalResponse,
   SignUpDTO,
   SignUpResponse,
   VerifyEmailDTO,
@@ -14,11 +13,14 @@ import {
 
 export const loginMutation = {
   name: "login",
-  fn: async (data: LoginDataDTO): Promise<LoginOriginalResponse> => {
-    const responseData = getOrginialResponseData<LoginOriginalResponse>(
-      await getAxiosInstance().post(END_POINTS.AUTH.LOGIN, data)
-    );
-    return responseData;
+  fn: async (data: LoginDTO): Promise<LoginOriginalResponse> => {
+    try {
+      return getOrginialResponseData<LoginOriginalResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.LOGIN, data)
+      );
+    } catch (error) {
+      throw error;
+    }
   },
 };
 

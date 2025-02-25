@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useCheckExistEmailMutation } from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
+import { ROUTES_CONSTANTS } from "../../../constants";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;
@@ -44,7 +45,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
   };
 
   return (
-    <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
+    <div>
       <Typography
         variant="h5"
         className="text-center font-semibold text-gray-800 p-4"
@@ -69,15 +70,17 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
             }}
             maxLength={50}
           />
-          {error && (
-            <Typography color="error" variant="body2" className="!mt-1">
-              {error}
-            </Typography>
-          )}
+          {error && <span className="text-red-500 text-sm mt-2">{error}</span>}
         </div>
         <CButton disabled={disableButton} onClick={() => handleNextStep()}>
           Next
         </CButton>
+        <span className="text-center !text-gray-800 ">
+          Already have an account?
+          <a href={ROUTES_CONSTANTS.AUTH.LOGIN} className="ml-1">
+            Log in
+          </a>
+        </span>
       </div>
     </div>
   );

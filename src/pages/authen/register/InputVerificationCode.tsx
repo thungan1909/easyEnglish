@@ -62,7 +62,7 @@ const InputVerificationCode = ({
   };
 
   return (
-    <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
+    <div>
       <Typography
         variant="h5"
         className="text-center font-semibold text-gray-800 p-4"
