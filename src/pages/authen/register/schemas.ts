@@ -1,10 +1,22 @@
 import * as zod from "zod";
+import {
+  confirmPasswordNotMatchMsg,
+  invalidConfirmPasswordMsg,
+  invalidEmailMsg,
+  invalidPasswordMsg,
+  invalidUsernameMsg,
+} from "../../../constants/errorMessage";
 
-export const UserSignUpSchema = zod.object({
-  username: zod.string().min(1, "Username is required"),
-  password: zod.string().min(6, "Password must be at least 6 characters"),
-  confirmPassword: zod.string().min(6, "Please confirm your password"),
-  email: zod.string().email("Invalid email format"),
-});
+export const UserSignUpSchema = zod
+  .object({
+    username: zod.string().min(1, invalidUsernameMsg),
+    password: zod.string().min(6, invalidPasswordMsg),
+    confirmPassword: zod.string().min(6, invalidConfirmPasswordMsg),
+    email: zod.string().email(invalidEmailMsg),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: confirmPasswordNotMatchMsg,
+    path: ["confirmPassword"],
+  });
 
 export type TUserSignUpSchema = zod.infer<typeof UserSignUpSchema>;

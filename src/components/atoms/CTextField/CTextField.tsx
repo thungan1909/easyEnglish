@@ -28,18 +28,18 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
         disabled={disabled}
         slotProps={{
           input: {
-           inputProps: {
-            maxLength: maxLength,
-            style: {
-              ...customStyle
-            }
-           }
-          }
+            inputProps: {
+              maxLength: maxLength,
+              style: {
+                ...customStyle,
+              },
+            },
+          },
         }}
         onInput={(e) => {
           const target = e.target as HTMLInputElement;
           if (target.value.length > maxLength) {
-            target.value = target.value.slice(0, maxLength);  //Incase type=text, maxLength not work
+            target.value = target.value.slice(0, maxLength); //Incase type=text, maxLength not work
           }
         }}
         sx={{
@@ -61,18 +61,19 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
             },
           },
           "& input[type='number']": {
-            MozAppearance: 'textfield', // Firefox
-            '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
-              WebkitAppearance: 'none', // Chrome
+            MozAppearance: "textfield", // Firefox
+            "&::-webkit-inner-spin-button, &::-webkit-outer-spin-button": {
+              WebkitAppearance: "none", // Chrome
               margin: 0,
             },
-          }
+          },
         }}
         onKeyDown={(e) => {
           if (onKeyDown) {
             onKeyDown(e as React.KeyboardEvent<HTMLInputElement>);
           }
-        }} />
+        }}
+      />
     );
   }
 );

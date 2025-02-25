@@ -4,8 +4,8 @@ import CButton from "../../../components/atoms/CButton/CButton";
 import { useState } from "react";
 import { useCheckExistEmailMutation } from "../../../apis/hooks/auth.hook";
 import loginImg from "../../../assets/login_img_2.png";
-import { toast } from "react-toastify";
 import { notify } from "../../../utils/notify";
+import { defaultErrorMsg } from "../../../constants/errorMessage";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;
@@ -17,7 +17,7 @@ const validateEmail = (email: string) =>
 const InputEmail = ({ onInputEmail }: InputEmailProps) => {
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-
+  const [disableButton, setDisable] = useState(true);
   const { mutate: checkExistEmail } = useCheckExistEmailMutation();
 
   const handleNextStep = () => {
@@ -37,8 +37,8 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
             onInputEmail(trimmedEmail);
           }
         },
-        onError: () => {
-          notify.error("Something went wrong!");
+        onError: (error) => {
+          notify.error(error.message || defaultErrorMsg);
         },
       }
     );
@@ -77,7 +77,10 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
               label="Email"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setDisable(false);
+              }}
               maxLength={50}
             />
             {error && (
@@ -86,11 +89,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
               </Typography>
             )}
           </div>
-          <CButton
-            fullWidth
-            onClick={() => handleNextStep()}
-            className="!bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white !py-3 !rounded-full"
-          >
+          <CButton disabled={disableButton} onClick={() => handleNextStep()}>
             Next
           </CButton>
         </div>

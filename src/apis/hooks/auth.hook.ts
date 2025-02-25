@@ -151,11 +151,6 @@ export const useSignUpMutation = () => {
     mutationFn: async (data: SignUpDTO) => {
       return signUpMutation.fn(data);
     },
-    onSuccess: () => {},
-    onError: (error) => {
-      console.error("Verification failed", error);
-      notify.error("Something went wrong!");
-    },
   });
 };
 
@@ -163,11 +158,6 @@ export const useVerifyEmailMutation = () => {
   return useMutation<VerifyEmailResponse, IHttpError, VerifyEmailDTO>({
     mutationFn: async (data: VerifyEmailDTO) => {
       return verifyEmailMutation.fn(data);
-    },
-    onSuccess: () => {},
-    onError: (error) => {
-      console.error("Verification failed", error);
-      notify.error("Something went wrong!");
     },
   });
 };

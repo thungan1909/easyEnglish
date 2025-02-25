@@ -15,7 +15,12 @@ const InputBasicInfo = ({
   onSubmitProfile,
   formInstance,
 }: InputBasicInfoProps) => {
-  const { control, handleSubmit, getValues } = formInstance;
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    formState: { isValid },
+  } = formInstance;
 
   return (
     <div className="bg-white shadow-2xl rounded-2xl overflow-hidden flex w-full max-w-4xl">
@@ -34,7 +39,7 @@ const InputBasicInfo = ({
           variant="h5"
           className="text-center font-semibold text-gray-800 p-4"
         >
-         Register
+          Register
         </Typography>
         <Typography className="text-center">
           You registered with email
@@ -113,11 +118,7 @@ const InputBasicInfo = ({
               )}
             />
           </div>
-          <CButton
-            fullWidth
-            type="submit"
-            className="!bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white !py-3 !rounded-full"
-          >
+          <CButton type="submit" disabled={!isValid}>
             Next
           </CButton>
         </form>

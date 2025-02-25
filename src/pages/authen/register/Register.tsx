@@ -11,11 +11,10 @@ import { useSignUpMutation } from "../../../apis/hooks/auth.hook";
 import InputVerificationCode from "./InputVerificationCode";
 import RegisterSuccessfully from "./RegisterSuccessfully";
 import { notify } from "../../../utils/notify";
+import { defaultErrorMsg } from "../../../constants/errorMessage";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
-  const [error, setError] = useState<string | null>(null);
-
   const [step, setStep] = useState(0);
   const [verificationState, setVerificationState] = useState(false);
   const [currentStep, setCurrentStep] = useState<ESignUpStep>(
@@ -47,9 +46,8 @@ const Register = () => {
           setCurrentStep(ESignUpStep.InputVerificationCode);
           CStepperRef.current?.handleNextStep();
         },
-        onError: () => {
-          notify.error("Something went wrong!");
-          setError("Invalid email format");
+        onError: (error) => {
+          notify.error(error.message || defaultErrorMsg);
         },
       }
     );

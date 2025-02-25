@@ -12,6 +12,11 @@ const infoOptions: ToastOptions = {
   type: "info",
 };
 
+const successOptions: ToastOptions = {
+  ...defaultOptions,
+  type: "success",
+};
+
 const warningOptions: ToastOptions = {
   ...defaultOptions,
   type: "warning",
@@ -35,10 +40,16 @@ export const notify = {
   info: (message: string, customOptions?: ToastOptions): Id => {
     return show(message, { ...infoOptions, ...customOptions });
   },
+  success: (message: string, customOptions?: ToastOptions): Id => {
+    return show(message, { ...successOptions, ...customOptions });
+  },
   warning: (message: string, customOptions?: ToastOptions): Id => {
     return show(message, { ...warningOptions, ...customOptions });
   },
   error: (message: string, customOptions?: ToastOptions): Id => {
     return show(message, { ...errorOptions, ...customOptions });
+  },
+  default: (message: string, customOptions?: ToastOptions): Id => {
+    return show(message, { ...defaultOptions, ...customOptions });
   },
 };

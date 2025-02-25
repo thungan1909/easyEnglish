@@ -66,14 +66,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error: AxiosError): Promise<IHttpError> => {
-    const errorWrapper: IHttpError = {
-      type: "exception",
-      code: error.code || "Unknow",
-      name: error.name || "Unknow",
-      message: error.message,
-      description: error.message,
-    };
-
     switch (error.response?.status) {
       case 401:
         console.log("Unauthenticated 401");
@@ -87,6 +79,17 @@ axiosInstance.interceptors.response.use(
         // globalNavigate("/");
         return Promise.reject();
       default: {
+        const errorData = error.response?.data as AxiosError | undefined;
+
+        const errorWrapper: IHttpError = {
+          type: "exception",
+          code: errorData?.code || error.code || "Unknow",
+          name: error.name || "Unknown",
+          message: errorData?.message || error.message || "Unknown error",
+          description:
+            errorData?.message || error.message || "No response from server",
+        };
+
         return Promise.reject(errorWrapper);
       }
     }

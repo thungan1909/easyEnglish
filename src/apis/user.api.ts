@@ -11,7 +11,6 @@ import {
   VerifyEmailDTO,
   VerifyEmailResponse,
 } from "../types/dtos/user.dto";
-import axios from "axios";
 
 export const loginMutation = {
   name: "loginMutation",

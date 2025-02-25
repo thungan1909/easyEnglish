@@ -13,7 +13,7 @@ export interface IButton {
   loading?: boolean;
   style?: any;
   leftIcon?: JSX.Element | null;
-  fullWidth: any;
+  fullWidth?: boolean;
 }
 
 const CButton = ({
@@ -23,21 +23,22 @@ const CButton = ({
   onClick = undefined,
   icon = null,
   loading = false,
-  className = undefined,
+  className = "",
   style = {},
   leftIcon = null,
+  fullWidth = false,
 }: IButton): JSX.Element => {
   return (
     <Button
-      className={className}
       type={type}
       variant="contained"
-      disabled={loading ? loading : disabled}
+      disabled={disabled || loading}
       onClick={onClick}
       startIcon={icon}
       endIcon={leftIcon}
       style={{ ...style }}
-      fullWidth
+      fullWidth={fullWidth}
+      className={`!bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white !py-3 !rounded-full ${className}`}
     >
       {loading ? <CircularProgress size={24.5} /> : children}
     </Button>

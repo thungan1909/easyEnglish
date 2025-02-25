@@ -7,6 +7,7 @@ import { UseFormReturn } from "react-hook-form";
 import { TUserSignUpSchema } from "./schemas";
 import { useVerifyEmailMutation } from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
+import { defaultErrorMsg } from "../../../constants/errorMessage";
 
 export interface InputVerificationCodeProps {
   formInstance: UseFormReturn<TUserSignUpSchema>;
@@ -18,6 +19,7 @@ const InputVerificationCode = ({
   onSuccessVerify,
 }: InputVerificationCodeProps) => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const [disableButton, setDisable] = useState(true);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { mutate: verifyEmailMutation } = useVerifyEmailMutation();
 
@@ -29,6 +31,7 @@ const InputVerificationCode = ({
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
+    setDisable(newCode.some((digit) => !digit));
   };
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
@@ -39,23 +42,23 @@ const InputVerificationCode = ({
 
   const handleVerificationEmail = () => {
     let verificationCode = code.join("");
-
-    verifyEmailMutation(
-      {
-        username: formInstance.getValues("username"),
-        email: formInstance.getValues("email"),
-        verifyCode: verificationCode,
-      },
-      {
-        onSuccess: () => {
-          onSuccessVerify(true);
+    if (verificationCode?.length === 6) {
+      verifyEmailMutation(
+        {
+          username: formInstance.getValues("username"),
+          email: formInstance.getValues("email"),
+          verifyCode: verificationCode,
         },
-        onError: (error) => {
-          console.error("Registration failed:", error);
-          notify.error("Something went wrong!");
-        },
-      }
-    );
+        {
+          onSuccess: () => {
+            onSuccessVerify(true);
+          },
+          onError: (error) => {
+            notify.error(error.message || defaultErrorMsg);
+          },
+        }
+      );
+    }
   };
 
   return (
@@ -105,9 +108,8 @@ const InputVerificationCode = ({
             ))}
           </div>
           <CButton
-            fullWidth
+            disabled={disableButton}
             onClick={() => handleVerificationEmail()}
-            className="!bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white !py-3 !rounded-full"
           >
             Register
           </CButton>
