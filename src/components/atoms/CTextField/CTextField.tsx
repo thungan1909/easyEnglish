@@ -43,19 +43,22 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
           }
         }}
         sx={{
+          fontFamily: "Playwrite IT Moderna",
+          "& .MuiOutlinedInput-input, & .MuiOutlinedInput-root, & .MuiOutlinedInput-root fieldset":
+            {
+              fontFamily: "inherit",
+            },
           "& .MuiOutlinedInput-root": {
             transition: "all 0.3s ease",
             "& fieldset": {
               borderColor: "gray",
             },
-            "&:hover fieldset": {
-              borderColor: "purple",
-            },
-            "&.Mui-focused fieldset": {
+            "&:hover fieldset, &.Mui-focused fieldset": {
               borderColor: "purple",
             },
           },
           "& .MuiInputLabel-root": {
+            fontFamily: "inherit",
             "&.Mui-focused": {
               color: "purple",
             },

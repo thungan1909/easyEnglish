@@ -12,7 +12,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Roboto", serif;
+  font-family: "Playwrite IT Moderna", serif;
 }
 
 a {
@@ -31,7 +31,8 @@ a:hover {
   color: #535bf2;
 }
 
-html, body {
+html,
+body {
   height: 100vh;
 }
 
@@ -50,7 +51,7 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
-  font-family: "Roboto", serif;
+  font-family: "Playwrite IT Moderna", serif;
 }
 
 
@@ -59,6 +60,7 @@ button {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
@@ -66,6 +68,5 @@ button {
 }
 
 .MuiTypography-root {
-  font-family: "Roboto", serif !important;
+  font-family: "Playwrite IT Moderna", serif !important;
 }
-
