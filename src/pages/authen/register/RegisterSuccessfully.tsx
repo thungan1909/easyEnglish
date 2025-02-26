@@ -3,7 +3,7 @@ import CButton from "../../../components/atoms/CButton/CButton";
 import checkImg from "../../../assets/check-img.png";
 
 import { useNavigate } from "react-router-dom";
-import { ROUTES_CONSTANTS } from "../../../constants";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const RegisterSuccessfully = () => {
   const navigate = useNavigate();

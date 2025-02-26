@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useCheckExistEmailMutation } from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
-import { ROUTES_CONSTANTS } from "../../../constants";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;

@@ -7,12 +7,16 @@ import { TUserSignUpSchema, UserSignUpSchema } from "./schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputBasicInfo from "./InputBasicInfo";
-import { useSignUpMutation } from "../../../apis/hooks/auth.hook";
+import {
+  useAuthentication,
+  useSignUpMutation,
+} from "../../../apis/hooks/auth.hook";
 import InputVerificationCode from "./InputVerificationCode";
 import RegisterSuccessfully from "./RegisterSuccessfully";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import loginImg from "../../../assets/login_img_2.png";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
@@ -21,6 +25,7 @@ const Register = () => {
   const [currentStep, setCurrentStep] = useState<ESignUpStep>(
     ESignUpStep.InputEmail
   );
+  const { isAuth } = useAuthentication();
 
   const { mutate: signUpMutation } = useSignUpMutation();
 
@@ -60,6 +65,12 @@ const Register = () => {
       CStepperRef.current?.handleNextStep();
     }
   }, [verificationState]);
+
+  useEffect(() => {
+    if (isAuth) {
+      window.location.href = ROUTES_CONSTANTS.DASHBOARD;
+    }
+  }, [isAuth]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-r to-purple-200">

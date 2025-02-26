@@ -6,18 +6,23 @@ import {
   UserSignInSchema,
 } from "../../../types/dtos/login.dto";
 import { Controller, useForm } from "react-hook-form";
-import { useLoginMutation } from "../../../apis/hooks/auth.hook";
+import {
+  useAuthentication,
+  useLoginMutation,
+} from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { useEffect } from "react";
 
 const resolver = zodResolver(UserSignInSchema);
 
 const Login = () => {
   const navigate = useNavigate();
+  const { isAuth } = useAuthentication();
 
   const {
     control,
@@ -43,6 +48,12 @@ const Login = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      window.location.href = ROUTES_CONSTANTS.DASHBOARD;
+    }
+  }, [isAuth]);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-r to-purple-200">

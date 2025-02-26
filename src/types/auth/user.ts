@@ -10,16 +10,9 @@ export enum UserUserRoleEnum {
 export enum EUserRole {
   GUEST = "GUEST",
   INDIVIDUAL_USER = UserUserRoleEnum.ROLE_INDIVIDUAL,
-  ORGANIZATION_USER = UserUserRoleEnum.ROLE_AGENCY_USER,
-  ORGANIZATION_ADMIN = UserUserRoleEnum.ROLE_AGENCY_ADMIN,
-  PROVIDER_ADMIN = UserUserRoleEnum.ROLE_PROVIDER_ADMIN,
-  PORTAL_ADMIN = UserUserRoleEnum.ROLE_PORTAL_ADMIN,
 }
 
-export const RoleName = {
-  [EUserRole.PROVIDER_ADMIN]: "제공기관 관리자",
-  [EUserRole.PORTAL_ADMIN]: "포털 관리자",
-};
+export const RoleName = {};
 
 export interface ICurrentUser {
   id: string;

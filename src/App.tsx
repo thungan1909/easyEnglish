@@ -1,5 +1,3 @@
-import { BrowserRouter } from "react-router-dom";
-import "./App.css";
 import AppRoutes from "./routers/AppRoutes.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QUERY_CACHE_TIME_DEFAULT } from "./constants/index.ts";
