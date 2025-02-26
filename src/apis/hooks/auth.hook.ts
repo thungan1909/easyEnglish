@@ -17,25 +17,17 @@ import {
   CheckExistEmailResponse,
   LoginDTO,
   LoginOriginalResponse,
+  LogOutDTO,
   SignUpDTO,
   SignUpResponse,
   VerifyEmailDTO,
   VerifyEmailResponse,
 } from "../../types/dtos/user.dto";
-import { persistToken } from "../../providers/auth";
-import {
-  AuthenticationInfoType,
-  PeristTokens,
-  RoleMapType,
-  ScreenPermissionMapType,
-  UriPermissionMapType,
-} from "../../types/auth";
-import {
-  LOCALSTORAGE_AUTHINFO_KEY,
-  TOKEN_CACHE_TIME,
-  TOKEN_STALE_TIME,
-} from "../../constants";
+import { clearPersistToken, persistToken } from "../../providers/auth";
+import { AuthenticationInfoType, PeristTokens } from "../../types/auth";
+import { LOCALSTORAGE_AUTHINFO_KEY, TOKEN_STALE_TIME } from "../../constants";
 import { tryCatch } from "../../utils/helpers/try-catch";
+import { ROUTES_CONSTANTS } from "../../routers/constants";
 
 export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
 
@@ -208,6 +200,34 @@ export const useVerifyEmailMutation = () => {
   return useMutation<VerifyEmailResponse, IHttpError, VerifyEmailDTO>({
     mutationFn: async (data: VerifyEmailDTO) => {
       return verifyEmailMutation.fn(data);
+    },
+  });
+};
+
+type UseLogoutParams = {
+  redirect?: boolean;
+};
+
+export const useLogoutMutation = (
+  params: UseLogoutParams = { redirect: true }
+) => {
+  const { redirect } = params || {};
+  const queryClient = useQueryClient();
+
+  return useMutation<null, IHttpError, LogOutDTO>({
+    mutationFn: async () => {
+      localStorage.removeItem(LOCALSTORAGE_AUTHINFO_KEY);
+      clearPersistToken();
+      if (redirect) {
+        window.location.href = ROUTES_CONSTANTS.AUTH.LOGIN;
+      } else {
+        queryClient.setQueryData<AuthenticationInfoType>(
+          AUTHENTICATION_QUERY_KEY,
+          {} as AuthenticationInfoType,
+          {}
+        );
+      }
+      return null;
     },
   });
 };

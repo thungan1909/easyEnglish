@@ -14,10 +14,21 @@ import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import { ROUTES_CONSTANTS } from "../routers/constants";
+import CButton from "./atoms/CButton/CButton";
+import { useLogoutMutation } from "../apis/hooks/auth.hook";
 
-const Navbar = () => {
+interface NavbarProps {
+  isAuth: boolean;
+}
+
+const Navbar = ({ isAuth }: NavbarProps) => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const { mutate: logoutMutation } = useLogoutMutation();
+  const handleLogout = () => {
+    logoutMutation({});
+  };
 
   return (
     <nav className="flex items-center shadow-md px-6 py-3 fixed  top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
@@ -81,39 +92,67 @@ const Navbar = () => {
         />
         <FaSearch className="absolute left-3 top-2 text-gray-500" />
       </div>
+      {isAuth ? (
+        <div className="absolute right-0 flex items-center space-x-4 mr-4">
+          <CButton
+            startIcon={<FaPlusCircle />}
+            className="invisible md:visible !mr-3 !normal-case space-x-1.5"
+            onClick={() => {
+              navigate(ROUTES_CONSTANTS.LESSON.ADD_NEW);
+            }}
+          >
+            <span> Add new</span>
+          </CButton>
+          <CButton
+            className="!mr-3 !normal-case space-x-1.5"
+            onClick={handleLogout}
+          >
+            <span> LOG OUT</span>
+          </CButton>
+          {/* Coins */}
+          <div className="flex items-center space-x-1 bg-orange-100 text-orange-500 px-3 py-2 rounded-full">
+            <FaCoins />
+            <span className="font-semibold">100</span>
+          </div>
 
-      {/* Right Section - Icons & Profile */}
-      <div className="absolute right-0 flex items-center space-x-4 mr-4">
-        <button
-          className="invisible md:visible bg-purple-700 text-white p-3 rounded-full font-semibold flex items-center space-x-2"
-          onClick={() => {
-            navigate(ROUTES_CONSTANTS.LESSON.ADD_NEW);
-          }}
-        >
-          <FaPlusCircle />
-          <span> Add new</span>
-        </button>
+          <div className="flex items-center space-x-1 bg-orange-100 text-orange-500 px-3 py-2 rounded-full">
+            <FaFire />
+            <span className="font-semibold">100</span>
+          </div>
 
-        {/* Coins */}
-        <div className="flex items-center space-x-1 bg-orange-100 text-orange-500 px-3 py-2 rounded-full">
-          <FaCoins />
-          <span className="font-semibold">100</span>
+          {/* Chart & Notifications */}
+          <FaChartBar className="text-gray-500 cursor-pointer hover:text-black transition" />
+          <FaBell className="text-gray-500 cursor-pointer hover:text-black transition" />
+
+          {/* Profile Button */}
+          <div className="bg-pink-500 text-white px-3 py-2 rounded-full font-bold cursor-pointer hover:bg-pink-600 transition">
+            DO
+          </div>
         </div>
+      ) : (
+        <div className="absolute right-0 flex items-center mr-32 !space-x-4">
+          <CButton
+            className="!normal-case space-x-1.5 "
+            variant="text"
+            fullWidth
+            onClick={() => {
+              navigate(ROUTES_CONSTANTS.AUTH.LOGIN);
+            }}
+          >
+            Login
+          </CButton>
 
-        <div className="flex items-center space-x-1 bg-orange-100 text-orange-500 px-3 py-2 rounded-full">
-          <FaFire />
-          <span className="font-semibold">100</span>
+          <CButton
+            className="!normal-case space-x-1.5"
+            fullWidth
+            onClick={() => {
+              navigate(ROUTES_CONSTANTS.AUTH.REGISTER);
+            }}
+          >
+            Register now
+          </CButton>
         </div>
-
-        {/* Chart & Notifications */}
-        <FaChartBar className="text-gray-500 cursor-pointer hover:text-black transition" />
-        <FaBell className="text-gray-500 cursor-pointer hover:text-black transition" />
-
-        {/* Profile Button */}
-        <div className="bg-pink-500 text-white px-3 py-2 rounded-full font-bold cursor-pointer hover:bg-pink-600 transition">
-          DO
-        </div>
-      </div>
+      )}
     </nav>
   );
 };

@@ -28,30 +28,26 @@ export interface LoginDTO {
   password: string;
 }
 
-export type PermissionLoginViewModel = {
-  insert_uris: string[];
-  select_uris: string[];
-  update_uris: string[];
-  delete_uris: string[];
-  is_select: boolean;
-  is_insert: boolean;
-  is_update: boolean;
-  is_delete: boolean;
-  role: RoleEntity;
-  screen: ScreenEntity;
-};
+// export type PermissionLoginViewModel = {
+//   insert_uris: string[];
+//   select_uris: string[];
+//   update_uris: string[];
+//   delete_uris: string[];
+//   is_select: boolean;
+//   is_insert: boolean;
+//   is_update: boolean;
+//   is_delete: boolean;
+//   role: RoleEntity;
+//   screen: ScreenEntity;
+// };
 
-export interface LoginOriginalResponse extends IOriginalResponse {
-  data: {
-    permissions: PermissionLoginViewModel[];
-    roles: RoleEntity[];
-  };
-}
+// export interface LoginOriginalResponse extends IOriginalResponse {
+//   data: {
+//     permissions: PermissionLoginViewModel[];
+//     roles: RoleEntity[];
+//   };
+// }
 
-export interface UserResDto {
-  user_id: string;
-  user_email: string;
-  user_name: string;
-}
+export interface LoginOriginalResponse extends IOriginalResponse {}
 
-export type UserGetDataDto = UserResDto;
+export interface LogOutDTO {}

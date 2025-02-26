@@ -9,11 +9,14 @@ export interface IButton {
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   onClick?: any;
-  icon?: JSX.Element | null;
+  startIcon?: JSX.Element | null;
   loading?: boolean;
   style?: any;
-  leftIcon?: JSX.Element | null;
+  endIcon?: JSX.Element | null;
   fullWidth?: boolean;
+  variant?: "text" | "contained" | "outlined";
+  isRounded?: boolean;
+  size?: "small" | "medium" | "large";
 }
 
 const CButton = ({
@@ -21,36 +24,68 @@ const CButton = ({
   type = "button",
   disabled = false,
   onClick = undefined,
-  icon = null,
+  startIcon = null,
   loading = false,
   className = "",
   style = {},
-  leftIcon = null,
+  endIcon = null,
   fullWidth = false,
+  variant = "contained",
+  isRounded = false,
+  size = "medium",
 }: IButton): JSX.Element => {
+  const variantStyles = {
+    contained: {
+      background: "linear-gradient(to right, #6366F1, #A855F7)",
+      color: "white",
+      "&:hover": {
+        background: disabled
+          ? "linear-gradient(to right, #A3A3A3, #737373)"
+          : "linear-gradient(to right, #4F46E5, #9333EA)",
+      },
+    },
+    outlined: {
+      background: "transparent",
+      border: "2px solid #6366F1",
+      color: "#6366F1",
+      "&:hover": {
+        borderColor: "#4F46E5",
+        color: "#4F46E5",
+        background: "rgba(99, 102, 241, 0.1)",
+      },
+    },
+    text: {
+      background: "transparent",
+      color: "#6366F1",
+      "&:hover": {
+        color: "#4F46E5",
+        background: "rgba(99, 102, 241, 0.1)",
+      },
+    },
+  };
+
   return (
     <Button
       type={type}
-      variant="contained"
+      variant={variant}
       disabled={disabled || loading}
       onClick={onClick}
-      startIcon={icon}
-      endIcon={leftIcon}
+      startIcon={startIcon}
+      endIcon={endIcon}
       style={{ ...style }}
       fullWidth={fullWidth}
       className={className}
+      size={size}
       sx={{
-        background: "linear-gradient(to right, #6366F1, #A855F7)", // Equivalent to Tailwind's from-indigo-500 to-purple-500
-        color: "white",
-        py: 1.5,
+        padding: 1.5,
         fontFamily: "Playwrite IT Moderna",
         transition: "background 0.3s ease", // Smooth transition
-        borderRadius: "9999px", // Equivalent to rounded-full
-        "&:hover": {
-          background: disabled
-            ? "linear-gradient(to right, #A3A3A3, #737373)" // Keep gray when disabled
-            : "linear-gradient(to right, #4F46E5, #9333EA)", // Hover gradient
-        },
+        // borderRadius: "9999px", // Equivalent to rounded-full
+        borderRadius: isRounded ? "9999px" : "8px",
+        whiteSpace: "nowrap",
+        minWidth: "max-content",
+
+        ...(variantStyles[variant] || variantStyles.contained),
       }}
     >
       {loading ? <CircularProgress size={24.5} /> : children}

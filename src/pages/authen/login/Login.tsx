@@ -124,7 +124,9 @@ const Login = () => {
             >
               Forgot your password?
             </a>
-            <CButton type="submit">Log In</CButton>
+            <CButton type="submit" disabled={!isValid}>
+              Log In
+            </CButton>
 
             <a
               className="text-center !text-gray-800"
