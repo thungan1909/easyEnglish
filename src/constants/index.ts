@@ -10,19 +10,6 @@ export const END_POINTS = {
   },
 };
 
-export const ROUTES_CONSTANTS = {
-  AUTH: {
-    LOGIN: "/login",
-    REGISTER: "/register",
-    FORGOT_PASSWORD: "/forgot-password",
-    DEFAULT: "/",
-    PAGE_NOT_FOUND: "*",
-  },
-  LESSON: {
-    ADD_NEW: "add-new-lesson",
-  },
-};
-
 export const COOKIES = {
   REMEMBER_ME: "rememberLogin",
   ACCESS_TOKEN: "ACCESS_TOKEN",
@@ -30,3 +17,6 @@ export const COOKIES = {
 };
 
 export const QUERY_CACHE_TIME_DEFAULT = 5 * 60 * 100; // 5 minutes
+export const LOCALSTORAGE_AUTHINFO_KEY = "authenticationInfo";
+export const TOKEN_CACHE_TIME = 8 * 60 * 60 * 1000; // 8 hours
+export const TOKEN_STALE_TIME = TOKEN_CACHE_TIME - 60 * 1000; // 8 hours - 1 minute

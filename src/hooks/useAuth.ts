@@ -30,6 +30,7 @@ export const useAuth = (): IUseAuth => {
   };
 
   const updateToken = (accessToken: string) => {
+    console.log("accessToken", accessToken);
     setAccessToken(accessToken);
   };
 

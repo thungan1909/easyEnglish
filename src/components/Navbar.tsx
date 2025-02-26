@@ -11,8 +11,9 @@ import {
 import { IoMdArrowDropdown } from "react-icons/io";
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import { ROUTES_CONSTANTS } from "../constants";
+
 import { useState } from "react";
+import { ROUTES_CONSTANTS } from "../routers/constants";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -41,34 +42,34 @@ const Navbar = () => {
             More <IoMdArrowDropdown className="ml-1" />
           </li>
         </ul>
-        
+
         {/* Hamburger Icon - Mobile */}
-        <div className="md:hidden cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
+        <div
+          className="md:hidden cursor-pointer"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
           {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
 
-          {
-            menuOpen ? (
-              <div className="flex flex-col bg-purple-300 relative top-20 w-40  items-center">
-                <ul className="gap-x-6 text-gray-700 font-semibold">
-                  <li className="text-purple-500 cursor-pointer">Home</li>
-                  <li className="cursor-pointer hover:text-purple-500 transition">
-                    Podcasts
-                  </li>
-                  <li className="cursor-pointer hover:text-purple-500 transition">
-                    Challenges
-                  </li>
-                  <li className="cursor-pointer hover:text-purple-500 transition">
-                    Classes
-                  </li>
-                  <li className="flex items-center cursor-pointer hover:text-purple-500 transition text-center">
-                    More <IoMdArrowDropdown className="ml-1" />
-                  </li>
-                </ul>
-              </div>
-            ) : null
-          }
+          {menuOpen ? (
+            <div className="flex flex-col bg-purple-300 relative top-20 w-40  items-center">
+              <ul className="gap-x-6 text-gray-700 font-semibold">
+                <li className="text-purple-500 cursor-pointer">Home</li>
+                <li className="cursor-pointer hover:text-purple-500 transition">
+                  Podcasts
+                </li>
+                <li className="cursor-pointer hover:text-purple-500 transition">
+                  Challenges
+                </li>
+                <li className="cursor-pointer hover:text-purple-500 transition">
+                  Classes
+                </li>
+                <li className="flex items-center cursor-pointer hover:text-purple-500 transition text-center">
+                  More <IoMdArrowDropdown className="ml-1" />
+                </li>
+              </ul>
+            </div>
+          ) : null}
         </div>
-
       </div>
 
       {/* Middle - Search Bar */}
@@ -83,7 +84,12 @@ const Navbar = () => {
 
       {/* Right Section - Icons & Profile */}
       <div className="absolute right-0 flex items-center space-x-4 mr-4">
-        <button className="invisible md:visible bg-purple-700 text-white p-3 rounded-full font-semibold flex items-center space-x-2" onClick={() => { navigate(ROUTES_CONSTANTS.LESSON.ADD_NEW) }}>
+        <button
+          className="invisible md:visible bg-purple-700 text-white p-3 rounded-full font-semibold flex items-center space-x-2"
+          onClick={() => {
+            navigate(ROUTES_CONSTANTS.LESSON.ADD_NEW);
+          }}
+        >
           <FaPlusCircle />
           <span> Add new</span>
         </button>

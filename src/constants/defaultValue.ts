@@ -1,11 +1,11 @@
-import { paths } from "../routes/paths";
-import { IHeaderState } from "../types/headerContext";
+// import { paths } from "../routers/paths";
+// import { IHeaderState } from "../types/headerContext";
 
-export const defaultHeaderStateValue: IHeaderState = {
-  homePageType: 1,
-  isInHomePage: false,
-};
+// export const defaultHeaderStateValue: IHeaderState = {
+//   homePageType: 1,
+//   isInHomePage: false,
+// };
 
-export const homePaths = [paths.index, paths.home];
+// export const homePaths = [paths.index, paths.home];
 
-export const MAX_FEE = 99999999;
+// export const MAX_FEE = 99999999;

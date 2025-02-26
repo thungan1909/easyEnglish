@@ -9,23 +9,15 @@ import { Controller, useForm } from "react-hook-form";
 import { useLoginMutation } from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
-import { ROUTES_CONSTANTS } from "../../../constants";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "../../../hooks/useAuth";
-import { useState } from "react";
-import { ICurrentUser } from "../../../types/auth/user";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const resolver = zodResolver(UserSignInSchema);
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, updateToken } = useAuth();
-  const [loginInfo, setLoginInfo] = useState<{
-    userInfo: ICurrentUser;
-    accessToken: string;
-  }>();
 
   const {
     control,
@@ -46,23 +38,8 @@ const Login = () => {
       onError: (error) => {
         notify.error(error.message || defaultErrorMsg);
       },
-      onSuccess: (res) => {
-        const accessToken = res?.access_token;
-        if (accessToken && res) {
-          const userData = {
-            id: res.user.user_id,
-            email: res.user.user_email,
-            username: res.user.user_name,
-          };
-          updateToken(accessToken);
-
-          setLoginInfo({
-            accessToken,
-            userInfo: userData,
-          });
-          return;
-        }
-        // navigate(ROUTES_CONSTANTS.AUTH.DEFAULT, { replace: true });
+      onSuccess: () => {
+        navigate(ROUTES_CONSTANTS.AUTH.DEFAULT, { replace: true });
       },
     });
   };

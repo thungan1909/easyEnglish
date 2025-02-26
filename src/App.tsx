@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
-import AppRoutes from "./router/AppRoutes.tsx";
+import AppRoutes from "./routers/AppRoutes.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QUERY_CACHE_TIME_DEFAULT } from "./constants/index.ts";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -31,9 +31,7 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
+          <AppRoutes />
         </ThemeProvider>
       </LocalizationProvider>
       <ToastContainer />

@@ -1,13 +1,11 @@
-
 import HeroSection from "./leftsection/HeroSection";
 import DashboardLayout from "../../layout/DashboardLayout";
-import RecentLessons from './leftsection/RecentLesson' 
+import RecentLessons from "./leftsection/RecentLesson";
 import NewestLesson from "./leftsection/NewestLesson";
 import RecommendLesson from "./leftsection/RecommendLesson";
-import RankingList from './rightSection/RankingList'
-import NewFeeds from './rightSection/NewFeeds'
+import RankingList from "./rightSection/RankingList";
+import NewFeeds from "./rightSection/NewFeeds";
 import MostListened from "./rightSection/MostListened";
-
 
 const Dashboard = () => {
   return (
@@ -21,11 +19,12 @@ const Dashboard = () => {
         </div>
         <div className="relative top-24 space-y-8 md:ml-24 md:col-span-2 md:w-[360px]">
           <RankingList />
-          <NewFeeds/>
-          <MostListened/>
+          <NewFeeds />
+          <MostListened />
         </div>
       </div>
     </DashboardLayout>
   );
 };
+
 export default Dashboard;

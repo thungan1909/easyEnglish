@@ -32,13 +32,13 @@ export type UriPermissionMapType = {
   };
 };
 
-export type AuthenticationInfo = {
+export type AuthenticationInfoType = {
   isAuth: boolean;
-  roleMap: RoleMapType;
-  screenPermissionMap: ScreenPermissionMapType;
-  uriPermissionMap: UriPermissionMapType;
-  processing: boolean;
-  isFailed: boolean;
-  isExternal: boolean;
-  isBlocked: boolean;
+  // roleMap: RoleMapType;
+  // screenPermissionMap: ScreenPermissionMapType;
+  // uriPermissionMap: UriPermissionMapType;
+  // processing: boolean;
+  // isFailed: boolean;
+  // isExternal: boolean;
+  // isBlocked: boolean;
 };

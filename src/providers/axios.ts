@@ -11,7 +11,8 @@ import {
 } from "../types/dtos/http";
 import { getPersistToken, persistToken } from "./auth";
 import { notify } from "../utils/notify";
-import { BASE_URL, ROUTES_CONSTANTS } from "../constants";
+import { BASE_URL } from "../constants";
+import { ROUTES_CONSTANTS } from "../routers/constants";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

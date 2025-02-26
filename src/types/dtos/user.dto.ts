@@ -1,9 +1,6 @@
+import { RoleEntity } from "../entities/role.entity";
+import { ScreenEntity } from "../entities/screen.entity";
 import { IOriginalResponse } from "./http";
-
-export type ChangePasswordDataDTO = {
-  old_password: string;
-  new_password: string;
-};
 
 export interface CheckExistEmailDTO {
   email: string;
@@ -31,10 +28,30 @@ export interface LoginDTO {
   password: string;
 }
 
+export type PermissionLoginViewModel = {
+  insert_uris: string[];
+  select_uris: string[];
+  update_uris: string[];
+  delete_uris: string[];
+  is_select: boolean;
+  is_insert: boolean;
+  is_update: boolean;
+  is_delete: boolean;
+  role: RoleEntity;
+  screen: ScreenEntity;
+};
+
 export interface LoginOriginalResponse extends IOriginalResponse {
-  user: {
-    user_id: string;
-    user_email: string;
-    user_name: string;
+  data: {
+    permissions: PermissionLoginViewModel[];
+    roles: RoleEntity[];
   };
 }
+
+export interface UserResDto {
+  user_id: string;
+  user_email: string;
+  user_name: string;
+}
+
+export type UserGetDataDto = UserResDto;
