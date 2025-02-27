@@ -23,6 +23,16 @@ const mainRoutes: RouteItemConfig[] = [
     element: <LessonPage />,
     showWithPermission: true,
   },
+  {
+    path: `${ROUTES_CONSTANTS.LESSON.BASE}?scope=listening`, // Route for ongoing lessons
+    element: <LessonPage />, // Reuse the LessonPage component
+    showWithPermission: true,
+  },
+  {
+    path: `${ROUTES_CONSTANTS.LESSON.BASE}?scope=listened`, // Route for completed lessons
+    element: <LessonPage />, // Reuse the LessonPage component
+    showWithPermission: true,
+  },
 ];
 
 const authenRoutes: RouteItemConfig[] = [

@@ -1,4 +1,5 @@
 export interface Lesson {
+  scope: string;
   id: string;
   title: string;
   listens: string;

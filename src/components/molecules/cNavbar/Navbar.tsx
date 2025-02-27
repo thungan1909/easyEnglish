@@ -16,6 +16,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
 import { useLogoutMutation } from "../../../apis/hooks/auth.hook";
 import { menuItems } from "./const";
+import { getLinkClassName } from "../../../utils/helpers/style";
 
 interface NavbarProps {
   isAuth: boolean;
@@ -41,18 +42,12 @@ const Navbar = ({ isAuth }: NavbarProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
-  const getLinkClassName = (href: string) => {
-    return location.pathname === href
-      ? "text-purple-500 font-bold"
-      : "text-gray-700 hover:text-purple-500";
-  };
-
   return (
     <nav className="flex items-center shadow-md px-6 py-3 fixed  top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
       <div className="flex items-center gap-x-6">
         <img src={logo} alt="EasyEnglish logo" className="h-8" />
 
-        <ul className="hidden md:flex gap-x-6  font-semibold">
+        <ul className="hidden md:flex gap-x-6">
           {menuItems.map((item) => (
             <li key={item.href}>
               <Link

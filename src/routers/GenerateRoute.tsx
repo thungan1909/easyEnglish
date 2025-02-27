@@ -1,10 +1,5 @@
 import { Route } from "react-router-dom";
-import {
-  RouteChildItemConfig,
-  RouteItemConfig,
-  RoutePermissionConfig,
-} from "../types/route-config";
-import { ScreenPermissionMapType } from "../types/auth";
+import { RouteChildItemConfig, RouteItemConfig } from "../types/route-config";
 
 // export const checkShowRoute = (
 //   config: RoutePermissionConfig

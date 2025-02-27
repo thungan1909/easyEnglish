@@ -10,6 +10,12 @@ export const ROUTES_CONSTANTS = {
     BASE: "/lesson",
     DETAIL: "/lesson/:id",
     ADD_NEW: "/lesson/add-new",
+    SCOPE: {
+      MINE: "/lesson/scope=mine",
+      LISTENING: "/lesson/scope=listening",
+      LISTENED: "/lesson/scope=listened",
+      ALL: "/lesson/scope=all",
+    },
   },
   CHALLENGE: {
     BASE: "/challange",

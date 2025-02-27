@@ -15,7 +15,7 @@ export const RegisterPage = withDynamicImport(
 );
 
 export const LessonPage = withDynamicImport(
-  () => import("../pages/lesson/LessonList"),
+  () => import("../pages/lesson/Lesson"),
   {
     loading: true,
   }

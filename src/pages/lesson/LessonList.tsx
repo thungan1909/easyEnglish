@@ -1,23 +1,22 @@
-import { FaHeart, FaList, FaPlus } from "react-icons/fa";
-import CButton from "../../components/atoms/CButton/CButton";
+import { Link } from "react-router-dom";
+import { ROUTES_CONSTANTS } from "../../routers/constants";
 import { exampleLessons } from "../dashboard/const";
-import { Divider, Typography } from "@mui/material";
 import LessonItem from "./LessonItem";
+import { getLinkClassName } from "../../utils/helpers/style";
+
+export const menuItems = [
+  { href: ROUTES_CONSTANTS.LESSON.SCOPE.ALL, label: "All Lessons" },
+  { href: ROUTES_CONSTANTS.LESSON.SCOPE.MINE, label: "My Uploads" },
+  { href: ROUTES_CONSTANTS.LESSON.SCOPE.LISTENING, label: "Ongoing Lessons" },
+  { href: ROUTES_CONSTANTS.LESSON.SCOPE.LISTENED, label: "Completed Lessons" },
+];
 
 const LessonList = () => {
   return (
-    <div className="relative w-[800px] top-32 left-20">
-      <ul className="flex space-x-6 mb-8">
-        <li className="text-purple-500 cursor-pointer ">All Lessons</li>
-        <li>My Uploads</li>
-        <li>Ongoing Lessons</li>
-        <li>Completed Lessons</li>
-      </ul>
-      <div className="grid gap-3">
-        {exampleLessons.map((lesson) => (
-          <LessonItem lesson={lesson} />
-        ))}
-      </div>
+    <div className="grid gap-3">
+      {exampleLessons.map((lesson) => (
+        <LessonItem lesson={lesson} />
+      ))}
     </div>
   );
 };

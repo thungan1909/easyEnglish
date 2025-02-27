@@ -14,6 +14,7 @@ export const exampleLessons: Lesson[] = [
     provider: "BBC",
     image: lesson1,
     progress: "40",
+    scope: "listening", // Assigning a scope
     description:
       "Hello cả nhà, đây là đáp án của câu hỏi của tuần trước nhé:Helen will go home and study.Hôm nay chúng ta sẽ tiếp tục series “The Flatmates” nha!Helen đang học thì nhận được một cuộc gọi từ mẹ. Cô đã tâm sự với mẹ về tình cảm của mình với Michal, buồn hơn nữa là có vẻ Michal chỉ để ý đến (only has eyes for) Alice mà thôi. Khi nghe được điều này, mẹ của Helen đã bảo rằng còn rất nhiều thời gian (plenty of time) cho việc yêu đương sau này, bây giờ Helen không được mơ mộng (get your head out of the clouds) đến chuyện này mà chỉ được tập trung học hành thôi.This episode's question:Will Helen do what her mum tells her to? 1: Yes 2: No Have fun learning English, guys!",
   },
@@ -24,6 +25,7 @@ export const exampleLessons: Lesson[] = [
     provider: "BBC",
     image: lesson2,
     progress: "50",
+    scope: "listening", // Assigning a scope
     description:
       "Hello cả nhà, đây là đáp án của câu hỏi của tuần trước nhé:Michal said about Alice: She's beautiful.Hôm nay chúng ta sẽ tiếp tục series “The Flatmates” nha!Trong tập này, Helen nói với Alice rằng cô nghĩ Michal thực sự thích cô ấy nhưng Alice chỉ cảm thấy việc đó thật ngớ ngẩn (daft), cho rằng anh chỉ giữ phép lịch sự (polite) mà thôi. Khi bị Alice rò hỏi tại sao lại đột dưng lại quan tâm đến việc này thì Helen đã khá bối rối, muốn đi về với lí do cô có rất nhiều (loads of) bài tập cần làm. Nhưng Alice bảo cô hãy thư giãn và hỏi cô muốn uống gì vì Tim sẽ mua lượt tiếp theo (next round).This episode's question: What will Helen do? Go home and…1: cry.2: study.3: think about Michal.Have fun learning English, guys!",
   },
@@ -34,6 +36,7 @@ export const exampleLessons: Lesson[] = [
     provider: "WELE The Wallaby",
     image: lesson3,
     progress: "60",
+    scope: "all", // Assigning a scope
     description:
       "Hello cả nhà, đây là đáp án của câu hỏi của tuần trước nhé:Helen will go home and study.Hôm nay chúng ta sẽ tiếp tục series “The Flatmates” nha!Helen đang học thì nhận được một cuộc gọi từ mẹ. Cô đã tâm sự với mẹ về tình cảm của mình với Michal, buồn hơn nữa là có vẻ Michal chỉ để ý đến (only has eyes for) Alice mà thôi. Khi nghe được điều này, mẹ của Helen đã bảo rằng còn rất nhiều thời gian (plenty of time) cho việc yêu đương sau này, bây giờ Helen không được mơ mộng (get your head out of the clouds) đến chuyện này mà chỉ được tập trung học hành thôi.This episode's question:Will Helen do what her mum tells her to? 1: Yes 2: No Have fun learning English, guys!",
   },
@@ -44,6 +47,7 @@ export const exampleLessons: Lesson[] = [
     provider: "WELE The Wallaby",
     image: lesson4,
     progress: "90",
+    scope: "mine", // Assigning a scope
     description:
       "Hello cả nhà, đây là đáp án củlen will go home and study.Hôm nay chúng ta sẽ tiếp tục series “The Flatmates” nha!Helen đang học thì nhận được một cuộc gọi từ mẹ. Cô đã tâm sự với mẹ về tình cảm của mình với Michal, buồn hơn nữa là có vẻ Michal chỉ để ý đến (only has eyes for) Alice mà thôi. Khi nghe được điều này, mẹ của Helen đã bảo rằng còn rất nhiều thời gian (plenty of time) cho việc yêu đương sau này, bây giờ Helen không được mơ mộng (get your head out of the clouds) đến chuyện này mà chỉ được tập trung học hành thôi.This episode's question:Will Helen do what her mum tells her to? 1: Yes 2: No Have fun learning English, guys!",
   },
@@ -53,6 +57,7 @@ export const exampleLessons: Lesson[] = [
     listens: "10.078",
     provider: "BBC",
     image: lesson2,
+    scope: "listened", // Assigning a scope
     progress: "50",
     description:
       "Hello cả nhà, đây là đáphé:Helen will go home and study.Hôm nay chúng ta sẽ tiếp tục series “The Flatmates” nha!Helen đang học thì nhận được một cuộc gọi từ mẹ. Cô đã tâm sự với mẹ về tình cảm của mình với Michal, buồn hơn nữa là có vẻ Michal chỉ để ý đến (only has eyes for) Alice mà thôi. Khi nghe được điều này, mẹ của Helen đã bảo rằng còn rất nhiều thời gian (plenty of time) cho việc yêu đương sau này, bây giờ Helen không được mơ mộng (get your head out of the clouds) đến chuyện này mà chỉ được tập trung học hành thôi.This episode's question:Will Helen do what her mum tells her to? 1: Yes 2: No Have fun learning English, guys!",
@@ -64,6 +69,7 @@ export const exampleLessons: Lesson[] = [
     provider: "WELE The Wallaby",
     image: lesson3,
     progress: "60",
+    scope: "listened", // Assigning a scope
     description:
       "Hello cả nhà, đây là đáp á:Helen will go home and study.Hôm nay chúng ta sẽ tiếp tục series “The Flatmates” nha!Helen đang học thì nhận được một cuộc gọi từ mẹ. Cô đã tâm sự với mẹ về tình cảm của mình với Michal, buồn hơn nữa là có vẻ Michal chỉ để ý đến (only has eyes for) Alice mà thôi. Khi nghe được điều này, mẹ của Helen đã bảo rằng còn rất nhiều thời gian (plenty of time) cho việc yêu đương sau này, bây giờ Helen không được mơ mộng (get your head out of the clouds) đến chuyện này mà chỉ được tập trung học hành thôi.This episode's question:Will Helen do what her mum tells her to? 1: Yes 2: No Have fun learning English, guys!",
   },
