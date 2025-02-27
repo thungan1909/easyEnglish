@@ -1,6 +1,7 @@
 // Only using react lazy in this file
 // eslint-disable-next-line no-restricted-imports
 import { FunctionComponent, JSX, lazy, Suspense } from "react";
+import MainLayout from "../layout/MainLayout";
 
 export const withDynamicImport = <TComponent extends FunctionComponent<any>>(
   callback: () => Promise<{ default: TComponent }>,
@@ -15,7 +16,9 @@ export const withDynamicImport = <TComponent extends FunctionComponent<any>>(
     return (props: React.ComponentProps<TComponent>): JSX.Element => {
       return (
         <Suspense>
+          {/* <MainLayout> */}
           <LazyElement {...props} />
+          {/* </MainLayout> */}
         </Suspense>
       );
     };
@@ -29,7 +32,9 @@ export const withDynamicImport = <TComponent extends FunctionComponent<any>>(
     return (
       // <Suspense fallback={loadingEl}>
       <Suspense>
+        {/* <MainLayout> */}
         <LazyElement {...props} />
+        {/* </MainLayout> */}
       </Suspense>
     );
   };

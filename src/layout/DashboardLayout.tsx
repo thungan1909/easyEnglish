@@ -1,5 +1,4 @@
 import { useAuthentication } from "../apis/hooks/auth.hook";
-import Navbar from "../components/Navbar";
 import HeroSection from "../pages/dashboard/leftsection/HeroSection";
 import NewestLesson from "../pages/dashboard/leftsection/NewestLesson";
 import RecentLessons from "../pages/dashboard/leftsection/RecentLesson";
@@ -12,22 +11,18 @@ const DashboardLayout = () => {
   const { isAuth } = useAuthentication();
 
   return (
-    <div className="bg-gradient-to-r to-purple-200  flex flex-col min-h-screen">
-      <Navbar isAuth={isAuth} />
-      <div className="max-h-screen overflow-y-auto">
-        <div className="grid grid-cols-1 p-8 gap-8 md:grid-cols-6 md:px-16 md:gap-32">
-          <div className="relative top-24 space-y-8 md:col-span-3 w-full md:w-[720px]">
-            <HeroSection />
-            {isAuth ? <RecentLessons /> : null}
-            <NewestLesson />
-            <RecommendLesson />
-          </div>
-          <div className="relative top-24 space-y-8 md:ml-24 md:col-span-2 md:w-[360px]">
-            <RankingList />
-            <NewFeeds />
-            <MostListened />
-          </div>
-        </div>
+    <div className="grid grid-cols-1 p-8 gap-8 md:grid-cols-6 md:px-16 md:gap-32">
+      <div className="relative top-24 space-y-8 md:col-span-3 w-full md:w-[720px]">
+        <HeroSection />
+        {isAuth ? <RecentLessons /> : null}
+        <NewestLesson />
+        <RecommendLesson />
+      </div>
+
+      <div className="relative top-24 space-y-8 md:ml-24 md:col-span-2 md:w-[360px]">
+        <RankingList />
+        <NewFeeds />
+        <MostListened />
       </div>
     </div>
   );

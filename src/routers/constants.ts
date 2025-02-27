@@ -3,11 +3,15 @@ export const ROUTES_CONSTANTS = {
     LOGIN: "/login",
     REGISTER: "/register",
     FORGOT_PASSWORD: "/forgot-password",
-    DEFAULT: "/",
-    PAGE_NOT_FOUND: "*" || "/404",
+    PAGE_NOT_FOUND: "*",
   },
   DASHBOARD: "/",
   LESSON: {
-    ADD_NEW: "add-new-lesson",
+    BASE: "/lesson",
+    DETAIL: "/lesson/:id",
+    ADD_NEW: "/lesson/add-new",
+  },
+  CHALLENGE: {
+    BASE: "/challange",
   },
 };

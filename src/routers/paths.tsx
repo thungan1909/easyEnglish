@@ -1,9 +1,8 @@
-import Register from "../pages/authen/register/Register";
+import MainLayout from "../layout/MainLayout";
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
 import { ROUTES_CONSTANTS } from "./constants";
-import { DashboardPage, LoginPage, RegisterPage } from "./lazyLoad";
-import { Navigate } from "react-router-dom";
+import { DashboardPage, LessonPage, LoginPage, RegisterPage } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
   {
@@ -15,13 +14,13 @@ const simpleRoutes: RouteItemConfig[] = [
 
 const mainRoutes: RouteItemConfig[] = [
   {
-    path: ROUTES_CONSTANTS.AUTH.DEFAULT,
-    element: <Navigate to={ROUTES_CONSTANTS.DASHBOARD} />,
+    path: ROUTES_CONSTANTS.DASHBOARD,
+    element: <DashboardPage />,
     showWithPermission: true,
   },
   {
-    path: ROUTES_CONSTANTS.DASHBOARD,
-    element: <DashboardPage />,
+    path: ROUTES_CONSTANTS.LESSON.BASE,
+    element: <LessonPage />,
     showWithPermission: true,
   },
 ];

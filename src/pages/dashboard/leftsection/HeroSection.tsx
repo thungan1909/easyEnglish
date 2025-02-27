@@ -2,13 +2,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { exampleSlides, settingSlider } from "../const";
-import {
-  FaCalendarTimes,
-  FaHourglass,
-  FaMicrophone,
-  FaUser,
-} from "react-icons/fa";
-import { FaTimeline, FaUserGroup } from "react-icons/fa6";
+import { FaHourglass, FaMicrophone } from "react-icons/fa";
+import { FaUserGroup } from "react-icons/fa6";
 
 const HeroSection = () => {
   return (

@@ -2,33 +2,11 @@ import GlobalNavigationRegister from "./GlobalNavigationRegister";
 import React, { useMemo } from "react";
 import { generateRoute } from "./GenerateRoute";
 import { authenRoutes, mainRoutes, simpleRoutes } from "./paths";
-import { useAuthentication } from "../apis/hooks/auth.hook";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { DashboardPage } from "./lazyLoad";
-import { ROUTES_CONSTANTS } from "./constants";
+import MainLayout from "../layout/MainLayout";
 
 const AppRoutes = () => {
-  // const { screenPermissionMap } = useAuthentication();
-
-  // const userMenu = useMemo(() => {
-  //   return generateRoute(mainRoutes, screenPermissionMap);
-  // }, [screenPermissionMap]);
-
-  // const authMenu = useMemo(() => {
-  //   return generateRoute(authenRoutes, screenPermissionMap);
-  // }, [screenPermissionMap]);
-
-  // const simpleMenu = useMemo(() => {
-  //   return generateRoute(simpleRoutes, screenPermissionMap);
-  // }, [screenPermissionMap]);
-
-  // const { screenPermissionMap } = useAuthentication();
-
-  const userMenu = useMemo(() => {
-    return generateRoute(mainRoutes);
-  }, []);
-
-  const authMenu = useMemo(() => {
+  const authenMenu = useMemo(() => {
     return generateRoute(authenRoutes);
   }, []);
 
@@ -40,10 +18,14 @@ const AppRoutes = () => {
     <BrowserRouter>
       <GlobalNavigationRegister />
       <Routes>
-        {authMenu}
-        <Route path={ROUTES_CONSTANTS.AUTH.DEFAULT} element={<DashboardPage />}>
-          {userMenu}
-        </Route>
+        {authenMenu}
+        {mainRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<MainLayout>{route.element}</MainLayout>}
+          />
+        ))}
         {simpleMenu}
       </Routes>
     </BrowserRouter>

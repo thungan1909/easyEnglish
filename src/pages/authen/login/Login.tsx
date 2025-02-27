@@ -44,7 +44,7 @@ const Login = () => {
         notify.error(error.message || defaultErrorMsg);
       },
       onSuccess: () => {
-        navigate(ROUTES_CONSTANTS.AUTH.DEFAULT, { replace: true });
+        navigate(ROUTES_CONSTANTS.DASHBOARD, { replace: true });
       },
     });
   };
