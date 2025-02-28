@@ -10,9 +10,9 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const { isAuth } = useAuthentication();
 
   return (
-    <div className="bg-gradient-to-r to-purple-200  flex flex-col">
+    <div className="flex flex-col">
       <Navbar isAuth={isAuth} />
-      <div className="max-h-screen overflow-y-auto">{children}</div>
+      <div>{children}</div>
     </div>
   );
 };

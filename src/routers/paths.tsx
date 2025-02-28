@@ -24,13 +24,23 @@ const mainRoutes: RouteItemConfig[] = [
     showWithPermission: true,
   },
   {
-    path: `${ROUTES_CONSTANTS.LESSON.BASE}?scope=listening`, // Route for ongoing lessons
-    element: <LessonPage />, // Reuse the LessonPage component
+    path: ROUTES_CONSTANTS.LESSON.SCOPE.MINE,
+    element: <LessonPage />,
     showWithPermission: true,
   },
   {
-    path: `${ROUTES_CONSTANTS.LESSON.BASE}?scope=listened`, // Route for completed lessons
-    element: <LessonPage />, // Reuse the LessonPage component
+    path: ROUTES_CONSTANTS.LESSON.SCOPE.LISTENING,
+    element: <LessonPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.LESSON.SCOPE.LISTENED,
+    element: <LessonPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.LESSON.SCOPE.ALL,
+    element: <LessonPage />,
     showWithPermission: true,
   },
 ];

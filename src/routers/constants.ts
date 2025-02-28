@@ -11,10 +11,10 @@ export const ROUTES_CONSTANTS = {
     DETAIL: "/lesson/:id",
     ADD_NEW: "/lesson/add-new",
     SCOPE: {
-      MINE: "/lesson/scope=mine",
-      LISTENING: "/lesson/scope=listening",
-      LISTENED: "/lesson/scope=listened",
-      ALL: "/lesson/scope=all",
+      MINE: "/lesson?scope=mine",
+      LISTENING: "/lesson?scope=listening",
+      LISTENED: "/lesson?scope=listened",
+      ALL: "/lesson?scope=all",
     },
   },
   CHALLENGE: {

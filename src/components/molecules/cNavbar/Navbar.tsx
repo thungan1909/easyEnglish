@@ -9,7 +9,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import logo from "../../../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useCallback, useEffect, useState } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
@@ -24,6 +24,7 @@ interface NavbarProps {
 
 const Navbar = ({ isAuth }: NavbarProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const { mutate: logoutMutation } = useLogoutMutation();
 
@@ -52,7 +53,10 @@ const Navbar = ({ isAuth }: NavbarProps) => {
             <li key={item.href}>
               <Link
                 to={item.href}
-                className={`transition ${getLinkClassName(item.href)}`}
+                className={`transition ${getLinkClassName(
+                  item.href,
+                  location
+                )}`}
               >
                 {item.label}
               </Link>
@@ -75,8 +79,9 @@ const Navbar = ({ isAuth }: NavbarProps) => {
                   <Link
                     to={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className={`block transition text-center ${getLinkClassName(
-                      item.href
+                    className={`transition ${getLinkClassName(
+                      item.href,
+                      location
                     )}`}
                   >
                     {item.label}
