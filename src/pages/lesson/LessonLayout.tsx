@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
 import { exampleLessons } from "../dashboard/const";
 import LessonItem from "./LessonItem";
@@ -20,7 +20,7 @@ const LessonLayout = () => {
   const scope = queryParams.get("scope");
 
   return (
-    <div className="relative w-[800px] top-24 left-24 ">
+    <div className="relative top-24 left-24 md:w-[720px]">
       <ul className="flex gap-x-6 m-3">
         {menuItems.map((item) => (
           <li key={item.href}>
@@ -33,7 +33,7 @@ const LessonLayout = () => {
           </li>
         ))}
       </ul>
-      <div className="grid gap-4  mt-4">
+      <div className="grid gap-4 mt-4">
         {exampleLessons
           .filter(
             (lesson) => !scope || scope === "all" || lesson.scope === scope

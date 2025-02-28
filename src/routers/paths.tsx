@@ -1,8 +1,13 @@
-import MainLayout from "../layout/MainLayout";
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
 import { ROUTES_CONSTANTS } from "./constants";
-import { DashboardPage, LessonPage, LoginPage, RegisterPage } from "./lazyLoad";
+import {
+  DashboardPage,
+  LessonDetailPage,
+  LessonPage,
+  LoginPage,
+  RegisterPage,
+} from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
   {
@@ -12,12 +17,7 @@ const simpleRoutes: RouteItemConfig[] = [
   },
 ];
 
-const mainRoutes: RouteItemConfig[] = [
-  {
-    path: ROUTES_CONSTANTS.DASHBOARD,
-    element: <DashboardPage />,
-    showWithPermission: true,
-  },
+const lessonRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.LESSON.BASE,
     element: <LessonPage />,
@@ -43,6 +43,20 @@ const mainRoutes: RouteItemConfig[] = [
     element: <LessonPage />,
     showWithPermission: true,
   },
+  {
+    path: ROUTES_CONSTANTS.LESSON.DETAIL,
+    element: <LessonDetailPage />,
+    showWithPermission: true,
+  },
+];
+
+const mainRoutes: RouteItemConfig[] = [
+  {
+    path: ROUTES_CONSTANTS.DASHBOARD,
+    element: <DashboardPage />,
+    showWithPermission: true,
+  },
+  ...lessonRoutes,
 ];
 
 const authenRoutes: RouteItemConfig[] = [

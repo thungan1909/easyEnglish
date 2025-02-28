@@ -20,11 +20,4 @@ interface RouteItemBase {
   disabled?: boolean;
 }
 
-export interface RouteChildItemConfig extends RouteItemBase {
-  subChild?: RouteItemBase[];
-}
-
-export interface RouteItemConfig extends RouteItemBase {
-  child?: RouteChildItemConfig[];
-  // subChild?: RouteItemBase[];
-}
+export type RouteItemConfig = RouteItemBase;

@@ -21,6 +21,13 @@ export const LessonPage = withDynamicImport(
   }
 );
 
+export const LessonDetailPage = withDynamicImport(
+  () => import("../pages/lesson/LessonDetail"),
+  {
+    loading: true,
+  }
+);
+
 export const DashboardPage = withDynamicImport(
   () => import("../pages/dashboard/Dashboard"),
   {

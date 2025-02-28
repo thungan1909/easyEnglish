@@ -8,7 +8,7 @@ export const ROUTES_CONSTANTS = {
   DASHBOARD: "/",
   LESSON: {
     BASE: "/lesson",
-    DETAIL: "/lesson/:id",
+    DETAIL: "/lesson/detail/:id",
     ADD_NEW: "/lesson/add-new",
     SCOPE: {
       MINE: "/lesson?scope=mine",

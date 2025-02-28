@@ -77,13 +77,12 @@ const CButton = ({
       className={className}
       size={size}
       sx={{
-        padding: 1,
+        padding: size === "small" ? 0.5 : 1,
         fontFamily: "Playwrite IT Moderna",
         transition: "background 0.3s ease",
         borderRadius: isRounded ? "9999px" : "8px",
         whiteSpace: "nowrap",
         minWidth: "max-content",
-
         ...(variantStyles[variant] || variantStyles.contained),
       }}
     >
