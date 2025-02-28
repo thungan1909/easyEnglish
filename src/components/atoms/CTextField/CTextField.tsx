@@ -43,7 +43,7 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
           }
         }}
         sx={{
-          fontFamily: "Playwrite IT Moderna",
+          // fontFamily: "var(--font-family)",
           "& .MuiOutlinedInput-input, & .MuiOutlinedInput-root, & .MuiOutlinedInput-root fieldset":
             {
               fontFamily: "inherit",

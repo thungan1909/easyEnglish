@@ -78,7 +78,7 @@ const CButton = ({
       size={size}
       sx={{
         padding: size === "small" ? 0.5 : 1,
-        fontFamily: "Playwrite IT Moderna",
+        fontFamily: "var(--font-family)",
         transition: "background 0.3s ease",
         borderRadius: isRounded ? "9999px" : "8px",
         whiteSpace: "nowrap",
