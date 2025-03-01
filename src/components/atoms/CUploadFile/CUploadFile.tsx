@@ -1,95 +1,61 @@
-import { Box, Button, Typography, Paper } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import CButton from "../CButton/CButton";
 import { useRef, useState } from "react";
 
 export type CUploadFileProps = {
-  onChangeFileSelected?: (data?: File) => void;
-  errorMessage?: string;
-};
+  onChangeFileSelected?: (data: File) => void;
+}
 
-const CUploadFile = ({
-  onChangeFileSelected,
-  errorMessage,
-}: CUploadFileProps) => {
+const CUploadFile = ({ onChangeFileSelected }: CUploadFileProps) => {
   const inputElement = useRef<HTMLInputElement | null>(null);
-  const audioElement = useRef<HTMLAudioElement | null>(null);
+  const audioElement = useRef<HTMLAudioElement | null> (null)
   const [uploadFileName, setUploadFileName] = useState<string | null>(null);
-  const [audioURL, setAudioURL] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+const [audioURL, setAudioURL] = useState<string | null>(null);
 
   const handleFileChange = () => {
+    console.log("This")
     if (inputElement.current?.files?.length) {
       const selectedFile = inputElement.current.files[0];
 
       if (selectedFile.type.startsWith("audio/")) {
         setUploadFileName(selectedFile.name);
-        setAudioURL(URL.createObjectURL(selectedFile));
         onChangeFileSelected?.(selectedFile);
+        setAudioURL(URL.createObjectURL(selectedFile))
         setError(null);
       } else {
-        setError("Only audio files are allowed.");
-        setAudioURL(null);
+        setError("Only audio files are allowed.")
       }
     }
+  }
+  const onClickButton = () => {
+    inputElement.current?.click(); // Trigger the hidden file input
   };
-
-  const handlePlayAudio = () => {
-    if (audioElement.current) {
-      audioElement.current
-        .play()
-        .catch((err) => console.error("Playback error:", err));
-    }
-  };
-
   return (
-    <Box sx={{ maxWidth: 400, margin: "auto", padding: 2 }}>
-      <Paper
-        sx={{ padding: 2, borderRadius: 2, boxShadow: 2, textAlign: "center" }}
-      >
-        <Typography variant="h6" gutterBottom>
-          Upload an Audio File
-        </Typography>
+    <Box>
+      <Typography>Upload an Audio File</Typography>
+      <input type="file" onChange={handleFileChange} ref={inputElement} accept="audio/*" hidden  />
 
-        {/* Nút chọn file thay vì input mặc định */}
-        <Button variant="contained" component="label">
-          Choose File
-          <input
-            type="file"
-            onChange={handleFileChange}
-            ref={inputElement}
-            accept="audio/*"
-            hidden
-          />
-        </Button>
+      <CButton onClick={onClickButton}>Choose File
+      </CButton>
 
-        {uploadFileName && (
-          <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
-            Selected: {uploadFileName}
-          </Typography>
-        )}
+      {uploadFileName && (
+        <Typography>Selected: {uploadFileName}</Typography>
+      )}
+      {error && (
+        <Typography>{error}</Typography>
+      )}
 
-        {error && (
-          <Typography variant="body2" color="error" sx={{ mt: 1 }}>
-            {error}
-          </Typography>
-        )}
-
-        {errorMessage && (
-          <Typography variant="body2" color="error" sx={{ mt: 1 }}>
-            {errorMessage}
-          </Typography>
-        )}
-
-        {audioURL && (
-          <Box sx={{ mt: 2 }}>
-            <audio ref={audioElement} controls>
-              <source src={audioURL} type="audio/mpeg" />
-              Your browser does not support the audio element.
-            </audio>
-          </Box>
-        )}
-      </Paper>
+      {audioURL && (
+        <Box>
+          <audio ref={audioElement} controls>
+            <source src={audioURL} type="audio/mpeg"/> 
+            Your browser does not support the audio element.
+          </audio>
+        </Box>
+      )}
     </Box>
-  );
-};
+  )
+}
 
-export default CUploadFile;
+export default CUploadFile
