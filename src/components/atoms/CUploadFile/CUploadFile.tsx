@@ -1,61 +1,97 @@
 import { Box, Typography } from "@mui/material";
 import CButton from "../CButton/CButton";
 import { useRef, useState } from "react";
+import { FaCloudUploadAlt, FaFileAudio, FaTimes } from "react-icons/fa";
 
 export type CUploadFileProps = {
   onChangeFileSelected?: (data: File) => void;
-}
+};
 
 const CUploadFile = ({ onChangeFileSelected }: CUploadFileProps) => {
   const inputElement = useRef<HTMLInputElement | null>(null);
-  const audioElement = useRef<HTMLAudioElement | null> (null)
+  const audioElement = useRef<HTMLAudioElement | null>(null);
   const [uploadFileName, setUploadFileName] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-const [audioURL, setAudioURL] = useState<string | null>(null);
+  const [audioURL, setAudioURL] = useState<string | null>(null);
 
   const handleFileChange = () => {
-    console.log("This")
     if (inputElement.current?.files?.length) {
       const selectedFile = inputElement.current.files[0];
 
       if (selectedFile.type.startsWith("audio/")) {
         setUploadFileName(selectedFile.name);
         onChangeFileSelected?.(selectedFile);
-        setAudioURL(URL.createObjectURL(selectedFile))
+        setAudioURL(URL.createObjectURL(selectedFile));
         setError(null);
       } else {
-        setError("Only audio files are allowed.")
+        setError("Only audio files are allowed.");
       }
     }
-  }
+  };
   const onClickButton = () => {
     inputElement.current?.click(); // Trigger the hidden file input
   };
-  return (
-    <Box>
-      <Typography>Upload an Audio File</Typography>
-      <input type="file" onChange={handleFileChange} ref={inputElement} accept="audio/*" hidden  />
 
-      <CButton onClick={onClickButton}>Choose File
-      </CButton>
+  const removeFile = () => {
+    setUploadFileName(null);
+    setError(null);
+
+    if (audioURL) {
+      URL.revokeObjectURL(audioURL);
+      setAudioURL(null);
+    }
+
+    if (inputElement.current) {
+      inputElement.current.value = "";
+    }
+  };
+
+  return (
+    <div className="border-2 border-dashed border-purple-600 p-8 flex flex-col items-center gap-3">
+      <input
+        type="file"
+        onChange={handleFileChange}
+        ref={inputElement}
+        accept="audio/*"
+        hidden
+      />
+
+      {!uploadFileName && (
+        <>
+          <CButton onClick={onClickButton} size="large">
+            <FaCloudUploadAlt size={28} />
+          </CButton>
+          <span>Click to upload audio file</span>
+        </>
+      )}
 
       {uploadFileName && (
-        <Typography>Selected: {uploadFileName}</Typography>
+        <div className="relative bg-purple-300 p-8 rounded-2xl">
+          <CButton
+            className="!absolute right-0 top-0"
+            variant="text"
+            onClick={removeFile}
+          >
+            <FaTimes size={28} />
+          </CButton>
+          <div className="flex items-center space-x-1 mt-2 max-w-[240px] line-clamp-2">
+            <FaFileAudio size={28} />
+            <Typography>{uploadFileName}</Typography>
+          </div>
+        </div>
       )}
-      {error && (
-        <Typography>{error}</Typography>
-      )}
+      {error && <Typography>{error}</Typography>}
 
       {audioURL && (
         <Box>
           <audio ref={audioElement} controls>
-            <source src={audioURL} type="audio/mpeg"/> 
+            <source src={audioURL} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         </Box>
       )}
-    </Box>
-  )
-}
+    </div>
+  );
+};
 
-export default CUploadFile
+export default CUploadFile;
