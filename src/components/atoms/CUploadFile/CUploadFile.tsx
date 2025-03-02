@@ -47,7 +47,7 @@ const CUploadFile = ({ onChangeFileSelected }: CUploadFileProps) => {
   };
 
   return (
-    <div className="border-2 border-dashed border-purple-600 p-8 flex flex-col items-center gap-3">
+    <div className="border-2 border-dashed border-purple-600 p-6 flex flex-col items-center gap-3 rounded-lg justify-center">
       <input
         type="file"
         onChange={handleFileChange}
@@ -66,15 +66,15 @@ const CUploadFile = ({ onChangeFileSelected }: CUploadFileProps) => {
       )}
 
       {uploadFileName && (
-        <div className="relative bg-purple-300 p-8 rounded-2xl">
+        <div className="relative bg-purple-300 p-4 rounded-2xl">
           <CButton
-            className="!absolute right-0 top-0"
+            className="!absolute -right-1 -top-1"
             variant="text"
             onClick={removeFile}
           >
             <FaTimes size={28} />
           </CButton>
-          <div className="flex items-center space-x-1 mt-2 max-w-[240px] line-clamp-2">
+          <div className="flex items-center space-x-1 mt-2 max-w-[320px] line-clamp-1">
             <FaFileAudio size={28} />
             <Typography>{uploadFileName}</Typography>
           </div>

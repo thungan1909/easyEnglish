@@ -3,27 +3,100 @@ import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
 import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
+import { TextField, Typography } from "@mui/material";
 
-const AddNewLesson: React.FC = () => {
+const AddNewLesson = () => {
+  const [lessonContent, setLessonContent] = useState("");
+  const [lessonWords, setLessonWords] = useState<string[]>();
+
+  const handleGetLessonContent = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setLessonContent(e.target.value);
+  };
+
+  const generateWords = (randomize: Boolean) => {
+    const words = lessonContent.split(/\s+/).filter(Boolean);
+    let blankPercent = 0.9;
+    if (randomize) {
+      blankPercent = 0.6;
+    }
+    const a = words?.map((word) => (Math.random() < blankPercent ? "" : word));
+    setLessonWords(a);
+  };
+
   return (
-    <div className="relative top-24 left-24 md:w-[720px]">
-      <form className="flex flex-col space-y-8">
-        <div className="w-full">
-          <CTextField label="Title" className="w-full" />
+    <form className=" mt-16 p-8 flex flex-col space-y-6 ">
+      <CTextField label="Lesson's title" className="w-full" maxLength={50} />
+
+      <div className="grid md:grid-cols-2 gap-6  items-start">
+        <CTextArea
+          maxRows={25}
+          minRows={5}
+          maxLength={1500}
+          placeholder="Content"
+          className="w-full mb-0"
+          value={lessonContent}
+          onChange={handleGetLessonContent}
+        />
+        <div className="flex space-x-1 flex-wrap h-auto max-h-fit">
+          {lessonWords?.map((word, index) => (
+            <span
+              className={`p-2 ${
+                word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
+              }`}
+              style={{
+                minWidth: word ? `${word.length * 4}px` : "20px",
+              }}
+              key={index}
+            >
+              {word !== "" ? word : "\u00A0"}
+            </span>
+          ))}
         </div>
-        <CUploadFile onChangeFileSelected={(file) => console.log(file)} />
-        {/* <div>
-          <CTextArea
-            maxRows={50}
-            minRows={10}
-            placeholder="Content"
-            className="w-full"
-          />
-        </div> */}
-        <CButton>Save</CButton>
-      </form>
-    </div>
+      </div>
+      <div className="flex justify-evenly">
+        <CButton onClick={() => generateWords(false)}>
+          Generate without suggest
+        </CButton>
+        <CButton onClick={() => generateWords(true)}>
+          Generate with suggest
+        </CButton>
+      </div>
+      <CUploadFile onChangeFileSelected={(file) => console.log(file)} />
+      <CButton className="w-full">Save</CButton>
+    </form>
   );
 };
 
 export default AddNewLesson;
+
+// <TextField
+//   key={index}
+//   defaultValue={word}
+//   variant="standard"
+//   id={`word-input-${index}`} // Unique ID for each input
+//   onChange={(e) => {
+//     if (e.target.value.length === word.length) {
+//       // Move focus to the next input field
+//       const nextInput = document.getElementById(
+//         `word-input-${index + 1}`
+//       );
+//       if (nextInput) {
+//         (nextInput as HTMLInputElement).focus();
+//       }
+//     }
+//   }}
+//   slotProps={{
+//     input: {
+//       inputProps: {
+//         maxLength: word.length,
+//       },
+//     },
+//   }}
+//   className=" bg-gray-100 !mr-2 "
+//   sx={{
+//     width: `${word.length * 10}px`, // Adjust width dynamically
+//     minWidth: "40px", // Ensure a minimum width
+//   }}
+// />

@@ -65,29 +65,31 @@ const CButton = ({
   };
 
   return (
-    <Button
-      type={type}
-      variant={variant}
-      disabled={disabled || loading}
-      onClick={onClick}
-      startIcon={startIcon}
-      endIcon={endIcon}
-      style={{ ...style }}
-      fullWidth={fullWidth}
-      className={className}
-      size={size}
-      sx={{
-        padding: size === "small" ? 0.5 : 1,
-        fontFamily: "var(--font-family)",
-        transition: "background 0.3s ease",
-        borderRadius: isRounded ? "9999px" : "8px",
-        whiteSpace: "nowrap",
-        minWidth: "max-content",
-        ...(variantStyles[variant] || variantStyles.contained),
-      }}
-    >
-      {loading ? <CircularProgress size={24.5} /> : children}
-    </Button>
+    <div>
+      <Button
+        type={type}
+        variant={variant}
+        disabled={disabled || loading}
+        onClick={onClick}
+        startIcon={startIcon}
+        endIcon={endIcon}
+        style={{ ...style }}
+        fullWidth={fullWidth}
+        className={className}
+        size={size}
+        sx={{
+          padding: size === "small" ? 0.5 : 1,
+          fontFamily: "var(--font-family)",
+          transition: "background 0.3s ease",
+          borderRadius: isRounded ? "9999px" : "8px",
+          whiteSpace: "nowrap",
+          minWidth: "max-content",
+          ...(variantStyles[variant] || variantStyles.contained),
+        }}
+      >
+        {loading ? <CircularProgress size={24.5} /> : children}
+      </Button>
+    </div>
   );
 };
 
