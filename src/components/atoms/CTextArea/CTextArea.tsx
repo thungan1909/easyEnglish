@@ -35,6 +35,7 @@ const CTextArea = ({
         onChange={onChange}
         style={{
           border: "1px solid",
+          paddingInline: "16px",
           borderColor: "var(--main-color)",
         }}
       />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
@@ -15,38 +15,50 @@ const AddNewLesson = () => {
     setLessonContent(e.target.value);
   };
 
-  const generateWords = (randomize: Boolean) => {
-    const words = lessonContent.split(/\s+/).filter(Boolean);
-    let blankPercent = 0.9;
-    if (randomize) {
-      blankPercent = 0.6;
+  const generateWords = (withSuggestions: Boolean) => {
+    console.log("Ca");
+    if (!lessonContent.trim()) return;
+    const words = lessonContent
+      .split(/(\s+|[.,!?])/) // Capture spaces and punctuation separately
+      .filter(Boolean);
+    const blankProbability = withSuggestions ? 0.6 : 0.9;
+
+    const updatedWords = words.map((word) =>
+      word.match(/^[.,!?]$/) // If the word is ONLY punctuation
+        ? word // Keep punctuation unchanged
+        : Math.random() < blankProbability
+        ? "" // Replace only words with blank
+        : word
+    );
+    // Prevent unnecessary re-renders by checking if state actually changed
+
+    if (JSON.stringify(updatedWords) !== JSON.stringify(lessonWords)) {
+      setLessonWords(updatedWords);
     }
-    const a = words?.map((word) => (Math.random() < blankPercent ? "" : word));
-    setLessonWords(a);
   };
 
   return (
     <form className=" mt-16 p-8 flex flex-col space-y-6 ">
       <CTextField label="Lesson's title" className="w-full" maxLength={50} />
 
-      <div className="grid md:grid-cols-2 gap-6  items-start">
+      <div className="grid md:grid-cols-2 gap-6 items-start">
         <CTextArea
           maxRows={25}
           minRows={5}
           maxLength={1500}
-          placeholder="Content"
-          className="w-full mb-0"
+          placeholder="Enter lesson content..."
+          className="w-full"
           value={lessonContent}
           onChange={handleGetLessonContent}
         />
-        <div className="flex space-x-1 flex-wrap h-auto max-h-fit">
+        <div className="flex gap-x-1 flex-wrap">
           {lessonWords?.map((word, index) => (
             <span
-              className={`p-2 ${
+              className={` ${
                 word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
               }`}
               style={{
-                minWidth: word ? `${word.length * 4}px` : "20px",
+                minWidth: word ? `${word.length}px` : "20px",
               }}
               key={index}
             >
