@@ -7,6 +7,7 @@ import {
 import { IHttpError } from "../../types/dtos/http";
 import {
   checkExistEmail,
+  getVerifyCodeMutation,
   loginMutation,
   signUpMutation,
   verifyEmailMutation,
@@ -15,6 +16,8 @@ import {
 import {
   CheckExistEmailDTO,
   CheckExistEmailResponse,
+  GetVerifyCodeDTO,
+  GetVerifyCodeResponse,
   LoginDTO,
   LoginOriginalResponse,
   LogOutDTO,
@@ -200,6 +203,14 @@ export const useVerifyEmailMutation = () => {
   return useMutation<VerifyEmailResponse, IHttpError, VerifyEmailDTO>({
     mutationFn: async (data: VerifyEmailDTO) => {
       return verifyEmailMutation.fn(data);
+    },
+  });
+};
+
+export const useGetVerifyCode = () => {
+  return useMutation<GetVerifyCodeResponse, IHttpError, GetVerifyCodeDTO>({
+    mutationFn: async (data: GetVerifyCodeDTO) => {
+      return getVerifyCodeMutation.fn(data);
     },
   });
 };

@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
-import loginImg from "../../../assets/login_img_2.png";
 
 import { TUserSignUpSchema } from "./schemas";
 import { Controller, UseFormReturn } from "react-hook-form";

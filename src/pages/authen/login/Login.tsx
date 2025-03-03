@@ -151,7 +151,7 @@ const Login = () => {
                 Create new account
               </a>
               <span className="text-center">/</span>
-              <a href={ROUTES_CONSTANTS.AUTH.REGISTER} className="ml-1">
+              <a href={ROUTES_CONSTANTS.AUTH.VERIFY_ACCOUNT} className="ml-1">
                 Verify your account
               </a>
             </div>

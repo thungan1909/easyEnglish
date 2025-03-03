@@ -1,3 +1,4 @@
+import VerifyAccount from "../pages/authen/verifyAccount/VerifyAccount";
 import AddNewLesson from "../pages/lesson/addNewLesson/AddNewLesson";
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
@@ -8,6 +9,7 @@ import {
   LessonPage,
   LoginPage,
   RegisterPage,
+  VerifyAccountPage,
 } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
@@ -78,12 +80,7 @@ const authenRoutes: RouteItemConfig[] = [
   },
   {
     path: ROUTES_CONSTANTS.AUTH.VERIFY_ACCOUNT,
-    element: <RegisterPage />,
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD,
-    element: <RegisterPage />,
+    element: <VerifyAccountPage />,
     showWithPermission: true,
   },
 ];

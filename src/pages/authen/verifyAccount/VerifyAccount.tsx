@@ -1,55 +1,50 @@
 import { useEffect, useRef, useState } from "react";
-import CheckValidEmail from "./InputEmail";
-import { ESignUpStep } from "./constant";
 import CSteppers from "../../../components/molecules/cSteppers";
 import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
-import { TUserSignUpSchema, UserSignUpSchema } from "./schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import InputBasicInfo from "./InputBasicInfo";
 import {
   useAuthentication,
-  useSignUpMutation,
+  useGetVerifyCode,
 } from "../../../apis/hooks/auth.hook";
-import InputVerificationCode from "../shared/InputVerificationCode";
-import VerifySuccessfully from "../shared/VerifySuccessfully";
+
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import loginImg from "../../../assets/login_img_2.png";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { EVerifyStep } from "./constant";
+import InputUserInfo from "./InputVerificationEmail";
+import InputVerificationCode from "../shared/InputVerificationCode";
+import VerifySuccessfully from "../shared/VerifySuccessfully";
+import {
+  GetVerifyCodeSchema,
+  TGetVerifyCodeSchema,
+} from "../../../types/dtos/login.dto";
 
-const Register = () => {
+const VerifyAccount = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
   const [step, setStep] = useState(0);
   const [verificationState, setVerificationState] = useState(false);
-  const [currentStep, setCurrentStep] = useState<ESignUpStep>(
-    ESignUpStep.InputEmail
+  const [currentStep, setCurrentStep] = useState<EVerifyStep>(
+    EVerifyStep.InputInfo
   );
   const { isAuth } = useAuthentication();
 
-  const { mutate: signUpMutation } = useSignUpMutation();
+  const { mutate: getVerifyCodeMutation } = useGetVerifyCode();
 
-  const formInstance = useForm<TUserSignUpSchema>({
+  const formInstance = useForm<TGetVerifyCodeSchema>({
     mode: "onChange",
-    resolver: zodResolver(UserSignUpSchema),
+    resolver: zodResolver(GetVerifyCodeSchema),
   });
 
-  const handleSetEmail = (email: string) => {
-    setCurrentStep(ESignUpStep.InputBasicInfo);
-    formInstance.setValue("email", email);
-    CStepperRef.current?.handleNextStep();
-  };
-
-  const handleSubmitAuthenInfo = (data: TUserSignUpSchema) => {
-    signUpMutation(
+  const handleSubmitAuthenInfo = (data: TGetVerifyCodeSchema) => {
+    getVerifyCodeMutation(
       {
         email: data.email,
-        username: data.username,
-        password: data.password,
       },
       {
         onSuccess: () => {
-          setCurrentStep(ESignUpStep.InputVerificationCode);
+          setCurrentStep(EVerifyStep.InputVerificationCode);
           CStepperRef.current?.handleNextStep();
         },
         onError: (error) => {
@@ -61,7 +56,7 @@ const Register = () => {
 
   useEffect(() => {
     if (verificationState) {
-      setCurrentStep(ESignUpStep.VerifySuccessfully);
+      setCurrentStep(EVerifyStep.VerifySuccessfully);
       CStepperRef.current?.handleNextStep();
     }
   }, [verificationState]);
@@ -76,7 +71,7 @@ const Register = () => {
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-r to-purple-200">
       <div className="w-1/2 mb-8">
         <CSteppers
-          numberStep={4}
+          numberStep={3}
           currentStep={step}
           changeCurrentStep={setStep}
           ref={CStepperRef}
@@ -91,23 +86,20 @@ const Register = () => {
           />
         </div>
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
-          {currentStep === ESignUpStep.InputEmail && (
-            <CheckValidEmail onInputEmail={handleSetEmail} />
-          )}
-          {currentStep === ESignUpStep.InputBasicInfo && (
-            <InputBasicInfo
-              onSubmitProfile={handleSubmitAuthenInfo}
+          {currentStep === EVerifyStep.InputInfo && (
+            <InputUserInfo
+              onSubmitForm={handleSubmitAuthenInfo}
               formInstance={formInstance}
             />
           )}
-          {currentStep === ESignUpStep.InputVerificationCode && (
+          {currentStep === EVerifyStep.InputVerificationCode && (
             <InputVerificationCode
               email={formInstance.getValues("email")}
               onSuccessVerify={setVerificationState}
             />
           )}
-          {currentStep === ESignUpStep.VerifySuccessfully && (
-            <VerifySuccessfully />
+          {currentStep === EVerifyStep.VerifySuccessfully && (
+            <VerifySuccessfully isVerify />
           )}
         </div>
       </div>
@@ -115,4 +107,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default VerifyAccount;

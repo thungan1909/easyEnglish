@@ -1,21 +1,18 @@
 import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
-import loginImg from "../../../assets/login_img_2.png";
 import { useRef, useState } from "react";
-import { UseFormReturn } from "react-hook-form";
-import { TUserSignUpSchema } from "./schemas";
 import { useVerifyEmailMutation } from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 
 export interface InputVerificationCodeProps {
-  formInstance: UseFormReturn<TUserSignUpSchema>;
+  email: string;
   onSuccessVerify: (isVerified: boolean) => void;
 }
 
 const InputVerificationCode = ({
-  formInstance,
+  email,
   onSuccessVerify,
 }: InputVerificationCodeProps) => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
@@ -45,8 +42,7 @@ const InputVerificationCode = ({
     if (verificationCode?.length === 6) {
       verifyEmailMutation(
         {
-          username: formInstance.getValues("username"),
-          email: formInstance.getValues("email"),
+          email: email,
           verifyCode: verificationCode,
         },
         {
@@ -71,9 +67,7 @@ const InputVerificationCode = ({
       </Typography>
       <Typography className="text-center">
         A verification email has been sent to
-        <span className="ml-1 font-semibold text-purple-600">
-          {formInstance.getValues("email")}
-        </span>
+        <span className="ml-1 font-semibold text-purple-600">{email}</span>
       </Typography>
 
       <div className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full">

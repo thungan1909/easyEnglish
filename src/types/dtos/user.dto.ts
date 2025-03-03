@@ -1,5 +1,3 @@
-import { RoleEntity } from "../entities/role.entity";
-import { ScreenEntity } from "../entities/screen.entity";
 import { IOriginalResponse } from "./http";
 
 export interface CheckExistEmailDTO {
@@ -17,11 +15,17 @@ export interface SignUpDTO {
 }
 
 export interface VerifyEmailResponse {}
+
 export interface VerifyEmailDTO {
   email: string;
-  username: string;
   verifyCode: string;
 }
+
+export interface GetVerifyCodeDTO {
+  email: string;
+}
+
+export interface GetVerifyCodeResponse {}
 
 export interface LoginDTO {
   username: string;

@@ -14,6 +14,13 @@ export const RegisterPage = withDynamicImport(
   }
 );
 
+export const VerifyAccountPage = withDynamicImport(
+  () => import("../pages/authen/verifyAccount/VerifyAccount"),
+  {
+    loading: true,
+  }
+);
+
 export const LessonPage = withDynamicImport(
   () => import("../pages/lesson/Lesson"),
   {

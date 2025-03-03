@@ -3,6 +3,8 @@ import { END_POINTS } from "../constants";
 import {
   CheckExistEmailDTO,
   CheckExistEmailResponse,
+  GetVerifyCodeDTO,
+  GetVerifyCodeResponse,
   LoginDTO,
   LoginOriginalResponse,
   SignUpDTO,
@@ -56,6 +58,19 @@ export const verifyEmailMutation = {
     try {
       return getOrginialResponseData<VerifyEmailResponse>(
         await getAxiosInstance().post(END_POINTS.AUTH.VERIFY_USER, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const getVerifyCodeMutation = {
+  name: "getVerifyCode",
+  fn: async (data: GetVerifyCodeDTO): Promise<GetVerifyCodeResponse> => {
+    try {
+      return getOrginialResponseData<GetVerifyCodeResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.GET_VERIFY_CODE, data)
       );
     } catch (error) {
       throw error;

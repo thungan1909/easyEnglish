@@ -4,24 +4,24 @@ import checkImg from "../../../assets/check-img.png";
 
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
-
-const RegisterSuccessfully = () => {
+interface VerifySuccessfullyProps {
+  isVerify?: boolean;
+}
+const VerifySuccessfully = ({ isVerify }: VerifySuccessfullyProps) => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <div className="flex items-center  justify-center ">
-        <img
-          src={checkImg}
-          alt="Check successfully illustration"
-          className="object-contain w-50"
-        />
-      </div>
+    <div className="flex flex-col items-center justify-center gap-4">
+      <img
+        src={checkImg}
+        alt="Check successfully illustration"
+        className="object-contain w-50"
+      />
       <Typography
         variant="h5"
         className="text-center font-semibold text-gray-800 !mb-2"
       >
-        Registration Successful
+        {isVerify ? "Verification Successful" : "Registration Successful"}
       </Typography>
       <Typography className="text-center">
         Welcome to
@@ -29,9 +29,8 @@ const RegisterSuccessfully = () => {
       </Typography>
 
       <CButton
-        fullWidth
         onClick={() => navigate(ROUTES_CONSTANTS.AUTH.LOGIN)}
-        className="!bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white !py-3 !rounded-full !mt-16"
+        className="w-full !mt-8"
       >
         Go to Sign In
       </CButton>
@@ -39,4 +38,4 @@ const RegisterSuccessfully = () => {
   );
 };
 
-export default RegisterSuccessfully;
+export default VerifySuccessfully;

@@ -7,6 +7,7 @@ export const END_POINTS = {
     CHECK_EXIST_EMAIL: "/auth/check-exist-email",
     SIGN_UP: "/auth/sign-up",
     VERIFY_USER: "/auth/verify-user",
+    GET_VERIFY_CODE: "/auth/get-verify-code",
   },
 };
 
