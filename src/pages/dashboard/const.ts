@@ -192,3 +192,16 @@ export const exampleSlides: Slide[] = [
     },
   },
 ];
+
+export const exLesson: Lesson = {
+  id: "ESL_1",
+  title: "E5: Helen at home",
+  listens: "4.220",
+  provider: "BBC",
+  image: lesson1,
+  progress: "40",
+  scope: "listening",
+  createDate: '26/01/2025',
+  description:
+    "Hello cả nhà, đây là đáp án của câu hỏi của tuần trước nhé:Helen will go home and study.Hôm nay chúng ta sẽ tiếp tục series “The Flatmates” nha!Helen đang học thì nhận được một cuộc gọi từ mẹ. Cô đã tâm sự với mẹ về tình cảm của mình với Michal, buồn hơn nữa là có vẻ Michal chỉ để ý đến (only has eyes for) Alice mà thôi. Khi nghe được điều này, mẹ của Helen đã bảo rằng còn rất nhiều thời gian (plenty of time) cho việc yêu đương sau này, bây giờ Helen không được mơ mộng (get your head out of the clouds) đến chuyện này mà chỉ được tập trung học hành thôi.This episode's question:Will Helen do what her mum tells her to? 1: Yes 2: No Have fun learning English, guys!",
+};

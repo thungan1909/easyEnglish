@@ -24,7 +24,7 @@ const InputVerificationCode = ({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(""));
   const [disableButton, setDisableButton] = useState(true);
-  const [isVerified, setIsVerified] = useState(false);
+  // const [isVerified, setIsVerified] = useState(false);
 
   const { mutate: verifyEmailMutation } = useVerifyEmailMutation();
   const { mutate: getVerifyCodeMutation } = useGetVerifyCode();
@@ -47,15 +47,18 @@ const InputVerificationCode = ({
     [code]
   );
 
-  const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
-    if (e.key === "Backspace" && !code[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    }
-  };
+  const handleKeyDown = useCallback(
+    (index: number, e: React.KeyboardEvent) => {
+      if (e.key === "Backspace" && !code[index] && index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+    },
+    [code]
+  );
 
-  const handleVerificationEmail = () => {
+  const handleVerificationEmail = useCallback(() => {
     let verificationCode = code.join("");
-    if (verificationCode?.length === 6) {
+    if (verificationCode?.length === CODE_LENGTH) {
       verifyEmailMutation(
         {
           email: email,
@@ -68,27 +71,24 @@ const InputVerificationCode = ({
           onError: (error) => {
             notify.error(error.message || defaultErrorMsg);
             setCode(Array(CODE_LENGTH).fill(""));
-            // setIsResendVerifyCode(true);
           },
         }
       );
-      setIsVerified(true);
+      // setIsVerified(true);
     }
-  };
+  }, [code, email, onSuccessVerify, verifyEmailMutation]);
 
-  const handleResendVerifyCode = () => {
+  const handleResendVerifyCode = useCallback(() => {
     getVerifyCodeMutation(
       {
-        email: email,
+        email,
       },
       {
-        onSuccess: () => {},
-        onError: (error) => {
-          notify.error(error.message || defaultErrorMsg);
-        },
+        onSuccess: () => notify.success("Verification code resent."),
+        onError: (error) => notify.error(error.message || defaultErrorMsg),
       }
     );
-  };
+  }, [email, getVerifyCodeMutation]);
 
   return (
     <div>
@@ -126,7 +126,7 @@ const InputVerificationCode = ({
         <CButton
           disabled={disableButton}
           className="w-full"
-          onClick={() => handleVerificationEmail()}
+          onClick={handleVerificationEmail}
         >
           {isVerify ? "Verification" : "Register"}
         </CButton>
@@ -135,9 +135,9 @@ const InputVerificationCode = ({
         </Typography>
         <CButton
           className="w-full"
-          onClick={() => handleResendVerifyCode()}
+          onClick={handleResendVerifyCode}
           variant="text"
-          disabled={!isVerified}
+          // disabled={!isVerified}
         >
           Resend
         </CButton>

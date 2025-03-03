@@ -1,18 +1,8 @@
-import { Link, useLocation, useParams } from "react-router-dom";
-import { ROUTES_CONSTANTS } from "../../routers/constants";
+import { Link, useLocation } from "react-router-dom";
 import { exampleLessons } from "../dashboard/const";
 import LessonItem from "./LessonItem";
 import { getLinkClassName } from "../../utils/helpers/style";
-
-export const menuItems = [
-  { href: ROUTES_CONSTANTS.LESSON.SCOPE.ALL, label: "All Lessons" },
-  { href: ROUTES_CONSTANTS.LESSON.SCOPE.MINE, label: "My Uploads" },
-  { href: ROUTES_CONSTANTS.LESSON.SCOPE.LISTENING, label: "Ongoing Lessons" },
-  {
-    href: `${ROUTES_CONSTANTS.LESSON.BASE}?scope=listened`,
-    label: "Completed Lessons",
-  },
-];
+import { menuItems } from "./constants";
 
 const LessonLayout = () => {
   const location = useLocation();

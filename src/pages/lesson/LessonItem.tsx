@@ -1,7 +1,7 @@
 import { FaHeart, FaList, FaPlus } from "react-icons/fa";
 import CButton from "../../components/atoms/CButton/CButton";
 import { Lesson } from "../dashboard/types";
-import { Divider, Typography } from "@mui/material";
+import { Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
 

@@ -7,6 +7,7 @@ export interface Lesson {
   image: string;
   progress: string;
   description?: string;
+  createDate?: string;
 }
 
 export interface User {
