@@ -4,6 +4,7 @@ export const ROUTES_CONSTANTS = {
     REGISTER: "/register",
     FORGOT_PASSWORD: "/forgot-password",
     PAGE_NOT_FOUND: "*",
+    VERIFY_ACCOUNT: "/verify-account",
   },
   DASHBOARD: "/",
   LESSON: {

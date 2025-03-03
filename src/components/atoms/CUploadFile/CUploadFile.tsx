@@ -66,7 +66,7 @@ const CUploadFile = ({ onChangeFileSelected }: CUploadFileProps) => {
       )}
 
       {uploadFileName && (
-        <div className="relative bg-purple-300 p-4 rounded-2xl">
+        <div className="relative bg-purple-300 p-5 rounded-2xl">
           <CButton
             className="!absolute -right-1 -top-1"
             variant="text"
@@ -80,7 +80,11 @@ const CUploadFile = ({ onChangeFileSelected }: CUploadFileProps) => {
           </div>
         </div>
       )}
-      {error && <Typography>{error}</Typography>}
+      {error && (
+        <Typography color="error" variant="caption">
+          {error}
+        </Typography>
+      )}
 
       {audioURL && (
         <Box>

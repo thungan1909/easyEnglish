@@ -13,10 +13,10 @@ export interface IButton {
   loading?: boolean;
   style?: any;
   endIcon?: JSX.Element | null;
-  fullWidth?: boolean;
   variant?: "text" | "contained" | "outlined";
   isRounded?: boolean;
   size?: "small" | "medium" | "large";
+  textTransform?: "capitalize" | "lowercase" | "uppercase";
 }
 
 const CButton = ({
@@ -29,10 +29,10 @@ const CButton = ({
   className = "",
   style = {},
   endIcon = null,
-  fullWidth = false,
   variant = "contained",
   isRounded = false,
   size = "medium",
+  textTransform = "uppercase",
 }: IButton): JSX.Element => {
   const variantStyles = {
     contained: {
@@ -59,37 +59,32 @@ const CButton = ({
       color: "#6366F1",
       "&:hover": {
         color: "#4F46E5",
-        background: "rgba(99, 102, 241, 0.1)",
       },
     },
   };
 
   return (
-    <div>
-      <Button
-        type={type}
-        variant={variant}
-        disabled={disabled || loading}
-        onClick={onClick}
-        startIcon={startIcon}
-        endIcon={endIcon}
-        style={{ ...style }}
-        fullWidth={fullWidth}
-        className={className}
-        size={size}
-        sx={{
-          padding: size === "small" ? 0.5 : 1,
-          fontFamily: "var(--font-family)",
-          transition: "background 0.3s ease",
-          borderRadius: isRounded ? "9999px" : "8px",
-          whiteSpace: "nowrap",
-          minWidth: "max-content",
-          ...(variantStyles[variant] || variantStyles.contained),
-        }}
-      >
-        {loading ? <CircularProgress size={24.5} /> : children}
-      </Button>
-    </div>
+    <Button
+      type={type}
+      variant={variant}
+      disabled={disabled || loading}
+      onClick={onClick}
+      startIcon={startIcon}
+      endIcon={endIcon}
+      style={{ ...style }}
+      className={className}
+      size={size}
+      sx={{
+        padding: size === "small" ? 0.5 : 1,
+        borderRadius: isRounded ? "9999px" : "8px",
+        whiteSpace: "nowrap",
+        minWidth: "max-content",
+        textTransform: textTransform,
+        ...(variantStyles[variant] || variantStyles.contained),
+      }}
+    >
+      {loading ? <CircularProgress size={24.5} /> : children}
+    </Button>
   );
 };
 

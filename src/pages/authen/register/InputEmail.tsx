@@ -64,15 +64,24 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
             label="Email"
             placeholder="Email"
             value={email}
+            className="w-full"
             onChange={(e) => {
               setEmail(e.target.value);
               setDisable(false);
             }}
             maxLength={50}
           />
-          {error && <span className="text-red-500 text-sm mt-2">{error}</span>}
+          {error && (
+            <Typography color="error" variant="caption">
+              {error}
+            </Typography>
+          )}
         </div>
-        <CButton disabled={disableButton} onClick={() => handleNextStep()}>
+        <CButton
+          disabled={disableButton}
+          onClick={() => handleNextStep()}
+          className="w-full"
+        >
           Next
         </CButton>
         <span className="text-center !text-gray-800 ">

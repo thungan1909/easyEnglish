@@ -111,7 +111,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
               navigate(ROUTES_CONSTANTS.LESSON.ADD_NEW);
             }}
           >
-            <span> Add new</span>
+            <span> Add new lesson</span>
           </CButton>
           <CButton
             className="!mr-3 !normal-case space-x-1.5"
@@ -120,12 +120,12 @@ const Navbar = ({ isAuth }: NavbarProps) => {
             <span> LOG OUT</span>
           </CButton>
           {/* Coins */}
-          <div className="flex items-center space-x-1 bg-orange-100 text-orange-500 px-3 py-2 rounded-full">
+          <div className="flex items-center space-x-1 bg-yellow-100 text-yellow-500 px-3 py-2 rounded-full">
             <FaCoins />
             <span className="font-semibold">100</span>
           </div>
 
-          <div className="flex items-center space-x-1 bg-orange-100 text-orange-500 px-3 py-2 rounded-full">
+          <div className="flex items-center space-x-1 bg-red-100 text-red-500 px-3 py-2 rounded-full">
             <FaFire />
             <span className="font-semibold">100</span>
           </div>

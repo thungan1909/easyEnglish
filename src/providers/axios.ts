@@ -67,30 +67,22 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error: AxiosError): Promise<IHttpError> => {
+    const errorData = error.response?.data as AxiosError | undefined;
+
+    const errorWrapper: IHttpError = {
+      type: "exception",
+      code: errorData?.code || error.code || "Unknow",
+      name: error.name || "Unknown",
+      message: errorData?.message || error.message || "Unknown error",
+      description:
+        errorData?.message || error.message || "No response from server",
+    };
     switch (error.response?.status) {
       case 401:
-        console.log("Unauthenticated 401");
-        window.location.href = ROUTES_CONSTANTS.AUTH.LOGIN;
-        return Promise.reject();
+        return Promise.reject(errorWrapper);
       case 403:
-        console.log("Unauthenticated 403");
-        notify.error(
-          `403: You don't have permission to access this page ${window.location.pathname}`
-        );
-        // globalNavigate("/");
-        return Promise.reject();
+        return Promise.reject(errorWrapper);
       default: {
-        const errorData = error.response?.data as AxiosError | undefined;
-
-        const errorWrapper: IHttpError = {
-          type: "exception",
-          code: errorData?.code || error.code || "Unknow",
-          name: error.name || "Unknown",
-          message: errorData?.message || error.message || "Unknown error",
-          description:
-            errorData?.message || error.message || "No response from server",
-        };
-
         return Promise.reject(errorWrapper);
       }
     }

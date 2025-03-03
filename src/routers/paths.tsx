@@ -76,6 +76,16 @@ const authenRoutes: RouteItemConfig[] = [
     element: <RegisterPage />,
     showWithPermission: true,
   },
+  {
+    path: ROUTES_CONSTANTS.AUTH.VERIFY_ACCOUNT,
+    element: <RegisterPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD,
+    element: <RegisterPage />,
+    showWithPermission: true,
+  },
 ];
 
 export { authenRoutes, mainRoutes, simpleRoutes };

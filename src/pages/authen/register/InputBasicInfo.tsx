@@ -53,11 +53,12 @@ const InputBasicInfo = ({
                   type="text"
                   label="Username"
                   placeholder="Username"
+                  className="w-full"
                 />
                 {fieldState.error && (
-                  <span className="text-red-500 text-sm mt-2">
+                  <Typography color="error" variant="caption">
                     {fieldState.error.message}
-                  </span>
+                  </Typography>
                 )}
               </>
             )}
@@ -75,11 +76,12 @@ const InputBasicInfo = ({
                   type="password"
                   label="Password"
                   placeholder="Password"
+                  className="w-full"
                 />
                 {fieldState.error && (
-                  <span className="text-red-500 text-sm mt-2">
+                  <Typography color="error" variant="caption">
                     {fieldState.error.message}
-                  </span>
+                  </Typography>
                 )}
               </>
             )}
@@ -97,17 +99,18 @@ const InputBasicInfo = ({
                   type="password"
                   label="Confirm Password"
                   placeholder="Confirm Password"
+                  className="w-full"
                 />
                 {fieldState.error && (
-                  <span className="text-red-500 text-sm mt-2">
+                  <Typography color="error" variant="caption">
                     {fieldState.error.message}
-                  </span>
+                  </Typography>
                 )}
               </>
             )}
           />
         </div>
-        <CButton type="submit" disabled={!isValid}>
+        <CButton type="submit" disabled={!isValid} className="w-full">
           Next
         </CButton>
       </form>

@@ -81,7 +81,7 @@ const Login = () => {
           </Typography>
 
           <form
-            className="mt-6 flex flex-col gap-5 max-w-sm mx-auto w-full relative"
+            className="mt-6 flex flex-col gap-4 max-w-sm mx-auto w-full relative"
             onSubmit={handleSubmit(onSubmitLogin)}
           >
             <div className="flex flex-col">
@@ -96,11 +96,12 @@ const Login = () => {
                       type="text"
                       label="Username"
                       placeholder="Username"
+                      className="w-full"
                     />
                     {fieldState.error && (
-                      <span className="text-red-500 text-sm mt-2">
+                      <Typography color="error" variant="caption">
                         {fieldState.error.message}
-                      </span>
+                      </Typography>
                     )}
                   </>
                 )}
@@ -118,33 +119,42 @@ const Login = () => {
                       type="password"
                       label="Password"
                       placeholder="Password"
+                      className="w-full"
                     />
                     {fieldState.error && (
-                      <span className="text-red-500 text-sm mt-2">
+                      <Typography color="error" variant="caption">
                         {fieldState.error.message}
-                      </span>
+                      </Typography>
                     )}
                   </>
                 )}
               />
             </div>
 
-            <a
-              className="text-end !text-purple-600"
-              href={ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD}
-            >
-              Forgot your password?
-            </a>
-            <CButton type="submit" disabled={!isValid}>
+            <div className="!text-end">
+              <CButton
+                onClick={() => {
+                  navigate(ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD);
+                }}
+                variant="text"
+                size="large"
+                textTransform="capitalize"
+              >
+                Forgot your password?
+              </CButton>
+            </div>
+            <CButton type="submit" disabled={!isValid} className="w-full">
               Log In
             </CButton>
-
-            <a
-              className="text-center !text-gray-800"
-              href={ROUTES_CONSTANTS.AUTH.REGISTER}
-            >
-              Create new account
-            </a>
+            <div className="flex justify-between">
+              <a href={ROUTES_CONSTANTS.AUTH.REGISTER} className="ml-1">
+                Create new account
+              </a>
+              <span className="text-center">/</span>
+              <a href={ROUTES_CONSTANTS.AUTH.REGISTER} className="ml-1">
+                Verify your account
+              </a>
+            </div>
           </form>
         </div>
       </div>

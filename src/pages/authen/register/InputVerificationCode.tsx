@@ -98,6 +98,7 @@ const InputVerificationCode = ({
         </div>
         <CButton
           disabled={disableButton}
+          className="w-full"
           onClick={() => handleVerificationEmail()}
         >
           Register

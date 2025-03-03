@@ -1,9 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
 import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
-import { TextField, Typography } from "@mui/material";
 
 const AddNewLesson = () => {
   const [lessonContent, setLessonContent] = useState("");
@@ -16,12 +15,14 @@ const AddNewLesson = () => {
   };
 
   const generateWords = (withSuggestions: Boolean) => {
-    console.log("Ca");
     if (!lessonContent.trim()) return;
     const words = lessonContent
       .split(/(\s+|[.,!?])/) // Capture spaces and punctuation separately
-      .filter(Boolean);
+      .filter((word) => word.trim() || /[.,!?]/.test(word)); // Remove spaces but keep punctuation
+
     const blankProbability = withSuggestions ? 0.6 : 0.9;
+
+    console.log("words", words);
 
     const updatedWords = words.map((word) =>
       word.match(/^[.,!?]$/) // If the word is ONLY punctuation
@@ -30,7 +31,6 @@ const AddNewLesson = () => {
         ? "" // Replace only words with blank
         : word
     );
-    // Prevent unnecessary re-renders by checking if state actually changed
 
     if (JSON.stringify(updatedWords) !== JSON.stringify(lessonWords)) {
       setLessonWords(updatedWords);
@@ -58,7 +58,7 @@ const AddNewLesson = () => {
                 word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
               }`}
               style={{
-                minWidth: word ? `${word.length}px` : "20px",
+                minWidth: word ? `${word.length}px` : "30px",
               }}
               key={index}
             >

@@ -22,7 +22,20 @@ const queryClient = new QueryClient({
 (window as any)["queryClient"] = queryClient;
 
 function App() {
-  const theme = createTheme();
+  const theme = createTheme({
+    typography: {
+      fontFamily: "var(--font-family) !important",
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            fontFamily: "var(--font-family) !important",
+          },
+        },
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
