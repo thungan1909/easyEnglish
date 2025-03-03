@@ -1,35 +1,51 @@
 import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
-import { useRef, useState } from "react";
-import { useVerifyEmailMutation } from "../../../apis/hooks/auth.hook";
+import { useCallback, useRef, useState } from "react";
+import {
+  useGetVerifyCode,
+  useVerifyEmailMutation,
+} from "../../../apis/hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
+import { CODE_LENGTH } from "./constants";
 
 export interface InputVerificationCodeProps {
   email: string;
+  isVerify?: boolean;
   onSuccessVerify: (isVerified: boolean) => void;
 }
 
 const InputVerificationCode = ({
   email,
+  isVerify = false,
   onSuccessVerify,
 }: InputVerificationCodeProps) => {
-  const [code, setCode] = useState(["", "", "", "", "", ""]);
-  const [disableButton, setDisable] = useState(true);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(""));
+  const [disableButton, setDisableButton] = useState(true);
+  const [isVerified, setIsVerified] = useState(false);
+
   const { mutate: verifyEmailMutation } = useVerifyEmailMutation();
+  const { mutate: getVerifyCodeMutation } = useGetVerifyCode();
 
-  const handleChange = (index: number, value: string) => {
-    const newCode = [...code];
-    newCode[index] = value;
-    setCode(newCode);
+  const handleChange = useCallback(
+    (index: number, value: string) => {
+      if (!/^\d?$/.test(value)) return; // Only allow digits
 
-    if (value && index < 5) {
-      inputRefs.current[index + 1]?.focus();
-    }
-    setDisable(newCode.some((digit) => !digit));
-  };
+      const newCode = [...code];
+      newCode[index] = value;
+      setCode(newCode);
+
+      if (value && index < CODE_LENGTH - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
+
+      // setDisableButton(newCode.some((digit) => !digit));
+      setDisableButton(newCode.includes(""));
+    },
+    [code]
+  );
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
     if (e.key === "Backspace" && !code[index] && index > 0) {
@@ -51,10 +67,27 @@ const InputVerificationCode = ({
           },
           onError: (error) => {
             notify.error(error.message || defaultErrorMsg);
+            setCode(Array(CODE_LENGTH).fill(""));
+            // setIsResendVerifyCode(true);
           },
         }
       );
+      setIsVerified(true);
     }
+  };
+
+  const handleResendVerifyCode = () => {
+    getVerifyCodeMutation(
+      {
+        email: email,
+      },
+      {
+        onSuccess: () => {},
+        onError: (error) => {
+          notify.error(error.message || defaultErrorMsg);
+        },
+      }
+    );
   };
 
   return (
@@ -63,7 +96,7 @@ const InputVerificationCode = ({
         variant="h5"
         className="text-center font-semibold text-gray-800 p-4"
       >
-        Register
+        {isVerify ? "Email Verification" : "Register"}
       </Typography>
       <Typography className="text-center">
         A verification email has been sent to
@@ -95,7 +128,18 @@ const InputVerificationCode = ({
           className="w-full"
           onClick={() => handleVerificationEmail()}
         >
-          Register
+          {isVerify ? "Verification" : "Register"}
+        </CButton>
+        <Typography className="text-center">
+          Don't recieved any message?
+        </Typography>
+        <CButton
+          className="w-full"
+          onClick={() => handleResendVerifyCode()}
+          variant="text"
+          disabled={!isVerified}
+        >
+          Resend
         </CButton>
       </div>
     </div>

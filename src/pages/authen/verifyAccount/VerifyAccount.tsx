@@ -94,6 +94,7 @@ const VerifyAccount = () => {
           )}
           {currentStep === EVerifyStep.InputVerificationCode && (
             <InputVerificationCode
+              isVerify
               email={formInstance.getValues("email")}
               onSuccessVerify={setVerificationState}
             />
