@@ -1,5 +1,6 @@
 import { withDynamicImport } from "../hooks/withDynamicImport";
 
+// AUTHEN
 export const LoginPage = withDynamicImport(
   () => import("../pages/authen/login/Login"),
   {
@@ -21,6 +22,17 @@ export const VerifyAccountPage = withDynamicImport(
   }
 );
 
+// DASHBOARD
+
+export const DashboardPage = withDynamicImport(
+  () => import("../pages/dashboard/Dashboard"),
+  {
+    loading: true,
+  }
+);
+
+// LESSON
+
 export const LessonPage = withDynamicImport(
   () => import("../pages/lesson/Lesson"),
   {
@@ -28,15 +40,15 @@ export const LessonPage = withDynamicImport(
   }
 );
 
-export const LessonDetailPage = withDynamicImport(
-  () => import("../pages/lesson/LessonDetail"),
+export const AddNewLessonPage = withDynamicImport(
+  () => import("../pages/lesson/addNewLesson/AddNewLesson"),
   {
     loading: true,
   }
 );
 
-export const DashboardPage = withDynamicImport(
-  () => import("../pages/dashboard/Dashboard"),
+export const LessonDetailPage = withDynamicImport(
+  () => import("../pages/lesson/LessonDetail"),
   {
     loading: true,
   }

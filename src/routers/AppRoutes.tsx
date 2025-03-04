@@ -1,4 +1,3 @@
-import GlobalNavigationRegister from "./GlobalNavigationRegister";
 import React, { useMemo } from "react";
 import { generateRoute } from "./GenerateRoute";
 import { authenRoutes, mainRoutes, simpleRoutes } from "./paths";
@@ -16,7 +15,6 @@ const AppRoutes = () => {
 
   return (
     <BrowserRouter>
-      <GlobalNavigationRegister />
       <Routes>
         {authenMenu}
         {mainRoutes.map((route) => (

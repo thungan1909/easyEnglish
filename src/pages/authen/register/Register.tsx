@@ -20,7 +20,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import {
   TUserSignUpSchema,
   UserSignUpSchema,
-} from "../../../validation/sign-up.schema";
+} from "../../../validation/user.schema";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);

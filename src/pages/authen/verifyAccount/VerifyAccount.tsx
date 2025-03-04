@@ -19,7 +19,7 @@ import VerifySuccessfully from "../shared/VerifySuccessfully";
 import {
   GetVerifyCodeSchema,
   TGetVerifyCodeSchema,
-} from "../../../types/dtos/login.dto";
+} from "../../../validation/user.schema";
 
 const VerifyAccount = () => {
   const CStepperRef = useRef<ISteppersRef>(null);

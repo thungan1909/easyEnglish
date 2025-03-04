@@ -1,11 +1,10 @@
-import VerifyAccount from "../pages/authen/verifyAccount/VerifyAccount";
+import AuthGuard from "../layout/AuthGuard";
 import AddNewLesson from "../pages/lesson/addNewLesson/AddNewLesson";
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
 import { ROUTES_CONSTANTS } from "./constants";
 import {
   DashboardPage,
-  LessonDetailPage,
   LessonPage,
   LoginPage,
   RegisterPage,
@@ -23,37 +22,65 @@ const simpleRoutes: RouteItemConfig[] = [
 const lessonRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.LESSON.BASE,
-    element: <LessonPage />,
+    element: (
+      <AuthGuard>
+        <LessonPage />
+      </AuthGuard>
+    ),
     showWithPermission: true,
   },
   {
     path: ROUTES_CONSTANTS.LESSON.SCOPE.MINE,
-    element: <LessonPage />,
+    element: (
+      <AuthGuard>
+        <LessonPage />
+      </AuthGuard>
+    ),
     showWithPermission: true,
   },
   {
     path: ROUTES_CONSTANTS.LESSON.SCOPE.LISTENING,
-    element: <LessonPage />,
+    element: (
+      <AuthGuard>
+        <LessonPage />
+      </AuthGuard>
+    ),
     showWithPermission: true,
   },
   {
     path: ROUTES_CONSTANTS.LESSON.SCOPE.LISTENED,
-    element: <LessonPage />,
+    element: (
+      <AuthGuard>
+        <LessonPage />
+      </AuthGuard>
+    ),
     showWithPermission: true,
   },
   {
     path: ROUTES_CONSTANTS.LESSON.SCOPE.ALL,
-    element: <LessonPage />,
+    element: (
+      <AuthGuard>
+        <LessonPage />
+      </AuthGuard>
+    ),
     showWithPermission: true,
   },
   {
     path: ROUTES_CONSTANTS.LESSON.DETAIL,
-    element: <LessonDetailPage />,
+    element: (
+      <AuthGuard>
+        <LessonPage />
+      </AuthGuard>
+    ),
     showWithPermission: true,
   },
   {
     path: ROUTES_CONSTANTS.LESSON.ADD_NEW,
-    element: <AddNewLesson />,
+    element: (
+      <AuthGuard>
+        <AddNewLesson />
+      </AuthGuard>
+    ),
     showWithPermission: true,
   },
 ];

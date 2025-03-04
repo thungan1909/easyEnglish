@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import {
   TUserSignInSchema,
   UserSignInSchema,
-} from "../../../validation/login.schema";
+} from "../../../validation/user.schema";
 
 const resolver = zodResolver(UserSignInSchema);
 
