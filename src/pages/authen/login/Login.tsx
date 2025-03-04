@@ -144,7 +144,12 @@ const Login = () => {
                 Forgot your password?
               </CButton>
             </div>
-            <CButton type="submit" disabled={!isValid} className="w-full">
+            <CButton
+              type="submit"
+              disabled={!isValid}
+              className="w-full"
+              isRounded
+            >
               Log In
             </CButton>
             <div className="flex justify-between">

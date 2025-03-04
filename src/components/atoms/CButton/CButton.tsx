@@ -75,7 +75,7 @@ const CButton = ({
       className={className}
       size={size}
       sx={{
-        padding: size === "small" ? 0.5 : 1,
+        padding: size === "small" ? 0.5 : size === "medium" ? 1 : 2,
         borderRadius: isRounded ? "9999px" : "8px",
         whiteSpace: "nowrap",
         minWidth: "max-content",

@@ -1,8 +1,9 @@
 import { Controller, UseFormReturn } from "react-hook-form";
-import { TGetVerifyCodeSchema } from "../../../types/dtos/login.dto";
+
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import { Typography } from "@mui/material";
 import CButton from "../../../components/atoms/CButton/CButton";
+import { TGetVerifyCodeSchema } from "../../../validation/user.schema";
 
 export interface InputVerificationEmailProps {
   onSubmitForm: (data: TGetVerifyCodeSchema) => void;
@@ -20,18 +21,13 @@ const InputVerificationEmail = ({
   } = formInstance;
 
   return (
-    <div>
-      <Typography
-        variant="h5"
-        className="text-center font-semibold text-gray-800 p-4"
-      >
-        Verify Your Account
-      </Typography>
-      <Typography className="text-center">
+    <div className="flex flex-col items-center justify-center gap-8">
+      <Typography variant="h5">Verify Your Account</Typography>
+      <Typography className="">
         Enter your email to get verification code
       </Typography>
       <form
-        className="mt-6 flex flex-col gap-4 max-w-sm mx-auto w-full relative"
+        className="flex flex-col w-full gap-8"
         onSubmit={handleSubmit(onSubmitForm)}
       >
         <div className="flex flex-col">
@@ -57,7 +53,7 @@ const InputVerificationEmail = ({
             )}
           />
         </div>
-        <CButton type="submit" disabled={!isValid} className="w-full">
+        <CButton type="submit" disabled={!isValid} className="w-full" isRounded>
           Next
         </CButton>
       </form>

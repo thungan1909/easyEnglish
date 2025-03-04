@@ -6,13 +6,13 @@ import { useCheckExistEmailMutation } from "../../../apis/api-hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { emailRegex } from "../../../constants/regex";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;
 }
 
-const validateEmail = (email: string) =>
-  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+const validateEmail = (email: string) => emailRegex.test(email);
 
 const InputEmail = ({ onInputEmail }: InputEmailProps) => {
   const [email, setEmail] = useState<string>("");
@@ -45,19 +45,14 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
   };
 
   return (
-    <div>
-      <Typography
-        variant="h5"
-        className="text-center font-semibold text-gray-800 p-4"
-      >
-        Register
-      </Typography>
-      <Typography className="text-center">
+    <div className="flex flex-col items-center justify-center gap-6">
+      <Typography variant="h5">Register</Typography>
+      <Typography>
         Welcome to
-        <span className="ml-1 font-semibold text-purple-600">Easy English</span>
+        <span className="ml-1 text-purple-600">Easy English</span>
       </Typography>
 
-      <div className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full">
+      <div className="flex flex-col w-full gap-6">
         <div className="flex flex-col">
           <CTextField
             type="email"
@@ -81,10 +76,11 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
           disabled={disableButton}
           onClick={() => handleNextStep()}
           className="w-full"
+          isRounded
         >
           Next
         </CButton>
-        <span className="text-center !text-gray-800 ">
+        <span className="text-center">
           Already have an account?
           <a href={ROUTES_CONSTANTS.AUTH.LOGIN} className="ml-1">
             Log in

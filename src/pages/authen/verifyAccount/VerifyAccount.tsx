@@ -13,13 +13,13 @@ import { defaultErrorMsg } from "../../../constants/errorMessage";
 import loginImg from "../../../assets/login_img_2.png";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { EVerifyStep } from "./constant";
-import InputUserInfo from "./InputVerificationEmail";
 import InputVerificationCode from "../shared/InputVerificationCode";
 import VerifySuccessfully from "../shared/VerifySuccessfully";
 import {
   GetVerifyCodeSchema,
   TGetVerifyCodeSchema,
 } from "../../../validation/user.schema";
+import InputVerificationEmail from "./InputVerificationEmail";
 
 const VerifyAccount = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
@@ -85,9 +85,9 @@ const VerifyAccount = () => {
             className="object-contain"
           />
         </div>
-        <div className="w-full md:w-1/2 p-10 flex flex-col justify-center min-w-sm">
+        <div className="w-full md:w-1/2 p-10">
           {currentStep === EVerifyStep.InputInfo && (
-            <InputUserInfo
+            <InputVerificationEmail
               onSubmitForm={handleSubmitAuthenInfo}
               formInstance={formInstance}
             />

@@ -24,7 +24,6 @@ const InputVerificationCode = ({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(""));
   const [disableButton, setDisableButton] = useState(true);
-  // const [isVerified, setIsVerified] = useState(false);
 
   const { mutate: verifyEmailMutation } = useVerifyEmailMutation();
   const { mutate: getVerifyCodeMutation } = useGetVerifyCode();
@@ -41,7 +40,6 @@ const InputVerificationCode = ({
         inputRefs.current[index + 1]?.focus();
       }
 
-      // setDisableButton(newCode.some((digit) => !digit));
       setDisableButton(newCode.includes(""));
     },
     [code]
@@ -74,7 +72,6 @@ const InputVerificationCode = ({
           },
         }
       );
-      // setIsVerified(true);
     }
   }, [code, email, onSuccessVerify, verifyEmailMutation]);
 
@@ -91,19 +88,16 @@ const InputVerificationCode = ({
   }, [email, getVerifyCodeMutation]);
 
   return (
-    <div>
-      <Typography
-        variant="h5"
-        className="text-center font-semibold text-gray-800 p-4"
-      >
+    <div className="flex flex-col items-center justify-center gap-6">
+      <Typography variant="h5">
         {isVerify ? "Email Verification" : "Register"}
       </Typography>
       <Typography className="text-center">
         A verification email has been sent to
-        <span className="ml-1 font-semibold text-purple-600">{email}</span>
+        <span className="ml-1 text-purple-600">{email}</span>
       </Typography>
 
-      <div className="mt-6 flex flex-col max-w-sm mx-auto gap-5 w-full">
+      <div className="flex flex-col gap-6 w-full">
         <div className="flex !space-x-2">
           {code.map((num, index) => (
             <CTextField
@@ -127,17 +121,20 @@ const InputVerificationCode = ({
           disabled={disableButton}
           className="w-full"
           onClick={handleVerificationEmail}
+          isRounded
         >
           {isVerify ? "Verification" : "Register"}
         </CButton>
+
         <Typography className="text-center">
           Don't recieved any message?
         </Typography>
+
         <CButton
           className="w-full"
           onClick={handleResendVerifyCode}
           variant="text"
-          // disabled={!isVerified}
+          isRounded
         >
           Resend
         </CButton>

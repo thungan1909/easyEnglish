@@ -2,7 +2,7 @@ import AuthGuard from "../layout/AuthGuard";
 import AddNewLesson from "../pages/lesson/addNewLesson/AddNewLesson";
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
-import { ROUTES_CONSTANTS } from "./constants";
+import { lessonPaths, ROUTES_CONSTANTS } from "./constants";
 import {
   DashboardPage,
   LessonPage,
@@ -15,72 +15,19 @@ const simpleRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.AUTH.PAGE_NOT_FOUND,
     element: <PageNotFound />,
-    showWithPermission: true, // showWithPermission = true => always show
+    showWithPermission: true,
   },
 ];
 
 const lessonRoutes: RouteItemConfig[] = [
-  {
-    path: ROUTES_CONSTANTS.LESSON.BASE,
-    element: (
-      <AuthGuard>
-        <LessonPage />
-      </AuthGuard>
-    ),
+  ...lessonPaths.map((path) => ({
+    path,
+    element: <LessonPage />,
     showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.LESSON.SCOPE.MINE,
-    element: (
-      <AuthGuard>
-        <LessonPage />
-      </AuthGuard>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.LESSON.SCOPE.LISTENING,
-    element: (
-      <AuthGuard>
-        <LessonPage />
-      </AuthGuard>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.LESSON.SCOPE.LISTENED,
-    element: (
-      <AuthGuard>
-        <LessonPage />
-      </AuthGuard>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.LESSON.SCOPE.ALL,
-    element: (
-      <AuthGuard>
-        <LessonPage />
-      </AuthGuard>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.LESSON.DETAIL,
-    element: (
-      <AuthGuard>
-        <LessonPage />
-      </AuthGuard>
-    ),
-    showWithPermission: true,
-  },
+  })),
   {
     path: ROUTES_CONSTANTS.LESSON.ADD_NEW,
-    element: (
-      <AuthGuard>
-        <AddNewLesson />
-      </AuthGuard>
-    ),
+    element: <AddNewLesson />,
     showWithPermission: true,
   },
 ];

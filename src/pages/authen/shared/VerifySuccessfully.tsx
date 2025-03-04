@@ -11,16 +11,13 @@ const VerifySuccessfully = ({ isVerify }: VerifySuccessfullyProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-8">
       <img
         src={checkImg}
         alt="Check successfully illustration"
         className="object-contain w-50"
       />
-      <Typography
-        variant="h5"
-        className="text-center font-semibold text-gray-800 !mb-2"
-      >
+      <Typography variant="h5">
         {isVerify ? "Verification Successful" : "Registration Successful"}
       </Typography>
       <Typography className="text-center">
@@ -30,7 +27,8 @@ const VerifySuccessfully = ({ isVerify }: VerifySuccessfullyProps) => {
 
       <CButton
         onClick={() => navigate(ROUTES_CONSTANTS.AUTH.LOGIN)}
-        className="w-full !mt-8"
+        className="w-full"
+        isRounded
       >
         Go to Sign In
       </CButton>

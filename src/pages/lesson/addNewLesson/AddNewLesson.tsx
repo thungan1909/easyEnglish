@@ -8,8 +8,11 @@ import {
   punctuationRegex,
   wordSplitterRegex,
 } from "../../../constants/regex";
+import { useAuthentication } from "../../../apis/api-hooks/auth.hook";
+import LoginReminder from "../../LoginReminder";
 
 const AddNewLesson = () => {
+  const { isAuth } = useAuthentication();
   const [lessonContent, setLessonContent] = useState("");
   const [lessonWords, setLessonWords] = useState<string[]>();
 
@@ -41,46 +44,56 @@ const AddNewLesson = () => {
   };
 
   return (
-    <form className=" mt-16 p-8 flex flex-col space-y-6 ">
-      <CTextField label="Lesson's title" className="w-full" maxLength={50} />
+    <>
+      {isAuth ? (
+        <form className=" mt-16 p-8 flex flex-col space-y-6 ">
+          <CTextField
+            label="Lesson's title"
+            className="w-full"
+            maxLength={50}
+          />
 
-      <div className="grid md:grid-cols-2 gap-6 items-start">
-        <CTextArea
-          maxRows={25}
-          minRows={5}
-          maxLength={1500}
-          placeholder="Enter lesson content..."
-          className="w-full"
-          value={lessonContent}
-          onChange={handleGetLessonContent}
-        />
-        <div className="flex gap-x-1 flex-wrap">
-          {lessonWords?.map((word, index) => (
-            <span
-              className={` ${
-                word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
-              }`}
-              style={{
-                minWidth: word ? `${word.length}px` : "30px",
-              }}
-              key={index}
-            >
-              {word !== "" ? word : "\u00A0"}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="flex justify-evenly">
-        <CButton onClick={() => generateWords(false)}>
-          Generate without suggest
-        </CButton>
-        <CButton onClick={() => generateWords(true)}>
-          Generate with suggest
-        </CButton>
-      </div>
-      <CUploadFile onChangeFileSelected={(file) => console.log(file)} />
-      <CButton className="w-full">Save</CButton>
-    </form>
+          <div className="grid md:grid-cols-2 gap-6 items-start">
+            <CTextArea
+              maxRows={25}
+              minRows={5}
+              maxLength={1500}
+              placeholder="Enter lesson content..."
+              className="w-full"
+              value={lessonContent}
+              onChange={handleGetLessonContent}
+            />
+            <div className="flex gap-x-1 flex-wrap">
+              {lessonWords?.map((word, index) => (
+                <span
+                  className={` ${
+                    word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
+                  }`}
+                  style={{
+                    minWidth: word ? `${word.length}px` : "30px",
+                  }}
+                  key={index}
+                >
+                  {word !== "" ? word : "\u00A0"}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-evenly">
+            <CButton onClick={() => generateWords(false)}>
+              Generate without suggest
+            </CButton>
+            <CButton onClick={() => generateWords(true)}>
+              Generate with suggest
+            </CButton>
+          </div>
+          <CUploadFile onChangeFileSelected={(file) => console.log(file)} />
+          <CButton className="w-full">Save</CButton>
+        </form>
+      ) : (
+        <LoginReminder />
+      )}
+    </>
   );
 };
 
