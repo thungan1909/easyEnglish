@@ -78,6 +78,15 @@ export const useLoginMutation = () => {
           userId: user._id,
         });
 
+        console.log(
+          "Updated authentication state:",
+          queryClient.getQueryData(AUTHENTICATION_QUERY_KEY)
+        );
+
+        await queryClient.invalidateQueries({
+          queryKey: AUTHENTICATION_QUERY_KEY,
+        });
+
         const userInfo = await getUserInfoMutation.fn();
         console.log("User info fetched:", userInfo);
         queryClient.setQueryData(USER_QUERY_KEY, userInfo);

@@ -1,8 +1,8 @@
-import AddNewLesson from "../pages/lesson/addNewLesson/AddNewLesson";
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
 import { lessonPaths, ROUTES_CONSTANTS } from "./constants";
 import {
+  AddNewLessonPage,
   DashboardPage,
   LessonDetailPage,
   LessonPage,
@@ -32,7 +32,7 @@ const lessonRoutes: RouteItemConfig[] = [
   },
   {
     path: ROUTES_CONSTANTS.LESSON.ADD_NEW,
-    element: <AddNewLesson />,
+    element: <AddNewLessonPage />,
     showWithPermission: true,
   },
 ];

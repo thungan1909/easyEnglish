@@ -33,6 +33,17 @@ export interface LoginDTO {
   password: string;
 }
 
-export interface LoginOriginalResponse extends IOriginalResponse {}
+export interface LoginOriginalResponse extends IOriginalResponse {
+  access_token: string;
+  refresh_token: string;
+  user: {
+    _id: string;
+    username: string;
+    email: string;
+    isVerified: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
 
 export interface LogOutDTO {}

@@ -3,14 +3,10 @@ import CSteppers from "../../../components/molecules/cSteppers";
 import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  useAuthentication,
-  useGetVerifyCode,
-} from "../../../apis/api-hooks/auth.hook";
+import { useAuthentication, useGetVerifyCode } from "../../../hooks/auth.hook";
 
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
-import loginImg from "../../../assets/login_img_2.png";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { EVerifyStep } from "./constant";
 import InputVerificationCode from "../shared/InputVerificationCode";

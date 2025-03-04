@@ -8,7 +8,7 @@ import {
   punctuationRegex,
   wordSplitterRegex,
 } from "../../../constants/regex";
-import { useAuthentication } from "../../../apis/api-hooks/auth.hook";
+import { useAuthentication } from "../../../hooks/auth.hook";
 import LoginReminder from "../../LoginReminder";
 
 const AddNewLesson = () => {

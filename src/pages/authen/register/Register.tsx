@@ -6,10 +6,7 @@ import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputBasicInfo from "./InputBasicInfo";
-import {
-  useAuthentication,
-  useSignUpMutation,
-} from "../../../apis/api-hooks/auth.hook";
+import { useAuthentication, useSignUpMutation } from "../../../hooks/auth.hook";
 import InputVerificationCode from "../shared/InputVerificationCode";
 import VerifySuccessfully from "../shared/VerifySuccessfully";
 import { notify } from "../../../utils/notify";

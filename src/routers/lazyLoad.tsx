@@ -1,4 +1,4 @@
-import { withDynamicImport } from "../hooks/withDynamicImport";
+import { withDynamicImport } from "../utils/withDynamicImport";
 
 // AUTHEN
 export const LoginPage = withDynamicImport(

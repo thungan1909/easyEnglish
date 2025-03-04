@@ -14,15 +14,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
-import {
-  useAuthentication,
-  useLogoutMutation,
-} from "../../../apis/api-hooks/auth.hook";
+import { useLogoutMutation } from "../../../hooks/auth.hook";
 import { menuItems } from "./const";
 import { getLinkClassName } from "../../../utils/helpers/style";
+import CUserProfile from "../CUserProfile/cUserProfile";
+interface NavbarProps {
+  isAuth: Boolean;
+}
 
-const Navbar = () => {
-  const { isAuth } = useAuthentication();
+const Navbar = ({ isAuth }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -133,9 +133,10 @@ const Navbar = () => {
           <FaChartBar className="text-gray-500 cursor-pointer hover:text-black transition" />
           <FaBell className="text-gray-500 cursor-pointer hover:text-black transition" />
 
-          <div className="bg-pink-500 text-white px-3 py-2 rounded-full font-bold cursor-pointer hover:bg-pink-600 transition">
+          {/* <div className="bg-pink-500 text-white px-3 py-2 rounded-full font-bold cursor-pointer hover:bg-pink-600 transition">
             DO
-          </div>
+          </div> */}
+          <CUserProfile />
         </div>
       ) : (
         <div className="absolute right-0 flex items-center mr-32 !space-x-4">

@@ -9,10 +9,8 @@ import {
   IOriginalRequestPayload,
   IOriginalResponse,
 } from "../types/dtos/http";
-import { getPersistToken, persistToken } from "./auth";
-import { notify } from "../utils/notify";
+import { getPersistToken } from "./auth";
 import { BASE_URL } from "../constants";
-import { ROUTES_CONSTANTS } from "../routers/constants";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -28,6 +26,10 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig<IOriginalRequestPayload>) => {
     const { accessToken, refreshToken } = getPersistToken();
+
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
 
     const metaData: IOriginalRequestPayload = accessToken
       ? {
@@ -95,8 +97,8 @@ const getResponseData = <T>(response: AxiosResponse): T => {
   return response.data?.data;
 };
 
-const getOrginialResponseData = <T>(response: AxiosResponse): T => {
+const getOriginalResponseData = <T>(response: AxiosResponse): T => {
   return response.data;
 };
 
-export { getAxiosInstance, getResponseData, getOrginialResponseData };
+export { getAxiosInstance, getResponseData, getOriginalResponseData };

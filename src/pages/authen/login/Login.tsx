@@ -2,10 +2,7 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 
 import { Controller, useForm } from "react-hook-form";
-import {
-  useAuthentication,
-  useLoginMutation,
-} from "../../../apis/api-hooks/auth.hook";
+import { useAuthentication, useLoginMutation } from "../../../hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
@@ -45,7 +42,7 @@ const Login = () => {
         notify.error(error.message || defaultErrorMsg);
       },
       onSuccess: () => {
-        navigate(ROUTES_CONSTANTS.DASHBOARD, { replace: true });
+        // navigate(ROUTES_CONSTANTS.DASHBOARD, { replace: true });
       },
     });
   };
@@ -150,8 +147,6 @@ const Login = () => {
             >
               Create new account
             </CButton>
-
-            <span className="text-center">/</span>
 
             <CButton
               onClick={() => {
