@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material";
-import loginImg from "../../../assets/login_img_2.png";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 
 import { Controller, useForm } from "react-hook-form";

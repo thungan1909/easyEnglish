@@ -1,10 +1,10 @@
-import AuthGuard from "../layout/AuthGuard";
 import AddNewLesson from "../pages/lesson/addNewLesson/AddNewLesson";
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
 import { lessonPaths, ROUTES_CONSTANTS } from "./constants";
 import {
   DashboardPage,
+  LessonDetailPage,
   LessonPage,
   LoginPage,
   RegisterPage,
@@ -25,6 +25,11 @@ const lessonRoutes: RouteItemConfig[] = [
     element: <LessonPage />,
     showWithPermission: true,
   })),
+  {
+    path: ROUTES_CONSTANTS.LESSON.DETAIL,
+    element: <LessonDetailPage />,
+    showWithPermission: true,
+  },
   {
     path: ROUTES_CONSTANTS.LESSON.ADD_NEW,
     element: <AddNewLesson />,

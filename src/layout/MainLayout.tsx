@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { useAuthentication } from "../apis/api-hooks/auth.hook";
 import Navbar from "../components/molecules/cNavbar/Navbar";
 
 interface MainLayoutProps {
@@ -7,11 +6,9 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  const { isAuth } = useAuthentication();
-
   return (
     <div className="flex flex-col">
-      <Navbar isAuth={isAuth} />
+      <Navbar />
       <div>{children}</div>
     </div>
   );

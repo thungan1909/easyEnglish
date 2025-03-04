@@ -23,7 +23,11 @@ import {
 } from "../../types/dtos/auth.dto";
 import { clearPersistToken, persistToken } from "../../providers/auth";
 import { AuthenticationInfoType, PeristTokens } from "../../types/auth";
-import { LOCALSTORAGE_AUTHINFO_KEY, TOKEN_STALE_TIME } from "../../constants";
+import {
+  LOCALSTORAGE_AUTHINFO_KEY,
+  TOKEN_CACHE_TIME,
+  TOKEN_STALE_TIME,
+} from "../../constants";
 import { tryCatch } from "../../utils/helpers/try-catch";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
 
@@ -82,7 +86,6 @@ const _useAuthenticationCache = () => {
 
   return useQuery<AuthenticationInfoType>({
     queryKey: AUTHENTICATION_QUERY_KEY,
-    // keepPreviousData: true,
     initialData: tryCatch<AuthenticationInfoType>(() => {
       return JSON.parse(localStorage.getItem(LOCALSTORAGE_AUTHINFO_KEY) || "");
     }, {} as AuthenticationInfoType),
@@ -93,7 +96,6 @@ const _useAuthenticationCache = () => {
       return cachedData ?? ({} as AuthenticationInfoType);
     },
     staleTime: TOKEN_STALE_TIME,
-    // cacheTime: TOKEN_CACHE_TIME,
   });
 };
 

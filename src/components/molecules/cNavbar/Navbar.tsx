@@ -14,15 +14,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
-import { useLogoutMutation } from "../../../apis/api-hooks/auth.hook";
+import {
+  useAuthentication,
+  useLogoutMutation,
+} from "../../../apis/api-hooks/auth.hook";
 import { menuItems } from "./const";
 import { getLinkClassName } from "../../../utils/helpers/style";
 
-interface NavbarProps {
-  isAuth: boolean;
-}
-
-const Navbar = ({ isAuth }: NavbarProps) => {
+const Navbar = () => {
+  const { isAuth } = useAuthentication();
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
