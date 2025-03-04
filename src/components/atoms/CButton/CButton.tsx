@@ -56,9 +56,10 @@ const CButton = ({
     },
     text: {
       background: "transparent",
-      color: "#6366F1",
+      padding: "0px",
+      color: "var(--color-black-600)",
       "&:hover": {
-        color: "#4F46E5",
+        color: "var(--color-purple-600)",
       },
     },
   };
@@ -74,6 +75,8 @@ const CButton = ({
       style={{ ...style }}
       className={className}
       size={size}
+      disableElevation
+      disableRipple
       sx={{
         padding: size === "small" ? 0.5 : size === "medium" ? 1 : 2,
         borderRadius: isRounded ? "9999px" : "8px",

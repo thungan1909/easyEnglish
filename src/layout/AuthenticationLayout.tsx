@@ -21,7 +21,7 @@ export const AuthenticationLayout = ({
             className="object-contain"
           />
         </div>
-        <div className="w-full md:w-1/2 p-5">{children}</div>
+        <div className="w-full md:w-1/2 p-8">{children}</div>
       </div>
     </div>
   );

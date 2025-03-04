@@ -7,6 +7,7 @@ import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { emailRegex } from "../../../constants/regex";
+import { useNavigate } from "react-router-dom";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;
@@ -15,6 +16,8 @@ export interface InputEmailProps {
 const validateEmail = (email: string) => emailRegex.test(email);
 
 const InputEmail = ({ onInputEmail }: InputEmailProps) => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [disableButton, setDisable] = useState(true);
@@ -80,11 +83,20 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
         >
           Next
         </CButton>
-        <span className="text-center">
+
+        <span className="flex items-center justify-center">
           Already have an account?
-          <a href={ROUTES_CONSTANTS.AUTH.LOGIN} className="ml-1">
+          <CButton
+            onClick={() => {
+              navigate(ROUTES_CONSTANTS.AUTH.LOGIN);
+            }}
+            variant="text"
+            size="large"
+            textTransform="capitalize"
+            className="!ml-2"
+          >
             Log in
-          </a>
+          </CButton>
         </span>
       </div>
     </div>

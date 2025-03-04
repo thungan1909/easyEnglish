@@ -21,13 +21,11 @@ const InputVerificationEmail = ({
   } = formInstance;
 
   return (
-    <div className="flex flex-col items-center justify-center gap-8">
+    <div className="flex flex-col items-center justify-center gap-6">
       <Typography variant="h5">Verify Your Account</Typography>
-      <Typography className="">
-        Enter your email to get verification code
-      </Typography>
+      <Typography>Enter your email to get verification code</Typography>
       <form
-        className="flex flex-col w-full gap-8"
+        className="flex flex-col w-full gap-6"
         onSubmit={handleSubmit(onSubmitForm)}
       >
         <div className="flex flex-col">
