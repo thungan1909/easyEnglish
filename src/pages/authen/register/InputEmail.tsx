@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { useState } from "react";
-import { useCheckExistEmailMutation } from "../../../apis/hooks/auth.hook";
+import { useCheckExistEmailMutation } from "../../../apis/api-hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";

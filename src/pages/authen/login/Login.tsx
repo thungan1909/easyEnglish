@@ -1,15 +1,12 @@
 import { Typography } from "@mui/material";
 import loginImg from "../../../assets/login_img_2.png";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
-import {
-  TUserSignInSchema,
-  UserSignInSchema,
-} from "../../../types/dtos/login.dto";
+
 import { Controller, useForm } from "react-hook-form";
 import {
   useAuthentication,
   useLoginMutation,
-} from "../../../apis/hooks/auth.hook";
+} from "../../../apis/api-hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
@@ -17,6 +14,10 @@ import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { useEffect } from "react";
+import {
+  TUserSignInSchema,
+  UserSignInSchema,
+} from "../../../validation/login.schema";
 
 const resolver = zodResolver(UserSignInSchema);
 

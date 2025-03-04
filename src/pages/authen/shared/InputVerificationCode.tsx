@@ -5,7 +5,7 @@ import { useCallback, useRef, useState } from "react";
 import {
   useGetVerifyCode,
   useVerifyEmailMutation,
-} from "../../../apis/hooks/auth.hook";
+} from "../../../apis/api-hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { CODE_LENGTH } from "./constants";

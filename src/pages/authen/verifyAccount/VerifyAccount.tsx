@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   useAuthentication,
   useGetVerifyCode,
-} from "../../../apis/hooks/auth.hook";
+} from "../../../apis/api-hooks/auth.hook";
 
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";

@@ -1,4 +1,4 @@
-import { useAuthentication } from "../apis/hooks/auth.hook";
+import { useAuthentication } from "../apis/api-hooks/auth.hook";
 import HeroSection from "../pages/dashboard/leftsection/HeroSection";
 import NewestLesson from "../pages/dashboard/leftsection/NewestLesson";
 import RecentLessons from "../pages/dashboard/leftsection/RecentLesson";

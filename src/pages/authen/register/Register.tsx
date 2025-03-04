@@ -3,20 +3,24 @@ import CheckValidEmail from "./InputEmail";
 import { ESignUpStep } from "./constant";
 import CSteppers from "../../../components/molecules/cSteppers";
 import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
-import { TUserSignUpSchema, UserSignUpSchema } from "./schemas";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputBasicInfo from "./InputBasicInfo";
 import {
   useAuthentication,
   useSignUpMutation,
-} from "../../../apis/hooks/auth.hook";
+} from "../../../apis/api-hooks/auth.hook";
 import InputVerificationCode from "../shared/InputVerificationCode";
 import VerifySuccessfully from "../shared/VerifySuccessfully";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import loginImg from "../../../assets/login_img_2.png";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import {
+  TUserSignUpSchema,
+  UserSignUpSchema,
+} from "../../../validation/sign-up.schema";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);

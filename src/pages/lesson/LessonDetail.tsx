@@ -1,19 +1,12 @@
 import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { Lesson } from "../dashboard/types";
 import { exLesson } from "../dashboard/const";
 import CButton from "../../components/atoms/CButton/CButton";
-import {
-  FaAssistiveListeningSystems,
-  FaBook,
-  FaCalendar,
-  FaCopyright,
-  FaHeadphones,
-} from "react-icons/fa";
-import { FaEarListen, FaUserGroup } from "react-icons/fa6";
+import { FaBook, FaCalendar, FaCopyright, FaHeadphones } from "react-icons/fa";
+import { FaUserGroup } from "react-icons/fa6";
 
 const LessonDetail = () => {
-  const { id } = useParams(); // Lấy id từ URL path, ví dụ: /lesson/:id
+  const { id } = useParams();
 
   return (
     <div

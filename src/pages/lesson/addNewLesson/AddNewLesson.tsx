@@ -3,6 +3,11 @@ import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
 import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
+import {
+  exactPunctuationRegex,
+  punctuationRegex,
+  wordSplitterRegex,
+} from "../../../constants/regex";
 
 const AddNewLesson = () => {
   const [lessonContent, setLessonContent] = useState("");
@@ -17,15 +22,13 @@ const AddNewLesson = () => {
   const generateWords = (withSuggestions: Boolean) => {
     if (!lessonContent.trim()) return;
     const words = lessonContent
-      .split(/(\s+|[.,!?])/) // Capture spaces and punctuation separately
-      .filter((word) => word.trim() || /[.,!?]/.test(word)); // Remove spaces but keep punctuation
+      .split(wordSplitterRegex) // Capture spaces and punctuation separately
+      .filter((word) => word.trim() || punctuationRegex.test(word)); // Remove spaces but keep punctuation
 
     const blankProbability = withSuggestions ? 0.6 : 0.9;
 
-    console.log("words", words);
-
     const updatedWords = words.map((word) =>
-      word.match(/^[.,!?]$/) // If the word is ONLY punctuation
+      word.match(exactPunctuationRegex) // If the word is ONLY punctuation
         ? word // Keep punctuation unchanged
         : Math.random() < blankProbability
         ? "" // Replace only words with blank

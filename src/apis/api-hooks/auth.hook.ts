@@ -1,9 +1,4 @@
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { IHttpError } from "../../types/dtos/http";
 import {
   checkExistEmail,
@@ -11,7 +6,7 @@ import {
   loginMutation,
   signUpMutation,
   verifyEmailMutation,
-} from "../user.api";
+} from "../auth.api";
 
 import {
   CheckExistEmailDTO,
@@ -25,7 +20,7 @@ import {
   SignUpResponse,
   VerifyEmailDTO,
   VerifyEmailResponse,
-} from "../../types/dtos/user.dto";
+} from "../../types/dtos/auth.dto";
 import { clearPersistToken, persistToken } from "../../providers/auth";
 import { AuthenticationInfoType, PeristTokens } from "../../types/auth";
 import { LOCALSTORAGE_AUTHINFO_KEY, TOKEN_STALE_TIME } from "../../constants";
@@ -64,83 +59,8 @@ export const useLoginMutation = () => {
         refreshToken: data?.refresh_token,
       });
 
-      // const { data: responseData } = data || {};
-
-      // const { permissions, roles } = responseData || {};
-
       const authenticationInfo: AuthenticationInfoType = {
         isAuth: true,
-        // roleMap:
-        //   roles?.reduce<RoleMapType>((obj, role) => {
-        //     obj[role.code] = role;
-        //     return obj;
-        //   }, {}) || {},
-        // screenPermissionMap:
-        //   permissions?.reduce<ScreenPermissionMapType>((obj, item) => {
-        //     obj[item.screen.code] = {
-        //       screen_code: item.screen.code,
-        //       role_code: item.role.code,
-        //       is_select: item.is_select,
-        //       is_insert: item.is_insert,
-        //       is_update: item.is_update,
-        //       is_delete: item.is_delete,
-        //     };
-        //     return obj;
-        //   }, {}) || {},
-        // uriPermissionMap:
-        //   permissions.reduce<UriPermissionMapType>((obj, item) => {
-        //     const selectUris =
-        //       item.select_uris.reduce<UriPermissionMapType>((o, uri) => {
-        //         o[uri] = {
-        //           uri_value: uri,
-        //           screen_code: item.screen.code,
-        //           role_code: item.role.code,
-        //           type: "is_select",
-        //         };
-        //         return o;
-        //       }, {}) || {};
-        //     const insertUris =
-        //       item.insert_uris.reduce<UriPermissionMapType>((o, uri) => {
-        //         o[uri] = {
-        //           uri_value: uri,
-        //           screen_code: item.screen.code,
-        //           role_code: item.role.code,
-        //           type: "is_insert",
-        //         };
-        //         return o;
-        //       }, {}) || {};
-        //     const updateUris =
-        //       item.update_uris.reduce<UriPermissionMapType>((o, uri) => {
-        //         o[uri] = {
-        //           uri_value: uri,
-        //           screen_code: item.screen.code,
-        //           role_code: item.role.code,
-        //           type: "is_update",
-        //         };
-        //         return o;
-        //       }, {}) || {};
-        //     const deleteUris =
-        //       item.delete_uris.reduce<UriPermissionMapType>((o, uri) => {
-        //         o[uri] = {
-        //           uri_value: uri,
-        //           screen_code: item.screen.code,
-        //           role_code: item.role.code,
-        //           type: "is_delete",
-        //         };
-        //         return o;
-        //       }, {}) || {};
-        //     return Object.assign(
-        //       obj,
-        //       selectUris,
-        //       insertUris,
-        //       updateUris,
-        //       deleteUris
-        //     );
-        //   }, {}) || {},
-        // isFailed: false,
-        // processing: false,
-        // isExternal: false,
-        // isBlocked: false,
       };
 
       localStorage.setItem(

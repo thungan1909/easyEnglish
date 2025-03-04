@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useAuthentication } from "../apis/hooks/auth.hook";
+import { useAuthentication } from "../apis/api-hooks/auth.hook";
 import Navbar from "../components/molecules/cNavbar/Navbar";
 
 interface MainLayoutProps {

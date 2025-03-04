@@ -5,7 +5,6 @@
   font-weight: 400;
   font-synthesis: none;
   --font-family: 'Playwrite IT Moderna', sans-serif;
-  /* purplr-500 */
   --main-color: 'oklch(0.627 0.265 303.9)';
   font-family: var(--font-family);
 }

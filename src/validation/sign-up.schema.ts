@@ -5,7 +5,7 @@ import {
   invalidEmailMsg,
   invalidPasswordMsg,
   invalidUsernameMsg,
-} from "../../../constants/errorMessage";
+} from "../constants/errorMessage";
 
 export const UserSignUpSchema = zod
   .object({

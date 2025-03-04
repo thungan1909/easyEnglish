@@ -3,7 +3,7 @@ import {
   invalidEmailMsg,
   invalidPasswordMsg,
   invalidUsernameMsg,
-} from "../../constants/errorMessage";
+} from "../constants/errorMessage";
 
 export const UserSignInSchema = zod.object({
   username: zod.string().min(1, invalidUsernameMsg),

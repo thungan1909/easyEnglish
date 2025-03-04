@@ -11,7 +11,7 @@ import {
   SignUpResponse,
   VerifyEmailDTO,
   VerifyEmailResponse,
-} from "../types/dtos/user.dto";
+} from "../types/dtos/auth.dto";
 
 export const loginMutation = {
   name: "login",

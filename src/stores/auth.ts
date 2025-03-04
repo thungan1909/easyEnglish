@@ -20,7 +20,6 @@ export class AuthStore {
   }
 
   setCurrentUser(userInfo: ICurrentUser | null) {
-    console.log("userInfo", userInfo);
     this.currentUser = userInfo;
   }
 

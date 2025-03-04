@@ -14,7 +14,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
-import { useLogoutMutation } from "../../../apis/hooks/auth.hook";
+import { useLogoutMutation } from "../../../apis/api-hooks/auth.hook";
 import { menuItems } from "./const";
 import { getLinkClassName } from "../../../utils/helpers/style";
 
@@ -142,7 +142,6 @@ const Navbar = ({ isAuth }: NavbarProps) => {
           <CButton
             className="!normal-case space-x-1.5 "
             variant="text"
-            fullWidth
             onClick={() => {
               navigate(ROUTES_CONSTANTS.AUTH.LOGIN);
             }}
@@ -152,7 +151,6 @@ const Navbar = ({ isAuth }: NavbarProps) => {
 
           <CButton
             className="!normal-case space-x-1.5"
-            fullWidth
             onClick={() => {
               navigate(ROUTES_CONSTANTS.AUTH.REGISTER);
             }}
