@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../routers/constants";
 import CButton from "../components/atoms/CButton/CButton";
 import { Typography } from "@mui/material";
+import { FaArrowRight } from "react-icons/fa";
 
 const LoginReminder = () => {
   const navigate = useNavigate();
@@ -13,8 +14,10 @@ const LoginReminder = () => {
       <CButton
         onClick={() => navigate(ROUTES_CONSTANTS.AUTH.LOGIN)}
         size="large"
+        isRounded
       >
-        Login now
+        Sign in now
+        <FaArrowRight size={24} className="ml-2" />
       </CButton>
     </div>
   );

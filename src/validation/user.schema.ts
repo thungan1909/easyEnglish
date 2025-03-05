@@ -38,3 +38,19 @@ export const UserSignUpSchema = zod
   });
 
 export type TUserSignUpSchema = zod.infer<typeof UserSignUpSchema>;
+
+
+// RESET PASSWORD
+
+export const UserResetPasswordSchema = zod
+  .object({
+    password: zod.string().min(6, invalidPasswordMsg),
+    confirmPassword: zod.string().min(6, invalidConfirmPasswordMsg),
+  })
+  .merge(GetVerifyCodeSchema) // Merge first, then apply refinement
+  .refine((data) => data.password === data.confirmPassword, {
+    message: confirmPasswordNotMatchMsg,
+    path: ["confirmPassword"],
+  });
+
+export type TUserResetPasswordSchema = zod.infer<typeof UserResetPasswordSchema>;

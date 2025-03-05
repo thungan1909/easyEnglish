@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import InputBasicInfo from "./InputBasicInfo";
 import { useAuthentication, useSignUpMutation } from "../../../hooks/auth.hook";
 import InputVerificationCode from "../shared/InputVerificationCode";
-import VerifySuccessfully from "../shared/VerifySuccessfully";
+import AuthenticationSuccessful from "../shared/AuthenticationSuccessful";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
@@ -18,6 +18,7 @@ import {
 } from "../../../validation/user.schema";
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
 import InputEmail from "./InputEmail";
+import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
@@ -62,7 +63,7 @@ const Register = () => {
 
   useEffect(() => {
     if (verificationState) {
-      setCurrentStep(ESignUpStep.VerifySuccessfully);
+      setCurrentStep(ESignUpStep.AuthenticationSuccessful);
       CStepperRef.current?.handleNextStep();
     }
   }, [verificationState]);
@@ -87,19 +88,23 @@ const Register = () => {
       {currentStep === ESignUpStep.InputEmail && (
         <InputEmail onInputEmail={handleSetEmail} />
       )}
+
       {currentStep === ESignUpStep.InputBasicInfo && (
         <InputBasicInfo
           onSubmitProfile={handleSubmitAuthenInfo}
           formInstance={formInstance}
         />
       )}
+
       {currentStep === ESignUpStep.InputVerificationCode && (
         <InputVerificationCode
           email={formInstance.getValues("email")}
           onSuccessVerify={setVerificationState}
         />
       )}
-      {currentStep === ESignUpStep.VerifySuccessfully && <VerifySuccessfully />}
+      {currentStep === ESignUpStep.AuthenticationSuccessful && (
+        <AuthenticationSuccessful type={VERIFY_ACCOUNT_STEP.REGISTER} />
+      )}
     </AuthenticationLayout>
   );
 };

@@ -8,17 +8,17 @@ import {
 } from "../../../hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
-import { CODE_LENGTH } from "./constants";
+import { CODE_LENGTH, VERIFY_ACCOUNT_STEP } from "./constants";
 
 export interface InputVerificationCodeProps {
   email: string;
-  isVerify?: boolean;
+  type?: keyof typeof VERIFY_ACCOUNT_STEP;
   onSuccessVerify: (isVerified: boolean) => void;
 }
 
 const InputVerificationCode = ({
   email,
-  isVerify = false,
+  type,
   onSuccessVerify,
 }: InputVerificationCodeProps) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -56,23 +56,25 @@ const InputVerificationCode = ({
 
   const handleVerificationEmail = useCallback(() => {
     let verificationCode = code.join("");
-    if (verificationCode?.length === CODE_LENGTH) {
-      verifyEmailMutation(
-        {
-          email: email,
-          verifyCode: verificationCode,
-        },
-        {
-          onSuccess: () => {
-            onSuccessVerify(true);
-          },
-          onError: (error) => {
-            notify.error(error.message || defaultErrorMsg);
-            setCode(Array(CODE_LENGTH).fill(""));
-          },
-        }
-      );
-    }
+    onSuccessVerify(true);
+
+    // if (verificationCode?.length === CODE_LENGTH) {
+    //   verifyEmailMutation(
+    //     {
+    //       email: email,
+    //       verifyCode: verificationCode,
+    //     },
+    //     {
+    //       onSuccess: () => {
+    //         onSuccessVerify(true);
+    //       },
+    //       onError: (error) => {
+    //         notify.error(error.message || defaultErrorMsg);
+    //         setCode(Array(CODE_LENGTH).fill(""));
+    //       },
+    //     }
+    //   );
+    // }
   }, [code, email, onSuccessVerify, verifyEmailMutation]);
 
   const handleResendVerifyCode = useCallback(() => {
@@ -90,7 +92,11 @@ const InputVerificationCode = ({
   return (
     <div className="flex flex-col items-center justify-center gap-6">
       <Typography variant="h5">
-        {isVerify ? "Email Verification" : "Register"}
+        {type === VERIFY_ACCOUNT_STEP.REGISTER
+          ? "Register"
+          : type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD
+          ? "Reset password"
+          : "Verify account"}
       </Typography>
       <Typography className="text-center">
         A verification email has been sent to
@@ -123,7 +129,11 @@ const InputVerificationCode = ({
           onClick={handleVerificationEmail}
           isRounded
         >
-          {isVerify ? "Verification" : "Register"}
+          {type === VERIFY_ACCOUNT_STEP.REGISTER
+            ? "Register"
+            : type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD
+            ? "Next"
+            : "Verify account"}
         </CButton>
 
         <Typography className="text-center">

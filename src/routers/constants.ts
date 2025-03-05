@@ -2,7 +2,7 @@ export const ROUTES_CONSTANTS = {
   AUTH: {
     LOGIN: "/login",
     REGISTER: "/register",
-    FORGOT_PASSWORD: "/forgot-password",
+    RESET_PASSWORD: "/reset-password",
     PAGE_NOT_FOUND: "*",
     VERIFY_ACCOUNT: "/verify-account",
   },

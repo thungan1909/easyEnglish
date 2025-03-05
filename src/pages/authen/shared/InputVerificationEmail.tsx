@@ -8,11 +8,13 @@ import { TGetVerifyCodeSchema } from "../../../validation/user.schema";
 export interface InputVerificationEmailProps {
   onSubmitForm: (data: TGetVerifyCodeSchema) => void;
   formInstance: UseFormReturn<TGetVerifyCodeSchema>;
+  isVerify?: boolean;
 }
 
 const InputVerificationEmail = ({
   onSubmitForm,
   formInstance,
+  isVerify,
 }: InputVerificationEmailProps) => {
   const {
     control,
@@ -22,8 +24,13 @@ const InputVerificationEmail = ({
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">
-      <Typography variant="h5">Verify Your Account</Typography>
-      <Typography>Enter your email to get verification code</Typography>
+      <Typography variant="h5">
+        {isVerify ? "Verify Your Account" : "Reset Password"}
+      </Typography>
+      <Typography>
+        Enter your email to
+        {isVerify ? " get verification code" : " reset password"}
+      </Typography>
       <form
         className="flex flex-col w-full gap-6"
         onSubmit={handleSubmit(onSubmitForm)}

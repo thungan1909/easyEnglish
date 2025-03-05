@@ -4,7 +4,7 @@ import LessonItem from "../LessonItem";
 
 const NewestLesson = () => {
   return (
-    <div className="bg-white shadow-xl rounded-lg p-4">
+    <div className="bg-white shadow-2xl rounded-lg p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 id="newest-lessons-title" className="text-xl font-bold">
           Newest Lessons

@@ -112,7 +112,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
             <CUserProfile />
           </>
         ) : (
-          <>
+          <div className="flex gap-3">
             <CButton
               className="!normal-case space-x-1.5 "
               variant="text"
@@ -125,13 +125,14 @@ const Navbar = ({ isAuth }: NavbarProps) => {
 
             <CButton
               className="!normal-case space-x-1.5"
+              isRounded
               onClick={() => {
                 navigate(ROUTES_CONSTANTS.AUTH.REGISTER);
               }}
             >
               Register now
             </CButton>
-          </>
+          </div>
         )}
       </div>
     </nav>

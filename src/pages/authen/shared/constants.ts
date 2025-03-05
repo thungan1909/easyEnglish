@@ -1,1 +1,11 @@
 export const CODE_LENGTH = 6;
+
+export enum VERIFY_ACCOUNT_STEP  {
+  REGISTER = "REGISTER",
+  VERIFY_ACCOUNT ="VERIFY_ACCOUNT",
+  RESET_PASSWORD = "RESET_PASSWORD",
+};
+
+  
+// export type VERIFY_TYPE = keyof typeof VERIFY_ACCOUNT_STEP;
+  

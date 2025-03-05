@@ -10,13 +10,16 @@ const Lesson = () => {
   const scope = queryParams.get("scope");
 
   return (
-    <div className="relative top-24 left-24 md:w-[720px]">
-      <ul className="flex gap-x-6 m-3">
+    <div className="top-24 md:flex flex-col items-center md:m-20 m-2 ">
+      <ul className="flex gap-6 mt-24 md:mt-8 px-4">
         {menuItems.map((item) => (
           <li key={item.href}>
             <Link
               to={item.href}
-              className={`transition ${getLinkClassName(item.href, location)}`}
+              className={`transition ${getLinkClassName(
+                item.href,
+                location
+              )} text-sm md:text-xl`}
             >
               {item.label}
             </Link>

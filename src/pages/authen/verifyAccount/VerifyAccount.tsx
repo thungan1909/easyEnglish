@@ -10,13 +10,14 @@ import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { EVerifyStep } from "./constant";
 import InputVerificationCode from "../shared/InputVerificationCode";
-import VerifySuccessfully from "../shared/VerifySuccessfully";
+import AuthenticationSuccessful from "../shared/AuthenticationSuccessful";
 import {
   GetVerifyCodeSchema,
   TGetVerifyCodeSchema,
 } from "../../../validation/user.schema";
-import InputVerificationEmail from "./InputVerificationEmail";
+import InputVerificationEmail from "../shared/InputVerificationEmail";
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
+import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 
 const VerifyAccount = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
@@ -53,7 +54,7 @@ const VerifyAccount = () => {
 
   useEffect(() => {
     if (verificationState) {
-      setCurrentStep(EVerifyStep.VerifySuccessfully);
+      setCurrentStep(EVerifyStep.AuthenticationSuccessful);
       CStepperRef.current?.handleNextStep();
     }
   }, [verificationState]);
@@ -79,17 +80,18 @@ const VerifyAccount = () => {
         <InputVerificationEmail
           onSubmitForm={handleSubmitAuthenInfo}
           formInstance={formInstance}
+          isVerify
         />
       )}
       {currentStep === EVerifyStep.InputVerificationCode && (
         <InputVerificationCode
-          isVerify
+          type={VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT}
           email={formInstance.getValues("email")}
           onSuccessVerify={setVerificationState}
         />
       )}
-      {currentStep === EVerifyStep.VerifySuccessfully && (
-        <VerifySuccessfully isVerify />
+      {currentStep === EVerifyStep.AuthenticationSuccessful && (
+        <AuthenticationSuccessful type={VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT} />
       )}
     </AuthenticationLayout>
   );

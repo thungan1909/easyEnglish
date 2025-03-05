@@ -4,10 +4,12 @@ import checkImg from "../../../assets/check-img.png";
 
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
-interface VerifySuccessfullyProps {
-  isVerify?: boolean;
+import { VERIFY_ACCOUNT_STEP } from "./constants";
+interface AuthenticationSuccessfulProps {
+  type?: keyof typeof VERIFY_ACCOUNT_STEP;
 }
-const VerifySuccessfully = ({ isVerify }: VerifySuccessfullyProps) => {
+
+const AuthenticationSuccessful = ({ type }: AuthenticationSuccessfulProps) => {
   const navigate = useNavigate();
 
   return (
@@ -18,7 +20,11 @@ const VerifySuccessfully = ({ isVerify }: VerifySuccessfullyProps) => {
         className="object-contain w-50"
       />
       <Typography variant="h5">
-        {isVerify ? "Verification Successful" : "Registration Successful"}
+        {type === VERIFY_ACCOUNT_STEP.REGISTER
+          ? "Registration Successful"
+          : type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD
+          ? "Reset Password Successful"
+          : "Verification Successful"}
       </Typography>
       <Typography className="text-center">
         Welcome to
@@ -36,4 +42,4 @@ const VerifySuccessfully = ({ isVerify }: VerifySuccessfullyProps) => {
   );
 };
 
-export default VerifySuccessfully;
+export default AuthenticationSuccessful;

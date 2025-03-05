@@ -178,7 +178,7 @@ export const exampleSlides: Slide[] = [
     stats: {
       numberPodcast: 4,
       numberParticipant: 40,
-      daysLeft: 20,
+      daysLeft: 1,
     },
   },
   {

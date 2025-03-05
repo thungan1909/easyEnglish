@@ -116,7 +116,7 @@ const Login = () => {
             <div className="!text-end">
               <CButton
                 onClick={() => {
-                  navigate(ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD);
+                  navigate(ROUTES_CONSTANTS.AUTH.RESET_PASSWORD);
                 }}
                 variant="text"
                 size="large"

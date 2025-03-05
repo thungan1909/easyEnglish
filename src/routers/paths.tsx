@@ -4,6 +4,7 @@ import { lessonPaths, ROUTES_CONSTANTS } from "./constants";
 import {
   AddNewLessonPage,
   DashboardPage,
+  ForgotPasswordPage,
   LessonDetailPage,
   LessonPage,
   LoginPage,
@@ -60,6 +61,11 @@ const authenRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.AUTH.VERIFY_ACCOUNT,
     element: <VerifyAccountPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.AUTH.RESET_PASSWORD,
+    element: <ForgotPasswordPage />,
     showWithPermission: true,
   },
 ];
