@@ -11,12 +11,13 @@ import {
 import logo from "../../../assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
 import { menuItems } from "./const";
 import { getLinkClassName } from "../../../utils/helpers/style";
 import CUserProfile from "../CUserProfile/cUserProfile";
+
 interface NavbarProps {
   isAuth: Boolean;
 }
@@ -37,115 +38,113 @@ const Navbar = ({ isAuth }: NavbarProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
+  const renderedMenuItems = useMemo(
+    () =>
+      menuItems.map((item) => (
+        <li key={item.href}>
+          <Link
+            to={item.href}
+            className={`transition ${getLinkClassName(item.href, location)}`}
+            onClick={() => setMenuOpen(false)}
+          >
+            {item.label}
+          </Link>
+        </li>
+      )),
+    [location]
+  );
+
   return (
-    <nav className="flex items-center shadow-md px-6 py-3 fixed  top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
+    <nav className="flex items-center shadow-md px-6 py-3 fixed top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
       <div className="flex items-center gap-x-6">
         <img src={logo} alt="EasyEnglish logo" className="h-8" />
 
-        <ul className="hidden md:flex gap-x-6">
-          {menuItems.map((item) => (
-            <li key={item.href}>
-              <Link
-                to={item.href}
-                className={`transition ${getLinkClassName(
-                  item.href,
-                  location
-                )}`}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex gap-x-6">{renderedMenuItems}</ul>
 
-        <div
-          className="md:hidden cursor-pointer"
+        <button
+          className="md:hidden"
+          aria-label="Toggle menu"
           onClick={() => setMenuOpen((prev) => !prev)}
         >
           {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-        </div>
+        </button>
 
+        {/* Mobile Menu */}
         {menuOpen && (
-          <div className="absolute top-16 left-16 w-[80%] max-w-3xs bg-purple-100 shadow-lg rounded-md">
-            <ul className="flex flex-col gap-y-4 text-gray-700 m-3">
-              {menuItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    to={item.href}
-                    onClick={() => setMenuOpen(false)}
-                    className={`transition ${getLinkClassName(
-                      item.href,
-                      location
-                    )}`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+          <div className="absolute top-16 left-16 w-[80%] max-w-3xs bg-purple-100 shadow-lg rounded-md p-3">
+            <ul className="flex flex-col gap-y-4 text-gray-700">
+              {renderedMenuItems}
             </ul>
           </div>
         )}
       </div>
 
-      <div className="absolute invisible md:visible !right-48">
-        <input
-          type="text"
-          placeholder="Search something..."
-          className="bg-gray-100 rounded-full px-4 py-2 pl-10 text-sm outline-none focus:ring-2 focus:ring-purple-300"
-        />
-        <FaSearch className="absolute left-3 top-2 text-gray-500" />
+      {/* Authentication & User Info */}
+      <div className="ml-auto flex items-center space-x-4">
+        {/* Search Bar (Desktop) */}
+        <div className="hidden md:flex items-center relative ml-auto">
+          <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+          <input
+            type="text"
+            placeholder="Search something..."
+            className="bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-purple-300"
+          />
+        </div>
+
+        {isAuth ? (
+          <>
+            <div className="hidden md:flex items-center space-x-4">
+              <CButton
+                startIcon={<FaPlusCircle />}
+                className="!mr-3 !normal-case space-x-1.5"
+                onClick={() => {
+                  navigate(ROUTES_CONSTANTS.LESSON.ADD_NEW);
+                }}
+              >
+                <span> New lesson</span>
+              </CButton>
+
+              {/* Coins & Streak */}
+              <div className="flex items-center space-x-1 bg-yellow-100 text-yellow-500 px-3 py-2 rounded-full">
+                <FaCoins />
+                <span className="font-semibold">100</span>
+              </div>
+
+              <div className="flex items-center space-x-1 bg-red-100 text-red-500 px-3 py-2 rounded-full">
+                <FaFire />
+                <span className="font-semibold">100</span>
+              </div>
+
+              {/* Icons */}
+              <FaChartBar className="text-gray-500 cursor-pointer hover:text-black transition" />
+              <FaBell className="text-gray-500 cursor-pointer hover:text-black transition" />
+            </div>
+            <CUserProfile />
+          </>
+        ) : (
+          <>
+            <CButton
+              className="!normal-case space-x-1.5 "
+              variant="text"
+              onClick={() => {
+                navigate(ROUTES_CONSTANTS.AUTH.LOGIN);
+              }}
+            >
+              Login
+            </CButton>
+
+            <CButton
+              className="!normal-case space-x-1.5"
+              onClick={() => {
+                navigate(ROUTES_CONSTANTS.AUTH.REGISTER);
+              }}
+            >
+              Register now
+            </CButton>
+          </>
+        )}
       </div>
-
-      {isAuth ? (
-        <div className="absolute right-0 flex items-center space-x-4 mr-4">
-          <CButton
-            startIcon={<FaPlusCircle />}
-            className="invisible md:visible !mr-3 !normal-case space-x-1.5"
-            onClick={() => {
-              navigate(ROUTES_CONSTANTS.LESSON.ADD_NEW);
-            }}
-          >
-            <span> Add new lesson</span>
-          </CButton>
-
-          {/* Coins */}
-          <div className="flex items-center space-x-1 bg-yellow-100 text-yellow-500 px-3 py-2 rounded-full">
-            <FaCoins />
-            <span className="font-semibold">100</span>
-          </div>
-
-          <div className="flex items-center space-x-1 bg-red-100 text-red-500 px-3 py-2 rounded-full">
-            <FaFire />
-            <span className="font-semibold">100</span>
-          </div>
-
-          <FaChartBar className="text-gray-500 cursor-pointer hover:text-black transition" />
-          <FaBell className="text-gray-500 cursor-pointer hover:text-black transition" />
-
-          <CUserProfile />
-        </div>
-      ) : (
-        <div className="absolute right-8 flex items-center !space-x-4">
-          <CButton
-            className="!normal-case space-x-1.5 "
-            variant="text"
-            onClick={() => {
-              navigate(ROUTES_CONSTANTS.AUTH.LOGIN);
-            }}
-          >
-            Login
-          </CButton>
-
-          <CButton
-            className="!normal-case space-x-1.5"
-            onClick={() => {
-              navigate(ROUTES_CONSTANTS.AUTH.REGISTER);
-            }}
-          >
-            Register now
-          </CButton>
-        </div>
-      )}
     </nav>
   );
 };

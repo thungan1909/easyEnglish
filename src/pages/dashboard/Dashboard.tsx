@@ -10,20 +10,27 @@ import RankingList from "./rightSection/RankingList";
 const Dashboard = () => {
   const { isAuth } = useAuthentication();
 
-  return (
-    <div className="grid grid-cols-1 p-8 gap-8 md:grid-cols-6 md:px-16 md:gap-32">
-      <div className="relative top-24 space-y-8 md:col-span-3 w-full md:w-[720px]">
-        <HeroSection />
-        {isAuth ? <RecentLessons /> : null}
-        <NewestLesson />
-        <RecommendLesson />
-      </div>
+  const leftSection = (
+    <div className="space-y-8 p-4 md:col-span-3 w-full md:w-[640px]">
+      <HeroSection />
+      {isAuth && <RecentLessons />}
+      <NewestLesson />
+      <RecommendLesson />
+    </div>
+  );
 
-      <div className="relative top-24 space-y-8 md:ml-24 md:col-span-2 md:w-[360px]">
-        <RankingList />
-        <NewFeeds />
-        <MostListened />
-      </div>
+  const rightSection = (
+    <div className="space-y-8 p-4 md:ml-24 md:col-span-2 md:w-[420px]">
+      <RankingList />
+      <NewFeeds />
+      <MostListened />
+    </div>
+  );
+
+  return (
+    <div className="md:flex md:justify-center top-24 grid grid-cols-1 mx-2 mt-24">
+      {leftSection}
+      {rightSection}
     </div>
   );
 };

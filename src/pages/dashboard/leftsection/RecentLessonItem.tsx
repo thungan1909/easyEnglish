@@ -1,32 +1,48 @@
 import { FaBook, FaPlay } from "react-icons/fa";
 import { Lesson } from "../types";
+import { Typography } from "@mui/material";
 
 interface LessonItemProps {
-    lesson: Lesson;
+  lesson: Lesson;
 }
 
 const RecentLessonItem = ({ lesson }: LessonItemProps) => {
-    return (
-        <div key={lesson.id} className="flex items-center bg-gradient-to-r from-indigo-100 to bg-purple-200 p-3 rounded-lg shadow-md" >
-            {/* Image */}
-            <img src={lesson.image} alt={lesson.title} className="w-16 h-16 rounded-lg cover-object mr-4" />
-            <div className="flex flex-col flex-1">
-                <span className="text-sm font-semibold text-gray-90">{lesson.id}</span>
-                <p className="text-sm text-gray-700 truncate w-48">{lesson.title}</p>
-                {/* Stats */}
-                <div className="flex items-center text-xs text-gray-500 mt-1 space-x-2">
-                    <FaPlay/>
-                    <span>{lesson.listens}</span>
-                    <FaBook/>
-                    <span>{lesson.provider}</span>
-                </div>
+  return (
+    <div
+      key={lesson.id}
+      className="flex items-center bg-gradient-to-r from-indigo-100 to bg-purple-200 p-3 rounded-lg shadow-md"
+    >
+      {/* Image */}
+      <img
+        src={lesson.image}
+        alt={lesson.title}
+        className="w-16 h-16 rounded-lg object-cover mr-4"
+      />
+      <div className="flex flex-col flex-1">
+        <Typography
+          className="text-sm max-w-[80%] line-clamp-2"
+          variant="body2"
+        >
+          {lesson.id} - {lesson.title}
+        </Typography>
 
-                <div className="w-48 bg-gray-500 rounded-full h-2.5 mt-2">
-                    <div className="bg-green-500 h-2.5 rounded-full w-[80%]" style={{ width: `${lesson.progress}%` }}></div>
-                </div>
-            </div>
+        {/* Stats */}
+        <div className="flex items-center text-xs text-gray-500 mt-1 gap-2">
+          <FaPlay />
+          <Typography variant="caption">{lesson.listens}</Typography>
+          <FaBook />
+          <Typography variant="caption">{lesson.provider}</Typography>
         </div>
-    )
-}
+
+        <div className="md:w-48 max-w-[80%] bg-gray-500 rounded-full h-2.5 mt-2">
+          <div
+            className="bg-green-400 h-2.5 rounded-full"
+            style={{ width: `${lesson.progress}%` }}
+          ></div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default RecentLessonItem;
