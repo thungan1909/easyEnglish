@@ -23,23 +23,21 @@ const CTextArea = ({
   onChange,
 }: ITextArea): JSX.Element => {
   return (
-    <div>
-      <TextareaAutosize
-        maxRows={maxRows}
-        minRows={minRows}
-        maxLength={maxLength}
-        aria-label={ariaLabel}
-        placeholder={placeholder}
-        className={className}
-        value={value}
-        onChange={onChange}
-        style={{
-          border: "1px solid",
-          paddingInline: "16px",
-          borderColor: "var(--main-color)",
-        }}
-      />
-    </div>
+    <TextareaAutosize
+      maxRows={maxRows}
+      minRows={minRows}
+      maxLength={maxLength}
+      aria-label={ariaLabel}
+      placeholder={placeholder}
+      className={className}
+      value={value}
+      onChange={onChange}
+      style={{
+        border: "1px solid",
+        paddingInline: "16px",
+        borderColor: "var(--main-color)",
+      }}
+    />
   );
 };
 

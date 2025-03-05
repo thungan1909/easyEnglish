@@ -21,63 +21,56 @@ import { Typography } from "@mui/material";
 
 const AddNewLesson = () => {
   const { isAuth } = useAuthentication();
-  // const [lessonContent, setLessonContent] = useState("");
   const [lessonWords, setLessonWords] = useState<string[]>();
-  const [audioFile, setAudioFile] = useState<string | null>(null);
+  const [_, setAudioFile] = useState<string | null>(null);
 
   const { mutate: createLessonMutation } = useCreateLessonMutation();
 
   const {
     control,
     handleSubmit,
-    getValues,
     setValue,
+    watch,
     formState: { isValid },
   } = useForm<TCreateNewLessonSchema>({
     mode: "onChange",
     resolver: zodResolver(CreateNewLessonSchema),
   });
 
-  // const handleGetLessonContent = (
-  //   e: React.ChangeEvent<HTMLTextAreaElement>
-  // ) => {
-  //   setLessonContent(e.target.value);
-  // };
+  const lessonContent = watch("lessonContent");
 
-  const generateWords = (withSuggestions: Boolean, lessonContent: string) => {
+  const generateWords = (withSuggestions: Boolean) => {
     if (!lessonContent.trim()) return;
+
     const words = lessonContent
-      .split(wordSplitterRegex) // Capture spaces and punctuation separately
+      .split(wordSplitterRegex)
       .filter((word) => word.trim() || punctuationRegex.test(word)); // Remove spaces but keep punctuation
 
     const blankProbability = withSuggestions ? 0.6 : 0.9;
 
     const updatedWords = words.map((word) =>
-      word.match(exactPunctuationRegex) // If the word is ONLY punctuation
-        ? word // Keep punctuation unchanged
+      word.match(exactPunctuationRegex)
+        ? word
         : Math.random() < blankProbability
-        ? "" // Replace only words with blank
+        ? ""
         : word
     );
 
     if (JSON.stringify(updatedWords) !== JSON.stringify(lessonWords)) {
       setLessonWords(updatedWords);
-      setValue("wordList", updatedWords);
+      setValue("wordList", updatedWords, { shouldValidate: true });
     }
   };
 
   const handleFileUpload = (file: File) => {
     const fileURL = URL.createObjectURL(file);
     setAudioFile(fileURL);
-    setValue("audioFile", fileURL); // Store in react-hook-form
+    setValue("audioFile", fileURL, { shouldValidate: true });
   };
 
   const onSubmit = (data: TCreateNewLessonSchema) => {
-    console.log(data, "TCreateNewLessonSchema");
     createLessonMutation(data, {
-      onSuccess: () => {
-        alert("Lesson created successfully!");
-      },
+      onSuccess: () => alert("Lesson created successfully!"),
       onError: (error) => {
         console.error("Error:", error);
         alert("Failed to create lesson.");
@@ -89,7 +82,7 @@ const AddNewLesson = () => {
     <>
       {isAuth ? (
         <form
-          className=" mt-16 p-8 flex flex-col space-y-6 "
+          className="mt-16 p-8 md:p-16 flex flex-col space-y-6 "
           onSubmit={handleSubmit(onSubmit)}
         >
           <Controller
@@ -97,7 +90,7 @@ const AddNewLesson = () => {
             control={control}
             defaultValue=""
             render={({ field, fieldState }) => (
-              <>
+              <div>
                 <CTextField
                   {...field}
                   type="text"
@@ -111,7 +104,7 @@ const AddNewLesson = () => {
                     {fieldState.error.message}
                   </Typography>
                 )}
-              </>
+              </div>
             )}
           />
           <div className="grid md:grid-cols-2 md:gap-6 items-start">
@@ -120,7 +113,7 @@ const AddNewLesson = () => {
               control={control}
               defaultValue=""
               render={({ field, fieldState }) => (
-                <>
+                <div className="">
                   <CTextArea
                     {...field}
                     maxRows={25}
@@ -134,7 +127,7 @@ const AddNewLesson = () => {
                       {fieldState.error.message}
                     </Typography>
                   )}
-                </>
+                </div>
               )}
             />
             <div className="flex gap-x-1 flex-wrap">
@@ -154,23 +147,17 @@ const AddNewLesson = () => {
             </div>
           </div>
           <div className="md:flex md:justify-evenly md:flex-wrap grid grid-cols-1 gap-3">
-            <CButton
-              onClick={() =>
-                generateWords(false, control._formValues.lessonContent)
-              }
-            >
+            <CButton onClick={() => generateWords(false)}>
               Generate without suggest
             </CButton>
-            <CButton
-              onClick={() =>
-                generateWords(true, control._formValues.lessonContent)
-              }
-            >
+            <CButton onClick={() => generateWords(true)}>
               Generate with suggest
             </CButton>
           </div>
+
           <CUploadFile onChangeFileSelected={handleFileUpload} />
-          <CButton className="w-full" type="submit">
+
+          <CButton className="w-full" type="submit" disabled={!isValid}>
             Save
           </CButton>
         </form>
