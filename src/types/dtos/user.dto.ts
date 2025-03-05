@@ -1,7 +1,10 @@
 export interface UserDTO {
-  id: string;
-  name: string;
+  _id: string;
+  username: string;
   email: string;
-  role: string; // Example: "admin" | "user"
+  isVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
   avatarUrl?: string;
+  fullName?: string;
 }

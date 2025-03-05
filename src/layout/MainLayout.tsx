@@ -8,7 +8,6 @@ interface MainLayoutProps {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   const { isAuth } = useAuthentication();
-  console.log(isAuth);
 
   return (
     <div className="flex flex-col">

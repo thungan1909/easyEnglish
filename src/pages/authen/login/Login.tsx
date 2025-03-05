@@ -9,12 +9,12 @@ import CButton from "../../../components/atoms/CButton/CButton";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
-import { useEffect } from "react";
 import {
   TUserSignInSchema,
   UserSignInSchema,
 } from "../../../validation/user.schema";
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
+import { useEffect } from "react";
 
 const resolver = zodResolver(UserSignInSchema);
 
@@ -42,14 +42,14 @@ const Login = () => {
         notify.error(error.message || defaultErrorMsg);
       },
       onSuccess: () => {
-        // navigate(ROUTES_CONSTANTS.DASHBOARD, { replace: true });
+        navigate(ROUTES_CONSTANTS.DASHBOARD, { replace: true });
       },
     });
   };
 
   useEffect(() => {
     if (isAuth) {
-      window.location.href = ROUTES_CONSTANTS.DASHBOARD;
+      navigate(ROUTES_CONSTANTS.DASHBOARD, { replace: true });
     }
   }, [isAuth]);
 

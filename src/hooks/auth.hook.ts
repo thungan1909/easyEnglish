@@ -24,6 +24,7 @@ import {
 import { clearPersistToken, persistToken } from "../providers/auth";
 import { AuthenticationInfoType, PeristTokens } from "../types/auth";
 import {
+  AUTHENTICATION_QUERY_KEY,
   LOCALSTORAGE_AUTHINFO_KEY,
   TOKEN_STALE_TIME,
   USER_QUERY_KEY,
@@ -31,8 +32,6 @@ import {
 import { tryCatch } from "../utils/helpers/try-catch";
 import { ROUTES_CONSTANTS } from "../routers/constants";
 import { getUserInfoMutation } from "../apis/user.api";
-
-export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
 
 export const updateAuthenticationInfo = ({
   accessToken,
@@ -73,22 +72,23 @@ export const useLoginMutation = () => {
           refreshToken: refresh_token,
         });
 
-        queryClient.setQueryData(AUTHENTICATION_QUERY_KEY, {
+        const authInfo = {
           isAuth: true,
           userId: user._id,
-        });
+        };
 
-        console.log(
-          "Updated authentication state:",
-          queryClient.getQueryData(AUTHENTICATION_QUERY_KEY)
+        localStorage.setItem(
+          LOCALSTORAGE_AUTHINFO_KEY,
+          JSON.stringify(authInfo)
         );
+
+        queryClient.setQueryData(AUTHENTICATION_QUERY_KEY, authInfo);
 
         await queryClient.invalidateQueries({
           queryKey: AUTHENTICATION_QUERY_KEY,
         });
 
         const userInfo = await getUserInfoMutation.fn();
-        console.log("User info fetched:", userInfo);
         queryClient.setQueryData(USER_QUERY_KEY, userInfo);
       } catch (error) {
         console.error("Failed to fetch user info:", error);
@@ -107,10 +107,11 @@ const _useAuthenticationCache = () => {
       return JSON.parse(localStorage.getItem(LOCALSTORAGE_AUTHINFO_KEY) || "");
     }, {} as AuthenticationInfoType),
     queryFn: () => {
-      const cachedData = queryClient.getQueryData<AuthenticationInfoType>(
-        AUTHENTICATION_QUERY_KEY
+      return (
+        queryClient.getQueryData<AuthenticationInfoType>(
+          AUTHENTICATION_QUERY_KEY
+        ) ?? ({} as AuthenticationInfoType)
       );
-      return cachedData ?? ({} as AuthenticationInfoType);
     },
     staleTime: TOKEN_STALE_TIME,
   });

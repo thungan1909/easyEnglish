@@ -14,7 +14,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
-import { useLogoutMutation } from "../../../hooks/auth.hook";
 import { menuItems } from "./const";
 import { getLinkClassName } from "../../../utils/helpers/style";
 import CUserProfile from "../CUserProfile/cUserProfile";
@@ -26,11 +25,6 @@ const Navbar = ({ isAuth }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { mutate: logoutMutation } = useLogoutMutation();
-
-  const handleLogout = () => {
-    logoutMutation({});
-  };
 
   const handleResize = useCallback(() => {
     if (window.innerWidth >= 768) {
@@ -93,7 +87,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
         )}
       </div>
 
-      <div className="relative invisible md:visible ">
+      <div className="absolute invisible md:visible !right-48">
         <input
           type="text"
           placeholder="Search something..."
@@ -113,12 +107,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
           >
             <span> Add new lesson</span>
           </CButton>
-          <CButton
-            className="!mr-3 !normal-case space-x-1.5"
-            onClick={handleLogout}
-          >
-            <span> LOG OUT</span>
-          </CButton>
+
           {/* Coins */}
           <div className="flex items-center space-x-1 bg-yellow-100 text-yellow-500 px-3 py-2 rounded-full">
             <FaCoins />
@@ -133,13 +122,10 @@ const Navbar = ({ isAuth }: NavbarProps) => {
           <FaChartBar className="text-gray-500 cursor-pointer hover:text-black transition" />
           <FaBell className="text-gray-500 cursor-pointer hover:text-black transition" />
 
-          {/* <div className="bg-pink-500 text-white px-3 py-2 rounded-full font-bold cursor-pointer hover:bg-pink-600 transition">
-            DO
-          </div> */}
           <CUserProfile />
         </div>
       ) : (
-        <div className="absolute right-0 flex items-center mr-32 !space-x-4">
+        <div className="absolute right-8 flex items-center !space-x-4">
           <CButton
             className="!normal-case space-x-1.5 "
             variant="text"
