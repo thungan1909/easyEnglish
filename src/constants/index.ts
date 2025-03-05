@@ -13,6 +13,9 @@ export const END_POINTS = {
   USER: {
     PROFILE: "/user/profile",
   },
+  LESSON: {
+    ADD_NEW: "/lesson/add-new",
+  },
 };
 
 export const COOKIES = {

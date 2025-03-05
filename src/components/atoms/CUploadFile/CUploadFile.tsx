@@ -66,15 +66,15 @@ const CUploadFile = ({ onChangeFileSelected }: CUploadFileProps) => {
       )}
 
       {uploadFileName && (
-        <div className="relative bg-purple-300 p-5 rounded-2xl">
+        <div className="relative bg-purple-300 p-6 rounded-2xl">
           <CButton
-            className="!absolute -right-1 -top-1"
+            className="!absolute right-1 top-1"
             variant="text"
             onClick={removeFile}
           >
             <FaTimes size={28} />
           </CButton>
-          <div className="flex items-center space-x-1 mt-2 max-w-[320px] line-clamp-1">
+          <div className="flex items-center space-x-1 mt-4 max-w-[320px] line-clamp-1">
             <FaFileAudio size={28} />
             <Typography>{uploadFileName}</Typography>
           </div>

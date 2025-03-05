@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
@@ -10,19 +10,41 @@ import {
 } from "../../../constants/regex";
 import { useAuthentication } from "../../../hooks/auth.hook";
 import LoginReminder from "../../LoginReminder";
+import { useCreateLessonMutation } from "../../../hooks/lesson.hook";
+import {
+  CreateNewLessonSchema,
+  TCreateNewLessonSchema,
+} from "../../../validation/lesson.schema";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Typography } from "@mui/material";
 
 const AddNewLesson = () => {
   const { isAuth } = useAuthentication();
-  const [lessonContent, setLessonContent] = useState("");
+  // const [lessonContent, setLessonContent] = useState("");
   const [lessonWords, setLessonWords] = useState<string[]>();
+  const [audioFile, setAudioFile] = useState<string | null>(null);
 
-  const handleGetLessonContent = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setLessonContent(e.target.value);
-  };
+  const { mutate: createLessonMutation } = useCreateLessonMutation();
 
-  const generateWords = (withSuggestions: Boolean) => {
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    setValue,
+    formState: { isValid },
+  } = useForm<TCreateNewLessonSchema>({
+    mode: "onChange",
+    resolver: zodResolver(CreateNewLessonSchema),
+  });
+
+  // const handleGetLessonContent = (
+  //   e: React.ChangeEvent<HTMLTextAreaElement>
+  // ) => {
+  //   setLessonContent(e.target.value);
+  // };
+
+  const generateWords = (withSuggestions: Boolean, lessonContent: string) => {
     if (!lessonContent.trim()) return;
     const words = lessonContent
       .split(wordSplitterRegex) // Capture spaces and punctuation separately
@@ -40,28 +62,80 @@ const AddNewLesson = () => {
 
     if (JSON.stringify(updatedWords) !== JSON.stringify(lessonWords)) {
       setLessonWords(updatedWords);
+      setValue("wordList", updatedWords);
     }
+  };
+
+  const handleFileUpload = (file: File) => {
+    const fileURL = URL.createObjectURL(file);
+    setAudioFile(fileURL);
+    setValue("audioFile", fileURL); // Store in react-hook-form
+  };
+
+  const onSubmit = (data: TCreateNewLessonSchema) => {
+    console.log(data, "TCreateNewLessonSchema");
+    createLessonMutation(data, {
+      onSuccess: () => {
+        alert("Lesson created successfully!");
+      },
+      onError: (error) => {
+        console.error("Error:", error);
+        alert("Failed to create lesson.");
+      },
+    });
   };
 
   return (
     <>
       {isAuth ? (
-        <form className=" mt-16 p-8 flex flex-col space-y-6 ">
-          <CTextField
-            label="Lesson's title"
-            className="w-full"
-            maxLength={50}
+        <form
+          className=" mt-16 p-8 flex flex-col space-y-6 "
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Controller
+            name="lessonTitle"
+            control={control}
+            defaultValue=""
+            render={({ field, fieldState }) => (
+              <>
+                <CTextField
+                  {...field}
+                  type="text"
+                  label="Lesson's title"
+                  placeholder="Lesson's title"
+                  className="w-full"
+                  maxLength={50}
+                />
+                {fieldState.error && (
+                  <Typography color="error" variant="caption">
+                    {fieldState.error.message}
+                  </Typography>
+                )}
+              </>
+            )}
           />
-
           <div className="grid md:grid-cols-2 md:gap-6 items-start">
-            <CTextArea
-              maxRows={25}
-              minRows={5}
-              maxLength={1500}
-              placeholder="Enter lesson content..."
-              className="w-full"
-              value={lessonContent}
-              onChange={handleGetLessonContent}
+            <Controller
+              name="lessonContent"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState }) => (
+                <>
+                  <CTextArea
+                    {...field}
+                    maxRows={25}
+                    minRows={5}
+                    maxLength={1500}
+                    placeholder="Enter lesson content..."
+                    className="w-full"
+                  />
+                  {fieldState.error && (
+                    <Typography color="error" variant="caption">
+                      {fieldState.error.message}
+                    </Typography>
+                  )}
+                </>
+              )}
             />
             <div className="flex gap-x-1 flex-wrap">
               {lessonWords?.map((word, index) => (
@@ -80,15 +154,25 @@ const AddNewLesson = () => {
             </div>
           </div>
           <div className="md:flex md:justify-evenly md:flex-wrap grid grid-cols-1 gap-3">
-            <CButton onClick={() => generateWords(false)}>
+            <CButton
+              onClick={() =>
+                generateWords(false, control._formValues.lessonContent)
+              }
+            >
               Generate without suggest
             </CButton>
-            <CButton onClick={() => generateWords(true)}>
+            <CButton
+              onClick={() =>
+                generateWords(true, control._formValues.lessonContent)
+              }
+            >
               Generate with suggest
             </CButton>
           </div>
-          <CUploadFile onChangeFileSelected={(file) => console.log(file)} />
-          <CButton className="w-full">Save</CButton>
+          <CUploadFile onChangeFileSelected={handleFileUpload} />
+          <CButton className="w-full" type="submit">
+            Save
+          </CButton>
         </form>
       ) : (
         <LoginReminder />

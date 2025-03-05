@@ -1,7 +1,7 @@
 import { FaHeart, FaList, FaPlus } from "react-icons/fa";
 import CButton from "../../components/atoms/CButton/CButton";
 import { Lesson } from "../dashboard/types";
-import { Divider } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
 
@@ -28,14 +28,19 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
         className="rounded-xl w-30 h-30 "
       />
       <div className="flex flex-col space-y-2">
-        <span>{lesson.title}</span>
-        <div className="text-xs text-gray-500 space-x-4.5 font-extralight">
-          <span>{lesson.id}</span>
-          <span>{lesson.listens} views</span>
-          <span>{lesson.provider}</span>
+        <Typography className="text-lg font-semibold">
+          {lesson.title}
+        </Typography>
+
+        <div className="flex text-gray-500 gap-4 mt-1 text-xs">
+          <Typography variant="caption">{lesson.id}</Typography>
+          <Typography variant="caption">{lesson.listens} views</Typography>
+          <Typography variant="caption">{lesson.provider}</Typography>
         </div>
+
         <p className="line-clamp-1 font-light text-xs">{lesson.description}</p>
-        <div className="flex !space-x-2 mb-4">
+
+        <div className="flex gap-2 mb-4">
           <CButton isRounded variant="outlined" size="small">
             <FaHeart />
           </CButton>

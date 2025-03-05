@@ -5,3 +5,8 @@ export const invalidEmailMsg = "The email address format is invalid.";
 export const confirmPasswordNotMatchMsg =
   "The password and confirmation password must match.";
 export const defaultErrorMsg = "Something went wrong!";
+
+export const invalidLessonTitleMsg = "Lesson's title is required";
+export const invalidLessonContentMsg = "Lesson's content is required";
+export const invalidLessonWordListMsg = "Lesson's words list is required";
+export const invalidLessonAudioFileMsg = "Lesson's audio file is required";
