@@ -1,33 +1,54 @@
+import CButton from "../../../components/atoms/CButton/CButton";
 import { exampleUserNewfeed } from "../const";
 
 const NewFeeds = () => {
-    return (
-        <div className="bg-white shadow-xl rounded-lg p-4">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">New Feeds</h2>
-                <button className="text-red-500 font-semibold">See more</button>
-            </div>
-            <div className="grid gap-3">
-                {exampleUserNewfeed.map((user) => (
-                    <div className="flex flex-cols items-center shadow-xl rounded-lg p-4 bg-purple-400 text-white space-x-3" key={user.id}>
-                        <img src={user.avatar} alt={user.id} className="w-8 h-8 rounded-full" />
-                        <div>
-                            <div className="text-xs space-x-2">
-                            <span className="">{user.name}</span>
-                            <span>-</span>
-                            <span>{user.time.toLocaleTimeString()}</span>
-                            </div>
+  return (
+    <div className="bg-white shadow-xl rounded-lg p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">New Feeds</h2>
+        <CButton
+          className="!text-red-500 !normal-case"
+          variant="text"
+          size="large"
+          aria-label="View more new feeds"
+        >
+          See more
+        </CButton>
+      </div>
+      <div className="grid gap-3">
+        {exampleUserNewfeed.map((user) => (
+          <div
+            key={user.id}
+            className="flex items-center shadow-xl rounded-lg p-4 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
+          >
+            <img
+              src={user.avatar}
+              alt={`${user.name}'s avatar`}
+              className="w-8 h-8 rounded-full"
+            />
+            <div className="min-w-0">
+              <div className="text-xs space-x-2 mb-1">
+                <span className="font-semibold">{user.name}</span>
+                <span>-</span>
+                <span>
+                  {new Intl.DateTimeFormat("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  }).format(new Date(user.time))}
+                </span>
+              </div>
 
-                            <div className="space-x-1 text-sm">
-                               <span className="text-black">Start to learn</span>
-                               <span className="font-semibold">{user.lesson}</span>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+              <div className="space-x-1 text-sm">
+                <span className="text-black">Start to learn</span>
+                <span className="font-semibold">{user.lesson}</span>
+              </div>
             </div>
-        </div>
-    )
-}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default NewFeeds;

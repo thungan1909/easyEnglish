@@ -10,13 +10,13 @@ const RecentLessonItem = ({ lesson }: LessonItemProps) => {
   return (
     <div
       key={lesson.id}
-      className="flex items-center bg-gradient-to-r from-indigo-100 to bg-purple-200 p-3 rounded-lg shadow-md"
+      className="flex items-center bg-gradient-to-r from-indigo-100 bg-purple-200 p-2 rounded-lg shadow-md hover:bg-purple-400 cursor-pointer"
     >
       {/* Image */}
       <img
         src={lesson.image}
         alt={lesson.title}
-        className="w-16 h-16 rounded-lg object-cover mr-4"
+        className="w-16 h-16 rounded-lg object-cover mr-3"
       />
       <div className="flex flex-col flex-1">
         <Typography
@@ -29,9 +29,13 @@ const RecentLessonItem = ({ lesson }: LessonItemProps) => {
         {/* Stats */}
         <div className="flex items-center text-xs text-gray-500 mt-1 gap-2">
           <FaPlay />
-          <Typography variant="caption">{lesson.listens}</Typography>
+          <Typography variant="caption" className="line-clamp-1">
+            {lesson.listens}
+          </Typography>
           <FaBook />
-          <Typography variant="caption">{lesson.provider}</Typography>
+          <Typography variant="caption" className="line-clamp-1">
+            {lesson.provider}
+          </Typography>
         </div>
 
         <div className="md:w-48 max-w-[80%] bg-gray-500 rounded-full h-2.5 mt-2">

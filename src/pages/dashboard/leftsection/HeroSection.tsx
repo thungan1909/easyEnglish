@@ -7,7 +7,7 @@ import { FaUserGroup } from "react-icons/fa6";
 
 const HeroSection = () => {
   return (
-    <div className="shadow-xl rounded-lg min-h-80">
+    <div className="shadow-xl rounded-lg min-h-80 cursor-pointer">
       <Slider {...settingSlider}>
         {exampleSlides.map((slide) => (
           <div
@@ -17,7 +17,8 @@ const HeroSection = () => {
             <img
               src={slide.image}
               alt={slide.title}
-              className="absolute inset-0 object-cover rounded-lg w-full h-full "
+              loading="lazy"
+              className="absolute inset-0 object-cover rounded-lg w-full h-full"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-red-400 via-red-400 to-transparent"></div>
 
@@ -26,19 +27,19 @@ const HeroSection = () => {
                 {slide.title}
               </h1>
               <p className="text-sm">{slide.description}</p>
-              <div className="flex items-center space-x-8 text-xs absolute bottom-4 left-4  ">
+              <div className="absolute bottom-4 left-4 flex items-center space-x-8 text-xs">
                 <span className="flex items-center space-x-1">
-                  <FaMicrophone />
+                  <FaMicrophone aria-hidden="true" />
                   <span>{slide.stats.numberPodcast} </span>
                   <span> podcasts</span>
                 </span>
                 <span className="flex items-center space-x-1">
-                  <FaUserGroup />
+                  <FaUserGroup aria-hidden="true" />
                   <span>{slide.stats.numberParticipant} </span>
                   <span> participant</span>
                 </span>
                 <span className="flex items-center space-x-1">
-                  <FaHourglass />
+                  <FaHourglass aria-hidden="true" />
                   <span>{slide.stats.daysLeft} </span>
                   <span> days left</span>
                 </span>

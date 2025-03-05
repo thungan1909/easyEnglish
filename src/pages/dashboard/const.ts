@@ -65,7 +65,7 @@ export const exampleLessons: Lesson[] = [
   {
     id: "ESL_6",
     title: "Indonesia – Respecting Nature",
-    listens: "697",
+    listens: "59221",
     provider: "WELE The Wallaby",
     image: lesson4,
     progress: "90",
@@ -76,7 +76,7 @@ export const exampleLessons: Lesson[] = [
   {
     id: "ESL_7",
     title: "Alice in Wonderland: Part 1 - Down the...",
-    listens: "10.078",
+    listens: "10.59221",
     provider: "BBC",
     image: lesson2,
     scope: "listened",
@@ -87,7 +87,7 @@ export const exampleLessons: Lesson[] = [
   {
     id: "ESL_8",
     title: "Australia – Home Sweet Home",
-    listens: "1.591",
+    listens: "122591",
     provider: "WELE The Wallaby",
     image: lesson3,
     progress: "60",
