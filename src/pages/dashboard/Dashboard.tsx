@@ -11,7 +11,7 @@ const Dashboard = () => {
   const { isAuth } = useAuthentication();
 
   const leftSection = (
-    <div className="space-y-8 p-4 md:col-span-3 w-full md:w-[640px]">
+    <div className="space-y-8 p-4 md:col-span-3 w-full md:w-[720px]">
       <HeroSection />
       {isAuth && <RecentLessons />}
       <NewestLesson />

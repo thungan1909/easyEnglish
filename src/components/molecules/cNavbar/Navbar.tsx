@@ -4,7 +4,6 @@ import {
   FaChartBar,
   FaCoins,
   FaFire,
-  FaPlusCircle,
   FaSearch,
   FaTimes,
 } from "react-icons/fa";
@@ -72,8 +71,8 @@ const Navbar = ({ isAuth }: NavbarProps) => {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="absolute top-16 left-16 w-[80%] max-w-3xs bg-purple-100 shadow-lg rounded-md p-3">
-            <ul className="flex flex-col gap-y-4 text-gray-700">
+          <div className="absolute top-16 left-16 max-w-[80%] bg-white shadow-2xl rounded-lg">
+            <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
               {renderedMenuItems}
             </ul>
           </div>
@@ -84,34 +83,24 @@ const Navbar = ({ isAuth }: NavbarProps) => {
       <div className="ml-auto flex items-center space-x-4">
         {/* Search Bar (Desktop) */}
         <div className="hidden md:flex items-center relative ml-auto">
-          <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+          <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500" />
           <input
             type="text"
             placeholder="Search something..."
-            className="bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-purple-300"
+            className="bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
 
         {isAuth ? (
           <>
             <div className="hidden md:flex items-center space-x-4">
-              <CButton
-                startIcon={<FaPlusCircle />}
-                className="!mr-3 !normal-case space-x-1.5"
-                onClick={() => {
-                  navigate(ROUTES_CONSTANTS.LESSON.ADD_NEW);
-                }}
-              >
-                <span> New lesson</span>
-              </CButton>
-
               {/* Coins & Streak */}
-              <div className="flex items-center space-x-1 bg-yellow-100 text-yellow-500 px-3 py-2 rounded-full">
+              <div className="flex items-center space-x-1 bg-yellow-100 text-yellow-600 px-3 py-2 rounded-full hover:bg-yellow-200 transition cursor-pointer">
                 <FaCoins />
                 <span className="font-semibold">100</span>
               </div>
 
-              <div className="flex items-center space-x-1 bg-red-100 text-red-500 px-3 py-2 rounded-full">
+              <div className="flex items-center space-x-1 bg-red-100 text-red-600 px-3 py-2 rounded-full hover:bg-red-200 cursor-pointer">
                 <FaFire />
                 <span className="font-semibold">100</span>
               </div>

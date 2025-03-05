@@ -53,7 +53,7 @@ const AddNewLesson = () => {
             maxLength={50}
           />
 
-          <div className="grid md:grid-cols-2 gap-6 items-start">
+          <div className="grid md:grid-cols-2 md:gap-6 items-start">
             <CTextArea
               maxRows={25}
               minRows={5}
@@ -79,7 +79,7 @@ const AddNewLesson = () => {
               ))}
             </div>
           </div>
-          <div className="flex justify-evenly">
+          <div className="md:flex md:justify-evenly md:flex-wrap grid grid-cols-1 gap-3">
             <CButton onClick={() => generateWords(false)}>
               Generate without suggest
             </CButton>

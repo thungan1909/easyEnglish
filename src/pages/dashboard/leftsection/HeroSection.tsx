@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { exampleSlides, settingSlider } from "../const";
 import { FaHourglass, FaMicrophone } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
+import { Typography } from "@mui/material";
 
 const HeroSection = () => {
   return (
@@ -23,9 +24,12 @@ const HeroSection = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-red-400 via-red-400 to-transparent"></div>
 
             <div className="relative text-white flex flex-col space-y-16 justify-between h-full p-6">
-              <h1 className="text-xl font-bold max-w-[80%] line-clamp-2">
+              <Typography
+                className="text-xl font-bold max-w-[80%] line-clamp-2"
+                variant="h3"
+              >
                 {slide.title}
-              </h1>
+              </Typography>
               <p className="text-sm">{slide.description}</p>
               <div className="absolute bottom-4 left-4 flex items-center space-x-8 text-xs">
                 <span className="flex items-center space-x-1">

@@ -1,8 +1,9 @@
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Divider, Typography } from "@mui/material";
 import { useUser } from "../../../hooks/user.hook";
 import { useEffect, useRef, useState } from "react";
 import CButton from "../../atoms/CButton/CButton";
 import { useLogoutMutation } from "../../../hooks/auth.hook";
+import { FaCog, FaFolder, FaSignOutAlt } from "react-icons/fa";
 
 const CUserProfile = () => {
   const currentUser = useUser();
@@ -53,10 +54,10 @@ const CUserProfile = () => {
 
       {openMenu && (
         <div
-          className="absolute right-0 top-12 w-[240px] rounded-lg shadow-2xl bg-white p-3"
+          className="absolute right-0 top-12 w-[240px] rounded-lg shadow-2xl bg-white p-5"
           ref={menuRef}
         >
-          <div className="flex gap-2">
+          <div className="flex gap-2 cursor-pointer mb-2">
             <Avatar
               alt="user-avatar"
               className="!bg-purple-400"
@@ -74,18 +75,31 @@ const CUserProfile = () => {
               </Typography>
             </div>
           </div>
-          <div className="flex flex-col gap-2 mt-2">
-            <CButton variant="text" textTransform="capitalize">
+          <Divider />
+          <div className="flex flex-col gap-2 mt-2 items-start px-2">
+            <CButton
+              variant="text"
+              textTransform="capitalize"
+              className="gap-2"
+            >
+              <FaFolder />
               Manage listening
             </CButton>
-            <CButton variant="text" textTransform="capitalize">
+            <CButton
+              variant="text"
+              textTransform="capitalize"
+              className="gap-2"
+            >
+              <FaCog />
               My account
             </CButton>
             <CButton
               variant="text"
               textTransform="capitalize"
+              className="gap-2"
               onClick={handleLogout}
             >
+              <FaSignOutAlt />
               Logout
             </CButton>
           </div>
