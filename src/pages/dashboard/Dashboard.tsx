@@ -1,4 +1,4 @@
-import { useAuthentication } from "../../hooks/auth.hook";
+import { useAuthentication } from "../../hooks/auth/login.hook";
 import HeroSection from "./leftsection/HeroSection";
 import NewestLesson from "./leftsection/NewestLesson";
 import RecentLessons from "./leftsection/RecentLesson";

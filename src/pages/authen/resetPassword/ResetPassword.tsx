@@ -3,11 +3,6 @@ import CSteppers from "../../../components/molecules/cSteppers";
 import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  useAuthentication,
-  useGetCodeResetPassword,
-  useResetPasswordMutation,
-} from "../../../hooks/auth.hook";
 
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import InputVerificationCode from "../shared/InputVerificationCode";
@@ -25,6 +20,11 @@ import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 import InputResetPassword from "./InputResetPassword";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
+import {
+  useGetCodeResetPassword,
+  useResetPasswordMutation,
+} from "../../../hooks/auth/reset-password.hook";
+import { useAuthentication } from "../../../hooks/auth/login.hook";
 
 const ForgotPassword = () => {
   const CStepperRef = useRef<ISteppersRef>(null);

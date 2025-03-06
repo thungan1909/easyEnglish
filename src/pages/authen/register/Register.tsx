@@ -6,7 +6,6 @@ import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputBasicInfo from "./InputBasicInfo";
-import { useAuthentication, useSignUpMutation } from "../../../hooks/auth.hook";
 import InputVerificationCode from "../shared/InputVerificationCode";
 import AuthenticationSuccessful from "../shared/AuthenticationSuccessful";
 import { notify } from "../../../utils/notify";
@@ -19,6 +18,8 @@ import {
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
 import InputEmail from "./InputEmail";
 import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
+import { useSignUpMutation } from "../../../hooks/auth/signup.hook";
+import { useAuthentication } from "../../../hooks/auth/login.hook";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
@@ -100,6 +101,7 @@ const Register = () => {
         <InputVerificationCode
           email={formInstance.getValues("email")}
           onSuccessVerify={setVerificationState}
+          type={VERIFY_ACCOUNT_STEP.REGISTER}
         />
       )}
       {currentStep === ESignUpStep.AuthenticationSuccessful && (

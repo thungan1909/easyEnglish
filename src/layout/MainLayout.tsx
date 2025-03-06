@@ -1,10 +1,10 @@
 import { ReactNode, useEffect, useState } from "react";
 import Navbar from "../components/molecules/cNavbar/Navbar";
-import { useAuthentication } from "../hooks/auth.hook";
 import { FaPlus } from "react-icons/fa";
 import CButton from "../components/atoms/CButton/CButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../routers/constants";
+import { useAuthentication } from "../hooks/auth/login.hook";
 
 interface MainLayoutProps {
   children: ReactNode;

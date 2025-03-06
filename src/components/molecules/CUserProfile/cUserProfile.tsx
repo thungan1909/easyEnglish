@@ -2,8 +2,8 @@ import { Avatar, Divider, Typography } from "@mui/material";
 import { useUser } from "../../../hooks/user.hook";
 import { useEffect, useRef, useState } from "react";
 import CButton from "../../atoms/CButton/CButton";
-import { useLogoutMutation } from "../../../hooks/auth.hook";
 import { FaCog, FaFolder, FaSignOutAlt } from "react-icons/fa";
+import { useLogoutMutation } from "../../../hooks/auth/logout.hook";
 
 const CUserProfile = () => {
   const currentUser = useUser();

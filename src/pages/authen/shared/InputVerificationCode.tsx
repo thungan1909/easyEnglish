@@ -2,14 +2,18 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { useCallback, useRef, useState } from "react";
-import {
-  useGetCodeResetPassword,
-  useGetVerifyCode,
-  useVerifyResetCodeMutation,
-} from "../../../hooks/auth.hook";
+
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { CODE_LENGTH, VERIFY_ACCOUNT_STEP } from "./constants";
+import {
+  useGetCodeResetPassword,
+  useVerifyResetCodeMutation,
+} from "../../../hooks/auth/reset-password.hook";
+import {
+  useGetVerifyCode,
+  useVerifyEmailMutation,
+} from "../../../hooks/auth/verify-email.hook";
 
 export interface InputVerificationCodeProps {
   email: string;
@@ -27,6 +31,8 @@ const InputVerificationCode = ({
   const [disableButton, setDisableButton] = useState(true);
 
   const { mutate: verifyResetCodeMutation } = useVerifyResetCodeMutation();
+  const { mutate: verifyEmailMutation } = useVerifyEmailMutation();
+
   const { mutate: getVerifyCodeMutation } = useGetVerifyCode();
   const { mutate: getCodeResetPasswordMutation } = useGetCodeResetPassword();
 
@@ -57,24 +63,45 @@ const InputVerificationCode = ({
   );
 
   const handleVerificationEmail = useCallback(() => {
-    let resetCode = code.join("");
+    let codeString = code.join("");
 
-    if (resetCode?.length === CODE_LENGTH) {
-      verifyResetCodeMutation(
-        {
-          email: email,
-          resetCode: resetCode,
-        },
-        {
-          onSuccess: () => {
-            onSuccessVerify(true);
+    if (codeString?.length === CODE_LENGTH) {
+      if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
+        verifyResetCodeMutation(
+          {
+            email: email,
+            resetCode: codeString,
           },
-          onError: (error) => {
-            notify.error(error.message || defaultErrorMsg);
-            setCode(Array(CODE_LENGTH).fill(""));
+          {
+            onSuccess: () => {
+              onSuccessVerify(true);
+            },
+            onError: (error) => {
+              notify.error(error.message || defaultErrorMsg);
+              setCode(Array(CODE_LENGTH).fill(""));
+            },
+          }
+        );
+      } else if (
+        type === VERIFY_ACCOUNT_STEP.REGISTER ||
+        type === VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT
+      ) {
+        verifyEmailMutation(
+          {
+            email: email,
+            verifyCode: codeString,
           },
-        }
-      );
+          {
+            onSuccess: () => {
+              onSuccessVerify(true);
+            },
+            onError: (error) => {
+              notify.error(error.message || defaultErrorMsg);
+              setCode(Array(CODE_LENGTH).fill(""));
+            },
+          }
+        );
+      }
     }
   }, [code, email, onSuccessVerify, verifyResetCodeMutation]);
 

@@ -2,7 +2,6 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 
 import { Controller, useForm } from "react-hook-form";
-import { useAuthentication, useLoginMutation } from "../../../hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
@@ -15,6 +14,10 @@ import {
 } from "../../../validation/user.schema";
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
 import { useEffect } from "react";
+import {
+  useAuthentication,
+  useLoginMutation,
+} from "../../../hooks/auth/login.hook";
 
 const resolver = zodResolver(UserSignInSchema);
 

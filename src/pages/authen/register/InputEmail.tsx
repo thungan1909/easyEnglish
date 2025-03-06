@@ -2,12 +2,12 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { useState } from "react";
-import { useCheckExistEmailMutation } from "../../../hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { emailRegex } from "../../../constants/regex";
 import { useNavigate } from "react-router-dom";
+import { useCheckExistEmailMutation } from "../../../hooks/auth/signup.hook";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;
