@@ -7,7 +7,7 @@ export const createLessonMutation = {
   fn: async (data: CreatLessonDTO): Promise<CreateLessonResponse> => {
     try {
       return getOriginalResponseData<CreateLessonResponse>(
-        await getAxiosInstance().post(END_POINTS.LESSON.ADD_NEW, data)
+        await getAxiosInstance().post(END_POINTS.LESSON.CREATE, data)
       );
     } catch (error) {
       throw error;

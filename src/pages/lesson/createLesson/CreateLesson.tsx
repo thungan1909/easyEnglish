@@ -8,9 +8,8 @@ import {
   punctuationRegex,
   wordSplitterRegex,
 } from "../../../constants/regex";
-import { useAuthentication } from "../../../hooks/auth.hook";
 import LoginReminder from "../../LoginReminder";
-import { useCreateLessonMutation } from "../../../hooks/lesson.hook";
+import { useCreateLessonMutation } from "../../../hooks/lesson/create-lesson.hook";
 import {
   CreateNewLessonSchema,
   TCreateNewLessonSchema,
@@ -18,8 +17,9 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
+import { useAuthentication } from "../../../hooks/auth/login.hook";
 
-const AddNewLesson = () => {
+const CreateLesson = () => {
   const { isAuth } = useAuthentication();
   const [lessonWords, setLessonWords] = useState<string[]>();
   const [_, setAudioFile] = useState<string | null>(null);
@@ -168,7 +168,7 @@ const AddNewLesson = () => {
   );
 };
 
-export default AddNewLesson;
+export default CreateLesson;
 
 // <TextField
 //   key={index}

@@ -6,12 +6,12 @@ import {
   SignUpResponse,
 } from "../../types/dtos/auth.dto";
 import { IHttpError } from "../../types/dtos/http";
-import { checkExistEmail, signUpMutation } from "../../apis/auth.api";
+import { checkExistEmailMutation, signUpMutation } from "../../apis/auth.api";
 
 export const useCheckExistEmailMutation = () => {
   return useMutation<CheckExistEmailResponse, IHttpError, CheckExistEmailDTO>({
     mutationFn: async (data: CheckExistEmailDTO) => {
-      return checkExistEmail.fn(data);
+      return checkExistEmailMutation.fn(data);
     },
   });
 };

@@ -3,8 +3,8 @@ import { END_POINTS } from "../constants";
 import {
   CheckExistEmailDTO,
   CheckExistEmailResponse,
-  GetCodeResetPasswordDTO,
-  GetCodeResetPasswordResponse,
+  GetResetCodeDTO,
+  getResetCodeResponse,
   GetVerifyCodeDTO,
   GetVerifyCodeResponse,
   LoginDTO,
@@ -13,8 +13,8 @@ import {
   ResetPasswordResponse,
   SignUpDTO,
   SignUpResponse,
-  VerifyEmailDTO,
-  VerifyEmailResponse,
+  VerifyAccountDTO,
+  VerifyAccountResponse,
   VerifyResetCodeDTO,
   VerifyResetCodeResponse,
 } from "../types/dtos/auth.dto";
@@ -32,7 +32,7 @@ export const loginMutation = {
   },
 };
 
-export const checkExistEmail = {
+export const checkExistEmailMutation = {
   name: "checkExistEmail",
   fn: async (data: CheckExistEmailDTO): Promise<CheckExistEmailResponse> => {
     try {
@@ -58,12 +58,12 @@ export const signUpMutation = {
   },
 };
 
-export const verifyEmailMutation = {
-  name: "verifyEmail",
-  fn: async (data: VerifyEmailDTO): Promise<VerifyEmailResponse> => {
+export const verifyAccountMutation = {
+  name: "verifyAccount",
+  fn: async (data: VerifyAccountDTO): Promise<VerifyAccountResponse> => {
     try {
-      return getOriginalResponseData<VerifyEmailResponse>(
-        await getAxiosInstance().post(END_POINTS.AUTH.VERIFY_USER, data)
+      return getOriginalResponseData<VerifyAccountResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.VERIFY_ACCOUNT, data)
       );
     } catch (error) {
       throw error;
@@ -84,14 +84,12 @@ export const getVerifyCodeMutation = {
   },
 };
 
-export const getCodeResetPasswordMutation = {
-  name: "getCodeResetPassword",
-  fn: async (
-    data: GetCodeResetPasswordDTO
-  ): Promise<GetCodeResetPasswordResponse> => {
+export const getResetCodeMutation = {
+  name: "getCodeReset",
+  fn: async (data: GetResetCodeDTO): Promise<getResetCodeResponse> => {
     try {
-      return getOriginalResponseData<GetCodeResetPasswordResponse>(
-        await getAxiosInstance().post(END_POINTS.AUTH.GET_RESET_EMAIL, data)
+      return getOriginalResponseData<getResetCodeResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.GET_RESET_CODE, data)
       );
     } catch (error) {
       throw error;

@@ -1,20 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
 import {
   getVerifyCodeMutation,
-  verifyEmailMutation,
+  verifyAccountMutation,
 } from "../../apis/auth.api";
 import {
   GetVerifyCodeDTO,
   GetVerifyCodeResponse,
-  VerifyEmailDTO,
-  VerifyEmailResponse,
+  VerifyAccountDTO,
+  VerifyAccountResponse,
 } from "../../types/dtos/auth.dto";
 import { IHttpError } from "../../types/dtos/http";
 
-export const useVerifyEmailMutation = () => {
-  return useMutation<VerifyEmailResponse, IHttpError, VerifyEmailDTO>({
-    mutationFn: async (data: VerifyEmailDTO) => {
-      return verifyEmailMutation.fn(data);
+export const useVerifyAccountMutation = () => {
+  return useMutation<VerifyAccountResponse, IHttpError, VerifyAccountDTO>({
+    mutationFn: async (data: VerifyAccountDTO) => {
+      return verifyAccountMutation.fn(data);
     },
   });
 };

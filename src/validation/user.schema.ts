@@ -39,7 +39,6 @@ export const UserSignUpSchema = zod
 
 export type TUserSignUpSchema = zod.infer<typeof UserSignUpSchema>;
 
-
 // RESET PASSWORD
 
 export const UserResetPasswordSchema = zod
@@ -53,4 +52,6 @@ export const UserResetPasswordSchema = zod
     path: ["confirmPassword"],
   });
 
-export type TUserResetPasswordSchema = zod.infer<typeof UserResetPasswordSchema>;
+export type TUserResetPasswordSchema = zod.infer<
+  typeof UserResetPasswordSchema
+>;

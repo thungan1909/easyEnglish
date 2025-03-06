@@ -7,12 +7,12 @@ import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { CODE_LENGTH, VERIFY_ACCOUNT_STEP } from "./constants";
 import {
-  useGetCodeResetPassword,
+  useGetResetCode,
   useVerifyResetCodeMutation,
 } from "../../../hooks/auth/reset-password.hook";
 import {
   useGetVerifyCode,
-  useVerifyEmailMutation,
+  useVerifyAccountMutation,
 } from "../../../hooks/auth/verify-email.hook";
 
 export interface InputVerificationCodeProps {
@@ -31,10 +31,10 @@ const InputVerificationCode = ({
   const [disableButton, setDisableButton] = useState(true);
 
   const { mutate: verifyResetCodeMutation } = useVerifyResetCodeMutation();
-  const { mutate: verifyEmailMutation } = useVerifyEmailMutation();
+  const { mutate: verifyAccountMutation } = useVerifyAccountMutation();
 
   const { mutate: getVerifyCodeMutation } = useGetVerifyCode();
-  const { mutate: getCodeResetPasswordMutation } = useGetCodeResetPassword();
+  const { mutate: getResetCodeMutation } = useGetResetCode();
 
   const handleChange = useCallback(
     (index: number, value: string) => {
@@ -86,7 +86,7 @@ const InputVerificationCode = ({
         type === VERIFY_ACCOUNT_STEP.REGISTER ||
         type === VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT
       ) {
-        verifyEmailMutation(
+        verifyAccountMutation(
           {
             email: email,
             verifyCode: codeString,
@@ -120,7 +120,7 @@ const InputVerificationCode = ({
         }
       );
     } else if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
-      getCodeResetPasswordMutation(
+      getResetCodeMutation(
         {
           email,
         },
@@ -130,7 +130,7 @@ const InputVerificationCode = ({
         }
       );
     }
-  }, [email, getVerifyCodeMutation, getCodeResetPasswordMutation]);
+  }, [email, getVerifyCodeMutation, getResetCodeMutation]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">

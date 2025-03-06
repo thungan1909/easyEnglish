@@ -6,18 +6,18 @@ export const END_POINTS = {
     LOGIN: "/auth/login",
     CHECK_EXIST_EMAIL: "/auth/check-exist-email",
     SIGN_UP: "/auth/sign-up",
-    VERIFY_USER: "/auth/verify-user",
-    GET_VERIFY_CODE: "/auth/get-verify-code",
-    GET_RESET_EMAIL: "/auth/get-reset-code",
-    VERIFY_RESET_CODE: "/auth/verify-reset-code",
     GET_USER_INFO: "/auth/me",
+    VERIFY_ACCOUNT: "/auth/verify-account",
+    GET_VERIFY_CODE: "/auth/get-verify-code",
+    GET_RESET_CODE: "/auth/get-reset-code",
+    VERIFY_RESET_CODE: "/auth/verify-reset-code",
     RESET_PASSWORD: "/auth/reset-password",
   },
   USER: {
     PROFILE: "/user/profile",
   },
   LESSON: {
-    ADD_NEW: "/lesson/add-new",
+    CREATE: "/lesson/create",
   },
 };
 

@@ -15,9 +15,9 @@ export interface SignUpDTO {
   password: string;
 }
 
-export interface VerifyEmailResponse {}
+export interface VerifyAccountResponse {}
 
-export interface VerifyEmailDTO {
+export interface VerifyAccountDTO {
   email: string;
   verifyCode: string;
 }
@@ -35,11 +35,11 @@ export interface GetVerifyCodeDTO {
 
 export interface GetVerifyCodeResponse {}
 
-export interface GetCodeResetPasswordDTO extends GetVerifyCodeDTO {
+export interface GetResetCodeDTO extends GetVerifyCodeDTO {
   email: string;
 }
 
-export interface GetCodeResetPasswordResponse {}
+export interface getResetCodeResponse {}
 
 export interface ResetPasswordDTO {
   email: string;

@@ -21,7 +21,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [disableButton, setDisable] = useState(true);
-  const { mutate: checkExistEmail } = useCheckExistEmailMutation();
+  const { mutate: checkExistEmailMutation } = useCheckExistEmailMutation();
 
   const handleNextStep = () => {
     const trimmedEmail = email.trim();
@@ -30,7 +30,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
       return;
     }
 
-    checkExistEmail(
+    checkExistEmailMutation(
       { email: trimmedEmail },
       {
         onSuccess: (data) => {

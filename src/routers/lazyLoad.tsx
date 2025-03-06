@@ -47,8 +47,8 @@ export const LessonPage = withDynamicImport(
   }
 );
 
-export const AddNewLessonPage = withDynamicImport(
-  () => import("../pages/lesson/addNewLesson/AddNewLesson"),
+export const CreateLessonPage = withDynamicImport(
+  () => import("../pages/lesson/createLesson/CreateLesson"),
   {
     loading: true,
   }
