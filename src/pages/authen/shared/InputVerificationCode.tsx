@@ -3,8 +3,9 @@ import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { useCallback, useRef, useState } from "react";
 import {
+  useGetCodeResetPassword,
   useGetVerifyCode,
-  useVerifyEmailMutation,
+  useVerifyResetCodeMutation,
 } from "../../../hooks/auth.hook";
 import { notify } from "../../../utils/notify";
 import { defaultErrorMsg } from "../../../constants/errorMessage";
@@ -25,8 +26,9 @@ const InputVerificationCode = ({
   const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(""));
   const [disableButton, setDisableButton] = useState(true);
 
-  const { mutate: verifyEmailMutation } = useVerifyEmailMutation();
+  const { mutate: verifyResetCodeMutation } = useVerifyResetCodeMutation();
   const { mutate: getVerifyCodeMutation } = useGetVerifyCode();
+  const { mutate: getCodeResetPasswordMutation } = useGetCodeResetPassword();
 
   const handleChange = useCallback(
     (index: number, value: string) => {
@@ -55,39 +57,53 @@ const InputVerificationCode = ({
   );
 
   const handleVerificationEmail = useCallback(() => {
-    let verificationCode = code.join("");
-    onSuccessVerify(true);
+    let resetCode = code.join("");
 
-    // if (verificationCode?.length === CODE_LENGTH) {
-    //   verifyEmailMutation(
-    //     {
-    //       email: email,
-    //       verifyCode: verificationCode,
-    //     },
-    //     {
-    //       onSuccess: () => {
-    //         onSuccessVerify(true);
-    //       },
-    //       onError: (error) => {
-    //         notify.error(error.message || defaultErrorMsg);
-    //         setCode(Array(CODE_LENGTH).fill(""));
-    //       },
-    //     }
-    //   );
-    // }
-  }, [code, email, onSuccessVerify, verifyEmailMutation]);
+    if (resetCode?.length === CODE_LENGTH) {
+      verifyResetCodeMutation(
+        {
+          email: email,
+          resetCode: resetCode,
+        },
+        {
+          onSuccess: () => {
+            onSuccessVerify(true);
+          },
+          onError: (error) => {
+            notify.error(error.message || defaultErrorMsg);
+            setCode(Array(CODE_LENGTH).fill(""));
+          },
+        }
+      );
+    }
+  }, [code, email, onSuccessVerify, verifyResetCodeMutation]);
 
   const handleResendVerifyCode = useCallback(() => {
-    getVerifyCodeMutation(
-      {
-        email,
-      },
-      {
-        onSuccess: () => notify.success("Verification code resent."),
-        onError: (error) => notify.error(error.message || defaultErrorMsg),
-      }
-    );
-  }, [email, getVerifyCodeMutation]);
+    if (
+      type === VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT ||
+      type === VERIFY_ACCOUNT_STEP.REGISTER
+    ) {
+      getVerifyCodeMutation(
+        {
+          email,
+        },
+        {
+          onSuccess: () => notify.success("Verification code resent."),
+          onError: (error) => notify.error(error.message || defaultErrorMsg),
+        }
+      );
+    } else if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
+      getCodeResetPasswordMutation(
+        {
+          email,
+        },
+        {
+          onSuccess: () => notify.success("Verification code resent."),
+          onError: (error) => notify.error(error.message || defaultErrorMsg),
+        }
+      );
+    }
+  }, [email, getVerifyCodeMutation, getCodeResetPasswordMutation]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">

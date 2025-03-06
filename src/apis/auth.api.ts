@@ -3,14 +3,20 @@ import { END_POINTS } from "../constants";
 import {
   CheckExistEmailDTO,
   CheckExistEmailResponse,
+  GetCodeResetPasswordDTO,
+  GetCodeResetPasswordResponse,
   GetVerifyCodeDTO,
   GetVerifyCodeResponse,
   LoginDTO,
   LoginOriginalResponse,
+  ResetPasswordDTO,
+  ResetPasswordResponse,
   SignUpDTO,
   SignUpResponse,
   VerifyEmailDTO,
   VerifyEmailResponse,
+  VerifyResetCodeDTO,
+  VerifyResetCodeResponse,
 } from "../types/dtos/auth.dto";
 
 export const loginMutation = {
@@ -71,6 +77,47 @@ export const getVerifyCodeMutation = {
     try {
       return getOriginalResponseData<GetVerifyCodeResponse>(
         await getAxiosInstance().post(END_POINTS.AUTH.GET_VERIFY_CODE, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const getCodeResetPasswordMutation = {
+  name: "getCodeResetPassword",
+  fn: async (
+    data: GetCodeResetPasswordDTO
+  ): Promise<GetCodeResetPasswordResponse> => {
+    try {
+      return getOriginalResponseData<GetCodeResetPasswordResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.GET_RESET_EMAIL, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const verifyResetCodeMutation = {
+  name: "verifyResetCode",
+  fn: async (data: VerifyResetCodeDTO): Promise<VerifyResetCodeResponse> => {
+    try {
+      return getOriginalResponseData<VerifyResetCodeResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.VERIFY_RESET_CODE, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const resetPasswordMutation = {
+  name: "resetPassword",
+  fn: async (data: ResetPasswordDTO): Promise<ResetPasswordResponse> => {
+    try {
+      return getOriginalResponseData<ResetPasswordResponse>(
+        await getAxiosInstance().post(END_POINTS.AUTH.RESET_PASSWORD, data)
       );
     } catch (error) {
       throw error;

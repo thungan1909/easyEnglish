@@ -15,7 +15,6 @@ export const getUserInfoMutation = {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
       const userData =
         getOriginalResponseData<typeof response.data>(response)?.user;
       if (!userData) throw new Error("Invalid response: User data not found");

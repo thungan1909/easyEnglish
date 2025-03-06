@@ -2,24 +2,33 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { IHttpError } from "../types/dtos/http";
 import {
   checkExistEmail,
+  getCodeResetPasswordMutation,
   getVerifyCodeMutation,
   loginMutation,
+  resetPasswordMutation,
   signUpMutation,
   verifyEmailMutation,
+  verifyResetCodeMutation,
 } from "../apis/auth.api";
 
 import {
   CheckExistEmailDTO,
   CheckExistEmailResponse,
+  GetCodeResetPasswordDTO,
+  GetCodeResetPasswordResponse,
   GetVerifyCodeDTO,
   GetVerifyCodeResponse,
   LoginDTO,
   LoginOriginalResponse,
   LogOutDTO,
+  ResetPasswordDTO,
+  ResetPasswordResponse,
   SignUpDTO,
   SignUpResponse,
   VerifyEmailDTO,
   VerifyEmailResponse,
+  VerifyResetCodeDTO,
+  VerifyResetCodeResponse,
 } from "../types/dtos/auth.dto";
 import { clearPersistToken, persistToken } from "../providers/auth";
 import { AuthenticationInfoType, PeristTokens } from "../types/auth";
@@ -62,7 +71,7 @@ export const useLoginMutation = () => {
       try {
         const { access_token, refresh_token, user } = data; // Extract user info from response
 
-        if (!user?._id) {
+        if (!user?.id) {
           throw new Error("User ID is missing in login response");
         }
 
@@ -74,7 +83,7 @@ export const useLoginMutation = () => {
 
         const authInfo = {
           isAuth: true,
-          userId: user._id,
+          userId: user.id,
         };
 
         localStorage.setItem(
@@ -89,6 +98,7 @@ export const useLoginMutation = () => {
         });
 
         const userInfo = await getUserInfoMutation.fn();
+        console.log(userInfo, "userINFO");
         queryClient.setQueryData(USER_QUERY_KEY, userInfo);
       } catch (error) {
         console.error("Failed to fetch user info:", error);
@@ -151,6 +161,34 @@ export const useGetVerifyCode = () => {
   return useMutation<GetVerifyCodeResponse, IHttpError, GetVerifyCodeDTO>({
     mutationFn: async (data: GetVerifyCodeDTO) => {
       return getVerifyCodeMutation.fn(data);
+    },
+  });
+};
+
+export const useGetCodeResetPassword = () => {
+  return useMutation<
+    GetCodeResetPasswordResponse,
+    IHttpError,
+    GetCodeResetPasswordDTO
+  >({
+    mutationFn: async (data: GetCodeResetPasswordDTO) => {
+      return getCodeResetPasswordMutation.fn(data);
+    },
+  });
+};
+
+export const useVerifyResetCodeMutation = () => {
+  return useMutation<VerifyResetCodeResponse, IHttpError, VerifyResetCodeDTO>({
+    mutationFn: async (data: VerifyResetCodeDTO) => {
+      return verifyResetCodeMutation.fn(data);
+    },
+  });
+};
+
+export const useResetPasswordMutation = () => {
+  return useMutation<ResetPasswordResponse, IHttpError, ResetPasswordDTO>({
+    mutationFn: async (data: ResetPasswordDTO) => {
+      return resetPasswordMutation.fn(data);
     },
   });
 };

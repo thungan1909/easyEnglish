@@ -8,7 +8,10 @@ export const END_POINTS = {
     SIGN_UP: "/auth/sign-up",
     VERIFY_USER: "/auth/verify-user",
     GET_VERIFY_CODE: "/auth/get-verify-code",
+    GET_RESET_EMAIL: "/auth/get-reset-code",
+    VERIFY_RESET_CODE: "/auth/verify-reset-code",
     GET_USER_INFO: "/auth/me",
+    RESET_PASSWORD: "/auth/reset-password",
   },
   USER: {
     PROFILE: "/user/profile",
