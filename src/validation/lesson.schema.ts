@@ -7,10 +7,11 @@ import {
 } from "../constants/errorMessage";
 
 export const CreateNewLessonSchema = zod.object({
-  lessonTitle: zod.string().min(1, invalidLessonTitleMsg),
-  lessonContent: zod.string().min(1, invalidLessonContentMsg),
-  wordList: zod.array(zod.string()).min(1, invalidLessonWordListMsg),
+  title: zod.string().min(1, invalidLessonTitleMsg),
+  content: zod.string().min(1, invalidLessonContentMsg),
+  words: zod.array(zod.string()).min(1, invalidLessonWordListMsg),
   audioFile: zod.string().min(1, invalidLessonAudioFileMsg),
+  source: zod.string(),
 });
 
 export type TCreateNewLessonSchema = zod.infer<typeof CreateNewLessonSchema>;

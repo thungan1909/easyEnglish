@@ -1,7 +1,8 @@
 export interface CreateLessonResponse {}
 export interface CreatLessonDTO {
-  lessonTitle: string;
-  lessonContent: string;
-  wordList: string[];
+  title: string;
+  content: string;
+  words: string[];
   audioFile: string;
+  source?: string;
 }

@@ -18,11 +18,13 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
+import { useUser } from "../../../hooks/user.hook";
 
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();
+  const currentUser = useUser();
   const [lessonWords, setLessonWords] = useState<string[]>();
-  const [_, setAudioFile] = useState<string | null>(null);
+  const [_, setAudioFileUrl] = useState<string | null>(null);
 
   const { mutate: createLessonMutation } = useCreateLessonMutation();
 
@@ -37,7 +39,7 @@ const CreateLesson = () => {
     resolver: zodResolver(CreateNewLessonSchema),
   });
 
-  const lessonContent = watch("lessonContent");
+  const lessonContent = watch("content");
 
   const generateWords = (withSuggestions: Boolean) => {
     if (!lessonContent.trim()) return;
@@ -58,24 +60,52 @@ const CreateLesson = () => {
 
     if (JSON.stringify(updatedWords) !== JSON.stringify(lessonWords)) {
       setLessonWords(updatedWords);
-      setValue("wordList", updatedWords, { shouldValidate: true });
+      setValue("words", updatedWords, { shouldValidate: true });
     }
   };
 
-  const handleFileUpload = (file: File) => {
-    const fileURL = URL.createObjectURL(file);
-    setAudioFile(fileURL);
-    setValue("audioFile", fileURL, { shouldValidate: true });
+  const handleFileUpload = async (file: File) => {
+    try {
+      const fileURL = URL.createObjectURL(file);
+      setAudioFileUrl(fileURL);
+      setValue("audioFile", fileURL, { shouldValidate: true });
+    } catch (error) {
+      console.error("File upload failed:", error);
+      alert("File upload failed. Please try again.");
+    }
   };
 
+  // const handleFileUpload = async (file: File) => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+
+  //   try {
+  //     const response = await axios.post("/api/upload", formData, {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     });
+
+  //     const fileURL = response.data.fileURL;
+  //     setAudioFileUrl(fileURL);
+  //     setValue("audioFile", fileURL, { shouldValidate: true });
+  //   } catch (error) {
+  //     console.error("File upload failed:", error);
+  //     alert("Failed to upload file.");
+  //   }
+  // };
+
   const onSubmit = (data: TCreateNewLessonSchema) => {
-    createLessonMutation(data, {
-      onSuccess: () => alert("Lesson created successfully!"),
-      onError: (error) => {
-        console.error("Error:", error);
-        alert("Failed to create lesson.");
+    createLessonMutation(
+      {
+        ...data,
       },
-    });
+      {
+        onSuccess: () => alert("Lesson created successfully!"),
+        onError: (error) => {
+          console.error("Error:", error);
+          alert("Failed to create lesson.");
+        },
+      }
+    );
   };
 
   return (
@@ -86,7 +116,7 @@ const CreateLesson = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Controller
-            name="lessonTitle"
+            name="title"
             control={control}
             defaultValue=""
             render={({ field, fieldState }) => (
@@ -109,7 +139,7 @@ const CreateLesson = () => {
           />
           <div className="grid md:grid-cols-2 md:gap-6 items-start">
             <Controller
-              name="lessonContent"
+              name="content"
               control={control}
               defaultValue=""
               render={({ field, fieldState }) => (
