@@ -4,6 +4,8 @@ import CTextField from "../../../components/atoms/CTextField/CTextField";
 import { Typography } from "@mui/material";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { TGetVerifyCodeSchema } from "../../../validation/user.schema";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { useNavigate } from "react-router-dom";
 
 export interface InputVerificationEmailProps {
   onSubmitForm: (data: TGetVerifyCodeSchema) => void;
@@ -16,6 +18,8 @@ const InputVerificationEmail = ({
   formInstance,
   isVerify,
 }: InputVerificationEmailProps) => {
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -60,6 +64,17 @@ const InputVerificationEmail = ({
         </div>
         <CButton type="submit" disabled={!isValid} className="w-full" isRounded>
           Next
+        </CButton>
+
+        <CButton
+          onClick={() => {
+            navigate(ROUTES_CONSTANTS.AUTH.LOGIN);
+          }}
+          variant="text"
+          size="large"
+          className="!ml-1 !normal-case"
+        >
+          Back to Log in
         </CButton>
       </form>
     </div>

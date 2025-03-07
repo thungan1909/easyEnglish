@@ -33,7 +33,7 @@ const CreateLesson = () => {
     handleSubmit,
     setValue,
     watch,
-    formState: { isValid },
+    formState: { isValid, errors, validatingFields },
   } = useForm<TCreateNewLessonSchema>({
     mode: "onChange",
     resolver: zodResolver(CreateNewLessonSchema),
@@ -126,6 +126,28 @@ const CreateLesson = () => {
                   type="text"
                   label="Lesson's title"
                   placeholder="Lesson's title"
+                  className="w-full"
+                  maxLength={50}
+                />
+                {fieldState.error && (
+                  <Typography color="error" variant="caption">
+                    {fieldState.error.message}
+                  </Typography>
+                )}
+              </div>
+            )}
+          />
+          <Controller
+            name="source"
+            control={control}
+            defaultValue=""
+            render={({ field, fieldState }) => (
+              <div>
+                <CTextField
+                  {...field}
+                  type="text"
+                  label="Lesson's source"
+                  placeholder="Lesson's source"
                   className="w-full"
                   maxLength={50}
                 />
