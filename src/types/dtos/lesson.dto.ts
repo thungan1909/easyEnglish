@@ -1,10 +1,11 @@
 export interface CreateLessonResponse {}
 export interface CreateLessonDTO {
   title: string;
-  code: string;
+  description?: string;
   content: string;
   words: string[];
   audioFile: string;
+  imageFile: string;
   source?: string;
 }
 
@@ -16,12 +17,14 @@ export interface LessonEntity {
   _id: string;
   code: string;
   title: string;
+  content?: string;
+  description?: string;
+  words?: string;
+  audioFile: string;
+  imageFile?: string;
+  source?: string;
   view: string;
   creator: string;
-  provider: string;
-  image: string;
   progress: string;
-  description?: string;
-  content?: string;
   createDate?: string;
 }

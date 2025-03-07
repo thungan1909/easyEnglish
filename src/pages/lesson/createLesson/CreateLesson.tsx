@@ -2,7 +2,6 @@ import { useState } from "react";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
-import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import {
   exactPunctuationRegex,
   punctuationRegex,
@@ -18,13 +17,11 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
-import { useUser } from "../../../hooks/user.hook";
+import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();
-  const currentUser = useUser();
   const [lessonWords, setLessonWords] = useState<string[]>();
-  const [_, setAudioFileUrl] = useState<string | null>(null);
 
   const { mutate: createLessonMutation } = useCreateLessonMutation();
 
@@ -33,7 +30,7 @@ const CreateLesson = () => {
     handleSubmit,
     setValue,
     watch,
-    formState: { isValid, errors, validatingFields },
+    formState: { isValid, isValidating, validatingFields },
   } = useForm<TCreateNewLessonSchema>({
     mode: "onChange",
     resolver: zodResolver(CreateNewLessonSchema),
@@ -64,10 +61,9 @@ const CreateLesson = () => {
     }
   };
 
-  const handleFileUpload = async (file: File) => {
+  const handleAudioFileUpload = async (file: File) => {
     try {
       const fileURL = URL.createObjectURL(file);
-      setAudioFileUrl(fileURL);
       setValue("audioFile", fileURL, { shouldValidate: true });
     } catch (error) {
       console.error("File upload failed:", error);
@@ -75,23 +71,15 @@ const CreateLesson = () => {
     }
   };
 
-  // const handleFileUpload = async (file: File) => {
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   try {
-  //     const response = await axios.post("/api/upload", formData, {
-  //       headers: { "Content-Type": "multipart/form-data" },
-  //     });
-
-  //     const fileURL = response.data.fileURL;
-  //     setAudioFileUrl(fileURL);
-  //     setValue("audioFile", fileURL, { shouldValidate: true });
-  //   } catch (error) {
-  //     console.error("File upload failed:", error);
-  //     alert("Failed to upload file.");
-  //   }
-  // };
+  const handleImageFileUpload = async (file: File) => {
+    try {
+      const fileURL = URL.createObjectURL(file);
+      setValue("imageFile", fileURL, { shouldValidate: true });
+    } catch (error) {
+      console.error("File upload failed:", error);
+      alert("File upload failed. Please try again.");
+    }
+  };
 
   const onSubmit = (data: TCreateNewLessonSchema) => {
     createLessonMutation(
@@ -108,6 +96,8 @@ const CreateLesson = () => {
     );
   };
 
+  console.log(watch());
+  console.log("isValid:", isValid);
   return (
     <>
       {isAuth ? (
@@ -115,8 +105,54 @@ const CreateLesson = () => {
           className="mt-16 p-8 md:p-16 flex flex-col space-y-6 "
           onSubmit={handleSubmit(onSubmit)}
         >
+          <div className="grid md:grid-cols-2 md:gap-6 gap-3">
+            <Controller
+              name="title"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState }) => (
+                <div>
+                  <CTextField
+                    {...field}
+                    type="text"
+                    label="Lesson's title"
+                    placeholder="Lesson's title"
+                    className="w-full"
+                    maxLength={50}
+                  />
+                  {fieldState.error && (
+                    <Typography color="error" variant="caption">
+                      {fieldState.error.message}
+                    </Typography>
+                  )}
+                </div>
+              )}
+            />
+            <Controller
+              name="source"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState }) => (
+                <div>
+                  <CTextField
+                    {...field}
+                    type="text"
+                    label="Lesson's source"
+                    placeholder="Lesson's source"
+                    className="w-full"
+                    maxLength={50}
+                  />
+                  {fieldState.error && (
+                    <Typography color="error" variant="caption">
+                      {fieldState.error.message}
+                    </Typography>
+                  )}
+                </div>
+              )}
+            />
+          </div>
           <Controller
-            name="title"
+            name="description"
             control={control}
             defaultValue=""
             render={({ field, fieldState }) => (
@@ -124,32 +160,10 @@ const CreateLesson = () => {
                 <CTextField
                   {...field}
                   type="text"
-                  label="Lesson's title"
-                  placeholder="Lesson's title"
+                  label="Lesson's description"
+                  placeholder="Lesson's description"
                   className="w-full"
-                  maxLength={50}
-                />
-                {fieldState.error && (
-                  <Typography color="error" variant="caption">
-                    {fieldState.error.message}
-                  </Typography>
-                )}
-              </div>
-            )}
-          />
-          <Controller
-            name="source"
-            control={control}
-            defaultValue=""
-            render={({ field, fieldState }) => (
-              <div>
-                <CTextField
-                  {...field}
-                  type="text"
-                  label="Lesson's source"
-                  placeholder="Lesson's source"
-                  className="w-full"
-                  maxLength={50}
+                  maxLength={100}
                 />
                 {fieldState.error && (
                   <Typography color="error" variant="caption">
@@ -207,8 +221,18 @@ const CreateLesson = () => {
             </CButton>
           </div>
 
-          <CUploadFile onChangeFileSelected={handleFileUpload} />
-
+          <div className="grid md:grid-cols-2 md:gap-6 gap-6">
+            <CUploadFile
+              accept="audio"
+              onChangeFileSelected={handleAudioFileUpload}
+              title="Lesson's audio"
+            />
+            <CUploadFile
+              accept="image"
+              onChangeFileSelected={handleImageFileUpload}
+              title="Lesson's image"
+            />
+          </div>
           <CButton className="w-full" type="submit" disabled={!isValid}>
             Save
           </CButton>
