@@ -1,3 +1,4 @@
+import { SxProps, Theme } from "@mui/material";
 import { CSSProperties } from "react";
 
 export interface ITextField {
@@ -12,4 +13,5 @@ export interface ITextField {
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   maxLength?: number;
   inputRef?: React.Ref<HTMLInputElement>;
+  sx?: SxProps<Theme>;
 }

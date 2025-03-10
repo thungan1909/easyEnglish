@@ -10,7 +10,7 @@ export interface LessonEntity {
   title: string;
   content?: string;
   description?: string;
-  words?: string;
+  words?: string[];
   audioFile: string | File;
   imageFile?: string | File;
   source?: string;
