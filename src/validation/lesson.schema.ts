@@ -12,8 +12,14 @@ export const CreateNewLessonSchema = zod.object({
   content: zod.string().min(1, invalidLessonContentMsg),
   description: zod.string(),
   words: zod.array(zod.string()).min(1, invalidLessonWordListMsg),
-  audioFile: zod.string().min(1, invalidLessonAudioFileMsg),
-  imageFile: zod.string().min(1, invalidLessonImageFileMsg),
+  audioFile: zod.union([
+    zod.string().url({ message: invalidLessonAudioFileMsg }),
+    zod.instanceof(File, { message: invalidLessonAudioFileMsg }),
+  ]),
+  imageFile: zod.union([
+    zod.string().url({ message: invalidLessonImageFileMsg }),
+    zod.instanceof(File, { message: invalidLessonImageFileMsg }),
+  ]),
   source: zod.string(),
 });
 

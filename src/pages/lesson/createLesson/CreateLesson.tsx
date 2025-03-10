@@ -61,43 +61,87 @@ const CreateLesson = () => {
     }
   };
 
-  const handleAudioFileUpload = async (file: File) => {
-    try {
-      const fileURL = URL.createObjectURL(file);
-      setValue("audioFile", fileURL, { shouldValidate: true });
-    } catch (error) {
-      console.error("File upload failed:", error);
-      alert("File upload failed. Please try again.");
-    }
-  };
+  const handleFileUpload = async (file: File, type: "audio" | "image") => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "ml_default"); // Replace with Cloudinary preset
 
-  const handleImageFileUpload = async (file: File) => {
     try {
-      const fileURL = URL.createObjectURL(file);
-      setValue("imageFile", fileURL, { shouldValidate: true });
-    } catch (error) {
-      console.error("File upload failed:", error);
-      alert("File upload failed. Please try again.");
-    }
-  };
-
-  const onSubmit = (data: TCreateNewLessonSchema) => {
-    createLessonMutation(
-      {
-        ...data,
-      },
-      {
-        onSuccess: () => alert("Lesson created successfully!"),
-        onError: (error) => {
-          console.error("Error:", error);
-          alert("Failed to create lesson.");
-        },
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dfjtdhivs/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await res.json();
+      if (type === "audio") {
+        setValue("audioFile", data.secure_url, { shouldValidate: true });
+      } else {
+        setValue("imageFile", data.secure_url, { shouldValidate: true });
       }
-    );
+    } catch (error) {
+      console.error("Upload failed", error);
+      alert("Upload failed. Please try again.");
+    }
   };
 
-  console.log(watch());
-  console.log("isValid:", isValid);
+  // const handleAudioFileUpload = async (file: File) => {
+  //   setValue("audioFile", file, { shouldValidate: true }); // Store the file object, not a URL
+
+  //   // try {
+  //   //   const fileURL = URL.createObjectURL(file);
+  //   //   setValue("audioFile", fileURL, { shouldValidate: true });
+  //   // } catch (error) {
+  //   //   console.error("File upload failed:", error);
+  //   //   alert("File upload failed. Please try again.");
+  //   // }
+  // };
+
+  // const handleImageFileUpload = async (file: File) => {
+  //   setValue("imageFile", file, { shouldValidate: true }); // Store the file object, not a URL
+
+  //   // try {
+  //   //   const fileURL = URL.createObjectURL(file);
+  //   //   setValue("imageFile", fileURL, { shouldValidate: true });
+  //   // } catch (error) {
+  //   //   console.error("File upload failed:", error);
+  //   //   alert("File upload failed. Please try again.");
+  //   // }
+  // };
+
+  // const onSubmit = (data: TCreateNewLessonSchema) => {
+  //   createLessonMutation(
+  //     {
+  //       ...data,
+  //     },
+  //     {
+  //       onSuccess: () => alert("Lesson created successfully!"),
+  //       onError: (error) => {
+  //         console.error("Error:", error);
+  //         alert("Failed to create lesson.");
+  //       },
+  //     }
+  //   );
+  // };
+
+  const onSubmit = async (data: TCreateNewLessonSchema) => {
+    console.log("Before Mutation - words:", data.words);
+    // Ensure `words` is a flat array
+    if (Array.isArray(data.words) && Array.isArray(data.words[0])) {
+      data.words = data.words.flat(); // Flatten nested arrays
+    }
+    console.log("After Flattening - words:", data.words);
+
+    createLessonMutation(data, {
+      onSuccess: () => alert("Lesson created successfully!"),
+      onError: (error) => {
+        console.error("Error:", error);
+        alert("Failed to create lesson.");
+      },
+    });
+  };
+
   return (
     <>
       {isAuth ? (
@@ -224,12 +268,12 @@ const CreateLesson = () => {
           <div className="grid md:grid-cols-2 md:gap-6 gap-6">
             <CUploadFile
               accept="audio"
-              onChangeFileSelected={handleAudioFileUpload}
+              onChangeFileSelected={(file) => handleFileUpload(file, "audio")}
               title="Lesson's audio"
             />
             <CUploadFile
               accept="image"
-              onChangeFileSelected={handleImageFileUpload}
+              onChangeFileSelected={(file) => handleFileUpload(file, "image")}
               title="Lesson's image"
             />
           </div>

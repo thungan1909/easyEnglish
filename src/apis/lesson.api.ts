@@ -2,17 +2,21 @@ import { END_POINTS } from "../constants";
 import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
   CreateLessonResponse,
-  CreateLessonDTO,
   LessonListQueryFilter,
   LessonEntity,
 } from "../types/dtos/lesson.dto";
+import { TCreateNewLessonSchema } from "../validation/lesson.schema";
 
 export const createLessonMutation = {
   name: "createLesson",
-  fn: async (data: CreateLessonDTO): Promise<CreateLessonResponse> => {
+  fn: async (
+    formData: TCreateNewLessonSchema
+  ): Promise<CreateLessonResponse> => {
     try {
       return getOriginalResponseData<CreateLessonResponse>(
-        await getAxiosInstance().post(END_POINTS.LESSON.CREATE, data)
+        await getAxiosInstance().post(END_POINTS.LESSON.CREATE, formData, {
+          headers: { "Content-Type": "multipart/form-data" }, // Ensure proper format
+        })
       );
     } catch (error) {
       throw error;
@@ -27,6 +31,17 @@ export const getLessonListQuery = {
       await getAxiosInstance().get(END_POINTS.LESSON.GET_LIST_LESSON, {
         data: filter,
       })
+    );
+  },
+};
+
+export const getLessonByIdQuery = {
+  name: "getLessonByIdQuery",
+  fn: async (id: string): Promise<LessonEntity> => {
+    return getOriginalResponseData<LessonEntity>(
+      await getAxiosInstance().get(
+        END_POINTS.LESSON.GET_LESSON_BY_ID.replace(":id", id)
+      )
     );
   },
 };

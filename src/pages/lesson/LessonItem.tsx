@@ -23,7 +23,7 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
       onClick={handleClickLessonItem}
     >
       <img
-        src={lesson.image}
+        src={lesson.imageFile}
         alt={lesson._id}
         className="rounded-xl w-30 h-30 "
       />
@@ -33,12 +33,10 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
         </Typography>
 
         <div className="flex text-gray-500 gap-4 mt-1 text-xs">
+          <Typography variant="caption">{lesson.code || "Code"}</Typography>
+          <Typography variant="caption">{lesson.view || "0"} view</Typography>
           <Typography variant="caption">
-            Code: {lesson.code || "Code"}{" "}
-          </Typography>
-          <Typography variant="caption">View: {lesson.view || "0"}</Typography>
-          <Typography variant="caption">
-            Source: {lesson.provider || "Unknown"}
+            {lesson.source || "Unknown"}
           </Typography>
         </div>
 

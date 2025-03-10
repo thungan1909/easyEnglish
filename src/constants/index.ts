@@ -19,6 +19,7 @@ export const END_POINTS = {
   LESSON: {
     CREATE: "/lesson/create",
     GET_LIST_LESSON: "/lesson/list/inquiry",
+    GET_LESSON_BY_ID: "/lesson/:id",
   },
 };
 
