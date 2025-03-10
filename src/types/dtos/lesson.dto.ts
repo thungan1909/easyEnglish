@@ -11,8 +11,8 @@ export interface LessonEntity {
   content?: string;
   description?: string;
   words?: string;
-  audioFile: File;
-  imageFile?: File;
+  audioFile: string | File;
+  imageFile?: string | File;
   source?: string;
   view: string;
   creator: string;

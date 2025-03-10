@@ -60,3 +60,10 @@ export const LessonDetailPage = withDynamicImport(
     loading: true,
   }
 );
+
+export const ListenLessonPage = withDynamicImport(
+  () => import("../pages/lesson/listen/ListenLesson"),
+  {
+    loading: true,
+  }
+);

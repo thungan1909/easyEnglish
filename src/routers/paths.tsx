@@ -1,12 +1,13 @@
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
-import { lessonPaths, ROUTES_CONSTANTS } from "./constants";
+import { lessonListenPaths, lessonPaths, ROUTES_CONSTANTS } from "./constants";
 import {
   CreateLessonPage,
   DashboardPage,
   ForgotPasswordPage,
   LessonDetailPage,
   LessonPage,
+  ListenLessonPage,
   LoginPage,
   RegisterPage,
   VerifyAccountPage,
@@ -24,6 +25,11 @@ const lessonRoutes: RouteItemConfig[] = [
   ...lessonPaths.map((path) => ({
     path,
     element: <LessonPage />,
+    showWithPermission: true,
+  })),
+  ...lessonListenPaths.map((path) => ({
+    path,
+    element: <ListenLessonPage />,
     showWithPermission: true,
   })),
   {

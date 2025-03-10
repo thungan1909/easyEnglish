@@ -11,6 +11,13 @@ export const ROUTES_CONSTANTS = {
     BASE: "/lesson",
     DETAIL: "/lesson/detail/:id",
     ADD_NEW: "/lesson/add-new",
+    LISTEN: {
+      TYPE: {
+        BASE: "/lesson/listen/:id",
+        WITH_HINT: "/lesson/listen/:id?type=hint",
+        WITHOUT_HINT: "/lesson/listen/:id?type=withoutHint",
+      },
+    },
     SCOPE: {
       MINE: "/lesson?scope=mine",
       LISTENING: "/lesson?scope=listening",
@@ -19,14 +26,16 @@ export const ROUTES_CONSTANTS = {
     },
   },
   CHALLENGE: {
-    BASE: "/challange",
+    BASE: "/challenge",
   },
 };
 
 export const lessonPaths = [
   ROUTES_CONSTANTS.LESSON.BASE,
-  ROUTES_CONSTANTS.LESSON.SCOPE.MINE,
-  ROUTES_CONSTANTS.LESSON.SCOPE.LISTENING,
-  ROUTES_CONSTANTS.LESSON.SCOPE.LISTENED,
-  ROUTES_CONSTANTS.LESSON.SCOPE.ALL,
+  ...Object.values(ROUTES_CONSTANTS.LESSON.SCOPE),
+];
+
+export const lessonListenPaths = [
+  ROUTES_CONSTANTS.LESSON.LISTEN.TYPE.BASE,
+  ...Object.values(ROUTES_CONSTANTS.LESSON.LISTEN.TYPE),
 ];

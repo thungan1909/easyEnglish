@@ -23,7 +23,7 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
       onClick={handleClickLessonItem}
     >
       <img
-        src={lesson.imageFile}
+        src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}
         alt={lesson._id}
         className="rounded-xl w-30 h-30 "
       />

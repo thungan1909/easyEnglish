@@ -18,9 +18,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
 import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
+import { useNavigate } from "react-router-dom";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { notify } from "../../../utils/notify";
 
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();
+  const navigate = useNavigate();
   const [lessonWords, setLessonWords] = useState<string[]>();
 
   const { mutate: createLessonMutation } = useCreateLessonMutation();
@@ -30,7 +34,7 @@ const CreateLesson = () => {
     handleSubmit,
     setValue,
     watch,
-    formState: { isValid, isValidating, validatingFields },
+    formState: { isValid },
   } = useForm<TCreateNewLessonSchema>({
     mode: "onChange",
     resolver: zodResolver(CreateNewLessonSchema),
@@ -86,55 +90,16 @@ const CreateLesson = () => {
     }
   };
 
-  // const handleAudioFileUpload = async (file: File) => {
-  //   setValue("audioFile", file, { shouldValidate: true }); // Store the file object, not a URL
-
-  //   // try {
-  //   //   const fileURL = URL.createObjectURL(file);
-  //   //   setValue("audioFile", fileURL, { shouldValidate: true });
-  //   // } catch (error) {
-  //   //   console.error("File upload failed:", error);
-  //   //   alert("File upload failed. Please try again.");
-  //   // }
-  // };
-
-  // const handleImageFileUpload = async (file: File) => {
-  //   setValue("imageFile", file, { shouldValidate: true }); // Store the file object, not a URL
-
-  //   // try {
-  //   //   const fileURL = URL.createObjectURL(file);
-  //   //   setValue("imageFile", fileURL, { shouldValidate: true });
-  //   // } catch (error) {
-  //   //   console.error("File upload failed:", error);
-  //   //   alert("File upload failed. Please try again.");
-  //   // }
-  // };
-
-  // const onSubmit = (data: TCreateNewLessonSchema) => {
-  //   createLessonMutation(
-  //     {
-  //       ...data,
-  //     },
-  //     {
-  //       onSuccess: () => alert("Lesson created successfully!"),
-  //       onError: (error) => {
-  //         console.error("Error:", error);
-  //         alert("Failed to create lesson.");
-  //       },
-  //     }
-  //   );
-  // };
-
   const onSubmit = async (data: TCreateNewLessonSchema) => {
-    console.log("Before Mutation - words:", data.words);
-    // Ensure `words` is a flat array
     if (Array.isArray(data.words) && Array.isArray(data.words[0])) {
       data.words = data.words.flat(); // Flatten nested arrays
     }
-    console.log("After Flattening - words:", data.words);
 
     createLessonMutation(data, {
-      onSuccess: () => alert("Lesson created successfully!"),
+      onSuccess: () => {
+        notify.success("Create lesson successfully");
+        navigate(ROUTES_CONSTANTS.LESSON.BASE);
+      },
       onError: (error) => {
         console.error("Error:", error);
         alert("Failed to create lesson.");
@@ -207,7 +172,7 @@ const CreateLesson = () => {
                   label="Lesson's description"
                   placeholder="Lesson's description"
                   className="w-full"
-                  maxLength={100}
+                  maxLength={400}
                 />
                 {fieldState.error && (
                   <Typography color="error" variant="caption">
@@ -289,33 +254,3 @@ const CreateLesson = () => {
 };
 
 export default CreateLesson;
-
-// <TextField
-//   key={index}
-//   defaultValue={word}
-//   variant="standard"
-//   id={`word-input-${index}`} // Unique ID for each input
-//   onChange={(e) => {
-//     if (e.target.value.length === word.length) {
-//       // Move focus to the next input field
-//       const nextInput = document.getElementById(
-//         `word-input-${index + 1}`
-//       );
-//       if (nextInput) {
-//         (nextInput as HTMLInputElement).focus();
-//       }
-//     }
-//   }}
-//   slotProps={{
-//     input: {
-//       inputProps: {
-//         maxLength: word.length,
-//       },
-//     },
-//   }}
-//   className=" bg-gray-100 !mr-2 "
-//   sx={{
-//     width: `${word.length * 10}px`, // Adjust width dynamically
-//     minWidth: "40px", // Ensure a minimum width
-//   }}
-// />
