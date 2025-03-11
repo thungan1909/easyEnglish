@@ -9,6 +9,8 @@ import {
 } from "react-icons/fa";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
+import AudioSection from "./AudioSection";
+import { Typography } from "@mui/material";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -17,10 +19,12 @@ const ListenLesson = () => {
   const type = queryParams.get("type");
 
   const { data: lesson } = useGetLessonById(id ?? "");
+  console.log(lesson);
   return (
-    <div className="mt-16 p-8 md:p-16 flex flex-col space-y-6 " key={id}>
-      <div className="flex flex-col space-y-8  justify-center items-center ">
-        <div className="flex gap-8">
+    <div className="" key={id}>
+      <div className="!space-y-8 mt-16 md:p-16 flex flex-col items-center justify-center">
+        <Typography variant="h5">{lesson?.title}</Typography>
+        <div className="flex gap-8 flex-wrap items-center justify-center">
           <CButton
             startIcon={<FaPaperPlane />}
             textTransform="capitalize"
@@ -61,16 +65,15 @@ const ListenLesson = () => {
             Hint Words
           </CButton>
         </div>
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap !mb-32">
           {lesson?.words?.map((word, index) => (
             <span key={index} className="">
               {word === "" ? (
                 <CTextField
                   className=" bg-purple-100"
                   sx={{
-                    width: `${word.length * 30}px`,
+                    width: `${Math.max(word.length * 10, 40)}px`, // Ensure minimum width
                     minHeight: "20px",
-                    minWidth: "40px",
                   }}
                 />
               ) : (
@@ -79,6 +82,11 @@ const ListenLesson = () => {
             </span>
           ))}
         </div>
+      </div>
+      <div className="fixed bottom-0 w-full">
+        {lesson?.audioFile && (
+          <AudioSection fileURL={lesson?.audioFile as string} />
+        )}
       </div>
     </div>
   );

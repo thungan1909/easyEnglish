@@ -82,7 +82,7 @@ const CUploadFile = ({
       )}
 
       {uploadFileName && (
-        <div className="relative bg-purple-300 p-5 rounded-2xl">
+        <div className="relative bg-purple-300 p-4 rounded-2xl">
           <CButton
             className="!absolute right-1 top-1"
             variant="text"
@@ -90,7 +90,7 @@ const CUploadFile = ({
           >
             <FaTimes size={28} />
           </CButton>
-          <div className="flex items-center space-x-1 mt-4 max-w-[320px] line-clamp-1">
+          <div className="flex items-center space-x-1 mt-4 max-w-[360px] line-clamp-1">
             {accept === "image" ? (
               <FaImage size={28} />
             ) : (
