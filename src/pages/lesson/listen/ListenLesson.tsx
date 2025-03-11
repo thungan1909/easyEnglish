@@ -17,9 +17,8 @@ const ListenLesson = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type");
-
   const { data: lesson } = useGetLessonById(id ?? "");
-  console.log(lesson);
+
   return (
     <div className="" key={id}>
       <div className="!space-y-8 mt-16 md:p-16 flex flex-col items-center justify-center">
@@ -66,7 +65,10 @@ const ListenLesson = () => {
           </CButton>
         </div>
         <div className="flex gap-2 flex-wrap !mb-32">
-          {lesson?.words?.map((word, index) => (
+          {(type === "hint"
+            ? lesson?.wordsWithHint
+            : lesson?.wordsWithoutHint
+          )?.map((word, index) => (
             <span key={index} className="">
               {word === "" ? (
                 <CTextField

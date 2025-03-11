@@ -88,9 +88,9 @@ const CUploadFile = ({
             variant="text"
             onClick={removeFile}
           >
-            <FaTimes size={28} />
+            <FaTimes size={24} />
           </CButton>
-          <div className="flex items-center space-x-1 mt-4 max-w-[360px] line-clamp-1">
+          <div className="flex items-center space-x-1 mt-2 max-w-[360px] line-clamp-1">
             {accept === "image" ? (
               <FaImage size={28} />
             ) : (

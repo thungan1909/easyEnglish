@@ -33,7 +33,7 @@ const LessonDetail = () => {
           {lesson?.title || "Title"}
         </Typography>
         <Typography className="line-clamp-12 !mt-4" variant="body1">
-          {lesson?.description || "Description"}
+          {lesson?.description || "No data"}
         </Typography>
       </div>
       <div className="flex flex-col space-y-8  justify-center items-center">
@@ -71,7 +71,7 @@ const LessonDetail = () => {
             </span>
             <span className="flex items-center gap-2">
               <FaCopyright />
-              <Typography>{lesson?.source}</Typography>
+              <Typography>{lesson?.source || "Unknow"}</Typography>
             </span>
             <span className="flex items-center gap-2">
               <FaCalendar />

@@ -11,7 +11,8 @@ export const CreateNewLessonSchema = zod.object({
   title: zod.string().min(1, invalidLessonTitleMsg),
   content: zod.string().min(1, invalidLessonContentMsg),
   description: zod.string(),
-  words: zod.array(zod.string()).min(1, invalidLessonWordListMsg),
+  wordsWithHint: zod.array(zod.string()).min(1, invalidLessonWordListMsg),
+  wordsWithoutHint: zod.array(zod.string()).min(1, invalidLessonWordListMsg),
   audioFile: zod.union([
     zod.string().url({ message: invalidLessonAudioFileMsg }),
     zod.instanceof(File, { message: invalidLessonAudioFileMsg }),

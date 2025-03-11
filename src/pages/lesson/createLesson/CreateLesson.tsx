@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
@@ -25,9 +25,12 @@ import { notify } from "../../../utils/notify";
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
-  const [lessonWords, setLessonWords] = useState<string[]>();
-
+  const [lessonWords, setLessonWords] = useState<{
+    withHint: string[];
+    withoutHint: string[];
+  }>({ withHint: [], withoutHint: [] });
   const { mutate: createLessonMutation } = useCreateLessonMutation();
+  const [isHintValid, setIsHintValid] = useState(false);
 
   const {
     control,
@@ -42,12 +45,12 @@ const CreateLesson = () => {
 
   const lessonContent = watch("content");
 
-  const generateWords = (withSuggestions: Boolean) => {
+  const generateWords = (withSuggestions: boolean) => {
     if (!lessonContent.trim()) return;
 
     const words = lessonContent
       .split(wordSplitterRegex)
-      .filter((word) => word.trim() || punctuationRegex.test(word)); // Remove spaces but keep punctuation
+      .filter((word) => word.trim() || punctuationRegex.test(word));
 
     const blankProbability = withSuggestions ? 0.6 : 0.9;
 
@@ -59,16 +62,23 @@ const CreateLesson = () => {
         : word
     );
 
-    if (JSON.stringify(updatedWords) !== JSON.stringify(lessonWords)) {
-      setLessonWords(updatedWords);
-      setValue("words", updatedWords, { shouldValidate: true });
-    }
+    setLessonWords((prev) => ({
+      ...prev,
+      [withSuggestions ? "withHint" : "withoutHint"]: updatedWords,
+    }));
+
+    setValue(
+      withSuggestions ? "wordsWithHint" : "wordsWithoutHint",
+      updatedWords,
+      { shouldValidate: true }
+    );
+    setIsHintValid(true);
   };
 
   const handleFileUpload = async (file: File, type: "audio" | "image") => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "ml_default"); // Replace with Cloudinary preset
+    formData.append("upload_preset", "ml_default");
 
     try {
       const res = await fetch(
@@ -91,10 +101,6 @@ const CreateLesson = () => {
   };
 
   const onSubmit = async (data: TCreateNewLessonSchema) => {
-    if (Array.isArray(data.words) && Array.isArray(data.words[0])) {
-      data.words = data.words.flat(); // Flatten nested arrays
-    }
-
     createLessonMutation(data, {
       onSuccess: () => {
         notify.success("Create lesson successfully");
@@ -106,6 +112,11 @@ const CreateLesson = () => {
       },
     });
   };
+  useEffect(() => {
+    if (lessonContent) {
+      setIsHintValid(false);
+    }
+  }, [lessonContent]);
 
   return (
     <>
@@ -160,76 +171,6 @@ const CreateLesson = () => {
               )}
             />
           </div>
-          <Controller
-            name="description"
-            control={control}
-            defaultValue=""
-            render={({ field, fieldState }) => (
-              <div>
-                <CTextField
-                  {...field}
-                  type="text"
-                  label="Lesson's description"
-                  placeholder="Lesson's description"
-                  className="w-full"
-                  maxLength={400}
-                />
-                {fieldState.error && (
-                  <Typography color="error" variant="caption">
-                    {fieldState.error.message}
-                  </Typography>
-                )}
-              </div>
-            )}
-          />
-          <div className="grid md:grid-cols-2 md:gap-6 items-start">
-            <Controller
-              name="content"
-              control={control}
-              defaultValue=""
-              render={({ field, fieldState }) => (
-                <div className="">
-                  <CTextArea
-                    {...field}
-                    maxRows={25}
-                    minRows={5}
-                    maxLength={1500}
-                    placeholder="Enter lesson content..."
-                    className="w-full"
-                  />
-                  {fieldState.error && (
-                    <Typography color="error" variant="caption">
-                      {fieldState.error.message}
-                    </Typography>
-                  )}
-                </div>
-              )}
-            />
-            <div className="flex gap-x-1 flex-wrap">
-              {lessonWords?.map((word, index) => (
-                <span
-                  className={` ${
-                    word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
-                  }`}
-                  style={{
-                    minWidth: word ? `${word.length}px` : "30px",
-                  }}
-                  key={index}
-                >
-                  {word !== "" ? word : "\u00A0"}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="md:flex md:justify-evenly md:flex-wrap grid grid-cols-1 gap-3">
-            <CButton onClick={() => generateWords(false)}>
-              Generate without suggest
-            </CButton>
-            <CButton onClick={() => generateWords(true)}>
-              Generate with suggest
-            </CButton>
-          </div>
-
           <div className="grid md:grid-cols-2 md:gap-6 gap-6">
             <CUploadFile
               accept="audio"
@@ -242,7 +183,108 @@ const CreateLesson = () => {
               title="Lesson's image"
             />
           </div>
-          <CButton className="w-full" type="submit" disabled={!isValid}>
+          <Controller
+            name="description"
+            control={control}
+            defaultValue=""
+            render={({ field, fieldState }) => (
+              <div>
+                <CTextArea
+                  {...field}
+                  maxRows={4}
+                  minRows={4}
+                  maxLength={250}
+                  placeholder="Enter lesson's description"
+                  className="w-full"
+                />
+                {fieldState.error && (
+                  <Typography color="error" variant="caption">
+                    {fieldState.error.message}
+                  </Typography>
+                )}
+              </div>
+            )}
+          />
+          <Controller
+            name="content"
+            control={control}
+            defaultValue=""
+            render={({ field, fieldState }) => (
+              <div className="">
+                <CTextArea
+                  {...field}
+                  maxRows={25}
+                  minRows={5}
+                  maxLength={4000}
+                  placeholder="Enter lesson's content..."
+                  className="w-full"
+                />
+                {fieldState.error && (
+                  <Typography color="error" variant="caption">
+                    {fieldState.error.message}
+                  </Typography>
+                )}
+              </div>
+            )}
+          />
+          <div className="flex flex-col items-center">
+            <CButton
+              onClick={() => {
+                generateWords(true);
+                generateWords(false);
+              }}
+              isRounded
+              size="medium"
+              className="w-[50%] !mb-3"
+              disabled={!lessonContent?.trim()}
+            >
+              Generate hint
+            </CButton>
+
+            <Typography color="info" variant="caption">
+              Please generate hint before click on Save button
+            </Typography>
+          </div>
+          {isHintValid && (
+            <div className="grid md:grid-cols-2 gap-4 mt-4">
+              <div className=" p-4 flex flex-wrap gap-2">
+                {lessonWords.withHint?.map((word, index) => (
+                  <span
+                    className={` ${
+                      word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
+                    }`}
+                    style={{
+                      minWidth: word ? `${word.length}px` : "30px",
+                    }}
+                    key={index}
+                  >
+                    {word !== "" ? word : "\u00A0"}
+                  </span>
+                ))}
+              </div>
+              <div className="p-4 flex flex-wrap gap-2">
+                {lessonWords.withoutHint?.map((word, index) => (
+                  <span
+                    className={` ${
+                      word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
+                    }`}
+                    style={{
+                      minWidth: word ? `${word.length}px` : "30px",
+                    }}
+                    key={index}
+                  >
+                    {word !== "" ? word : "\u00A0"}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          <CButton
+            className="w-full"
+            type="submit"
+            disabled={!isValid || !isHintValid}
+            isRounded
+          >
             Save
           </CButton>
         </form>
