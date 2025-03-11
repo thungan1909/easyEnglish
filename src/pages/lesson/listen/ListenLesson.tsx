@@ -8,9 +8,10 @@ import {
   FaRegSave,
 } from "react-icons/fa";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
-import CTextField from "../../../components/atoms/CTextField/CTextField";
 import AudioSection from "./AudioSection";
 import { Typography } from "@mui/material";
+import CTextField from "../../../components/atoms/CTextField/CTextField";
+import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -19,11 +20,16 @@ const ListenLesson = () => {
   const type = queryParams.get("type");
   const { data: lesson } = useGetLessonById(id ?? "");
 
+  const originalWords = lesson?.content
+    ?.split(wordSplitterRegex)
+    .filter((word) => word.trim() || punctuationRegex.test(word));
+  console.log(originalWords);
+
   return (
     <div className="" key={id}>
-      <div className="!space-y-8 mt-16 md:p-16 flex flex-col items-center justify-center">
+      <div className="!space-y-8 mt-32 md:p-16 flex flex-col items-center justify-center p-8">
         <Typography variant="h5">{lesson?.title}</Typography>
-        <div className="flex gap-8 flex-wrap items-center justify-center">
+        <div className="flex md:gap-8 gap-4 flex-wrap items-center justify-center">
           <CButton
             startIcon={<FaPaperPlane />}
             textTransform="capitalize"
@@ -68,21 +74,30 @@ const ListenLesson = () => {
           {(type === "hint"
             ? lesson?.wordsWithHint
             : lesson?.wordsWithoutHint
-          )?.map((word, index) => (
-            <span key={index} className="">
-              {word === "" ? (
-                <CTextField
-                  className=" bg-purple-100"
-                  sx={{
-                    width: `${Math.max(word.length * 10, 40)}px`, // Ensure minimum width
-                    minHeight: "20px",
-                  }}
-                />
-              ) : (
-                <span className="whitespace-pre">{word}</span>
-              )}
-            </span>
-          ))}
+          )?.map((word, index) => {
+            const originalWord = originalWords?.[index] || "";
+            return (
+              <span key={index} className="">
+                {word === "" ? (
+                  <CTextField
+                    // className=" bg-purple-100"
+                    maxLength={originalWord.length}
+                    className="!p-0"
+                    sx={{
+                      width: `${Math.max(originalWord.length * 15, 40)}px`,
+                      minHeight: "20px",
+                      minWidth: "30px",
+                      padding: "!0px",
+                      border: "none",
+                      textAlign: "center", // Căn chữ giữa input
+                    }}
+                  />
+                ) : (
+                  <span className="whitespace-pre">{word}</span>
+                )}
+              </span>
+            );
+          })}
         </div>
       </div>
       <div className="fixed bottom-0 w-full">
