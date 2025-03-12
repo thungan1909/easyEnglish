@@ -10,6 +10,7 @@ const LessonDetail = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { data: lesson } = useGetLessonById(params.id ?? "");
+
   const handleListen = (type: "hint" | "withoutHint") => {
     if (!lesson?._id) return;
 

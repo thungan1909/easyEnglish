@@ -15,7 +15,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
 import { menuItems } from "./const";
 import { getLinkClassName } from "../../../utils/helpers/style";
-import CUserProfile from "../CUserProfile/cUserProfile";
+import CUserProfileAvatar from "../CUserProfile/cUserProfile";
 
 interface NavbarProps {
   isAuth: Boolean;
@@ -109,7 +109,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
               <FaChartBar className="text-gray-500 cursor-pointer hover:text-black transition" />
               <FaBell className="text-gray-500 cursor-pointer hover:text-black transition" />
             </div>
-            <CUserProfile />
+            <CUserProfileAvatar />
           </>
         ) : (
           <div className="flex gap-3">

@@ -9,7 +9,12 @@ import {
   LessonPage,
   ListenLessonPage,
   LoginPage,
+  PerformanceAnalysisPage,
+  ProfileAccountPage,
   RegisterPage,
+  SettingsPage,
+  UpdatePasswordPage,
+  UserInformationPage,
   VerifyAccountPage,
 } from "./lazyLoad";
 
@@ -50,6 +55,43 @@ const mainRoutes: RouteItemConfig[] = [
     element: <DashboardPage />,
     showWithPermission: true,
   },
+  {
+    path: ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT,
+    element: (
+      <ProfileAccountPage>
+        <UserInformationPage />
+      </ProfileAccountPage>
+    ),
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.CHANGE_PASSWORD,
+    element: (
+      <ProfileAccountPage>
+        <UpdatePasswordPage />
+      </ProfileAccountPage>
+    ),
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.ANALYSIS,
+    element: (
+      <ProfileAccountPage>
+        <PerformanceAnalysisPage />
+      </ProfileAccountPage>
+    ),
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.SETTINGS,
+    element: (
+      <ProfileAccountPage>
+        <SettingsPage />
+      </ProfileAccountPage>
+    ),
+    showWithPermission: true,
+  },
+
   ...lessonRoutes,
 ];
 

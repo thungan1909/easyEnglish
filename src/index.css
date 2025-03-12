@@ -34,9 +34,9 @@ button {
     background-color: #ffffff;
   }
 
-  a:hover {
+  /* a:hover {
     color: var(--color-purple-500);
-  }
+  } */
 
 }
 

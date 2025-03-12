@@ -7,6 +7,12 @@ export const ROUTES_CONSTANTS = {
     VERIFY_ACCOUNT: "/verify-account",
   },
   DASHBOARD: "/",
+  USER: {
+    PROFILE_ACCOUNT: "/user/profile-account",
+    CHANGE_PASSWORD: "/user/change-password",
+    ANALYSIS: "/user/performance-analysis",
+    SETTINGS: "/user/settings",
+  },
   LESSON: {
     BASE: "/lesson",
     DETAIL: "/lesson/detail/:id",
@@ -38,4 +44,9 @@ export const lessonPaths = [
 export const lessonListenPaths = [
   ROUTES_CONSTANTS.LESSON.LISTEN.TYPE.BASE,
   ...Object.values(ROUTES_CONSTANTS.LESSON.LISTEN.TYPE),
+];
+
+export const profileAccountPaths = [
+  ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT,
+  ROUTES_CONSTANTS.USER.CHANGE_PASSWORD,
 ];

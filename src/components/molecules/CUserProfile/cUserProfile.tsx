@@ -4,9 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import CButton from "../../atoms/CButton/CButton";
 import { FaCog, FaFolder, FaSignOutAlt } from "react-icons/fa";
 import { useLogoutMutation } from "../../../hooks/auth/logout.hook";
+import { useNavigate } from "react-router-dom";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
-const CUserProfile = () => {
+const CUserProfileAvatar = () => {
   const currentUser = useUser();
+  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const { mutate: logoutMutation } = useLogoutMutation();
@@ -89,6 +92,9 @@ const CUserProfile = () => {
               variant="text"
               textTransform="capitalize"
               className="gap-2"
+              onClick={() => {
+                navigate(ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT);
+              }}
             >
               <FaCog />
               My account
@@ -109,4 +115,4 @@ const CUserProfile = () => {
   );
 };
 
-export default CUserProfile;
+export default CUserProfileAvatar;

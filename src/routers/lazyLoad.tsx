@@ -67,3 +67,39 @@ export const ListenLessonPage = withDynamicImport(
     loading: true,
   }
 );
+
+// User
+export const ProfileAccountPage = withDynamicImport(
+  () => import("../pages/user/ProfileAccount/ProfileAccount"),
+  {
+    loading: true,
+  }
+);
+
+export const UserInformationPage = withDynamicImport(
+  () => import("../pages/user/ProfileAccount/UserInfomation"),
+  {
+    loading: true,
+  }
+);
+
+export const UpdatePasswordPage = withDynamicImport(
+  () => import("../pages/user/ProfileAccount/UpdatePassword"),
+  {
+    loading: true,
+  }
+);
+
+export const PerformanceAnalysisPage = withDynamicImport(
+  () => import("../pages/user/ProfileAccount/PerformanceAnalysis"),
+  {
+    loading: true,
+  }
+);
+
+export const SettingsPage = withDynamicImport(
+  () => import("../pages/user/ProfileAccount/Settings"),
+  {
+    loading: true,
+  }
+);
