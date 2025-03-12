@@ -14,8 +14,9 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
       placeholder,
       value = "",
       maxLength = 1024,
+      onChange,
       onKeyDown,
-      sx,
+      sx = {},
       ...props
     },
     ref
@@ -60,7 +61,6 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
         }}
         sx={{
           ...sx,
-          // fontFamily: "var(--font-family)",
           "& .MuiOutlinedInput-input, & .MuiOutlinedInput-root, & .MuiOutlinedInput-root fieldset":
             {
               fontFamily: "inherit",

@@ -21,6 +21,7 @@ import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { notify } from "../../../utils/notify";
+import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
 
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();
@@ -117,6 +118,10 @@ const CreateLesson = () => {
       setIsHintValid(false);
     }
   }, [lessonContent]);
+
+  const originalWords = lessonContent
+    ?.split(wordSplitterRegex)
+    .filter((word) => word.trim() || punctuationRegex.test(word));
 
   return (
     <>
@@ -248,34 +253,30 @@ const CreateLesson = () => {
           {isHintValid && (
             <div className="grid md:grid-cols-2 gap-4 mt-4">
               <div className=" p-4 flex flex-wrap gap-2">
-                {lessonWords.withHint?.map((word, index) => (
-                  <span
-                    className={` ${
-                      word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
-                    }`}
-                    style={{
-                      minWidth: word ? `${word.length}px` : "30px",
-                    }}
-                    key={index}
-                  >
-                    {word !== "" ? word : "\u00A0"}
-                  </span>
-                ))}
+                {lessonWords.withHint?.map((word, index) => {
+                  const originalWord = originalWords?.[index] || "";
+                  return (
+                    <CWordInput
+                      key={index}
+                      word={word}
+                      originalWord={originalWord}
+                      readOnly
+                    />
+                  );
+                })}
               </div>
               <div className="p-4 flex flex-wrap gap-2">
-                {lessonWords.withoutHint?.map((word, index) => (
-                  <span
-                    className={` ${
-                      word ? "" : "border-b-2 border-purple-800 bg-gray-100 "
-                    }`}
-                    style={{
-                      minWidth: word ? `${word.length}px` : "30px",
-                    }}
-                    key={index}
-                  >
-                    {word !== "" ? word : "\u00A0"}
-                  </span>
-                ))}
+                {lessonWords.withoutHint?.map((word, index) => {
+                  const originalWord = originalWords?.[index] || "";
+                  return (
+                    <CWordInput
+                      key={index}
+                      word={word}
+                      originalWord={originalWord}
+                      readOnly
+                    />
+                  );
+                })}
               </div>
             </div>
           )}

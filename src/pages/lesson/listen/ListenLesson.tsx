@@ -10,8 +10,8 @@ import {
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import AudioSection from "./AudioSection";
 import { Typography } from "@mui/material";
-import CTextField from "../../../components/atoms/CTextField/CTextField";
 import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
+import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -23,7 +23,6 @@ const ListenLesson = () => {
   const originalWords = lesson?.content
     ?.split(wordSplitterRegex)
     .filter((word) => word.trim() || punctuationRegex.test(word));
-  console.log(originalWords);
 
   return (
     <div className="" key={id}>
@@ -77,25 +76,7 @@ const ListenLesson = () => {
           )?.map((word, index) => {
             const originalWord = originalWords?.[index] || "";
             return (
-              <span key={index} className="">
-                {word === "" ? (
-                  <CTextField
-                    // className=" bg-purple-100"
-                    maxLength={originalWord.length}
-                    className="!p-0"
-                    sx={{
-                      width: `${Math.max(originalWord.length * 15, 40)}px`,
-                      minHeight: "20px",
-                      minWidth: "30px",
-                      padding: "!0px",
-                      border: "none",
-                      textAlign: "center", // Căn chữ giữa input
-                    }}
-                  />
-                ) : (
-                  <span className="whitespace-pre">{word}</span>
-                )}
-              </span>
+              <CWordInput key={index} word={word} originalWord={originalWord} />
             );
           })}
         </div>
