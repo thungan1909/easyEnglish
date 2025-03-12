@@ -14,7 +14,6 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
       placeholder,
       value = "",
       maxLength = 1024,
-      onChange,
       onKeyDown,
       sx = {},
       ...props

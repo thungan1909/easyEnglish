@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { notify } from "../../../utils/notify";
 import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
+import { useUploadFileMutation } from "../../../hooks/upload/upload-file";
 
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();
@@ -31,6 +32,8 @@ const CreateLesson = () => {
     withoutHint: string[];
   }>({ withHint: [], withoutHint: [] });
   const { mutate: createLessonMutation } = useCreateLessonMutation();
+  const { mutate: uploadFileMutation } = useUploadFileMutation();
+
   const [isHintValid, setIsHintValid] = useState(false);
 
   const {
@@ -77,28 +80,25 @@ const CreateLesson = () => {
   };
 
   const handleFileUpload = async (file: File, type: "audio" | "image") => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "ml_default");
-
-    try {
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dfjtdhivs/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const data = await res.json();
-      if (type === "audio") {
-        setValue("audioFile", data.secure_url, { shouldValidate: true });
-      } else {
-        setValue("imageFile", data.secure_url, { shouldValidate: true });
+    uploadFileMutation(
+      { file, type },
+      {
+        onSuccess: (data) => {
+          console.log(data, "Uploaded successfully");
+          setValue(
+            type === "audio" ? "audioFile" : "imageFile",
+            data.secureUrl,
+            {
+              shouldValidate: true,
+            }
+          );
+        },
+        onError: (error) => {
+          console.error(error);
+          alert("Upload failed. Please try again.");
+        },
       }
-    } catch (error) {
-      console.error("Upload failed", error);
-      alert("Upload failed. Please try again.");
-    }
+    );
   };
 
   const onSubmit = async (data: TCreateNewLessonSchema) => {
@@ -123,6 +123,7 @@ const CreateLesson = () => {
     ?.split(wordSplitterRegex)
     .filter((word) => word.trim() || punctuationRegex.test(word));
 
+  console.log(watch());
   return (
     <>
       {isAuth ? (
