@@ -9,6 +9,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import CTextField from "../../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../../components/atoms/CButton/CButton";
+import CDatePicker from "../../../../components/atoms/CDatePicker/CDatePicker";
 
 const UserInformation = () => {
   const currentUser = useUser();
@@ -25,6 +26,7 @@ const UserInformation = () => {
   const onSubmitProfile = (data: TUserEditInfoSchema) => {
     console.log(data);
   };
+
   return (
     <div className="w-full">
       <Typography variant="h6">User Information</Typography>
@@ -137,21 +139,15 @@ const UserInformation = () => {
             <Controller
               name="dateOfBirth"
               control={control}
-              defaultValue=""
-              render={({ field, fieldState }) => (
+              render={({ field: { value, onChange } }) => (
                 <>
-                  <CTextField
-                    {...field}
-                    type="text"
-                    label="Date of birth"
-                    placeholder="Date of birth"
-                    className="w-full"
+                  <CDatePicker
+                    // value={value}
+                    onChange={onChange}
+                    fullWidth
+                    disabled
+                    isUseInUserPage
                   />
-                  {fieldState.error && (
-                    <Typography color="error" variant="caption">
-                      {fieldState.error.message}
-                    </Typography>
-                  )}
                 </>
               )}
             />
