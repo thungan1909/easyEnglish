@@ -20,7 +20,7 @@ const CSidebar = () => {
   );
 
   return (
-    <div className="w-64 p-4 bg-purple-400 text-white h-screen">
+    <div className="fixed top-16 md:w-64 md:flex hidden p-4 bg-purple-400 text-white h-screen">
       <ul className="space-y-12 mt-4">{renderedMenuItems}</ul>
     </div>
   );

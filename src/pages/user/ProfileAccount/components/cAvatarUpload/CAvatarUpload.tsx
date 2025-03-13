@@ -1,15 +1,33 @@
 import { Avatar, IconButton } from "@mui/material";
 import { FaCamera } from "react-icons/fa";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { getFirstCharAvatar } from "../../../../../utils/helpers/getFirstCharAvatar";
 
 export interface CAvatarUploadProps {
   avatarUrl?: string;
   username?: string;
+  onUpload?: (file: File) => void;
 }
 
-const CAvatarUpload = ({ avatarUrl, username }: CAvatarUploadProps) => {
+const CAvatarUpload = ({
+  avatarUrl,
+  username,
+  onUpload,
+}: CAvatarUploadProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const inputElement = useRef<HTMLInputElement | null>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log("Selected file:", file);
+      onUpload?.(file); // Gọi hàm onUpload nếu có
+    }
+  };
+
+  const triggerFileInput = () => {
+    inputElement.current?.click();
+  };
 
   return (
     <div
@@ -27,10 +45,17 @@ const CAvatarUpload = ({ avatarUrl, username }: CAvatarUploadProps) => {
       </Avatar>
 
       {isHovered && (
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-300 bg-opacity-500 flex items-center justify-center rounded-full">
-          <IconButton size="medium">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-200 bg-gradient-600 flex items-center justify-center rounded-full">
+          <IconButton size="medium" onClick={triggerFileInput}>
             <FaCamera className="text-white" />
           </IconButton>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            ref={inputElement}
+            accept={`image/*`}
+            hidden
+          />
         </div>
       )}
     </div>

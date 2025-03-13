@@ -3,7 +3,9 @@ import {
   confirmPasswordNotMatchMsg,
   invalidConfirmPasswordMsg,
   invalidEmailMsg,
+  invalidFullnameMsg,
   invalidPasswordMsg,
+  invalidPhoneMsg,
   invalidUsernameMsg,
 } from "../constants/errorMessage";
 
@@ -55,3 +57,22 @@ export const UserResetPasswordSchema = zod
 export type TUserResetPasswordSchema = zod.infer<
   typeof UserResetPasswordSchema
 >;
+
+// SIGN UP
+
+export const UserEditInfoSchema = zod.object({
+  username: zod.string().min(1, invalidUsernameMsg),
+  fullname: zod.string().min(1, invalidFullnameMsg),
+  email: zod.string().email(invalidEmailMsg),
+  dateOfBirth: zod.string().min(1, invalidPhoneMsg),
+  gender: zod.string().min(1, invalidPhoneMsg),
+  phoneNumber: zod.string().min(1, invalidPhoneMsg),
+  city: zod.string(),
+  district: zod.string(),
+  ward: zod.string(),
+  detailAddress: zod.string(),
+  university: zod.string(),
+  major: zod.string(),
+});
+
+export type TUserEditInfoSchema = zod.infer<typeof UserEditInfoSchema>;
