@@ -6,6 +6,7 @@ import { FaCog, FaFolder, FaSignOutAlt } from "react-icons/fa";
 import { useLogoutMutation } from "../../../hooks/auth/logout.hook";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { getFirstCharAvatar } from "../../../utils/helpers/getFirstCharAvatar";
 
 const CUserProfileAvatar = () => {
   const currentUser = useUser();
@@ -13,10 +14,6 @@ const CUserProfileAvatar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const { mutate: logoutMutation } = useLogoutMutation();
-
-  const firstChar = currentUser?.username
-    ? currentUser.username.charAt(0).toUpperCase()
-    : "?";
 
   const handleLogout = () => {
     logoutMutation({});
@@ -52,7 +49,7 @@ const CUserProfileAvatar = () => {
         role="button"
         tabIndex={0}
       >
-        {firstChar}
+        {getFirstCharAvatar(currentUser?.username)}
       </Avatar>
 
       {openMenu && (
@@ -66,7 +63,7 @@ const CUserProfileAvatar = () => {
               className="!bg-purple-400"
               src={currentUser?.avatarUrl}
             >
-              {firstChar}
+              {getFirstCharAvatar(currentUser?.username)}
             </Avatar>
             <div className="flex flex-col">
               <Typography>

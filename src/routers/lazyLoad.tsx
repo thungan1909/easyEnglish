@@ -70,35 +70,35 @@ export const ListenLessonPage = withDynamicImport(
 
 // User
 export const ProfileAccountPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/ProfileAccount"),
+  () => import("../layout/ProfileAccountLayout"),
   {
     loading: true,
   }
 );
 
 export const UserInformationPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/UserInfomation"),
+  () => import("../pages/user/ProfileAccount/pages/UserInformation"),
   {
     loading: true,
   }
 );
 
 export const UpdatePasswordPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/UpdatePassword"),
+  () => import("../pages/user/ProfileAccount/pages/UpdatePassword"),
   {
     loading: true,
   }
 );
 
 export const PerformanceAnalysisPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/PerformanceAnalysis"),
+  () => import("../pages/user/ProfileAccount/pages/PerformanceAnalysis"),
   {
     loading: true,
   }
 );
 
 export const SettingsPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/Settings"),
+  () => import("../pages/user/ProfileAccount/pages/Settings"),
   {
     loading: true,
   }
