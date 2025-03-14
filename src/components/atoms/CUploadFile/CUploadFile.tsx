@@ -27,7 +27,6 @@ const CUploadFile = ({
   const handleFileChange = () => {
     if (inputElement.current?.files?.length) {
       const selectedFile = inputElement.current.files[0];
-      console.log("selectedFile", selectedFile);
 
       if (selectedFile.type.startsWith(`${accept}`)) {
         setUploadFileName(selectedFile.name);

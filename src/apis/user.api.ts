@@ -2,6 +2,8 @@ import { END_POINTS } from "../constants";
 import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
   GetUserDTO,
+  UpdateUserAvatarDTO,
+  UpdateUserAvatarResponse,
   UpdateUserDTO,
   UpdateUserResponse,
 } from "../types/dtos/user.dto";
@@ -37,6 +39,19 @@ export const updateUserMutation = {
     try {
       return getOriginalResponseData<UpdateUserResponse>(
         await getAxiosInstance().post(END_POINTS.USER.UPDATE_INFO, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const updateUserAvatarMutation = {
+  name: "updateUserAvatar",
+  fn: async (data: UpdateUserAvatarDTO): Promise<UpdateUserAvatarResponse> => {
+    try {
+      return getOriginalResponseData<UpdateUserAvatarResponse>(
+        await getAxiosInstance().post(END_POINTS.USER.UPDATE_AVATAR, data)
       );
     } catch (error) {
       throw error;

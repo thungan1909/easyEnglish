@@ -1,7 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import { UpdateUserDTO, UpdateUserResponse } from "../../types/dtos/user.dto";
+import {
+  UpdateUserAvatarDTO,
+  UpdateUserAvatarResponse,
+  UpdateUserDTO,
+  UpdateUserResponse,
+} from "../../types/dtos/user.dto";
 import { IHttpError } from "../../types/dtos/http";
-import { updateUserMutation } from "../../apis/user.api";
+import {
+  updateUserAvatarMutation,
+  updateUserMutation,
+} from "../../apis/user.api";
 
 export const useUpdateUserMutation = () => {
   return useMutation<UpdateUserResponse, IHttpError, UpdateUserDTO>({
@@ -9,4 +17,14 @@ export const useUpdateUserMutation = () => {
       return updateUserMutation.fn(data);
     },
   });
+};
+
+export const useUpdateUserAvatarMutation = () => {
+  return useMutation<UpdateUserAvatarResponse, IHttpError, UpdateUserAvatarDTO>(
+    {
+      mutationFn: async (data: UpdateUserAvatarDTO) => {
+        return updateUserAvatarMutation.fn(data);
+      },
+    }
+  );
 };

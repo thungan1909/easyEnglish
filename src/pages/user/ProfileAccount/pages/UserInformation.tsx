@@ -13,11 +13,19 @@ import CDatePicker from "../../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
 import CSelect from "../../../../components/atoms/CSelect/CSelect";
 import { genderOptions } from "../constant";
-import { useUpdateUserMutation } from "../../../../hooks/user/edit-user.hook";
+import {
+  useUpdateUserAvatarMutation,
+  useUpdateUserMutation,
+} from "../../../../hooks/user/edit-user.hook";
+import { UploadFileResponse } from "../../../../types/dtos/upload.dto";
+import { useUploadFileMutation } from "../../../../hooks/upload/upload-file";
+import { notify } from "../../../../utils/notify";
 
 const UserInformation = () => {
   const currentUser = useGetCurrentUser();
   const { mutate: updateUserMutation } = useUpdateUserMutation();
+  const { mutate: updateUserAvatarMutation } = useUpdateUserAvatarMutation();
+  const { mutate: uploadFileMutation } = useUploadFileMutation();
 
   const {
     control,
@@ -50,6 +58,32 @@ const UserInformation = () => {
     });
   };
 
+  const handleUploadAvatar = async (file: File) => {
+    console.log(file);
+    uploadFileMutation(
+      { file, type: "image" },
+      {
+        onSuccess: (data: UploadFileResponse) => {
+          updateUserAvatarMutation(
+            {
+              avatarUrl: data.secureUrl,
+            },
+            {
+              onSuccess: () => {
+                notify.success("Update avatar successfully");
+                // setIsUpdateAvatarSuccess(true);
+              },
+            }
+          );
+        },
+        onError: (error) => {
+          console.error(error);
+          alert("Upload failed. Please try again.");
+        },
+      }
+    );
+  };
+
   return (
     <div className="w-full">
       <Typography variant="h6">User Information</Typography>
@@ -57,6 +91,7 @@ const UserInformation = () => {
         <CAvatarUpload
           avatarUrl={currentUser?.avatarUrl}
           username={currentUser?.username}
+          onUpload={handleUploadAvatar}
         />
       </div>
       <form

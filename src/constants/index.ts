@@ -15,6 +15,7 @@ export const END_POINTS = {
   },
   USER: {
     UPDATE_INFO: "/user/update",
+    UPDATE_AVATAR: "/user/update-avatar",
   },
   LESSON: {
     CREATE: "/lesson/create",

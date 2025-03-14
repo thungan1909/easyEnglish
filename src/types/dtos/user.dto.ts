@@ -17,6 +17,11 @@ export interface UserDTO {
 export interface UpdateUserResponse {}
 export interface UpdateUserDTO extends UserDTO {}
 
+export interface UpdateUserAvatarResponse {}
+export interface UpdateUserAvatarDTO {
+  avatarUrl: string | File;
+}
+
 export interface GetUserDTO extends UserDTO {
   id: string;
   isVerified: boolean;
