@@ -10,15 +10,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CTextField from "../../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../../components/atoms/CButton/CButton";
 import CDatePicker from "../../../../components/atoms/CDatePicker/CDatePicker";
+import dayjs from "dayjs";
 
 const UserInformation = () => {
   const currentUser = useUser();
+  console.log(currentUser);
 
   const {
     control,
+    watch,
     handleSubmit,
     formState: { isValid },
   } = useForm<TUserEditInfoSchema>({
+    defaultValues: {
+      username: currentUser?.username || "s",
+      email: currentUser?.email || "s",
+    },
     mode: "onChange",
     resolver: zodResolver(UserEditInfoSchema),
   });
@@ -27,13 +34,16 @@ const UserInformation = () => {
     console.log(data);
   };
 
+  console.log(watch());
   return (
     <div className="w-full">
       <Typography variant="h6">User Information</Typography>
-      <CAvatarUpload
-        avatarUrl={currentUser?.avatarUrl}
-        username={currentUser?.username}
-      />
+      <div className="text-center">
+        <CAvatarUpload
+          avatarUrl={currentUser?.avatarUrl}
+          username={currentUser?.username}
+        />
+      </div>
       <form
         className="flex flex-col gap-4 mt-8"
         onSubmit={handleSubmit(onSubmitProfile)}
@@ -43,7 +53,6 @@ const UserInformation = () => {
             <Controller
               name="username"
               control={control}
-              defaultValue=""
               render={({ field, fieldState }) => (
                 <>
                   <CTextField
@@ -66,7 +75,6 @@ const UserInformation = () => {
             <Controller
               name="fullname"
               control={control}
-              defaultValue=""
               render={({ field, fieldState }) => (
                 <>
                   <CTextField
@@ -91,7 +99,6 @@ const UserInformation = () => {
             <Controller
               name="email"
               control={control}
-              defaultValue=""
               render={({ field, fieldState }) => (
                 <>
                   <CTextField
@@ -114,7 +121,6 @@ const UserInformation = () => {
             <Controller
               name="phoneNumber"
               control={control}
-              defaultValue=""
               render={({ field, fieldState }) => (
                 <>
                   <CTextField
@@ -142,11 +148,9 @@ const UserInformation = () => {
               render={({ field: { value, onChange } }) => (
                 <>
                   <CDatePicker
-                    // value={value}
+                    value={value ? dayjs(value) : null} // Convert Date to Dayjs
                     onChange={onChange}
-                    fullWidth
-                    disabled
-                    isUseInUserPage
+                    label="Date of birth"
                   />
                 </>
               )}
@@ -156,7 +160,6 @@ const UserInformation = () => {
             <Controller
               name="gender"
               control={control}
-              defaultValue=""
               render={({ field, fieldState }) => (
                 <>
                   <CTextField
@@ -180,7 +183,6 @@ const UserInformation = () => {
           <Controller
             name="city"
             control={control}
-            defaultValue=""
             render={({ field, fieldState }) => (
               <>
                 <CTextField
@@ -201,7 +203,6 @@ const UserInformation = () => {
           <Controller
             name="district"
             control={control}
-            defaultValue=""
             render={({ field, fieldState }) => (
               <>
                 <CTextField
@@ -222,7 +223,6 @@ const UserInformation = () => {
           <Controller
             name="ward"
             control={control}
-            defaultValue=""
             render={({ field, fieldState }) => (
               <>
                 <CTextField
@@ -244,7 +244,6 @@ const UserInformation = () => {
         <Controller
           name="detailAddress"
           control={control}
-          defaultValue=""
           render={({ field, fieldState }) => (
             <>
               <CTextField
@@ -266,7 +265,6 @@ const UserInformation = () => {
           <Controller
             name="university"
             control={control}
-            defaultValue=""
             render={({ field, fieldState }) => (
               <>
                 <CTextField
@@ -287,7 +285,6 @@ const UserInformation = () => {
           <Controller
             name="major"
             control={control}
-            defaultValue=""
             render={({ field, fieldState }) => (
               <>
                 <CTextField

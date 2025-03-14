@@ -14,6 +14,7 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
       placeholder,
       value = "",
       maxLength = 1024,
+      onChange,
       onKeyDown,
       sx = {},
       ...props
@@ -32,6 +33,8 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
         type={isPasswordField && !showPassword ? "password" : "text"}
         className={className}
         disabled={disabled}
+        value={value} // ✅ Ensure value is always controlled
+        onChange={onChange} // ✅ Propagate changes
         slotProps={{
           input: {
             inputProps: {

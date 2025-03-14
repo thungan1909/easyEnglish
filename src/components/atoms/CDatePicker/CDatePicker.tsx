@@ -1,50 +1,16 @@
 import { IDatePicker } from "./types";
-import dayjs, { Dayjs } from "dayjs";
-import { DATE_FORMAT } from "../../../constants/dateTime";
-import { DateCalendar } from "@mui/x-date-pickers";
-import { useState } from "react";
+import dayjs from "dayjs";
+import { DatePicker } from "@mui/x-date-pickers";
 
-const CDatePicker = ({
-  minDate,
-  maxDate,
-  onClose,
-  onChange,
-  value,
-  isShowTime = false,
-  type,
-  isStartDay,
-  isEndDay,
-  hasTypeTime = false,
-}: IDatePicker) => {
-  const [newValue, setNewValue] = useState<Dayjs | null>(value);
-
+const CDatePicker = ({ onChange, value, label }: IDatePicker) => {
   return (
-    <DateCalendar
-      value={newValue || dayjs()}
+    <DatePicker
+      value={value || dayjs()}
+      label={label}
       onChange={(val) => {
-        let value;
-        if (isShowTime) {
-          if (isStartDay) {
-            value = dayjs(dayjs(val).format(DATE_FORMAT));
-          }
-
-          if (isEndDay) {
-            value = dayjs(dayjs(val).format(DATE_FORMAT))
-              .add(1)
-              .subtract(1, "second");
-          }
-
-          setNewValue(value || val);
-          return;
-        }
-
         onChange(val);
       }}
-      minDate={hasTypeTime ? undefined : dayjs(minDate)}
-      maxDate={hasTypeTime ? dayjs() : dayjs(maxDate)}
-      // dayOfWeekFormatter={dayOfWeekFormatter}
-      views={type === "month-picker" ? ["year", "month"] : undefined}
-      openTo={type === "month-picker" ? "month" : undefined}
+      className="w-full"
     />
   );
 };

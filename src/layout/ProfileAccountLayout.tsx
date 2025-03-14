@@ -9,7 +9,7 @@ const ProfileAccount = ({ children }: ProfileAccountProps) => {
   return (
     <div className="flex w-full">
       <CSidebar />
-      <div className="flex-1 md:ml-64 md:px-32 pt-32 md:pb-12 px-8 pb-16 flex items-center">
+      <div className="flex-1 md:ml-64 md:px-48 pt-32 md:pb-12 px-8 pb-16 flex items-center ">
         {children}
       </div>
     </div>

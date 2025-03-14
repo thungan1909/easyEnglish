@@ -39,7 +39,7 @@ const CAvatarUpload = ({
         alt="user-avatar"
         className="!bg-purple-400"
         src={avatarUrl}
-        sx={{ width: 64, height: 64 }}
+        sx={{ width: 72, height: 72 }}
       >
         {!avatarUrl && getFirstCharAvatar(username)}
       </Avatar>

@@ -95,26 +95,7 @@ export type ICoreDateTimePickerView = {
 };
 
 export interface IDatePicker extends IDateTimePickerBase {
-  minDate?: Dayjs | null;
-  maxDate?: Dayjs | null;
   value: Dayjs | null;
-  onClose: () => void;
   onChange: (date: Dayjs | null) => void;
-  fullWidth?: boolean;
-  errorMessages?: string;
-  isShowTime?: boolean;
-  disable?: boolean;
-  type: TDatePicker;
-  /**
-   * If true, in show full time mode, the value is start of day.
-   */
-  isStartDay?: boolean;
-  /**
-   * If true, in show full time mode, the value is start of day.
-   */
-  isEndDay?: boolean;
-  /**
-   * Handle neo date range picker.
-   */
-  hasTypeTime?: boolean;
+  label?: string;
 }

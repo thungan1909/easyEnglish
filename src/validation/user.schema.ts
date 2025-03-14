@@ -64,7 +64,7 @@ export const UserEditInfoSchema = zod.object({
   username: zod.string().min(1, invalidUsernameMsg),
   fullname: zod.string().min(1, invalidFullnameMsg),
   email: zod.string().email(invalidEmailMsg),
-  dateOfBirth: zod.date(), // ✅ Allow both string & Date
+  dateOfBirth: zod.date(),
   gender: zod.string().min(1, "Gender is required"),
   phoneNumber: zod.string().min(1, invalidPhoneMsg),
   city: zod.string(),
