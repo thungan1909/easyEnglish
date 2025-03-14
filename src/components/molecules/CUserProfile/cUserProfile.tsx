@@ -1,5 +1,5 @@
 import { Avatar, Divider, Typography } from "@mui/material";
-import { useUser } from "../../../hooks/user.hook";
+import { useGetCurrentUser } from "../../../hooks/user/user.hook";
 import { useEffect, useRef, useState } from "react";
 import CButton from "../../atoms/CButton/CButton";
 import { FaCog, FaFolder, FaSignOutAlt } from "react-icons/fa";
@@ -9,7 +9,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { getFirstCharAvatar } from "../../../utils/helpers/getFirstCharAvatar";
 
 const CUserProfileAvatar = () => {
-  const currentUser = useUser();
+  const currentUser = useGetCurrentUser();
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);

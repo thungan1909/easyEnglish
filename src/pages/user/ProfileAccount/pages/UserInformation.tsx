@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
-import { useUser } from "../../../../hooks/user.hook";
+import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
 import CAvatarUpload from "../components/cAvatarUpload/CAvatarUpload";
 import { Controller, useForm } from "react-hook-form";
 import {
-  TUserEditInfoSchema,
-  UserEditInfoSchema,
+  TUpdateUserSchema,
+  UpdateUserSchema,
 } from "../../../../validation/user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CTextField from "../../../../components/atoms/CTextField/CTextField";
@@ -12,36 +12,44 @@ import CButton from "../../../../components/atoms/CButton/CButton";
 import CDatePicker from "../../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
 import CSelect from "../../../../components/atoms/CSelect/CSelect";
-import { IOption } from "../../../../types/common";
+import { genderOptions } from "../constant";
+import { useUpdateUserMutation } from "../../../../hooks/user/edit-user.hook";
 
 const UserInformation = () => {
-  const currentUser = useUser();
-  console.log(currentUser);
+  const currentUser = useGetCurrentUser();
+  const { mutate: updateUserMutation } = useUpdateUserMutation();
 
   const {
     control,
-    watch,
     handleSubmit,
     formState: { isValid },
-  } = useForm<TUserEditInfoSchema>({
+  } = useForm<TUpdateUserSchema>({
     defaultValues: {
-      username: currentUser?.username || "s",
-      email: currentUser?.email || "s",
+      username: currentUser?.username,
+      fullname: currentUser?.fullName,
+      email: currentUser?.email,
+      birthDate: currentUser?.birthDate,
+      gender: currentUser?.gender,
+      phoneNumber: currentUser?.phoneNumber,
+      city: currentUser?.city,
+      district: currentUser?.district,
+      ward: currentUser?.ward,
+      detailAddress: currentUser?.detailAddress,
+      university: currentUser?.university,
+      major: currentUser?.major,
     },
     mode: "onChange",
-    resolver: zodResolver(UserEditInfoSchema),
+    resolver: zodResolver(UpdateUserSchema),
   });
 
-  const onSubmitProfile = (data: TUserEditInfoSchema) => {
-    console.log(data);
+  const onSubmitProfile = (data: TUpdateUserSchema) => {
+    updateUserMutation(data, {
+      onSuccess: () => {
+        //
+      },
+    });
   };
 
-  const genderOptions: IOption<string>[] = [
-    { label: "Male", value: "male" },
-    { label: "Female", value: "female" },
-  ];
-
-  console.log(watch());
   return (
     <div className="w-full">
       <Typography variant="h6">User Information</Typography>
@@ -68,6 +76,7 @@ const UserInformation = () => {
                     label="Username"
                     placeholder="Username"
                     className="w-full"
+                    disabled
                   />
                   {fieldState.error && (
                     <Typography color="error" variant="caption">
@@ -114,6 +123,7 @@ const UserInformation = () => {
                     label="Email"
                     placeholder="Email"
                     className="w-full"
+                    disabled
                   />
                   {fieldState.error && (
                     <Typography color="error" variant="caption">
@@ -150,7 +160,7 @@ const UserInformation = () => {
         <div className="grid md:grid-cols-2 md:gap-4 gap-4">
           <div>
             <Controller
-              name="dateOfBirth"
+              name="birthDate"
               control={control}
               render={({ field: { value, onChange } }) => (
                 <>
@@ -310,7 +320,7 @@ const UserInformation = () => {
             )}
           />
         </div>
-        <CButton type="submit" className="w-full" isRounded>
+        <CButton type="submit" className="w-full" disabled={!isValid} isRounded>
           Save
         </CButton>
       </form>

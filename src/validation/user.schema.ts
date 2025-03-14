@@ -5,7 +5,6 @@ import {
   invalidEmailMsg,
   invalidFullnameMsg,
   invalidPasswordMsg,
-  invalidPhoneMsg,
   invalidUsernameMsg,
 } from "../constants/errorMessage";
 
@@ -58,21 +57,21 @@ export type TUserResetPasswordSchema = zod.infer<
   typeof UserResetPasswordSchema
 >;
 
-// SIGN UP
+// UPDATE USER
 
-export const UserEditInfoSchema = zod.object({
+export const UpdateUserSchema = zod.object({
   username: zod.string().min(1, invalidUsernameMsg),
   fullname: zod.string().min(1, invalidFullnameMsg),
   email: zod.string().email(invalidEmailMsg),
-  dateOfBirth: zod.date(),
-  gender: zod.string().min(1, "Gender is required"),
-  phoneNumber: zod.string().min(1, invalidPhoneMsg),
-  city: zod.string(),
-  district: zod.string(),
-  ward: zod.string(),
-  detailAddress: zod.string(),
-  university: zod.string(),
-  major: zod.string(),
+  birthDate: zod.date().optional(),
+  gender: zod.string().optional(),
+  phoneNumber: zod.string().optional(),
+  city: zod.string().optional(),
+  district: zod.string().optional(),
+  ward: zod.string().optional(),
+  detailAddress: zod.string().optional(),
+  university: zod.string().optional(),
+  major: zod.string().optional(),
 });
 
-export type TUserEditInfoSchema = zod.infer<typeof UserEditInfoSchema>;
+export type TUpdateUserSchema = zod.infer<typeof UpdateUserSchema>;

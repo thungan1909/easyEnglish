@@ -14,7 +14,7 @@ export const END_POINTS = {
     RESET_PASSWORD: "/auth/reset-password",
   },
   USER: {
-    PROFILE: "/user/profile",
+    UPDATE_INFO: "/user/update",
   },
   LESSON: {
     CREATE: "/lesson/create",

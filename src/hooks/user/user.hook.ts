@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { USER_QUERY_KEY } from "../constants";
-import { getUserInfoMutation } from "../apis/user.api";
+import { USER_QUERY_KEY } from "../../constants";
+import { getUserInfoMutation } from "../../apis/user.api";
 
-export const useUser = () => {
+export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: USER_QUERY_KEY,
     queryFn: getUserInfoMutation.fn,
