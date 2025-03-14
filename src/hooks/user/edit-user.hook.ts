@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   UpdateUserAvatarDTO,
   UpdateUserAvatarResponse,
@@ -10,6 +10,7 @@ import {
   updateUserAvatarMutation,
   updateUserMutation,
 } from "../../apis/user.api";
+import { AUTHENTICATION_QUERY_KEY } from "../../constants";
 
 export const useUpdateUserMutation = () => {
   return useMutation<UpdateUserResponse, IHttpError, UpdateUserDTO>({
@@ -20,10 +21,17 @@ export const useUpdateUserMutation = () => {
 };
 
 export const useUpdateUserAvatarMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation<UpdateUserAvatarResponse, IHttpError, UpdateUserAvatarDTO>(
     {
       mutationFn: async (data: UpdateUserAvatarDTO) => {
         return updateUserAvatarMutation.fn(data);
+      },
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: AUTHENTICATION_QUERY_KEY,
+        });
       },
     }
   );

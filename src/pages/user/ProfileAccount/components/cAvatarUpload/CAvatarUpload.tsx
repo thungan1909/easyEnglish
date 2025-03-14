@@ -5,17 +5,20 @@ import { getFirstCharAvatar } from "../../../../../utils/helpers/getFirstCharAva
 import CButton from "../../../../../components/atoms/CButton/CButton";
 import { FaFloppyDisk } from "react-icons/fa6";
 import { useUploadFileMutation } from "../../../../../hooks/upload/upload-file";
+import { UploadFileResponse } from "../../../../../types/dtos/upload.dto";
 
 export interface CAvatarUploadProps {
   avatarUrl?: string;
   username?: string;
-  onUpload?: (file: File) => void;
+  onUpload: (avatarUrl: string | File) => void;
+  isUpdateAvatarSuccess?: boolean;
 }
 
 const CAvatarUpload = ({
   avatarUrl,
   username,
   onUpload,
+  isUpdateAvatarSuccess,
 }: CAvatarUploadProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const { mutate: uploadFileMutation } = useUploadFileMutation();
@@ -43,12 +46,19 @@ const CAvatarUpload = ({
   };
 
   const handleUpload = async () => {
-    if (avatarState.selectedFile && onUpload) {
-      try {
-        await onUpload(avatarState.selectedFile);
-      } catch (error) {
-        console.error("Avatar upload failed:", error);
-      }
+    if (avatarState.selectedFile) {
+      uploadFileMutation(
+        { file: avatarState.selectedFile, type: "image" },
+        {
+          onSuccess: (data: UploadFileResponse) => {
+            onUpload(data.secureUrl);
+          },
+          onError: (error) => {
+            console.error(error);
+            alert("Upload failed. Please try again.");
+          },
+        }
+      );
     }
   };
 
@@ -59,6 +69,15 @@ const CAvatarUpload = ({
       }
     };
   }, [avatarState.fileURL]);
+
+  // useEffect(() => {
+  //   if (isUpdateAvatarSuccess) {
+  //     setAvatarState((prev) => ({
+  //       ...prev,
+  //       fileURL: null, // Keep selected file if it exists
+  //     }));
+  //   }
+  // }, [isUpdateAvatarSuccess, avatarUrl]);
 
   return (
     <div className="flex flex-col items-center">

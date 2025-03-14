@@ -17,15 +17,14 @@ import {
   useUpdateUserAvatarMutation,
   useUpdateUserMutation,
 } from "../../../../hooks/user/edit-user.hook";
-import { UploadFileResponse } from "../../../../types/dtos/upload.dto";
-import { useUploadFileMutation } from "../../../../hooks/upload/upload-file";
 import { notify } from "../../../../utils/notify";
+import { useEffect, useState } from "react";
 
 const UserInformation = () => {
   const currentUser = useGetCurrentUser();
   const { mutate: updateUserMutation } = useUpdateUserMutation();
   const { mutate: updateUserAvatarMutation } = useUpdateUserAvatarMutation();
-  const { mutate: uploadFileMutation } = useUploadFileMutation();
+  const [isUpdateAvatarSuccess, setIsUpdateAvatarSuccess] = useState(false);
 
   const {
     control,
@@ -58,31 +57,36 @@ const UserInformation = () => {
     });
   };
 
-  const handleUploadAvatar = async (file: File) => {
-    console.log(file);
-    uploadFileMutation(
-      { file, type: "image" },
+  const handleUploadAvatar = async (avatarUrl: string | File) => {
+    updateUserAvatarMutation(
       {
-        onSuccess: (data: UploadFileResponse) => {
-          updateUserAvatarMutation(
-            {
-              avatarUrl: data.secureUrl,
-            },
-            {
-              onSuccess: () => {
-                notify.success("Update avatar successfully");
-                // setIsUpdateAvatarSuccess(true);
-              },
-            }
-          );
-        },
-        onError: (error) => {
-          console.error(error);
-          alert("Upload failed. Please try again.");
+        avatarUrl: avatarUrl,
+      },
+      // {
+      //   onSuccess: () => {
+      //     notify.success("Update avatar successfully");
+      //     setIsUpdateAvatarSuccess(true);
+      //   },
+      // }
+      {
+        onSuccess: async () => {
+          notify.success("Update avatar successfully");
+
+          // ✅ Force React Query to refetch current user
+          // await queryClient.invalidateQueries({
+          //   queryKey: AUTHENTICATION_QUERY_KEY,
+          // });
+
+          // ✅ Optional: Update local state immediately
+          // setCurrentUser((prev) => ({ ...prev, avatarUrl }));
         },
       }
     );
   };
+
+  useEffect(() => {
+    console.log("currentUser", currentUser);
+  }, [currentUser]);
 
   return (
     <div className="w-full">
@@ -92,6 +96,7 @@ const UserInformation = () => {
           avatarUrl={currentUser?.avatarUrl}
           username={currentUser?.username}
           onUpload={handleUploadAvatar}
+          isUpdateAvatarSuccess={isUpdateAvatarSuccess}
         />
       </div>
       <form
