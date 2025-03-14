@@ -11,6 +11,8 @@ import CTextField from "../../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../../components/atoms/CButton/CButton";
 import CDatePicker from "../../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
+import CSelect from "../../../../components/atoms/CSelect/CSelect";
+import { IOption } from "../../../../types/common";
 
 const UserInformation = () => {
   const currentUser = useUser();
@@ -33,6 +35,11 @@ const UserInformation = () => {
   const onSubmitProfile = (data: TUserEditInfoSchema) => {
     console.log(data);
   };
+
+  const genderOptions: IOption<string>[] = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+  ];
 
   console.log(watch());
   return (
@@ -148,7 +155,7 @@ const UserInformation = () => {
               render={({ field: { value, onChange } }) => (
                 <>
                   <CDatePicker
-                    value={value ? dayjs(value) : null} // Convert Date to Dayjs
+                    value={value ? dayjs(value) : null}
                     onChange={onChange}
                     label="Date of birth"
                   />
@@ -160,14 +167,14 @@ const UserInformation = () => {
             <Controller
               name="gender"
               control={control}
-              render={({ field, fieldState }) => (
+              render={({ field: { value, onChange }, fieldState }) => (
                 <>
-                  <CTextField
-                    {...field}
-                    type="text"
+                  <CSelect
+                    options={genderOptions}
+                    value={value}
+                    onChangeValue={onChange}
                     label="Gender"
-                    placeholder="Gender"
-                    className="w-full"
+                    placeholder="Select gender"
                   />
                   {fieldState.error && (
                     <Typography color="error" variant="caption">

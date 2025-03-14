@@ -11,6 +11,18 @@ const CDatePicker = ({ onChange, value, label }: IDatePicker) => {
         onChange(val);
       }}
       className="w-full"
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          "&:hover fieldset, &.Mui-focused fieldset": {
+            borderColor: "purple",
+          },
+        },
+        "& .MuiInputLabel-root": {
+          "&.Mui-focused": {
+            color: "purple",
+          },
+        },
+      }}
     />
   );
 };
