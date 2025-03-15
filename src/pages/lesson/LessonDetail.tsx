@@ -5,6 +5,8 @@ import { FaBook, FaCalendar, FaCopyright, FaHeadphones } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { useGetLessonById } from "../../hooks/lesson/get-lesson.hook";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
+import CBreadcrumbs from "../../components/atoms/CBreadcrumbs/CBreadcrumbs";
+import { generateBreadcrumbs } from "../../utils/helpers/breadcrumbs";
 
 const LessonDetail = () => {
   const navigate = useNavigate();
@@ -28,12 +30,22 @@ const LessonDetail = () => {
       className="relative grid grid-cols-1 p-8 top-24 gap-8 md:grid-cols-2"
       key={lesson?._id}
     >
-      <div>
-        <Chip label={lesson?.code || "Code"} variant="outlined"></Chip>
-        <Typography variant="h5" className="!mt-4">
+      <div className="flex flex-col gap-4">
+        <CBreadcrumbs
+          menuItem={generateBreadcrumbs("lesson", {
+            id: lesson?._id,
+            title: lesson?.title,
+          })}
+        />
+        <Chip
+          label={lesson?.code || "Code"}
+          variant="outlined"
+          className="w-fit"
+        />
+        <Typography variant="h5" className="">
           {lesson?.title || "Title"}
         </Typography>
-        <Typography className="line-clamp-12 !mt-4" variant="body1">
+        <Typography className="line-clamp-12 " variant="body1">
           {lesson?.description || "No data"}
         </Typography>
       </div>

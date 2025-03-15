@@ -16,7 +16,6 @@ import {
   ChangePasswordPage,
   UpdateUserInformationPage,
   VerifyAccountPage,
-  UpdateEmailPage,
   ChangeEmailPage,
 } from "./lazyLoad";
 

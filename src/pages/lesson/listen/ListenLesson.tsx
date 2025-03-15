@@ -12,6 +12,8 @@ import AudioSection from "./AudioSection";
 import { Typography } from "@mui/material";
 import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
 import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
+import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
+import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -25,9 +27,17 @@ const ListenLesson = () => {
     .filter((word) => word.trim() || punctuationRegex.test(word));
 
   return (
-    <div className="" key={id}>
-      <div className="!space-y-8 mt-32 md:p-16 flex flex-col items-center justify-center p-8">
-        <Typography variant="h5">{lesson?.title}</Typography>
+    <div className="mt-32" key={id}>
+      <CBreadcrumbs
+        menuItem={generateBreadcrumbs("listenLesson", {
+          id: lesson?._id,
+          title: lesson?.title,
+          type: type || "",
+        })}
+        className="text-left pl-16"
+      />
+      <div className="!space-y-8 md:px-16 flex flex-col p-8 ">
+        <Typography variant="h5">{lesson?.title || "Title"}</Typography>
         <div className="flex md:gap-8 gap-4 flex-wrap items-center justify-center">
           <CButton
             startIcon={<FaPaperPlane />}
