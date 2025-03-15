@@ -9,8 +9,11 @@ import {
   TChangeEmailSchema,
   ChangeEmailSchema,
 } from "../../../../validation/user.schema";
+import { useChangeEmailMutation } from "../../../../hooks/user/change-email.hook";
 
 const ChangeEmail = () => {
+  const { mutate: changeEmailMutation } = useChangeEmailMutation();
+
   const {
     control,
     handleSubmit,
@@ -22,12 +25,14 @@ const ChangeEmail = () => {
   });
 
   const onSubmitProfile = (data: TChangeEmailSchema) => {
-    //
+    changeEmailMutation(data, {
+      onSuccess: () => {},
+    });
   };
 
   return (
     <div className="w-full">
-      <Typography variant="h6">Change Email</Typography>
+      <Typography variant="h5">Change Email</Typography>
       <form
         className="flex flex-col gap-4 mt-8"
         onSubmit={handleSubmit(onSubmitProfile)}
@@ -66,7 +71,7 @@ const ChangeEmail = () => {
                   {...field}
                   type="text"
                   label="New email"
-                  placeholder="Enter your new email"
+                  placeholder="New email"
                   className="w-full"
                   startIcon={<FaEnvelope />}
                 />

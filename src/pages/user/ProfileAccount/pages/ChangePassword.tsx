@@ -8,8 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CTextField from "../../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../../components/atoms/CButton/CButton";
 import { FaEnvelope, FaKey } from "react-icons/fa";
+import { useChangePasswordMutation } from "../../../../hooks/user/change-password.hook";
 
 const ChangePassword = () => {
+  const { mutate: changePasswordMutation } = useChangePasswordMutation();
+
   const {
     control,
     handleSubmit,
@@ -21,12 +24,18 @@ const ChangePassword = () => {
   });
 
   const onSubmitProfile = (data: TUserChangePasswordSchema) => {
-    //
+    changePasswordMutation(data, {
+      onSuccess: () => {},
+    });
   };
 
   return (
     <div className="w-full">
-      <Typography variant="h6">Change Password</Typography>
+      <Typography variant="h5">Change Password</Typography>
+      <Typography className="text-gray-400" variant="caption">
+        Please change your password regularly to improve the security of your
+        account.
+      </Typography>
       <form
         className="flex flex-col gap-4 mt-8"
         onSubmit={handleSubmit(onSubmitProfile)}

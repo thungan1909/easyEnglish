@@ -14,10 +14,8 @@ export interface UserDTO {
   major?: string;
 }
 
-export interface UpdateUserResponse {}
 export interface UpdateUserDTO extends UserDTO {}
 
-export interface UpdateUserAvatarResponse {}
 export interface UpdateUserAvatarDTO {
   avatarUrl: string | File;
 }
@@ -28,3 +26,9 @@ export interface GetUserDTO extends UserDTO {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface UserResponse {}
+export interface UpdateUserResponse extends UserResponse {}
+export interface UpdateUserAvatarResponse extends UserResponse {}
+export interface ChangePasswordResponse extends UserResponse {}
+export interface ChangeEmailResponse extends UserResponse {}

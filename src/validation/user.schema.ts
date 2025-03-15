@@ -76,7 +76,7 @@ export const UpdateUserSchema = zod.object({
 
 export type TUpdateUserSchema = zod.infer<typeof UpdateUserSchema>;
 
-
+//CHANGE EMAIL
 export const ChangeEmailSchema = zod
   .object({
     oldEmail: zod.string().email(invalidEmailMsg),
@@ -88,7 +88,7 @@ export type TChangeEmailSchema= zod.infer<
   typeof ChangeEmailSchema
 >;
 
-
+//CHANGE PASSWORD
 export const UserChangePasswordSchema = zod
   .object({
     email: zod.string().email(invalidEmailMsg),

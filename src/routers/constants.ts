@@ -10,7 +10,7 @@ export const ROUTES_CONSTANTS = {
   USER: {
     PROFILE_ACCOUNT: "/user/profile-account",
     CHANGE_PASSWORD: "/user/change-password",
-    CHANGE_EMAIL: "/user/update-email",
+    CHANGE_EMAIL: "/user/change-email",
     ANALYSIS: "/user/performance-analysis",
     SETTINGS: "/user/settings",
   },

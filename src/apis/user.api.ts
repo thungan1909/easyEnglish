@@ -1,12 +1,16 @@
 import { END_POINTS } from "../constants";
 import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
+  ChangeEmailResponse,
+  ChangePasswordDTO,
+  ChangePasswordResponse,
   GetUserDTO,
   UpdateUserAvatarDTO,
   UpdateUserAvatarResponse,
   UpdateUserDTO,
   UpdateUserResponse,
 } from "../types/dtos/user.dto";
+import { TChangeEmailSchema, TUserChangePasswordSchema } from "../validation/user.schema";
 
 export const getUserInfoMutation = {
   name: "getUserInfo",
@@ -52,6 +56,32 @@ export const updateUserAvatarMutation = {
     try {
       return getOriginalResponseData<UpdateUserAvatarResponse>(
         await getAxiosInstance().post(END_POINTS.USER.UPDATE_AVATAR, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const changePasswordMutation = {
+  name: "changePassword",
+  fn: async (data: TUserChangePasswordSchema): Promise<ChangePasswordResponse> => {
+    try {
+      return getOriginalResponseData<UpdateUserResponse>(
+        await getAxiosInstance().post(END_POINTS.USER.CHANGE_PASSWORD, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const changeEmailMutation = {
+  name: "changeEmail",
+  fn: async (data: TChangeEmailSchema): Promise<ChangeEmailResponse> => {
+    try {
+      return getOriginalResponseData<ChangeEmailResponse>(
+        await getAxiosInstance().post(END_POINTS.USER.CHANGE_EMAIL, data)
       );
     } catch (error) {
       throw error;
