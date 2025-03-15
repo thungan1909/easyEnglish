@@ -15,6 +15,7 @@ const LoginReminder = () => {
         onClick={() => navigate(ROUTES_CONSTANTS.AUTH.LOGIN)}
         size="large"
         isRounded
+        textTransform="capitalize"
       >
         Sign in now
         <FaArrowRight size={24} className="ml-2" />

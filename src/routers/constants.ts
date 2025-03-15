@@ -33,8 +33,17 @@ export const ROUTES_CONSTANTS = {
     },
   },
   CHALLENGE: {
-    BASE: "/challenge",
+    BASE: "/challenges",
   },
+  CLASSES: {
+    BASE: "/classes"
+  },
+  FEEDS: {
+    BASE: "/new-feed"
+  },
+  RANKING_LIST: {
+    BASE: "/ranking"
+  }
 };
 
 export const lessonPaths = [

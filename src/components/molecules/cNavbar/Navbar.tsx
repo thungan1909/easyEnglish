@@ -1,6 +1,8 @@
 import {
+  FaArrowCircleDown,
   FaBars,
   FaBell,
+  FaCaretDown,
   FaChartBar,
   FaCoins,
   FaFire,
@@ -13,7 +15,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
-import { menuItems } from "./const";
+import { menuItems, moreMenuItems, primaryMenuItems } from "./constants";
 import { getLinkClassName } from "../../../utils/helpers/style";
 import CUserProfileAvatar from "../CUserProfile/cUserProfile";
 
@@ -25,6 +27,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
 
   const handleResize = useCallback(() => {
     if (window.innerWidth >= 768) {
@@ -37,14 +40,49 @@ const Navbar = ({ isAuth }: NavbarProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
-  const renderedMenuItems = useMemo(
+  // const renderedMenuItems = useMemo(
+  //   () =>
+  //     menuItems.map((item) => (
+  //       <li key={item.href}>
+  //         <Link
+  //           to={item.href}
+  //           className={`transition ${getLinkClassName(item.href, location)}`}
+  //           onClick={() => setMenuOpen(false)}
+  //         >
+  //           {item.label}
+  //         </Link>
+  //       </li>
+  //     )),
+  //   [location]
+  // );
+
+  const renderedPrimaryMenuItems = useMemo(
     () =>
-      menuItems.map((item) => (
+      primaryMenuItems.map((item) => (
         <li key={item.href}>
           <Link
             to={item.href}
             className={`transition ${getLinkClassName(item.href, location)}`}
             onClick={() => setMenuOpen(false)}
+          >
+            {item.label}
+          </Link>
+        </li>
+      )),
+    [location]
+  );
+
+  const renderedMoreMenuItems = useMemo(
+    () =>
+      moreMenuItems.map((item) => (
+        <li key={item.href} className="">
+          <Link
+            to={item.href}
+            className={`transition ${getLinkClassName(item.href, location)}`}
+            onClick={() => {
+              setMenuOpen(false);
+              setMoreMenuOpen(false);
+            }}
           >
             {item.label}
           </Link>
@@ -59,7 +97,25 @@ const Navbar = ({ isAuth }: NavbarProps) => {
         <img src={logo} alt="EasyEnglish logo" className="h-8" />
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-x-6">{renderedMenuItems}</ul>
+        <ul className="hidden md:flex gap-x-6">
+          {renderedPrimaryMenuItems}
+          <li className="relative">
+            <button
+              onClick={() => setMoreMenuOpen((prev) => !prev)}
+              className="!text-gray-700 flex items-center"
+            >
+              More
+              <FaCaretDown />
+            </button>
+            {moreMenuOpen && (
+              <div className="absolute top-12 bg-white shadow-2xl rounded-lg">
+                <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
+                  {renderedMoreMenuItems}
+                </ul>
+              </div>
+            )}
+          </li>
+        </ul>
 
         <button
           className="md:hidden"
@@ -73,7 +129,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
         {menuOpen && (
           <div className="absolute top-16 left-16 max-w-[80%] bg-white shadow-2xl rounded-lg">
             <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
-              {renderedMenuItems}
+              {renderedPrimaryMenuItems}
             </ul>
           </div>
         )}
