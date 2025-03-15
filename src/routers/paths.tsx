@@ -13,9 +13,10 @@ import {
   ProfileAccountPage,
   RegisterPage,
   SettingsPage,
-  UpdatePasswordPage,
-  UserInformationPage,
+  ChangePasswordPage,
+  UpdateUserInformationPage,
   VerifyAccountPage,
+  UpdateEmailPage,
 } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
@@ -55,43 +56,42 @@ const mainRoutes: RouteItemConfig[] = [
     element: <DashboardPage />,
     showWithPermission: true,
   },
-  {
-    path: ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT,
-    element: (
-      <ProfileAccountPage>
-        <UserInformationPage />
-      </ProfileAccountPage>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.USER.CHANGE_PASSWORD,
-    element: (
-      <ProfileAccountPage>
-        <UpdatePasswordPage />
-      </ProfileAccountPage>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.USER.ANALYSIS,
-    element: (
-      <ProfileAccountPage>
-        <PerformanceAnalysisPage />
-      </ProfileAccountPage>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.USER.SETTINGS,
-    element: (
-      <ProfileAccountPage>
-        <SettingsPage />
-      </ProfileAccountPage>
-    ),
-    showWithPermission: true,
-  },
-
+  // {
+  //   path: ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT,
+  //   element: (
+  //     <ProfileAccountPage>
+  //       <UpdateUserInformationPage />
+  //     </ProfileAccountPage>
+  //   ),
+  //   showWithPermission: true,
+  // },
+  // {
+  //   path: ROUTES_CONSTANTS.USER.CHANGE_PASSWORD,
+  //   element: (
+  //     <ProfileAccountPage>
+  //       <ChangePasswordPage />
+  //     </ProfileAccountPage>
+  //   ),
+  //   showWithPermission: true,
+  // },
+  // {
+  //   path: ROUTES_CONSTANTS.USER.ANALYSIS,
+  //   element: (
+  //     <ProfileAccountPage>
+  //       <PerformanceAnalysisPage />
+  //     </ProfileAccountPage>
+  //   ),
+  //   showWithPermission: true,
+  // },
+  // {
+  //   path: ROUTES_CONSTANTS.USER.SETTINGS,
+  //   element: (
+  //     <ProfileAccountPage>
+  //       <SettingsPage />
+  //     </ProfileAccountPage>
+  //   ),
+  //   showWithPermission: true,
+  // },
   ...lessonRoutes,
 ];
 
@@ -114,6 +114,51 @@ const authenRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.AUTH.RESET_PASSWORD,
     element: <ForgotPasswordPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT,
+    element: (
+      <ProfileAccountPage>
+        <UpdateUserInformationPage />
+      </ProfileAccountPage>
+    ),
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.CHANGE_PASSWORD,
+    element: (
+      <ProfileAccountPage>
+        <ChangePasswordPage />
+      </ProfileAccountPage>
+    ),
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.UPDATE_EMAIL,
+    element: (
+      <ProfileAccountPage>
+        <UpdateEmailPage />
+      </ProfileAccountPage>
+    ),
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.ANALYSIS,
+    element: (
+      <ProfileAccountPage>
+        <PerformanceAnalysisPage />
+      </ProfileAccountPage>
+    ),
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.SETTINGS,
+    element: (
+      <ProfileAccountPage>
+        <SettingsPage />
+      </ProfileAccountPage>
+    ),
     showWithPermission: true,
   },
 ];

@@ -75,3 +75,13 @@ export const UpdateUserSchema = zod.object({
 });
 
 export type TUpdateUserSchema = zod.infer<typeof UpdateUserSchema>;
+
+
+export const UpdateEmailSchema = zod
+  .object({
+    email: zod.string().email(invalidEmailMsg),
+  })
+ 
+export type TUpdateEmailSchema = zod.infer<
+  typeof UpdateEmailSchema
+>;

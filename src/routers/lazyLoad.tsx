@@ -68,7 +68,7 @@ export const ListenLessonPage = withDynamicImport(
   }
 );
 
-// User
+// Profile Account
 export const ProfileAccountPage = withDynamicImport(
   () => import("../layout/ProfileAccountLayout"),
   {
@@ -76,15 +76,22 @@ export const ProfileAccountPage = withDynamicImport(
   }
 );
 
-export const UserInformationPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/pages/UserInformation"),
+export const UpdateUserInformationPage = withDynamicImport(
+  () => import("../pages/user/ProfileAccount/pages/UpdateUserInformation"),
   {
     loading: true,
   }
 );
 
-export const UpdatePasswordPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/pages/UpdatePassword"),
+export const ChangePasswordPage = withDynamicImport(
+  () => import("../pages/user/ProfileAccount/pages/ChangePassword"),
+  {
+    loading: true,
+  }
+);
+
+export const UpdateEmailPage = withDynamicImport(
+  () => import("../pages/user/ProfileAccount/pages/UpdateEmail"),
   {
     loading: true,
   }

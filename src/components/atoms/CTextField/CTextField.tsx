@@ -16,6 +16,7 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
       maxLength = 1024,
       onChange,
       onKeyDown,
+      startIcon,
       sx = {},
       ...props
     },
@@ -33,16 +34,20 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
         type={isPasswordField && !showPassword ? "password" : "text"}
         className={className}
         disabled={disabled}
-        value={value} // ✅ Ensure value is always controlled
-        onChange={onChange} // ✅ Propagate changes
+        value={value}
+        onChange={onChange}
         slotProps={{
           input: {
             inputProps: {
               maxLength: maxLength,
+
               style: {
                 ...customStyle,
               },
             },
+            startAdornment: (
+              <InputAdornment position="start">{startIcon}</InputAdornment>
+            ),
             endAdornment: isPasswordField ? (
               <InputAdornment position="end">
                 <IconButton

@@ -19,8 +19,15 @@ import {
 } from "../../../../hooks/user/edit-user.hook";
 import { notify } from "../../../../utils/notify";
 import { useEffect, useState } from "react";
+import {
+  FaAddressCard,
+  FaBuilding,
+  FaEnvelope,
+  FaPhone,
+  FaUser,
+} from "react-icons/fa";
 
-const UserInformation = () => {
+const UpdateUserInformation = () => {
   const currentUser = useGetCurrentUser();
   const { mutate: updateUserMutation } = useUpdateUserMutation();
   const { mutate: updateUserAvatarMutation } = useUpdateUserAvatarMutation();
@@ -116,6 +123,7 @@ const UserInformation = () => {
                     label="Username"
                     placeholder="Username"
                     className="w-full"
+                    startIcon={<FaUser />}
                     disabled
                   />
                   {fieldState.error && (
@@ -139,6 +147,7 @@ const UserInformation = () => {
                     label="Full name"
                     placeholder="Full name"
                     className="w-full"
+                    startIcon={<FaAddressCard />}
                   />
                   {fieldState.error && (
                     <Typography color="error" variant="caption">
@@ -163,6 +172,7 @@ const UserInformation = () => {
                     label="Email"
                     placeholder="Email"
                     className="w-full"
+                    startIcon={<FaEnvelope />}
                     disabled
                   />
                   {fieldState.error && (
@@ -185,6 +195,7 @@ const UserInformation = () => {
                     type="text"
                     label="Phone number"
                     placeholder="Phone number"
+                    startIcon={<FaPhone />}
                     className="w-full"
                   />
                   {fieldState.error && (
@@ -309,6 +320,7 @@ const UserInformation = () => {
                 label="Address"
                 placeholder="Address"
                 className="w-full"
+                startIcon={<FaBuilding />}
               />
               {fieldState.error && (
                 <Typography color="error" variant="caption">
@@ -368,4 +380,4 @@ const UserInformation = () => {
   );
 };
 
-export default UserInformation;
+export default UpdateUserInformation;
