@@ -77,11 +77,31 @@ export const UpdateUserSchema = zod.object({
 export type TUpdateUserSchema = zod.infer<typeof UpdateUserSchema>;
 
 
-export const UpdateEmailSchema = zod
+export const ChangeEmailSchema = zod
   .object({
-    email: zod.string().email(invalidEmailMsg),
+    oldEmail: zod.string().email(invalidEmailMsg),
+    newEmail: zod.string().email(invalidEmailMsg),
+    password: zod.string().min(6, invalidPasswordMsg),
   })
  
-export type TUpdateEmailSchema = zod.infer<
-  typeof UpdateEmailSchema
+export type TChangeEmailSchema= zod.infer<
+  typeof ChangeEmailSchema
+>;
+
+
+export const UserChangePasswordSchema = zod
+  .object({
+    email: zod.string().email(invalidEmailMsg),
+    oldPassword: zod.string().min(6, invalidPasswordMsg),
+    newPassword: zod.string().min(6, invalidPasswordMsg),
+    confirmPassword: zod.string().min(6, invalidConfirmPasswordMsg),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: confirmPasswordNotMatchMsg,
+    path: ["confirmPassword"],
+  });
+
+export type TUserChangePasswordSchema = zod.infer<
+  typeof UserChangePasswordSchema
+
 >;

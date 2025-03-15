@@ -14,8 +14,8 @@ export const menuSidebarItems = [
     icon: <FaKey />,
   },
   {
-    href: ROUTES_CONSTANTS.USER.UPDATE_EMAIL,
-    label: "Update Email",
+    href: ROUTES_CONSTANTS.USER.CHANGE_EMAIL,
+    label: "Change Email",
     icon: <FaEnvelope />,
   },
   {

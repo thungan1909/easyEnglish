@@ -97,7 +97,7 @@ const UpdateUserInformation = () => {
 
   return (
     <div className="w-full">
-      <Typography variant="h6">User Information</Typography>
+      <Typography variant="h6">Update Your Information</Typography>
       <div className="text-center">
         <CAvatarUpload
           avatarUrl={currentUser?.avatarUrl}

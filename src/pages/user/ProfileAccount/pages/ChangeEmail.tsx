@@ -1,47 +1,48 @@
 import { Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import {
-  TUserChangePasswordSchema,
-  UserChangePasswordSchema,
-} from "../../../../validation/user.schema";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import CTextField from "../../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../../components/atoms/CButton/CButton";
 import { FaEnvelope, FaKey } from "react-icons/fa";
+import {
+  TChangeEmailSchema,
+  ChangeEmailSchema,
+} from "../../../../validation/user.schema";
 
-const ChangePassword = () => {
+const ChangeEmail = () => {
   const {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<TUserChangePasswordSchema>({
+  } = useForm<TChangeEmailSchema>({
     defaultValues: {},
     mode: "onChange",
-    resolver: zodResolver(UserChangePasswordSchema),
+    resolver: zodResolver(ChangeEmailSchema),
   });
 
-  const onSubmitProfile = (data: TUserChangePasswordSchema) => {
+  const onSubmitProfile = (data: TChangeEmailSchema) => {
     //
   };
 
   return (
     <div className="w-full">
-      <Typography variant="h6">Change Password</Typography>
+      <Typography variant="h6">Change Email</Typography>
       <form
         className="flex flex-col gap-4 mt-8"
         onSubmit={handleSubmit(onSubmitProfile)}
       >
         <div>
           <Controller
-            name="email"
+            name="oldEmail"
             control={control}
             render={({ field, fieldState }) => (
               <>
                 <CTextField
                   {...field}
                   type="text"
-                  label="Email"
-                  placeholder="Email"
+                  label="Old Email"
+                  placeholder="Old Email"
                   className="w-full"
                   startIcon={<FaEnvelope />}
                   disabled
@@ -57,14 +58,37 @@ const ChangePassword = () => {
         </div>
         <div>
           <Controller
-            name="oldPassword"
+            name="newEmail"
+            control={control}
+            render={({ field, fieldState }) => (
+              <>
+                <CTextField
+                  {...field}
+                  type="text"
+                  label="New email"
+                  placeholder="Enter your new email"
+                  className="w-full"
+                  startIcon={<FaEnvelope />}
+                />
+                {fieldState.error && (
+                  <Typography color="error" variant="caption">
+                    {fieldState.error.message}
+                  </Typography>
+                )}
+              </>
+            )}
+          />
+        </div>
+        <div>
+          <Controller
+            name="password"
             control={control}
             render={({ field, fieldState }) => (
               <>
                 <CTextField
                   {...field}
                   type="password"
-                  label="Old password"
+                  label="Password"
                   placeholder="Password"
                   className="w-full"
                   startIcon={<FaKey />}
@@ -78,58 +102,12 @@ const ChangePassword = () => {
             )}
           />
         </div>
-        <div>
-          <Controller
-            name="newPassword"
-            control={control}
-            render={({ field, fieldState }) => (
-              <>
-                <CTextField
-                  {...field}
-                  type="password"
-                  label="New password"
-                  placeholder="New Password"
-                  className="w-full"
-                  startIcon={<FaKey />}
-                />
-                {fieldState.error && (
-                  <Typography color="error" variant="caption">
-                    {fieldState.error.message}
-                  </Typography>
-                )}
-              </>
-            )}
-          />
-        </div>
-        <div>
-          <Controller
-            name="confirmPassword"
-            control={control}
-            render={({ field, fieldState }) => (
-              <>
-                <CTextField
-                  {...field}
-                  type="password"
-                  label="Confirm password"
-                  placeholder="Confirm Password"
-                  className="w-full"
-                  startIcon={<FaKey />}
-                />
-                {fieldState.error && (
-                  <Typography color="error" variant="caption">
-                    {fieldState.error.message}
-                  </Typography>
-                )}
-              </>
-            )}
-          />
-        </div>
         <CButton type="submit" className="w-full" disabled={!isValid} isRounded>
-          Change Password
+          CHANGE EMAIL
         </CButton>
       </form>
     </div>
   );
 };
 
-export default ChangePassword;
+export default ChangeEmail;

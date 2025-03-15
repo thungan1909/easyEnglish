@@ -18,6 +18,7 @@ import {
   useAuthentication,
   useLoginMutation,
 } from "../../../hooks/auth/login.hook";
+import { FaKey, FaUser } from "react-icons/fa";
 
 const resolver = zodResolver(UserSignInSchema);
 
@@ -82,6 +83,7 @@ const Login = () => {
                       label="Username"
                       placeholder="Username"
                       className="w-full"
+                      startIcon={<FaUser />}
                     />
                     {fieldState.error && (
                       <Typography color="error" variant="caption">
@@ -105,6 +107,7 @@ const Login = () => {
                       label="Password"
                       placeholder="Password"
                       className="w-full"
+                      startIcon={<FaKey />}
                     />
                     {fieldState.error && (
                       <Typography color="error" variant="caption">

@@ -6,6 +6,7 @@ import CButton from "../../../components/atoms/CButton/CButton";
 import { TGetVerifyCodeSchema } from "../../../validation/user.schema";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { useNavigate } from "react-router-dom";
+import { FaEnvelope } from "react-icons/fa";
 
 export interface InputVerificationEmailProps {
   onSubmitForm: (data: TGetVerifyCodeSchema) => void;
@@ -52,6 +53,7 @@ const InputVerificationEmail = ({
                   label="Email"
                   placeholder="Email"
                   className="w-full"
+                  startIcon={<FaEnvelope />}
                 />
                 {fieldState.error && (
                   <Typography color="error" variant="caption">

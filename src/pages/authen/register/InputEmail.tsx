@@ -8,6 +8,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { emailRegex } from "../../../constants/regex";
 import { useNavigate } from "react-router-dom";
 import { useCheckExistEmailMutation } from "../../../hooks/auth/signup.hook";
+import { FaEnvelope } from "react-icons/fa";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;
@@ -63,6 +64,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
             placeholder="Email"
             value={email}
             className="w-full"
+            startIcon={<FaEnvelope />}
             onChange={(e) => {
               setEmail(e.target.value);
               setDisable(false);

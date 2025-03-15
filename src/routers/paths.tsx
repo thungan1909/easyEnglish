@@ -17,6 +17,7 @@ import {
   UpdateUserInformationPage,
   VerifyAccountPage,
   UpdateEmailPage,
+  ChangeEmailPage,
 } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
@@ -135,10 +136,10 @@ const authenRoutes: RouteItemConfig[] = [
     showWithPermission: true,
   },
   {
-    path: ROUTES_CONSTANTS.USER.UPDATE_EMAIL,
+    path: ROUTES_CONSTANTS.USER.CHANGE_EMAIL,
     element: (
       <ProfileAccountPage>
-        <UpdateEmailPage />
+        <ChangeEmailPage />
       </ProfileAccountPage>
     ),
     showWithPermission: true,

@@ -90,8 +90,8 @@ export const ChangePasswordPage = withDynamicImport(
   }
 );
 
-export const UpdateEmailPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/pages/UpdateEmail"),
+export const ChangeEmailPage = withDynamicImport(
+  () => import("../pages/user/ProfileAccount/pages/ChangeEmail"),
   {
     loading: true,
   }

@@ -4,6 +4,7 @@ import CButton from "../../../components/atoms/CButton/CButton";
 
 import { Controller, UseFormReturn } from "react-hook-form";
 import { TUserSignUpSchema } from "../../../validation/user.schema";
+import { FaKey } from "react-icons/fa";
 
 export interface InputBasicInfoProps {
   onSubmitProfile: (data: TUserSignUpSchema) => void;
@@ -49,6 +50,7 @@ const InputBasicInfo = ({
                     label="Username"
                     placeholder="Username"
                     className="w-full"
+                    startIcon={<FaUser />}
                   />
                   {fieldState.error && (
                     <Typography color="error" variant="caption">
@@ -73,6 +75,7 @@ const InputBasicInfo = ({
                     label="Password"
                     placeholder="Password"
                     className="w-full"
+                    startIcon={<FaKey />}
                   />
                   {fieldState.error && (
                     <Typography color="error" variant="caption">
@@ -97,6 +100,7 @@ const InputBasicInfo = ({
                     label="Confirm Password"
                     placeholder="Confirm Password"
                     className="w-full"
+                    startIcon={<FaKey />}
                   />
                   {fieldState.error && (
                     <Typography color="error" variant="caption">
