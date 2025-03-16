@@ -10,10 +10,8 @@ const Lesson = () => {
   const { data: lessonList = [], isFetching } = useGetLessonList({});
   const scope = queryParams.get("scope");
 
-  console.log(lessonList);
-
   return (
-    <div className="top-24 md:flex flex-col items-center md:m-20 m-2 ">
+    <div className=" md:flex flex-col items-center md:m-20 m-2 ">
       <ul className="flex gap-6 mt-24 md:mt-8 px-4">
         {menuItems.map((item) => (
           <li key={item.href}>
@@ -22,7 +20,7 @@ const Lesson = () => {
               className={`transition ${getLinkClassName(
                 item.href,
                 location
-              )} text-sm md:text-xl`}
+              )} text-sm md:text-base`}
             >
               {item.label}
             </Link>

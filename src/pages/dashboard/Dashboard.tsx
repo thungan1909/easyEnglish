@@ -28,7 +28,7 @@ const Dashboard = () => {
   );
 
   return (
-    <div className="md:flex md:justify-center top-24 grid grid-cols-1 mx-2 mt-24">
+    <div className="md:flex md:justify-center mx-2 mt-24">
       {leftSection}
       {rightSection}
     </div>
