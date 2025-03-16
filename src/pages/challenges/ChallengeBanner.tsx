@@ -1,72 +1,78 @@
 import { Typography } from "@mui/material";
 import { IChallenge } from "./Challenge";
-import {
-  FaCalendar,
-  FaCoins,
-  FaGlassCheers,
-  FaHourglass,
-  FaMicroblog,
-  FaMicrophone,
-} from "react-icons/fa";
+import { FaCalendar, FaCoins, FaHourglass, FaMicrophone } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import CButton from "../../components/atoms/CButton/CButton";
+import { calculateDayLeft } from "../../utils/helpers/caculateDayLeft";
+import { useMemo } from "react";
+import ChallengeInfoItem from "./ChallengeInfoItem";
 
 export interface ChallengeBannerProps {
-  challenge?: IChallenge;
+  challenge: IChallenge;
 }
-const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
-  console.log(challenge);
 
-  const dayleft = challenge
-    ? Math.ceil(
-        (challenge.endTime.getTime() - new Date().getTime()) /
-          (1000 * 60 * 60 * 24)
-      )
-    : 0;
+const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
+  const dayLeft = useMemo(
+    () => calculateDayLeft(challenge.endTime),
+    [challenge.endTime]
+  );
+
   return (
     <div>
       {challenge ? (
-        <div className=" p-4 rounded-2xl flex gap-12 shadow-2xl">
-          <img src={challenge.imageSrc} className="h-50 w-100 rounded-2xl" />
-          <div className="flex flex-col gap-4">
-            <Typography variant="h5">{challenge.title}</Typography>
-            <Typography variant="caption" className="text-gray-500">
+        <div className="p-4 rounded-2xl flex md:gap-12 gap-4 shadow-lg bg-amber-300">
+          <img
+            src={challenge.imageSrc}
+            className="md:w-100 md:h-50 w-32 rounded-xl "
+            alt="Challenge"
+          />
+          <div className="flex-1 flex flex-col justify-between items-start w-1/2">
+            <Typography
+              sx={{
+                typography: { xs: "body2", md: "h5" },
+              }}
+            >
+              {challenge.title}
+            </Typography>
+            <Typography
+              sx={{
+                typography: { xs: "caption", md: "body2" },
+              }}
+              className="line-clamp-5"
+            >
               {challenge.description}
             </Typography>
-            <div className="flex gap-8 text-xs">
-              <div className="flex gap-1 items-center">
-                <FaCalendar />
-                {challenge.startTime.toLocaleDateString("en-GB")}
-                <span>-</span>
-                {challenge.endTime.toLocaleDateString("en-GB")}
-              </div>
-              <div className="flex gap-1 items-center">
-                <FaHourglass />
 
-                {dayleft > 0 ? (
-                  <span className="text-green-500">
-                    {dayleft} {dayleft > 1 ? "days" : "day"} left
-                  </span>
-                ) : (
-                  <span className="text-red-500">Expired</span>
-                )}
-              </div>
-              <div className="flex gap-1 items-center">
-                <FaUserGroup />
-                {challenge.participants}
-                <span>
-                  {challenge.participants > 1 ? "participants" : "participant"}
-                </span>
-              </div>
+            <div className="flex gap-8 text-xs">
+              <ChallengeInfoItem
+                icon={FaCalendar}
+                value={`${challenge.startTime.toLocaleDateString(
+                  "en-GB"
+                )} - ${challenge.endTime.toLocaleDateString("en-GB")}`}
+              />
+              <ChallengeInfoItem
+                icon={FaHourglass}
+                value={
+                  dayLeft > 0
+                    ? `${dayLeft} ${dayLeft > 1 ? "days" : "day"} left`
+                    : "Expired"
+                }
+                color={dayLeft > 0 ? "text-green-500" : "text-red-500"}
+              />
+              <ChallengeInfoItem
+                icon={FaUserGroup}
+                value={challenge.participants}
+                label={
+                  challenge.participants > 1 ? "participants" : "participant"
+                }
+              />
             </div>
-            <div className="flex gap-8 text-xs mb-8">
-              <div className="flex gap-1 items-center">
-                <FaMicrophone />
-                {challenge.podcastCount}
-                <span>
-                  {challenge.podcastCount > 1 ? "podcasts" : "podcast"}
-                </span>
-              </div>
+            <div className="flex gap-8 text-xs">
+              <ChallengeInfoItem
+                icon={FaMicrophone}
+                value={challenge.podcastCount}
+                label={challenge.podcastCount > 1 ? "podcasts" : "podcast"}
+              />
               <div className="flex gap-1 items-center">
                 <FaCoins />
                 <span className="text-green-500">+{challenge.coin}</span>

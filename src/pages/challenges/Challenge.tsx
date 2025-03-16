@@ -1,50 +1,37 @@
 import { Typography } from "@mui/material";
 import ChallengeBanner from "./ChallengeBanner";
 import exampleChallenge from "./constants";
-
-export interface IChallenge {
-  title: string;
-  description: string;
-  imageSrc: string;
-  startTime: Date;
-  endTime: Date;
-  timeLeft?: number;
-  participants: number;
-  podcastCount: number;
-  coin: number;
-  fee: number;
-}
+import ChallengeItem from "./ChallengeItem";
+import { IChallenge } from "./types";
+import { useMemo } from "react";
 
 const Challenges = () => {
-  console.log("Challenges");
-
   // Handle call API get array challenge list
   // find 1 newest challenge to show challenge banner
 
-  const getNewestChallenge = () => {
-    let newestChallenge: IChallenge | undefined = undefined;
-    exampleChallenge.forEach((item) => {
-      if (!newestChallenge || item.startTime > newestChallenge.startTime) {
-        newestChallenge = item;
-      }
-    });
-
-    return newestChallenge;
-  };
-
-  console.log(getNewestChallenge());
+  const newestChallenge = useMemo(() => {
+    return exampleChallenge.reduce<IChallenge | undefined>((latest, item) => {
+      return !latest || item.startTime > latest.startTime ? item : latest;
+    }, undefined);
+  }, [exampleChallenge]);
 
   return (
-    <div className="flex flex-col mt-24 md:m-20 gap-8">
+    <div className="flex flex-col mt-24 md:mx-48 mx-8 gap-8">
       <div>
         <Typography variant="h6">Challenges</Typography>
         <Typography variant="caption" className="text-gray-400">
           List of all current challenges
         </Typography>
       </div>
-      {getNewestChallenge && (
-        <ChallengeBanner challenge={getNewestChallenge()} />
-      )}
+
+      {/* Render the newest challenge in the banner if available */}
+      {newestChallenge && <ChallengeBanner challenge={newestChallenge} />}
+
+      <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
+        {exampleChallenge.map((item) => (
+          <ChallengeItem key={item.id} challenge={item} />
+        ))}
+      </div>
     </div>
   );
 };
