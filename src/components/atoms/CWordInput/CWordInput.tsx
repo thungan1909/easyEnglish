@@ -4,22 +4,35 @@ const CWordInput = ({
   word,
   originalWord,
   readOnly,
+  onChange,
 }: {
   word: string;
   originalWord: string;
   readOnly?: boolean;
+  onChange?: (value: string) => void;
 }) => {
   return word === "" ? (
     <CTextField
       maxLength={originalWord.length}
       className="bg-purple-100"
       disabled={readOnly}
+      onChange={(e) => onChange?.(e.target.value)}
       sx={{
         width: `${originalWord.length * 10}px`,
         minHeight: "20px",
-        "& .MuiOutlinedInput-input": {
-          padding: "0px !important",
+        "& .MuiInputAdornment-root": {
+          marginRight: "0px !important",
         },
+        "& .MuiOutlinedInput-root": {
+          padding: "0 !important",
+        },
+        "& .MuiOutlinedInput-input": {
+          padding: "0 !important",
+        },
+        "& .MuiInputBase-root": {
+          padding: "0 !important",
+        },
+
         "& fieldset": {
           border: "none !important",
           borderBottom: "1px solid black !important",

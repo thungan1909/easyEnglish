@@ -14,89 +14,131 @@ import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
 import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
+import { useEffect, useMemo, useState } from "react";
 
 const ListenLesson = () => {
   const { id } = useParams();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type");
-  const { data: lesson } = useGetLessonById(id ?? "");
+  const { data: lesson, isLoading, isError } = useGetLessonById(id ?? "");
+  const [userInputs, setUserInputs] = useState<string[]>([]);
 
-  const originalWords = lesson?.content
-    ?.split(wordSplitterRegex)
-    .filter((word) => word.trim() || punctuationRegex.test(word));
+  const handleInputChange = (index: number, value: string) => {
+    setUserInputs((prevInputs) => {
+      const newInputs = [...prevInputs];
+      newInputs[index] = value.trim() ? value : "_____";
+      return newInputs;
+    });
+  };
+
+  const handleSubmit = () => {
+    console.log("User Inputs for Backend:", userInputs);
+  };
+
+  const originalWords = useMemo(() => {
+    return (lesson?.content || "")
+      .split(wordSplitterRegex)
+      .filter((word) => word.trim() || punctuationRegex.test(word));
+  }, [lesson?.content]);
+
+  const wordsList = useMemo(() => {
+    return type === "hint" ? lesson?.wordsWithHint : lesson?.wordsWithoutHint;
+  }, [lesson, type]);
+
+  useEffect(() => {
+    if (wordsList?.length) {
+      setUserInputs(wordsList.map((word) => (word === "" ? "_____" : word)));
+    }
+  }, [wordsList]);
 
   return (
-    <div className="mt-32" key={id}>
-      <CBreadcrumbs
-        menuItem={generateBreadcrumbs("listenLesson", {
-          id: lesson?._id,
-          title: lesson?.title,
-          type: type || "",
-        })}
-        className="text-left pl-16"
-      />
-      <div className="!space-y-8 md:px-16 flex flex-col p-8 ">
-        <Typography variant="h5">{lesson?.title || "Title"}</Typography>
-        <div className="flex md:gap-8 gap-4 flex-wrap items-center justify-center">
-          <CButton
-            startIcon={<FaPaperPlane />}
-            textTransform="capitalize"
-            className="!px-4"
-          >
-            Submit
-          </CButton>
-          <CButton
-            startIcon={<FaClipboardCheck />}
-            textTransform="capitalize"
-            className="!px-4"
-            variant="outlined"
-          >
-            Check Results
-          </CButton>
-          <CButton
-            startIcon={<FaExclamationTriangle />}
-            textTransform="capitalize"
-            className="!px-4"
-            variant="outlined"
-          >
-            Show Mistakes
-          </CButton>
-          <CButton
-            startIcon={<FaRegSave />}
-            textTransform="capitalize"
-            className="!px-4"
-            variant="outlined"
-          >
-            Save Draft
-          </CButton>
-          <CButton
-            startIcon={<FaLightbulb />}
-            textTransform="capitalize"
-            className="!px-4"
-            variant="outlined"
-          >
-            Hint Words
-          </CButton>
+    <>
+      {isLoading ? (
+        <div className="text-center mt-32">Loading...</div>
+      ) : isError ? (
+        <div className="text-center mt-32 text-red-500">
+          Failed to load lesson.
         </div>
-        <div className="flex gap-2 flex-wrap !mb-32">
-          {(type === "hint"
-            ? lesson?.wordsWithHint
-            : lesson?.wordsWithoutHint
-          )?.map((word, index) => {
-            const originalWord = originalWords?.[index] || "";
-            return (
-              <CWordInput key={index} word={word} originalWord={originalWord} />
-            );
-          })}
+      ) : (
+        <div className="mt-32" key={id}>
+          {lesson && (
+            <CBreadcrumbs
+              menuItem={generateBreadcrumbs("listenLesson", {
+                id: lesson._id,
+                title: lesson.title,
+                type: type || "",
+              })}
+              className="text-left pl-16"
+            />
+          )}
+
+          <div className="!space-y-8 md:px-16 flex flex-col p-8 ">
+            <Typography variant="h5">{lesson?.title || "Title"}</Typography>
+            <div className="flex md:gap-8 gap-4 flex-wrap items-center justify-center">
+              <CButton
+                startIcon={<FaPaperPlane />}
+                textTransform="capitalize"
+                className="!px-4"
+                onClick={handleSubmit}
+              >
+                Submit
+              </CButton>
+              <CButton
+                startIcon={<FaClipboardCheck />}
+                textTransform="capitalize"
+                className="!px-4"
+                variant="outlined"
+              >
+                Check Results
+              </CButton>
+              <CButton
+                startIcon={<FaExclamationTriangle />}
+                textTransform="capitalize"
+                className="!px-4"
+                variant="outlined"
+              >
+                Show Mistakes
+              </CButton>
+              <CButton
+                startIcon={<FaRegSave />}
+                textTransform="capitalize"
+                className="!px-4"
+                variant="outlined"
+              >
+                Save Draft
+              </CButton>
+              <CButton
+                startIcon={<FaLightbulb />}
+                textTransform="capitalize"
+                className="!px-4"
+                variant="outlined"
+              >
+                Hint Words
+              </CButton>
+            </div>
+            <div className="flex gap-2 flex-wrap !mb-32">
+              {wordsList?.map((word, index) => {
+                const originalWord = originalWords?.[index] || "";
+                return (
+                  <CWordInput
+                    key={index}
+                    word={word}
+                    originalWord={originalWord}
+                    onChange={(value) => handleInputChange(index, value)}
+                  />
+                );
+              })}
+            </div>
+          </div>
+          <div className="fixed bottom-0 w-full">
+            {lesson?.audioFile && (
+              <AudioSection fileURL={lesson?.audioFile as string} />
+            )}
+          </div>
         </div>
-      </div>
-      <div className="fixed bottom-0 w-full">
-        {lesson?.audioFile && (
-          <AudioSection fileURL={lesson?.audioFile as string} />
-        )}
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

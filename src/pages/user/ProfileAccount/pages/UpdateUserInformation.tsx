@@ -6,12 +6,6 @@ import {
   UpdateUserSchema,
 } from "../../../../validation/user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CTextField from "../../../../components/atoms/CTextField/CTextField";
-import CButton from "../../../../components/atoms/CButton/CButton";
-import CDatePicker from "../../../../components/atoms/CDatePicker/CDatePicker";
-import dayjs from "dayjs";
-import CSelect from "../../../../components/atoms/CSelect/CSelect";
-import { genderOptions } from "../constant";
 import { useUpdateUserMutation } from "../../../../hooks/user/edit-user.hook";
 import {
   FaAddressCard,
@@ -22,6 +16,12 @@ import {
 } from "react-icons/fa";
 import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
 import { notify } from "../../../../utils/notify";
+import CTextField from "../../../../components/atoms/CTextField/CTextField";
+import CDatePicker from "../../../../components/atoms/CDatePicker/CDatePicker";
+import dayjs from "dayjs";
+import CSelect from "../../../../components/atoms/CSelect/CSelect";
+import { genderOptions } from "../constant";
+import CButton from "../../../../components/atoms/CButton/CButton";
 
 const UpdateUserInformation = () => {
   const currentUser = useGetCurrentUser();

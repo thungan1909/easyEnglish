@@ -22,8 +22,17 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
     },
     ref
   ) => {
+    const [inputValue, setInputValue] = useState(value);
     const [showPassword, setShowPassword] = useState(false);
     const isPasswordField = type === "password";
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      let newValue = e.target.value.slice(0, maxLength);
+      setInputValue(newValue);
+      if (onChange) {
+        onChange(e);
+      }
+    };
 
     return (
       <TextField
@@ -34,8 +43,8 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
         type={isPasswordField && !showPassword ? "password" : "text"}
         className={className}
         disabled={disabled}
-        value={value}
-        onChange={onChange}
+        value={inputValue}
+        onChange={handleChange}
         slotProps={{
           input: {
             inputProps: {
