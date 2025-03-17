@@ -10,7 +10,7 @@ import {
   updateUserAvatarMutation,
   updateUserMutation,
 } from "../../apis/user.api";
-import { AUTHENTICATION_QUERY_KEY } from "../../constants";
+import { USER_QUERY_KEY } from "../../constants";
 
 export const useUpdateUserMutation = () => {
   return useMutation<UpdateUserResponse, IHttpError, UpdateUserDTO>({
@@ -22,7 +22,6 @@ export const useUpdateUserMutation = () => {
 
 export const useUpdateUserAvatarMutation = () => {
   const queryClient = useQueryClient();
-
   return useMutation<UpdateUserAvatarResponse, IHttpError, UpdateUserAvatarDTO>(
     {
       mutationFn: async (data: UpdateUserAvatarDTO) => {
@@ -30,7 +29,7 @@ export const useUpdateUserAvatarMutation = () => {
       },
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: AUTHENTICATION_QUERY_KEY,
+          queryKey: USER_QUERY_KEY,
         });
       },
     }

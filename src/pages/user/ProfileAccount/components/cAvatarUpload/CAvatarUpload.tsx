@@ -6,39 +6,41 @@ import CButton from "../../../../../components/atoms/CButton/CButton";
 import { FaFloppyDisk } from "react-icons/fa6";
 import { useUploadFileMutation } from "../../../../../hooks/upload/upload-file";
 import { UploadFileResponse } from "../../../../../types/dtos/upload.dto";
+import { useUpdateUserAvatarMutation } from "../../../../../hooks/user/edit-user.hook";
+import { notify } from "../../../../../utils/notify";
 
 export interface CAvatarUploadProps {
   avatarUrl?: string;
   username?: string;
-  onUpload: (avatarUrl: string | File) => void;
-  isUpdateAvatarSuccess?: boolean;
 }
 
-const CAvatarUpload = ({
-  avatarUrl,
-  username,
-  onUpload,
-  isUpdateAvatarSuccess,
-}: CAvatarUploadProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const { mutate: uploadFileMutation } = useUploadFileMutation();
-
+const CAvatarUpload = ({ avatarUrl, username }: CAvatarUploadProps) => {
   const inputElement = useRef<HTMLInputElement | null>(null);
-  const [avatarState, setAvatarState] = useState<{
-    fileURL: string | null;
-    selectedFile: File | null;
-  }>({
-    fileURL: null,
-    selectedFile: null,
-  });
+  const [selectedFile, setSelectedFile] = useState<File | null>();
+  const [fileURL, setFileURL] = useState<string | null>(avatarUrl ?? null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const { mutate: uploadFileMutation } = useUploadFileMutation();
+  const { mutate: updateUserAvatarMutation } = useUpdateUserAvatarMutation();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const objectURL = URL.createObjectURL(file);
-      setAvatarState({ fileURL: objectURL, selectedFile: file });
-      event.target.value = ""; // Reset input
+    if (!file) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      notify.error("Invalid file type. Only JPG, PNG, and WEBP are allowed.");
+      return;
     }
+    if (file.size > 5 * 1024 * 1024) {
+      // 5MB limit
+      notify.error("File size exceeds 5MB. Please choose a smaller file.");
+      return;
+    }
+
+    setFileURL(URL.createObjectURL(file));
+    setSelectedFile(file);
+    event.target.value = "";
   };
 
   const triggerFileInput = () => {
@@ -46,38 +48,37 @@ const CAvatarUpload = ({
   };
 
   const handleUpload = async () => {
-    if (avatarState.selectedFile) {
-      uploadFileMutation(
-        { file: avatarState.selectedFile, type: "image" },
-        {
-          onSuccess: (data: UploadFileResponse) => {
-            onUpload(data.secureUrl);
-          },
-          onError: (error) => {
-            console.error(error);
-            alert("Upload failed. Please try again.");
-          },
-        }
-      );
-    }
+    if (!selectedFile) return;
+
+    uploadFileMutation(
+      { file: selectedFile, type: "image" },
+      {
+        onSuccess: (data: UploadFileResponse) => {
+          setFileURL(data.secureUrl);
+
+          updateUserAvatarMutation(
+            {
+              avatarUrl: data.secureUrl,
+            },
+            {
+              onSuccess: () => {
+                notify.success("Update avatar successfully");
+                setSelectedFile(null);
+              },
+              onError: () => notify.error("Failed to update avatar"),
+            }
+          );
+        },
+        onError: () => notify.error("Upload failed. Please try again."),
+      }
+    );
   };
 
   useEffect(() => {
     return () => {
-      if (avatarState.fileURL) {
-        URL.revokeObjectURL(avatarState.fileURL);
-      }
+      if (fileURL) URL.revokeObjectURL(fileURL);
     };
-  }, [avatarState.fileURL]);
-
-  // useEffect(() => {
-  //   if (isUpdateAvatarSuccess) {
-  //     setAvatarState((prev) => ({
-  //       ...prev,
-  //       fileURL: null, // Keep selected file if it exists
-  //     }));
-  //   }
-  // }, [isUpdateAvatarSuccess, avatarUrl]);
+  }, [fileURL]);
 
   return (
     <div className="flex flex-col items-center">
@@ -89,10 +90,10 @@ const CAvatarUpload = ({
         <Avatar
           alt="user-avatar"
           className="!bg-purple-400"
-          src={avatarState.fileURL || avatarUrl}
+          src={fileURL || avatarUrl}
           sx={{ width: 72, height: 72 }}
         >
-          {!avatarState.fileURL && !avatarUrl && getFirstCharAvatar(username)}
+          {!fileURL && !avatarUrl && getFirstCharAvatar(username)}
         </Avatar>
 
         {isHovered && (
@@ -116,7 +117,7 @@ const CAvatarUpload = ({
         )}
       </div>
 
-      {avatarState.fileURL && (
+      {selectedFile && (
         <CButton
           className="!mt-2"
           variant="text"

@@ -10,8 +10,11 @@ import {
   ChangeEmailSchema,
 } from "../../../../validation/user.schema";
 import { useChangeEmailMutation } from "../../../../hooks/user/change-email.hook";
+import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
 
 const ChangeEmail = () => {
+  const currentUser = useGetCurrentUser();
+
   const { mutate: changeEmailMutation } = useChangeEmailMutation();
 
   const {
@@ -19,7 +22,7 @@ const ChangeEmail = () => {
     handleSubmit,
     formState: { isValid },
   } = useForm<TChangeEmailSchema>({
-    defaultValues: {},
+    defaultValues: { currentEmail: currentUser?.email },
     mode: "onChange",
     resolver: zodResolver(ChangeEmailSchema),
   });
@@ -39,15 +42,15 @@ const ChangeEmail = () => {
       >
         <div>
           <Controller
-            name="oldEmail"
+            name="currentEmail"
             control={control}
             render={({ field, fieldState }) => (
               <>
                 <CTextField
                   {...field}
                   type="text"
-                  label="Old Email"
-                  placeholder="Old Email"
+                  label="Current Email"
+                  placeholder="Current Email"
                   className="w-full"
                   startIcon={<FaEnvelope />}
                   disabled

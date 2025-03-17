@@ -9,8 +9,11 @@ import CTextField from "../../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../../components/atoms/CButton/CButton";
 import { FaEnvelope, FaKey } from "react-icons/fa";
 import { useChangePasswordMutation } from "../../../../hooks/user/change-password.hook";
+import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
 
 const ChangePassword = () => {
+  const currentUser = useGetCurrentUser();
+
   const { mutate: changePasswordMutation } = useChangePasswordMutation();
 
   const {
@@ -18,7 +21,7 @@ const ChangePassword = () => {
     handleSubmit,
     formState: { isValid },
   } = useForm<TUserChangePasswordSchema>({
-    defaultValues: {},
+    defaultValues: { email: currentUser?.email },
     mode: "onChange",
     resolver: zodResolver(UserChangePasswordSchema),
   });

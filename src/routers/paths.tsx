@@ -62,66 +62,6 @@ const mainRoutes: RouteItemConfig[] = [
     element: <DashboardPage />,
     showWithPermission: true,
   },
-  // {
-  //   path: ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT,
-  //   element: (
-  //     <ProfileAccountPage>
-  //       <UpdateUserInformationPage />
-  //     </ProfileAccountPage>
-  //   ),
-  //   showWithPermission: true,
-  // },
-  // {
-  //   path: ROUTES_CONSTANTS.USER.CHANGE_PASSWORD,
-  //   element: (
-  //     <ProfileAccountPage>
-  //       <ChangePasswordPage />
-  //     </ProfileAccountPage>
-  //   ),
-  //   showWithPermission: true,
-  // },
-  // {
-  //   path: ROUTES_CONSTANTS.USER.ANALYSIS,
-  //   element: (
-  //     <ProfileAccountPage>
-  //       <PerformanceAnalysisPage />
-  //     </ProfileAccountPage>
-  //   ),
-  //   showWithPermission: true,
-  // },
-  // {
-  //   path: ROUTES_CONSTANTS.USER.SETTINGS,
-  //   element: (
-  //     <ProfileAccountPage>
-  //       <SettingsPage />
-  //     </ProfileAccountPage>
-  //   ),
-  //   showWithPermission: true,
-  // },
-  ...lessonRoutes,
-];
-
-const authenRoutes: RouteItemConfig[] = [
-  {
-    path: ROUTES_CONSTANTS.AUTH.LOGIN,
-    element: <LoginPage />,
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.AUTH.REGISTER,
-    element: <RegisterPage />,
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.AUTH.VERIFY_ACCOUNT,
-    element: <VerifyAccountPage />,
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.AUTH.RESET_PASSWORD,
-    element: <ForgotPasswordPage />,
-    showWithPermission: true,
-  },
   {
     path: ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT,
     element: (
@@ -165,6 +105,30 @@ const authenRoutes: RouteItemConfig[] = [
         <SettingsPage />
       </ProfileAccountPage>
     ),
+    showWithPermission: true,
+  },
+  ...lessonRoutes,
+];
+
+const authenRoutes: RouteItemConfig[] = [
+  {
+    path: ROUTES_CONSTANTS.AUTH.LOGIN,
+    element: <LoginPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.AUTH.REGISTER,
+    element: <RegisterPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.AUTH.VERIFY_ACCOUNT,
+    element: <VerifyAccountPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.AUTH.RESET_PASSWORD,
+    element: <ForgotPasswordPage />,
     showWithPermission: true,
   },
 ];

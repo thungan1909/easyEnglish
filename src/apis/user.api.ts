@@ -2,7 +2,6 @@ import { END_POINTS } from "../constants";
 import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
   ChangeEmailResponse,
-  ChangePasswordDTO,
   ChangePasswordResponse,
   GetUserDTO,
   UpdateUserAvatarDTO,
@@ -10,7 +9,10 @@ import {
   UpdateUserDTO,
   UpdateUserResponse,
 } from "../types/dtos/user.dto";
-import { TChangeEmailSchema, TUserChangePasswordSchema } from "../validation/user.schema";
+import {
+  TChangeEmailSchema,
+  TUserChangePasswordSchema,
+} from "../validation/user.schema";
 
 export const getUserInfoMutation = {
   name: "getUserInfo",
@@ -65,7 +67,9 @@ export const updateUserAvatarMutation = {
 
 export const changePasswordMutation = {
   name: "changePassword",
-  fn: async (data: TUserChangePasswordSchema): Promise<ChangePasswordResponse> => {
+  fn: async (
+    data: TUserChangePasswordSchema
+  ): Promise<ChangePasswordResponse> => {
     try {
       return getOriginalResponseData<UpdateUserResponse>(
         await getAxiosInstance().post(END_POINTS.USER.CHANGE_PASSWORD, data)

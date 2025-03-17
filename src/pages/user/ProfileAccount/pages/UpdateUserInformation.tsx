@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material";
-import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
 import CAvatarUpload from "../components/cAvatarUpload/CAvatarUpload";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -13,12 +12,8 @@ import CDatePicker from "../../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
 import CSelect from "../../../../components/atoms/CSelect/CSelect";
 import { genderOptions } from "../constant";
-import {
-  useUpdateUserAvatarMutation,
-  useUpdateUserMutation,
-} from "../../../../hooks/user/edit-user.hook";
-import { notify } from "../../../../utils/notify";
-import { useEffect, useState } from "react";
+import { useUpdateUserMutation } from "../../../../hooks/user/edit-user.hook";
+import { useEffect } from "react";
 import {
   FaAddressCard,
   FaBuilding,
@@ -26,12 +21,12 @@ import {
   FaPhone,
   FaUser,
 } from "react-icons/fa";
+import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
 
 const UpdateUserInformation = () => {
   const currentUser = useGetCurrentUser();
+
   const { mutate: updateUserMutation } = useUpdateUserMutation();
-  const { mutate: updateUserAvatarMutation } = useUpdateUserAvatarMutation();
-  const [isUpdateAvatarSuccess, setIsUpdateAvatarSuccess] = useState(false);
 
   const {
     control,
@@ -64,33 +59,6 @@ const UpdateUserInformation = () => {
     });
   };
 
-  const handleUploadAvatar = async (avatarUrl: string | File) => {
-    updateUserAvatarMutation(
-      {
-        avatarUrl: avatarUrl,
-      },
-      // {
-      //   onSuccess: () => {
-      //     notify.success("Update avatar successfully");
-      //     setIsUpdateAvatarSuccess(true);
-      //   },
-      // }
-      {
-        onSuccess: async () => {
-          notify.success("Update avatar successfully");
-
-          // ✅ Force React Query to refetch current user
-          // await queryClient.invalidateQueries({
-          //   queryKey: AUTHENTICATION_QUERY_KEY,
-          // });
-
-          // ✅ Optional: Update local state immediately
-          // setCurrentUser((prev) => ({ ...prev, avatarUrl }));
-        },
-      }
-    );
-  };
-
   useEffect(() => {
     console.log("currentUser", currentUser);
   }, [currentUser]);
@@ -105,8 +73,9 @@ const UpdateUserInformation = () => {
         <CAvatarUpload
           avatarUrl={currentUser?.avatarUrl}
           username={currentUser?.username}
-          onUpload={handleUploadAvatar}
-          isUpdateAvatarSuccess={isUpdateAvatarSuccess}
+          // onUpload={handleUploadAvatar}
+          // isUpdateAvatarSuccess={isUpdateAvatarSuccess}
+          // setIsUpdateAvatarSuccess={setIsUpdateAvatarSuccess}
         />
       </div>
       <form
