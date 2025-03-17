@@ -17,12 +17,15 @@ export const END_POINTS = {
     UPDATE_INFO: "/user/update",
     UPDATE_AVATAR: "/user/update-avatar",
     CHANGE_PASSWORD: "/user/change-password",
-    CHANGE_EMAIL: "/user/change-email"
+    CHANGE_EMAIL: "/user/change-email",
   },
   LESSON: {
     CREATE: "/lesson/create",
     GET_LIST_LESSON: "/lesson/list/inquiry",
     GET_LESSON_BY_ID: "/lesson/:id",
+    LISTEN: {
+      SUBMIT: "/lesson/listen/submit",
+    },
   },
 };
 

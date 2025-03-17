@@ -9,9 +9,9 @@ export type TBreadcrumbItem = {
 };
 
 /**
- * Tạo breadcrumbs động dựa trên loại trang.
- * @param pageType Loại trang (lesson, listenLesson, profile, settings)
- * @param options Các tùy chọn bổ sung như id, title, type, v.v.
+ * Generate dynamic breadcrumbs based on page type.
+ * @param pageType Page type (lesson, listenLesson, profile, settings)
+ * @param options Additional options like id, title, type, etc.
  */
 export const generateBreadcrumbs = (
   pageType: "lesson" | "listenLesson" | "profile" | "settings",
@@ -42,20 +42,17 @@ export const generateBreadcrumbs = (
       }
       breadcrumbs.push({
         href: `${ROUTES_CONSTANTS.LESSON.LISTEN.TYPE.BASE}?id=${options?.id}`,
-        label: options?.type ? `Listen (${options.type})` : "Listen",
-      });
-      break;
-
-    case "profile":
-      breadcrumbs.push({
-        href: ROUTES_CONSTANTS.PROFILE.BASE,
-        label: "Profile",
+        label: options?.type
+          ? `Listen (${
+              options.type === "withoutHint" ? "Without Hint" : "Hint"
+            })`
+          : "Listen",
       });
       break;
 
     case "settings":
       breadcrumbs.push({
-        href: ROUTES_CONSTANTS.SETTINGS.BASE,
+        href: ROUTES_CONSTANTS.USER.SETTINGS,
         label: "Settings",
       });
       break;

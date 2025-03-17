@@ -1,4 +1,5 @@
 import {
+  useMutation,
   useQuery,
   UseQueryOptions,
   UseQueryResult,
@@ -6,9 +7,15 @@ import {
 import {
   LessonEntity,
   LessonListQueryFilter,
+  SubmitListenLessonDTO,
+  SubmitListenLessonResponse,
 } from "../../types/dtos/lesson.dto";
 import { IHttpError } from "../../types/dtos/http";
-import { getLessonByIdQuery, getLessonListQuery } from "../../apis/lesson.api";
+import {
+  getLessonByIdQuery,
+  getLessonListQuery,
+  submitListenLessonMutation,
+} from "../../apis/lesson.api";
 
 export const useGetLessonList = (
   filter: LessonListQueryFilter,
@@ -33,5 +40,17 @@ export const useGetLessonById = (
     refetchOnWindowFocus: false,
     retry: 3,
     retryDelay: 3000,
+  });
+};
+
+export const useSubmitListenLessonMutation = () => {
+  return useMutation<
+    SubmitListenLessonResponse,
+    IHttpError,
+    SubmitListenLessonDTO
+  >({
+    mutationFn: async (data: SubmitListenLessonDTO) => {
+      return submitListenLessonMutation.fn(data);
+    },
   });
 };

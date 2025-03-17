@@ -7,7 +7,10 @@ import {
   FaPaperPlane,
   FaRegSave,
 } from "react-icons/fa";
-import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
+import {
+  useGetLessonById,
+  useSubmitListenLessonMutation,
+} from "../../../hooks/lesson/get-lesson.hook";
 import AudioSection from "./AudioSection";
 import { Typography } from "@mui/material";
 import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
@@ -15,6 +18,8 @@ import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 import { useEffect, useMemo, useState } from "react";
+import { SubmitListenLessonDTO } from "../../../types/dtos/lesson.dto";
+import { notify } from "../../../utils/notify";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -22,6 +27,9 @@ const ListenLesson = () => {
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type");
   const { data: lesson, isLoading, isError } = useGetLessonById(id ?? "");
+  const { mutate: submitListenLessonMutation } =
+    useSubmitListenLessonMutation();
+
   const [userInputs, setUserInputs] = useState<string[]>([]);
 
   const handleInputChange = (index: number, value: string) => {
@@ -33,7 +41,22 @@ const ListenLesson = () => {
   };
 
   const handleSubmit = () => {
-    console.log("User Inputs for Backend:", userInputs);
+    const payload: SubmitListenLessonDTO = {
+      lessonId: id || "",
+      result_text: originalWords.join(" "),
+      result_array: originalWords,
+      user_text: userInputs.join(" "),
+      user_array: userInputs,
+    };
+
+    submitListenLessonMutation(payload, {
+      onSuccess: () => {
+        notify.success("Submission successful!");
+      },
+      onError: () => {
+        notify.error("Submission failed. Please try again.");
+      },
+    });
   };
 
   const originalWords = useMemo(() => {

@@ -20,3 +20,13 @@ export interface LessonEntity {
   progress: string;
   createdAt?: string;
 }
+
+export interface SubmitListenLessonDTO {
+  lessonId: string;
+  result_text: string;
+  result_array: string[];
+  user_text: string;
+  user_array: string[];
+}
+
+export interface SubmitListenLessonResponse {}
