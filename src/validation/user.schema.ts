@@ -61,7 +61,7 @@ export type TUserResetPasswordSchema = zod.infer<
 
 export const UpdateUserSchema = zod.object({
   username: zod.string().min(1, invalidUsernameMsg),
-  fullname: zod.string().min(1, invalidFullnameMsg),
+  fullName: zod.string().min(1, invalidFullnameMsg),
   email: zod.string().email(invalidEmailMsg),
   birthDate: zod.date().optional(),
   gender: zod.string().optional(),

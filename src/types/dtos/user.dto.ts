@@ -1,21 +1,23 @@
 export interface UserDTO {
   username: string;
-  email: string;
-  avatarUrl?: string;
   fullName?: string;
+  email: string;
+  phoneNumber?: string;
   birthDate?: Date;
   gender?: string;
-  phoneNumber?: string;
   city?: string;
   district?: string;
   ward?: string;
   detailAddress?: string;
   university?: string;
   major?: string;
+  avatarUrl: string;
 }
 
-export interface UpdateUserDTO extends UserDTO {}
+// UpdateUserDTO now extends UserDTO but removes 'avatarUrl'
+export type UpdateUserDTO = Omit<UserDTO, "avatarUrl">;
 
+// Separate DTO for updating only the avatar
 export interface UpdateUserAvatarDTO {
   avatarUrl: string | File;
 }

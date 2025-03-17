@@ -13,7 +13,6 @@ import dayjs from "dayjs";
 import CSelect from "../../../../components/atoms/CSelect/CSelect";
 import { genderOptions } from "../constant";
 import { useUpdateUserMutation } from "../../../../hooks/user/edit-user.hook";
-import { useEffect } from "react";
 import {
   FaAddressCard,
   FaBuilding,
@@ -22,10 +21,10 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
+import { notify } from "../../../../utils/notify";
 
 const UpdateUserInformation = () => {
   const currentUser = useGetCurrentUser();
-
   const { mutate: updateUserMutation } = useUpdateUserMutation();
 
   const {
@@ -33,35 +32,16 @@ const UpdateUserInformation = () => {
     handleSubmit,
     formState: { isValid },
   } = useForm<TUpdateUserSchema>({
-    defaultValues: {
-      username: currentUser?.username,
-      fullname: currentUser?.fullName,
-      email: currentUser?.email,
-      birthDate: currentUser?.birthDate,
-      gender: currentUser?.gender,
-      phoneNumber: currentUser?.phoneNumber,
-      city: currentUser?.city,
-      district: currentUser?.district,
-      ward: currentUser?.ward,
-      detailAddress: currentUser?.detailAddress,
-      university: currentUser?.university,
-      major: currentUser?.major,
-    },
+    defaultValues: { ...currentUser },
     mode: "onChange",
     resolver: zodResolver(UpdateUserSchema),
   });
 
   const onSubmitProfile = (data: TUpdateUserSchema) => {
     updateUserMutation(data, {
-      onSuccess: () => {
-        //
-      },
+      onSuccess: () => notify.success("Update profile successfully"),
     });
   };
-
-  useEffect(() => {
-    console.log("currentUser", currentUser);
-  }, [currentUser]);
 
   return (
     <div className="w-full">
@@ -73,9 +53,6 @@ const UpdateUserInformation = () => {
         <CAvatarUpload
           avatarUrl={currentUser?.avatarUrl}
           username={currentUser?.username}
-          // onUpload={handleUploadAvatar}
-          // isUpdateAvatarSuccess={isUpdateAvatarSuccess}
-          // setIsUpdateAvatarSuccess={setIsUpdateAvatarSuccess}
         />
       </div>
       <form
@@ -109,7 +86,7 @@ const UpdateUserInformation = () => {
           </div>
           <div>
             <Controller
-              name="fullname"
+              name="fullName"
               control={control}
               render={({ field, fieldState }) => (
                 <>
