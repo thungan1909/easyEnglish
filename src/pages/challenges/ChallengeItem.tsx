@@ -17,7 +17,7 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
   );
 
   return (
-    <div className="w-full rounded-2xl flex flex-col p-3 shadow-lg">
+    <div className="w-full rounded-2xl flex flex-col shadow-lg p-4">
       <img
         src={challenge.imageSrc}
         className="w-full h-32 md:h-40 lg:h-48 rounded-xl"
@@ -26,7 +26,7 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
         <Typography variant="subtitle1" className="line-clamp-1">
           {challenge.title}
         </Typography>
-        <div className="flex gap-8 text-xs">
+        <div className="md:flex text-xs justify-between">
           <ChallengeInfoItem
             icon={FaMicrophone}
             value={challenge.podcastCount}
@@ -45,7 +45,7 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
         <Typography variant="caption" className="text-gray-500 line-clamp-2">
           {challenge.description}
         </Typography>
-        <div className="flex gap-8 text-xs">
+        <div className="md:flex text-xs justify-between">
           <ChallengeInfoItem
             icon={FaUserGroup}
             value={challenge.participants}

@@ -16,7 +16,7 @@ const Challenges = () => {
   }, [exampleChallenge]);
 
   return (
-    <div className="flex flex-col mt-24 md:mx-48 mx-8 gap-8">
+    <div className="flex flex-col mt-24 md:mx-40 mx-8 gap-8">
       <div>
         <Typography variant="h6">Challenges</Typography>
         <Typography variant="caption" className="text-gray-400">
@@ -24,7 +24,6 @@ const Challenges = () => {
         </Typography>
       </div>
 
-      {/* Render the newest challenge in the banner if available */}
       {newestChallenge && <ChallengeBanner challenge={newestChallenge} />}
 
       <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
