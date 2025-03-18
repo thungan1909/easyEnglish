@@ -1,6 +1,6 @@
 import { FaHeart, FaList, FaPlus } from "react-icons/fa";
 import CButton from "../../components/atoms/CButton/CButton";
-import { Divider, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
 import { LessonEntity } from "../../types/dtos/lesson.dto";
@@ -24,7 +24,7 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
     >
       <img
         src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}
-        alt={lesson._id}
+        alt={lesson.title || "Lesson Image"}
         className="rounded-xl w-30 h-30 "
       />
       <div className="flex flex-col space-y-2">
@@ -34,7 +34,12 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
 
         <div className="flex text-gray-500 gap-4 mt-1 text-xs">
           <Typography variant="caption">{lesson.code || "Code"}</Typography>
-          <Typography variant="caption">{lesson.view || "0"} view</Typography>
+          <Typography variant="caption">
+            {lesson.listenCount ?? 0}
+            {lesson.listenCount && lesson.listenCount > 1
+              ? " listens"
+              : " listen"}
+          </Typography>
           <Typography variant="caption">
             {lesson.source || "Unknown"}
           </Typography>
@@ -57,7 +62,6 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
             <FaPlus />
           </CButton>
         </div>
-        <Divider />
       </div>
     </div>
   );

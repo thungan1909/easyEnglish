@@ -123,7 +123,6 @@ const CreateLesson = () => {
     ?.split(wordSplitterRegex)
     .filter((word) => word.trim() || punctuationRegex.test(word));
 
-  console.log(watch());
   return (
     <>
       {isAuth ? (

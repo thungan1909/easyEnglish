@@ -15,7 +15,8 @@ export interface LessonEntity {
   audioFile: string | File;
   imageFile?: string | File;
   source?: string;
-  view: string;
+  listenCount: number;
+  listenedBy: string[];
   creator: string;
   progress: string;
   createdAt?: string;

@@ -12,6 +12,10 @@ export interface UserDTO {
   university?: string;
   major?: string;
   avatarUrl: string;
+  listenedLessons?: {
+    lesson: string; // Lesson ID
+    listenedAt: string; // Date in ISO format
+  }[];
 }
 
 // UpdateUserDTO now extends UserDTO but removes 'avatarUrl'

@@ -3,6 +3,7 @@ import { menuItems } from "./constants";
 import { getLinkClassName } from "../../utils/helpers/style";
 import LessonItem from "./LessonItem";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
+import { Divider } from "@mui/material";
 
 const Lesson = () => {
   const location = useLocation();
@@ -29,7 +30,10 @@ const Lesson = () => {
       </ul>
       <div className="grid gap-4 mt-4">
         {lessonList.map((lesson) => (
-          <LessonItem lesson={lesson} key={lesson._id} />
+          <>
+            <LessonItem lesson={lesson} key={lesson._id} />
+            <Divider />
+          </>
         ))}
       </div>
     </div>
