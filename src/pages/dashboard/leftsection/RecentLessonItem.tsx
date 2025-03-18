@@ -42,7 +42,7 @@ const RecentLessonItem = ({ lesson }: LessonItemProps) => {
           <div
             className="bg-green-400 h-2.5 rounded-full"
             style={{ width: `${lesson.progress}%` }}
-          ></div>
+          />
         </div>
       </div>
     </div>

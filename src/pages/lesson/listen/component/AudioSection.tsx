@@ -1,8 +1,8 @@
 import { MenuItem, Select, Slider } from "@mui/material";
 import { useRef, useState } from "react";
 import { FaCaretLeft, FaCaretRight, FaPause, FaPlay } from "react-icons/fa";
-import CButton from "../../../components/atoms/CButton/CButton";
 import { FaRepeat } from "react-icons/fa6";
+import CButton from "../../../../components/atoms/CButton/CButton";
 
 export type AudioSectionProps = {
   fileURL: string;
