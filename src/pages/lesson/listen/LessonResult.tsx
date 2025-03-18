@@ -1,21 +1,29 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 import { Typography } from "@mui/material";
 import { useGetLessonResultById } from "../../../hooks/lesson/get-result.hook";
+import { useGetCurrentUser } from "../../../hooks/user/user.hook";
+import { useEffect } from "react";
 
 const LessonResult = () => {
   const { id } = useParams();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const { data: lesson, isLoading, isError } = useGetLessonById(id ?? "");
-  const data = useGetLessonResultById(id ?? ""); // Destructure `data` properly
+  const currentUser = useGetCurrentUser();
 
-  console.log(data); // Now it will correctly log the response data
-  console.log(data);
+  const { data: lesson } = useGetLessonById(id ?? "");
+  const lessonResult = useGetLessonResultById(id ?? "");
+
+  const isListened = useEffect(() => {
+    if (currentUser?.id) {
+      console.log(lesson?.listenedBy);
+      lesson?.listenedBy.includes(currentUser?.id);
+    }
+  }, [lesson]);
+
+  console.log(isListened, "isListened");
   return (
-    <div className="relative grid grid-cols-1 p-8 top-24 gap-8 md:grid-cols-2">
+    <div className="relative p-8 top-24 gap-8 md:grid-cols-2">
       <div className="flex flex-col gap-4">
         <CBreadcrumbs
           menuItem={generateBreadcrumbs("listenLessonResult", {
@@ -24,9 +32,16 @@ const LessonResult = () => {
           })}
         />
         <Typography variant="h5">{lesson?.title || "Title"}</Typography>
-        <Typography className="line-clamp-12" variant="body1">
-          {lesson?.description || "No data"}
-        </Typography>
+      </div>
+      <div className="grid not-only:grid-cols-2">
+        <div>
+          <Typography>Result</Typography>
+          <div>{lessonResult?.result_array?.join(" ")}</div>
+        </div>
+        <div>
+          <Typography>Your listening </Typography>{" "}
+          <div>{lessonResult?.user_array?.join(" ")}</div>
+        </div>
       </div>
     </div>
   );
