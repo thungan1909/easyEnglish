@@ -36,14 +36,14 @@ export const ROUTES_CONSTANTS = {
     BASE: "/challenges",
   },
   CLASSES: {
-    BASE: "/classes"
+    BASE: "/classes",
   },
   FEEDS: {
-    BASE: "/new-feed"
+    BASE: "/new-feed",
   },
   RANKING_LIST: {
-    BASE: "/ranking"
-  }
+    BASE: "/ranking",
+  },
 };
 
 export const lessonPaths = [

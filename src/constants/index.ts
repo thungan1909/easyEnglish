@@ -23,8 +23,10 @@ export const END_POINTS = {
     CREATE: "/lesson/create",
     GET_LIST_LESSON: "/lesson/list/inquiry",
     GET_LESSON_BY_ID: "/lesson/:id",
+  },
+  SUBMISSION: {
     LISTEN: {
-      SUBMIT: "/lesson/listen/submit",
+      SUBMIT: "/submission/listen/submit",
     },
   },
 };

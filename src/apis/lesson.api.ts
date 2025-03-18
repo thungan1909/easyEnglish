@@ -55,7 +55,7 @@ export const submitListenLessonMutation = {
   ): Promise<SubmitListenLessonResponse> => {
     try {
       return getOriginalResponseData<SubmitListenLessonResponse>(
-        await getAxiosInstance().post(END_POINTS.LESSON.LISTEN.SUBMIT, data)
+        await getAxiosInstance().post(END_POINTS.SUBMISSION.LISTEN.SUBMIT, data)
       );
     } catch (error) {
       throw error;

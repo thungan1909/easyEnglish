@@ -23,9 +23,8 @@ export interface LessonEntity {
 
 export interface SubmitListenLessonDTO {
   lessonId: string;
-  result_text: string;
+  original_array: string[];
   result_array: string[];
-  user_text: string;
   user_array: string[];
 }
 

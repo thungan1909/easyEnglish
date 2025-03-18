@@ -43,9 +43,8 @@ const ListenLesson = () => {
   const handleSubmit = () => {
     const payload: SubmitListenLessonDTO = {
       lessonId: id || "",
-      result_text: originalWords.join(" "),
+      original_array: wordsList ? wordsList : [],
       result_array: originalWords,
-      user_text: userInputs.join(" "),
       user_array: userInputs,
     };
 
