@@ -18,7 +18,7 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
 
   return (
     <div
-      className="flex items-center p-4 space-x-5 cursor-pointer hover:bg-purple-100 rounded-md"
+      className="flex items-center space-x-5 cursor-pointer hover:bg-purple-100 p-4"
       key={lesson._id}
       onClick={handleClickLessonItem}
     >

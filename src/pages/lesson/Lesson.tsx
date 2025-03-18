@@ -12,7 +12,7 @@ const Lesson = () => {
   const scope = queryParams.get("scope");
 
   return (
-    <div className=" md:flex flex-col items-center md:m-20 m-2 ">
+    <div className="md:flex flex-col items-center md:m-20 m-2 ">
       <ul className="flex gap-6 mt-24 md:mt-8 px-4">
         {menuItems.map((item) => (
           <li key={item.href}>
@@ -28,12 +28,12 @@ const Lesson = () => {
           </li>
         ))}
       </ul>
-      <div className="grid gap-4 mt-4">
+      <div className="grid mt-4">
         {lessonList.map((lesson) => (
-          <>
+          <div>
             <LessonItem lesson={lesson} key={lesson._id} />
             <Divider />
-          </>
+          </div>
         ))}
       </div>
     </div>

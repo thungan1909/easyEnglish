@@ -14,7 +14,12 @@ export type TBreadcrumbItem = {
  * @param options Additional options like id, title, type, etc.
  */
 export const generateBreadcrumbs = (
-  pageType: "lesson" | "listenLesson" | "profile" | "settings",
+  pageType:
+    | "lesson"
+    | "listenLesson"
+    | "listenLessonResult"
+    | "profile"
+    | "settings",
   options?: { id?: string; title?: string; type?: string }
 ): TBreadcrumbItem[] => {
   const breadcrumbs: TBreadcrumbItem[] = [
@@ -47,6 +52,20 @@ export const generateBreadcrumbs = (
               options.type === "withoutHint" ? "Without Hint" : "Hint"
             })`
           : "Listen",
+      });
+      break;
+
+    case "listenLessonResult":
+      breadcrumbs.push({ href: ROUTES_CONSTANTS.LESSON.BASE, label: "Lesson" });
+      if (options?.id) {
+        breadcrumbs.push({
+          href: ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", options.id),
+          label: options.title || "Lesson Details",
+        });
+      }
+      breadcrumbs.push({
+        href: ROUTES_CONSTANTS.LESSON.LISTEN.RESULT,
+        label: "Result",
       });
       break;
 

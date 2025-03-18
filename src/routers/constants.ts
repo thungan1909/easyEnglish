@@ -19,6 +19,7 @@ export const ROUTES_CONSTANTS = {
     DETAIL: "/lesson/detail/:id",
     ADD_NEW: "/lesson/add-new",
     LISTEN: {
+      RESULT: "/lesson/result/:id",
       TYPE: {
         BASE: "/lesson/listen/:id",
         WITH_HINT: "/lesson/listen/:id?type=hint",

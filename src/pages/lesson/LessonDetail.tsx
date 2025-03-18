@@ -42,6 +42,13 @@ const LessonDetail = () => {
     });
   };
 
+  const handleViewResultLesson = () => {
+    if (!_id) return;
+    navigate({
+      pathname: ROUTES_CONSTANTS.LESSON.LISTEN.RESULT.replace(":id", _id),
+    });
+  };
+
   const isListen = useMemo(
     () => currentUser?.listenedLessons?.some((item) => item.lesson === _id),
     [currentUser, _id]
@@ -73,7 +80,7 @@ const LessonDetail = () => {
                 textTransform="capitalize"
                 className="w-[150px]"
                 isRounded
-                onClick={() => handleListen("hint")}
+                onClick={handleViewResultLesson}
               >
                 View results
               </CButton>

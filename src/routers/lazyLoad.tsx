@@ -111,6 +111,13 @@ export const SettingsPage = withDynamicImport(
   }
 );
 
+export const LessonResultPage = withDynamicImport(
+  () => import("../pages/lesson/listen/LessonResult"),
+  {
+    loading: true,
+  }
+);
+
 // CHALLENGE
 export const ChallengePage = withDynamicImport(
   () => import("../pages/challenges/Challenge"),

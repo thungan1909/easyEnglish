@@ -18,6 +18,7 @@ import {
   VerifyAccountPage,
   ChangeEmailPage,
   ChallengePage,
+  LessonResultPage,
 } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
@@ -42,6 +43,11 @@ const lessonRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.LESSON.DETAIL,
     element: <LessonDetailPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.LESSON.LISTEN.RESULT,
+    element: <LessonResultPage />,
     showWithPermission: true,
   },
   {
