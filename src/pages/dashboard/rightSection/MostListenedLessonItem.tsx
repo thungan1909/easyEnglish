@@ -9,7 +9,7 @@ const MostListenedLessonItem = ({ lesson }: LessonItemProps) => {
   return (
     <div
       key={lesson.id}
-      className="bg-purple-400 flex items-center p-4 rounded-lg shadow-md space-x-3 
+      className="bg-purple-400 flex items-center p-4 rounded-lg shadow space-x-3 
       hover:bg-purple-500 cursor-pointer transition duration-300"
     >
       <img

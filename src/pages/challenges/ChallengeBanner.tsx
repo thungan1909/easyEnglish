@@ -20,7 +20,7 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
   return (
     <div>
       {challenge ? (
-        <div className="p-4 rounded-2xl flex md:gap-12 gap-4 shadow-lg ">
+        <div className="p-4 rounded-2xl flex md:gap-12 gap-4 shadow">
           <img
             src={challenge.imageSrc}
             className="md:w-100 md:h-50 w-32 rounded-xl "

@@ -17,7 +17,7 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
   );
 
   return (
-    <div className="w-full rounded-2xl flex flex-col shadow-lg p-4">
+    <div className="w-full rounded-2xl flex flex-col shadow p-4">
       <img
         src={challenge.imageSrc}
         className="w-full h-32 md:h-40 lg:h-48 rounded-xl"

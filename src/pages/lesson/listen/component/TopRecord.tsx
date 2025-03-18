@@ -24,7 +24,7 @@ const TopRecord = () => {
         {exampleUserRanking.map((user) => (
           <div
             key={user.id}
-            className="flex items-center shadow-xl rounded-lg p-3 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
+            className="flex items-center shadow rounded-lg p-3 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
           >
             <span>{user.ranking}.</span>
             <img

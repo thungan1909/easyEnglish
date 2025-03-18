@@ -10,7 +10,7 @@ const RecentLessonItem = ({ lesson }: LessonItemProps) => {
   return (
     <div
       key={lesson.id}
-      className="flex items-center bg-gradient-to-r from-indigo-100 bg-purple-200 p-2 rounded-lg shadow-md hover:bg-purple-400 cursor-pointer"
+      className="flex items-center bg-gradient-to-r from-indigo-100 bg-purple-200 p-2 rounded-lg shadow hover:bg-purple-400 cursor-pointer"
     >
       {/* Image */}
       <img

@@ -4,7 +4,7 @@ import MostListenedLessonItem from "./MostListenedLessonItem";
 
 const MostListened = () => {
   return (
-    <div className="bg-white shadow-xl rounded-lg p-4">
+    <div className="bg-white shadow rounded-lg p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 id="most-listened-title" className="text-xl font-bold">
           Most Listened Lessons

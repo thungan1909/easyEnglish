@@ -54,7 +54,7 @@ const CUserProfileAvatar = () => {
 
       {openMenu && (
         <div
-          className="absolute right-0 top-12 w-[240px] rounded-lg shadow-2xl bg-white p-5"
+          className="absolute right-0 top-12 w-[240px] rounded-lg shadow bg-white p-5"
           ref={menuRef}
         >
           <div className="flex gap-2 cursor-pointer mb-2">

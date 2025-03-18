@@ -92,7 +92,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
   );
 
   return (
-    <nav className="flex items-center shadow-md px-6 py-3 fixed top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
+    <nav className="flex items-center shadow px-6 py-3 fixed top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
       <div className="flex items-center gap-x-6">
         <img src={logo} alt="EasyEnglish logo" className="h-8" />
 
@@ -108,7 +108,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
               <FaCaretDown />
             </button>
             {moreMenuOpen && (
-              <div className="absolute top-12 bg-white shadow-2xl rounded-lg">
+              <div className="absolute top-12 bg-white shadow rounded-lg w-[150px]">
                 <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
                   {renderedMoreMenuItems}
                 </ul>
@@ -127,7 +127,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="absolute top-16 left-16 max-w-[80%] bg-white shadow-2xl rounded-lg">
+          <div className="absolute top-16 left-16 max-w-[80%] bg-white shadow rounded-lg">
             <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
               {renderedPrimaryMenuItems}
             </ul>

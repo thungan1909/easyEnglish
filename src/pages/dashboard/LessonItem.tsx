@@ -10,7 +10,7 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
     <div
       key={lesson.id}
       aria-label={lesson.title}
-      className="bg-gradient-to-r from-indigo-100 bg-purple-200 flex flex-col items-center p-3 rounded-lg shadow-md cursor-pointer hover:bg-purple-400 "
+      className="bg-gradient-to-r from-indigo-100 bg-purple-200 flex flex-col items-center p-3 rounded-lg shadow cursor-pointer hover:bg-purple-400 "
     >
       <img
         src={lesson.image}
