@@ -7,6 +7,7 @@ import {
   SubmitListenLessonDTO,
   SubmitListenLessonResponse,
 } from "../types/dtos/lesson.dto";
+import { LessonSubmissionResponse } from "../types/dtos/submission.dto";
 import { TCreateNewLessonSchema } from "../validation/lesson.schema";
 
 export const createLessonMutation = {
@@ -56,6 +57,21 @@ export const submitListenLessonMutation = {
     try {
       return getOriginalResponseData<SubmitListenLessonResponse>(
         await getAxiosInstance().post(END_POINTS.SUBMISSION.LISTEN.SUBMIT, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const getLessonResultById = {
+  name: "getLessonResultById",
+  fn: async (id: string): Promise<LessonSubmissionResponse> => {
+    try {
+      return getOriginalResponseData<LessonSubmissionResponse>(
+        await getAxiosInstance().get(END_POINTS.SUBMISSION.LISTEN.GET_RESULT, {
+          params: { lessonId: id },
+        })
       );
     } catch (error) {
       throw error;

@@ -4,7 +4,7 @@ import CButton from "../../../components/atoms/CButton/CButton";
 
 import { Controller, UseFormReturn } from "react-hook-form";
 import { TUserSignUpSchema } from "../../../validation/user.schema";
-import { FaKey } from "react-icons/fa";
+import { FaKey, FaUser } from "react-icons/fa";
 
 export interface InputBasicInfoProps {
   onSubmitProfile: (data: TUserSignUpSchema) => void;

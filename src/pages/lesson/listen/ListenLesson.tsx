@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
 import {
   FaClipboardCheck,
@@ -7,10 +7,7 @@ import {
   FaPaperPlane,
   FaRegSave,
 } from "react-icons/fa";
-import {
-  useGetLessonById,
-  useSubmitListenLessonMutation,
-} from "../../../hooks/lesson/get-lesson.hook";
+import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import AudioSection from "./AudioSection";
 import { Typography } from "@mui/material";
 import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
@@ -20,9 +17,12 @@ import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 import { useEffect, useMemo, useState } from "react";
 import { SubmitListenLessonDTO } from "../../../types/dtos/lesson.dto";
 import { notify } from "../../../utils/notify";
+import { useSubmitListenLessonMutation } from "../../../hooks/lesson/submit-lesson.hook";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const ListenLesson = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const type = queryParams.get("type");
@@ -51,6 +51,7 @@ const ListenLesson = () => {
     submitListenLessonMutation(payload, {
       onSuccess: () => {
         notify.success("Submission successful!");
+        navigate(ROUTES_CONSTANTS.LESSON.LISTEN.RESULT);
       },
       onError: () => {
         notify.error("Submission failed. Please try again.");

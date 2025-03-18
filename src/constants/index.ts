@@ -27,6 +27,7 @@ export const END_POINTS = {
   SUBMISSION: {
     LISTEN: {
       SUBMIT: "/submission/listen/submit",
+      GET_RESULT: "/submission/result",
     },
   },
 };
