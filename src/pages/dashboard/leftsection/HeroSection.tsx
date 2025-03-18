@@ -13,7 +13,7 @@ const HeroSection = () => {
         {exampleSlides.map((slide) => (
           <div
             key={slide.title}
-            className="relative flex w-full h-80 rounded-2xl overflow-hidden "
+            className="relative flex w-full h-80 -2xl overflow-hidden "
           >
             <img
               src={slide.image}
@@ -21,7 +21,7 @@ const HeroSection = () => {
               decoding="async"
               className="absolute inset-0 object-cover w-full h-full rounded-2xl"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-red-400 via-red-400 to-transparent rounded-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-red-400 via-red-400 to-transparent rounded-2xl" />
 
             <div className="relative text-white flex flex-col justify-between h-full p-6 space-y-28">
               <Typography

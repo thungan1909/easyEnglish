@@ -10,13 +10,13 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
     <div
       key={lesson.id}
       aria-label={lesson.title}
-      className="bg-gradient-to-r from-indigo-100 bg-purple-200 flex flex-col items-center p-3 rounded-lg shadow cursor-pointer hover:bg-purple-400 "
+      className="bg-gradient-to-r from-indigo-100 bg-purple-200 flex flex-col items-center p-3 rounded-2xl shadow cursor-pointer hover:bg-purple-400 "
     >
       <img
         src={lesson.image}
         alt={lesson.title}
         loading="lazy"
-        className="w-32 h-32 rounded-lg object-cover"
+        className="w-32 h-32 rounded-2xl object-cover"
       />
       <div className="flex flex-col w-full mt-2 text-center items-center">
         <p className="text-sm font-bold text-gray-900">{lesson.title}</p>

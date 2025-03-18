@@ -1,9 +1,9 @@
 import { Typography } from "@mui/material";
-import { IChallenge } from "./Challenge";
 import { FaCoins, FaHourglass, FaMicrophone } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
-import { calculateDayLeft } from "../../utils/helpers/caculateDayLeft";
 import { useMemo } from "react";
+import { IChallenge } from "../types";
+import { calculateDayLeft } from "../../../utils/helpers/caculateDayLeft";
 import ChallengeInfoItem from "./ChallengeInfoItem";
 
 export interface ChallengeItemProps {
@@ -17,10 +17,10 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
   );
 
   return (
-    <div className="w-full rounded-2xl flex flex-col shadow p-4">
+    <div className="w-full flex flex-col shadow rounded-2xl bg-white p-4">
       <img
         src={challenge.imageSrc}
-        className="w-full h-32 md:h-40 lg:h-48 rounded-xl"
+        className="w-full h-32 md:h-40 lg:h-48 rounded-2xl"
       />
       <div className="flex flex-col gap-4">
         <Typography variant="subtitle1" className="line-clamp-1">

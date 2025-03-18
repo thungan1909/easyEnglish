@@ -108,7 +108,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
               <FaCaretDown />
             </button>
             {moreMenuOpen && (
-              <div className="absolute top-12 bg-white shadow rounded-lg w-[150px]">
+              <div className="absolute top-12 bg-white shadow rounded-2xl w-[150px]">
                 <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
                   {renderedMoreMenuItems}
                 </ul>
@@ -127,7 +127,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="absolute top-16 left-16 max-w-[80%] bg-white shadow rounded-lg">
+          <div className="absolute top-16 left-16 max-w-[80%] bg-white shadow rounded-2xl">
             <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
               {renderedPrimaryMenuItems}
             </ul>

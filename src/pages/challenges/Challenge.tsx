@@ -1,14 +1,11 @@
 import { Typography } from "@mui/material";
-import ChallengeBanner from "./ChallengeBanner";
+import ChallengeBanner from "./components/ChallengeBanner";
 import exampleChallenge from "./constants";
-import ChallengeItem from "./ChallengeItem";
 import { IChallenge } from "./types";
 import { useMemo } from "react";
+import ChallengeItem from "./components/ChallengeItem";
 
 const Challenges = () => {
-  // Handle call API get array challenge list
-  // find 1 newest challenge to show challenge banner
-
   const newestChallenge = useMemo(() => {
     return exampleChallenge.reduce<IChallenge | undefined>((latest, item) => {
       return !latest || item.startTime > latest.startTime ? item : latest;
@@ -16,7 +13,7 @@ const Challenges = () => {
   }, [exampleChallenge]);
 
   return (
-    <div className="flex flex-col mt-24 md:mx-40 mx-8 gap-8">
+    <div className="flex flex-col mt-24 md:mx-42 mx-8 gap-8">
       <div>
         <Typography variant="h6">Challenges</Typography>
         <Typography variant="caption" className="text-gray-400">

@@ -123,7 +123,7 @@ const LessonDetail = () => {
           <img
             src={typeof imageFile === "string" ? imageFile : ""}
             alt={title || "Lesson Image"}
-            className="w-80 h-80 rounded-lg"
+            className="w-80 h-80 rounded-2xl"
           />
 
           <div className="flex text-xs space-x-8 mt-4 p-2 border-t text-gray-500">

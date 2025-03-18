@@ -10,13 +10,12 @@ const RecentLessonItem = ({ lesson }: LessonItemProps) => {
   return (
     <div
       key={lesson.id}
-      className="flex items-center bg-gradient-to-r from-indigo-100 bg-purple-200 p-2 rounded-lg shadow hover:bg-purple-400 cursor-pointer"
+      className="flex items-center bg-gradient-to-r from-indigo-100 bg-purple-200 p-2 rounded-2xl shadow hover:bg-purple-400 cursor-pointer"
     >
-      {/* Image */}
       <img
         src={lesson.image}
         alt={lesson.title}
-        className="w-16 h-16 rounded-lg object-cover mr-3"
+        className="w-16 h-16 rounded-2xl object-cover mr-3"
       />
       <div className="flex flex-col flex-1">
         <Typography

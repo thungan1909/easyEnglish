@@ -3,7 +3,7 @@ const ChallengeInfoItem = ({
   value,
   label,
   color,
-  iconSize = 12, // Default size
+  iconSize = 12,
 }: {
   icon: React.ElementType;
   value: string | number;

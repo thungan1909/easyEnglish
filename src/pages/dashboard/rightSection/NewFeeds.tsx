@@ -3,7 +3,7 @@ import { exampleUserNewfeed } from "../const";
 
 const NewFeeds = () => {
   return (
-    <div className="bg-white shadow rounded-lg p-4">
+    <div className="bg-white shadow rounded-2xl p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">New Feeds</h2>
         <CButton
@@ -19,7 +19,7 @@ const NewFeeds = () => {
         {exampleUserNewfeed.map((user) => (
           <div
             key={user.id}
-            className="flex items-center shadow rounded-lg p-4 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
+            className="flex items-center shadow rounded-2xl p-4 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
           >
             <img
               src={user.avatar}
