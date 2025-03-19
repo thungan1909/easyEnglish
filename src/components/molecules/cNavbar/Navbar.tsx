@@ -1,5 +1,4 @@
 import {
-  FaArrowCircleDown,
   FaBars,
   FaBell,
   FaCaretDown,
@@ -15,9 +14,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
-import { menuItems, moreMenuItems, primaryMenuItems } from "./constants";
+import { menuItems, primaryMenuItems } from "./constants";
 import { getLinkClassName } from "../../../utils/helpers/style";
 import CUserProfileAvatar from "../CUserProfile/cUserProfile";
+import MoreMenu from "./MoreMenu";
 
 interface NavbarProps {
   isAuth: Boolean;
@@ -28,6 +28,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
+  // const menuRef = useRef<HTMLDivElement | null>(null);
 
   const handleResize = useCallback(() => {
     if (window.innerWidth >= 768) {
@@ -39,22 +40,6 @@ const Navbar = ({ isAuth }: NavbarProps) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
-
-  // const renderedMenuItems = useMemo(
-  //   () =>
-  //     menuItems.map((item) => (
-  //       <li key={item.href}>
-  //         <Link
-  //           to={item.href}
-  //           className={`transition ${getLinkClassName(item.href, location)}`}
-  //           onClick={() => setMenuOpen(false)}
-  //         >
-  //           {item.label}
-  //         </Link>
-  //       </li>
-  //     )),
-  //   [location]
-  // );
 
   const renderedPrimaryMenuItems = useMemo(
     () =>
@@ -72,17 +57,14 @@ const Navbar = ({ isAuth }: NavbarProps) => {
     [location]
   );
 
-  const renderedMoreMenuItems = useMemo(
+  const renderedPrimaryMobileMenuItems = useMemo(
     () =>
-      moreMenuItems.map((item) => (
-        <li key={item.href} className="">
+      menuItems.map((item) => (
+        <li key={item.href}>
           <Link
             to={item.href}
             className={`transition ${getLinkClassName(item.href, location)}`}
-            onClick={() => {
-              setMenuOpen(false);
-              setMoreMenuOpen(false);
-            }}
+            onClick={() => setMenuOpen(false)}
           >
             {item.label}
           </Link>
@@ -96,7 +78,6 @@ const Navbar = ({ isAuth }: NavbarProps) => {
       <div className="flex items-center gap-x-6">
         <img src={logo} alt="EasyEnglish logo" className="h-8" />
 
-        {/* Desktop Menu */}
         <ul className="hidden md:flex gap-x-6">
           {renderedPrimaryMenuItems}
           <li className="relative">
@@ -107,13 +88,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
               More
               <FaCaretDown />
             </button>
-            {moreMenuOpen && (
-              <div className="absolute top-12 bg-white shadow rounded-2xl w-[150px]">
-                <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
-                  {renderedMoreMenuItems}
-                </ul>
-              </div>
-            )}
+            <MoreMenu isOpen={moreMenuOpen} setMoreMenuOpen={setMoreMenuOpen} />
           </li>
         </ul>
 
@@ -125,19 +100,16 @@ const Navbar = ({ isAuth }: NavbarProps) => {
           {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
 
-        {/* Mobile Menu */}
         {menuOpen && (
           <div className="absolute top-16 left-16 max-w-[80%] bg-white shadow rounded-2xl">
             <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
-              {renderedPrimaryMenuItems}
+              {renderedPrimaryMobileMenuItems}
             </ul>
           </div>
         )}
       </div>
 
-      {/* Authentication & User Info */}
       <div className="ml-auto flex items-center space-x-4">
-        {/* Search Bar (Desktop) */}
         <div className="hidden md:flex items-center relative ml-auto">
           <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500" />
           <input

@@ -31,7 +31,7 @@ const RankingList = () => {
             <span className="truncate min-w-0">{user.name}</span>
 
             <div className="flex space-x-2 items-center ml-auto">
-              <span>{user.grades}</span>
+              <span className="text-sm">{user.grades}</span>
               <FaRankingStar />
             </div>
           </div>

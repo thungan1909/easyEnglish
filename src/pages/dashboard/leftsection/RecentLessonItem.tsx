@@ -1,6 +1,7 @@
 import { FaBook, FaPlay } from "react-icons/fa";
 import { Lesson } from "../types";
 import { Typography } from "@mui/material";
+import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 
 interface LessonItemProps {
   lesson: Lesson;
@@ -25,16 +26,9 @@ const RecentLessonItem = ({ lesson }: LessonItemProps) => {
           {lesson.id} - {lesson.title}
         </Typography>
 
-        {/* Stats */}
         <div className="flex items-center text-xs text-gray-500 mt-1 gap-2">
-          <FaPlay />
-          <Typography variant="caption" className="line-clamp-1">
-            {lesson.listens}
-          </Typography>
-          <FaBook />
-          <Typography variant="caption" className="line-clamp-1">
-            {lesson.provider}
-          </Typography>
+          <CIconTextItem icon={FaPlay} iconSize={12} value={lesson.listens} />
+          <CIconTextItem icon={FaBook} iconSize={12} value={lesson.provider} />
         </div>
 
         <div className="md:w-48 max-w-[80%] bg-gray-500 rounded-full h-2.5 mt-2">

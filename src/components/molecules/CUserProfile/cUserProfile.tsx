@@ -19,10 +19,6 @@ const CUserProfileAvatar = () => {
     logoutMutation({});
   };
 
-  const handleClickAvatar = () => {
-    setOpenMenu((prev) => !prev);
-  };
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -45,7 +41,7 @@ const CUserProfileAvatar = () => {
         alt="user-avatar"
         className="!bg-purple-400 cursor-pointer"
         src={currentUser?.avatarUrl}
-        onClick={handleClickAvatar}
+        onClick={() => setOpenMenu((prev) => !prev)}
         role="button"
         tabIndex={0}
       >

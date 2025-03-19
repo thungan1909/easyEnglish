@@ -5,6 +5,7 @@ import { exampleSlides, settingSlider } from "../const";
 import { FaHourglass, FaMicrophone } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { Typography } from "@mui/material";
+import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 
 const HeroSection = () => {
   return (
@@ -30,34 +31,31 @@ const HeroSection = () => {
               >
                 {slide.title}
               </Typography>
-              <Typography variant="body2" className="text-sm">
-                {slide.description}
-              </Typography>
+              <Typography variant="body2">{slide.description}</Typography>
 
               <div className="flex items-center space-x-8 text-xs">
-                <span className="flex items-center space-x-1">
-                  <FaMicrophone aria-hidden="true" />
-                  <span>{slide.stats.numberPodcast}</span>
-                  <span>
-                    {slide.stats.numberPodcast > 1 ? "podcasts" : "podcast"}
-                  </span>
-                </span>
-                <span className="flex items-center space-x-1">
-                  <FaUserGroup aria-hidden="true" />
-                  <span>{slide.stats.numberParticipant}</span>
-                  <span>
-                    {slide.stats.numberParticipant > 1
+                <CIconTextItem
+                  icon={FaMicrophone}
+                  iconSize={16}
+                  value={slide.stats.numberPodcast}
+                  label={slide.stats.numberPodcast > 1 ? "podcasts" : "podcast"}
+                />
+                <CIconTextItem
+                  icon={FaUserGroup}
+                  iconSize={16}
+                  value={slide.stats.numberParticipant}
+                  label={
+                    slide.stats.numberParticipant > 1
                       ? "participants"
-                      : "participant"}
-                  </span>
-                </span>
-                <span className="flex items-center space-x-1">
-                  <FaHourglass aria-hidden="true" />
-                  <span>{slide.stats.daysLeft}</span>
-                  <span>
-                    {slide.stats.daysLeft > 1 ? "days left" : "day left"}
-                  </span>
-                </span>
+                      : "participant"
+                  }
+                />
+                <CIconTextItem
+                  icon={FaHourglass}
+                  iconSize={16}
+                  value={slide.stats.daysLeft}
+                  label={slide.stats.daysLeft > 1 ? "days left" : "day left"}
+                />
               </div>
             </div>
           </div>
