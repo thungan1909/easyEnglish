@@ -196,9 +196,9 @@ const CreateLesson = () => {
               <div>
                 <CTextArea
                   {...field}
-                  maxRows={4}
-                  minRows={4}
-                  maxLength={250}
+                  maxRows={25}
+                  minRows={5}
+                  maxLength={4000}
                   placeholder="Enter lesson's description"
                   className="w-full"
                 />

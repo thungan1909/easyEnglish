@@ -7,33 +7,37 @@ const MoreMenu = ({
   setMoreMenuOpen,
 }: {
   isOpen: boolean;
-  setMoreMenuOpen: (open: boolean) => void;
+  setMoreMenuOpen: (openMenu: "more" | null) => void;
 }) => {
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
+
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMoreMenuOpen(false);
+        setMoreMenuOpen(null);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, setMoreMenuOpen]);
 
-  return isOpen ? (
+  if (!isOpen) return null;
+
+  return (
     <div
       ref={menuRef}
-      className="absolute top-16 left-16 max-w-[80%] bg-white shadow rounded-2xl"
+      className="absolute top-full mt-2 py-2 min-w-[180px] z-50 shadow-md rounded-lg bg-white"
     >
-      <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
+      <ul className="flex flex-col text-gray-700">
         {moreMenuItems.map((item) => (
-          <li key={item.href} className="">
+          <li key={item.href}>
             <Link
               to={item.href}
-              className="transition"
-              onClick={() => setMoreMenuOpen(false)}
+              className="block px-4 py-2 hover:bg-gray-100 transition"
+              onClick={() => setMoreMenuOpen(null)}
             >
               {item.label}
             </Link>
@@ -41,7 +45,7 @@ const MoreMenu = ({
         ))}
       </ul>
     </div>
-  ) : null;
+  );
 };
 
 export default MoreMenu;

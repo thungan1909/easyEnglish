@@ -19,6 +19,8 @@ import { notify } from "../../../utils/notify";
 import { useSubmitListenLessonMutation } from "../../../hooks/lesson/submit-lesson.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import AudioSection from "./component/AudioSection";
+import LoadingFailPage from "../../LoadingFailPage";
+import LoadingPage from "../../LoadingPage";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -78,11 +80,9 @@ const ListenLesson = () => {
   return (
     <>
       {isLoading ? (
-        <div className="text-center mt-32">Loading...</div>
+        <LoadingPage />
       ) : isError ? (
-        <div className="text-center mt-32 text-red-500">
-          Failed to load lesson.
-        </div>
+        <LoadingFailPage />
       ) : (
         <div className="mt-32" key={id}>
           {lesson && (

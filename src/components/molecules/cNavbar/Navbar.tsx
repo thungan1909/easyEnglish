@@ -11,13 +11,13 @@ import {
 import logo from "../../../assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CButton from "../../atoms/CButton/CButton";
-import { menuItems, primaryMenuItems } from "./constants";
-import { getLinkClassName } from "../../../utils/helpers/style";
 import CUserProfileAvatar from "../CUserProfile/cUserProfile";
 import MoreMenu from "./MoreMenu";
+import { menuItems, primaryMenuItems } from "./constants";
+import { getLinkClassName } from "../../../utils/helpers/style";
 
 interface NavbarProps {
   isAuth: Boolean;
@@ -26,52 +26,16 @@ interface NavbarProps {
 const Navbar = ({ isAuth }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
-  // const menuRef = useRef<HTMLDivElement | null>(null);
-
-  const handleResize = useCallback(() => {
-    if (window.innerWidth >= 768) {
-      setMenuOpen(false);
-    }
-  }, []);
+  const [openMenu, setOpenMenu] = useState<"mobile" | "more" | null>(null);
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) setOpenMenu(null);
+    };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
-
-  const renderedPrimaryMenuItems = useMemo(
-    () =>
-      primaryMenuItems.map((item) => (
-        <li key={item.href}>
-          <Link
-            to={item.href}
-            className={`transition ${getLinkClassName(item.href, location)}`}
-            onClick={() => setMenuOpen(false)}
-          >
-            {item.label}
-          </Link>
-        </li>
-      )),
-    [location]
-  );
-
-  const renderedPrimaryMobileMenuItems = useMemo(
-    () =>
-      menuItems.map((item) => (
-        <li key={item.href}>
-          <Link
-            to={item.href}
-            className={`transition ${getLinkClassName(item.href, location)}`}
-            onClick={() => setMenuOpen(false)}
-          >
-            {item.label}
-          </Link>
-        </li>
-      )),
-    [location]
-  );
+  }, []);
 
   return (
     <nav className="flex items-center shadow px-6 py-3 fixed top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
@@ -79,31 +43,60 @@ const Navbar = ({ isAuth }: NavbarProps) => {
         <img src={logo} alt="EasyEnglish logo" className="h-8" />
 
         <ul className="hidden md:flex gap-x-6">
-          {renderedPrimaryMenuItems}
+          {primaryMenuItems.map((item) => (
+            <li key={item.href}>
+              <Link
+                to={item.href}
+                className={`transition ${getLinkClassName(
+                  item.href,
+                  location
+                )}`}
+                onClick={() => setOpenMenu(null)}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
           <li className="relative">
             <button
-              onClick={() => setMoreMenuOpen((prev) => !prev)}
+              onClick={() => setOpenMenu(openMenu === "more" ? null : "more")}
               className="!text-gray-700 flex items-center"
             >
               More
               <FaCaretDown />
             </button>
-            <MoreMenu isOpen={moreMenuOpen} setMoreMenuOpen={setMoreMenuOpen} />
+            <MoreMenu
+              isOpen={openMenu === "more"}
+              setMoreMenuOpen={setOpenMenu}
+            />
           </li>
         </ul>
 
         <button
           className="md:hidden"
           aria-label="Toggle menu"
-          onClick={() => setMenuOpen((prev) => !prev)}
+          onClick={() => setOpenMenu(openMenu === "mobile" ? null : "mobile")}
         >
-          {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          {openMenu === "mobile" ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
 
-        {menuOpen && (
+        {openMenu === "mobile" && (
           <div className="absolute top-16 left-16 max-w-[80%] bg-white shadow rounded-2xl">
             <ul className="flex flex-col gap-y-4 text-gray-700 p-4">
-              {renderedPrimaryMobileMenuItems}
+              {menuItems.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    to={item.href}
+                    className={`transition ${getLinkClassName(
+                      item.href,
+                      location
+                    )}`}
+                    onClick={() => setOpenMenu(null)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         )}

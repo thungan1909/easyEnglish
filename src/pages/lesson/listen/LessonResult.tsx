@@ -11,6 +11,8 @@ import TopRecord from "./component/TopRecord";
 import { FaBook, FaBookOpen } from "react-icons/fa";
 import { useEffect } from "react";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import LoadingPage from "../../LoadingPage";
+import LoadingFailPage from "../../LoadingFailPage";
 
 const LessonResult = () => {
   const { id } = useParams();
@@ -18,7 +20,11 @@ const LessonResult = () => {
   const { data: lesson } = useGetLessonById(id ?? "");
 
   const currentUser = useGetCurrentUser();
-  const lessonResult = useGetLessonResultById(id ?? "");
+  const {
+    data: lessonResult,
+    isLoading,
+    isError,
+  } = useGetLessonResultById(id ?? "");
 
   useEffect(() => {
     if (currentUser?._id && lesson?.listenedBy) {
@@ -33,49 +39,59 @@ const LessonResult = () => {
   }, [currentUser, lesson, navigate]);
 
   return (
-    <div className="flex flex-col gap-8 mt-24 mx-4 md:m-24">
-      <div className="flex flex-col gap-4">
-        <CBreadcrumbs
-          menuItem={generateBreadcrumbs("listenLessonResult", {
-            id: lesson?._id,
-            title: lesson?.title,
-          })}
-        />
-        <div>
-          <Typography variant="h5">{lesson?.title || "Title"}</Typography>
-        </div>
-      </div>
+    <>
+      {isLoading ? (
+        <LoadingPage />
+      ) : isError ? (
+        <LoadingFailPage />
+      ) : (
+        <div className="flex flex-col gap-8 mt-24 mx-4 md:m-24">
+          <div className="flex flex-col gap-4">
+            <CBreadcrumbs
+              menuItem={generateBreadcrumbs("listenLessonResult", {
+                id: lesson?._id,
+                title: lesson?.title,
+              })}
+            />
+            <div>
+              <Typography variant="h5">{lesson?.title || "Title"}</Typography>
+            </div>
+          </div>
 
-      <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
-        <div className="flex flex-col gap-4">
-          <ProgressBarSection />
-          <div className="h-[240px] p-4 rounded-2xl shadow bg-white">
-            <Typography variant="h6" className="flex items-center gap-2">
-              <FaTriangleExclamation className="text-red-500" />
-              <span> Wrong words</span>
-            </Typography>
+          <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
+            <div className="flex flex-col gap-4">
+              <ProgressBarSection />
+              <div className="h-[240px] p-4 rounded-2xl shadow bg-white">
+                <Typography variant="h6" className="flex items-center gap-2">
+                  <FaTriangleExclamation className="text-red-500" />
+                  <span> Wrong words</span>
+                </Typography>
+              </div>
+            </div>
+            <TopRecord />
+          </div>
+          <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
+            <div className="p-4 rounded-2xl shadow bg-white">
+              <Typography variant="h6" className="flex items-center gap-2">
+                <FaBook className="text-green-500" />
+                <span> Result</span>
+              </Typography>
+              <div className="mt-4">
+                {lessonResult?.result_array?.join(" ")}
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl shadow bg-white">
+              <Typography variant="h6" className="flex items-center gap-2">
+                <FaBookOpen className="text-green-500" />
+                <span> Your listening </span>
+              </Typography>
+              <div className="mt-4">{lessonResult?.user_array?.join(" ")}</div>
+            </div>
           </div>
         </div>
-        <TopRecord />
-      </div>
-      <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
-        <div className="p-4 rounded-2xl shadow bg-white">
-          <Typography variant="h6" className="flex items-center gap-2">
-            <FaBook className="text-green-500" />
-            <span> Result</span>
-          </Typography>
-          <div className="mt-4">{lessonResult?.result_array?.join(" ")}</div>
-        </div>
-
-        <div className="p-4 rounded-2xl shadow bg-white">
-          <Typography variant="h6" className="flex items-center gap-2">
-            <FaBookOpen className="text-green-500" />
-            <span> Your listening </span>
-          </Typography>
-          <div className="mt-4">{lessonResult?.user_array?.join(" ")}</div>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
