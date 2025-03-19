@@ -1,29 +1,36 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 import { Typography } from "@mui/material";
 import { useGetLessonResultById } from "../../../hooks/lesson/get-result.hook";
 import { useGetCurrentUser } from "../../../hooks/user/user.hook";
-import { useEffect } from "react";
 import ProgressBarSection from "./component/ProgressBarSection";
 import { FaTriangleExclamation } from "react-icons/fa6";
 import TopRecord from "./component/TopRecord";
 import { FaBook, FaBookOpen } from "react-icons/fa";
+import { useEffect } from "react";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const LessonResult = () => {
   const { id } = useParams();
-  const currentUser = useGetCurrentUser();
-
+  const navigate = useNavigate();
   const { data: lesson } = useGetLessonById(id ?? "");
+
+  const currentUser = useGetCurrentUser();
   const lessonResult = useGetLessonResultById(id ?? "");
 
-  const isListened = useEffect(() => {
-    if (currentUser?.id) {
-      console.log(lesson?.listenedBy);
-      lesson?.listenedBy.includes(currentUser?.id);
+  useEffect(() => {
+    if (currentUser?._id && lesson?.listenedBy) {
+      const hasListened = lesson.listenedBy.some(
+        (userId) => userId === currentUser._id
+      );
+
+      if (!hasListened) {
+        navigate(ROUTES_CONSTANTS.AUTH.PAGE_NOT_FOUND);
+      }
     }
-  }, [lesson]);
+  }, [currentUser, lesson, navigate]);
 
   return (
     <div className="flex flex-col gap-8 mt-24 mx-4 md:m-24">

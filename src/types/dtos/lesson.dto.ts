@@ -1,3 +1,5 @@
+import { UserDTO } from "./user.dto";
+
 export interface CreateLessonResponse {}
 
 export interface LessonListQueryFilter {
@@ -17,7 +19,7 @@ export interface LessonEntity {
   source?: string;
   listenCount: number;
   listenedBy: string[];
-  creator: string;
+  creator: UserDTO;
   progress: string;
   createdAt?: string;
 }

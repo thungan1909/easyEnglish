@@ -56,7 +56,7 @@ const LessonDetail = () => {
   );
 
   return (
-    <div className="flex md:flex-row flex-col mt-24 mx-4 md:m-24 gap-8">
+    <div className="flex md:flex-row flex-col my-24 mx-4 md:m-24 gap-8 justify-between">
       <div className="flex flex-col gap-4">
         <CBreadcrumbs
           menuItem={generateBreadcrumbs("lesson", {

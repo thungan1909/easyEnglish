@@ -1,4 +1,5 @@
 export interface UserDTO {
+  _id: string;
   username: string;
   fullName?: string;
   email: string;
@@ -27,7 +28,6 @@ export interface UpdateUserAvatarDTO {
 }
 
 export interface GetUserDTO extends UserDTO {
-  id: string;
   isVerified: boolean;
   createdAt: string;
   updatedAt: string;

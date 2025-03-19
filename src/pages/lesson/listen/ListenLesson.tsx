@@ -8,7 +8,6 @@ import {
   FaRegSave,
 } from "react-icons/fa";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
-import AudioSection from "./AudioSection";
 import { Typography } from "@mui/material";
 import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
 import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
@@ -19,6 +18,7 @@ import { SubmitListenLessonDTO } from "../../../types/dtos/lesson.dto";
 import { notify } from "../../../utils/notify";
 import { useSubmitListenLessonMutation } from "../../../hooks/lesson/submit-lesson.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import AudioSection from "./component/AudioSection";
 
 const ListenLesson = () => {
   const { id } = useParams();

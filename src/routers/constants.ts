@@ -3,7 +3,7 @@ export const ROUTES_CONSTANTS = {
     LOGIN: "/login",
     REGISTER: "/register",
     RESET_PASSWORD: "/reset-password",
-    PAGE_NOT_FOUND: "*",
+    PAGE_NOT_FOUND: "/404",
     VERIFY_ACCOUNT: "/verify-account",
   },
   DASHBOARD: "/",
@@ -28,7 +28,6 @@ export const ROUTES_CONSTANTS = {
     },
     SCOPE: {
       MINE: "/lesson?scope=mine",
-      LISTENING: "/lesson?scope=listening",
       LISTENED: "/lesson?scope=listened",
       ALL: "/lesson?scope=all",
     },
