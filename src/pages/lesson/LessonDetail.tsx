@@ -2,11 +2,11 @@ import { Chip, Divider, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import CButton from "../../components/atoms/CButton/CButton";
 import {
-  FaBook,
   FaCalendar,
   FaCheck,
   FaCopyright,
   FaHeadphones,
+  FaLightbulb,
 } from "react-icons/fa";
 import { FaRepeat, FaUserGroup } from "react-icons/fa6";
 import { useGetLessonById } from "../../hooks/lesson/get-lesson.hook";
@@ -101,7 +101,7 @@ const LessonDetail = () => {
           ) : (
             <>
               <CButton
-                startIcon={<FaBook />}
+                startIcon={<FaLightbulb />}
                 variant="outlined"
                 className="!px-4"
                 textTransform="capitalize"
@@ -130,19 +130,24 @@ const LessonDetail = () => {
             className="w-80 h-80 rounded-2xl"
           />
 
-          <div className="flex flex-col mt-4 text-gray-500 w-full gap-4">
+          <div className="flex flex-col mt-4 text-gray-500 w-full gap-4 text-sm">
             <Divider />
             <div className="flex justify-between">
               <CIconTextItem
                 icon={FaUserGroup}
+                iconSize={14}
                 value={listenCount ?? 0}
                 label={listenCount && listenCount > 1 ? "listens" : "listen"}
               />
-              <CIconTextItem icon={FaCopyright} value={source || "Unknown"} />
+              <CIconTextItem
+                icon={FaCopyright}
+                iconSize={14}
+                value={source || "Unknown"}
+              />
             </div>
             <CIconTextItem
               icon={FaCalendar}
-              iconSize={18}
+              iconSize={14}
               value={
                 createdAt ? new Date(createdAt).toLocaleString("vi-VN") : ""
               }
