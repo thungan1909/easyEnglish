@@ -9,6 +9,7 @@ import {
   UpdateUserDTO,
   UpdateUserResponse,
 } from "../types/dtos/user.dto";
+import { notify } from "../utils/notify";
 import {
   TChangeEmailSchema,
   TUserChangePasswordSchema,
@@ -16,10 +17,13 @@ import {
 
 export const getUserInfoMutation = {
   name: "getUserInfo",
-  fn: async (): Promise<GetUserDTO> => {
+  fn: async (): Promise<GetUserDTO | null> => {
     try {
       const token = localStorage.getItem("ACCESS_TOKEN");
-      if (!token) throw new Error("No token found");
+      // if (!token) {
+      //   console.log("No token found. Redirecting to login...");
+      //   return null;
+      // }
 
       const response = await getAxiosInstance().get(
         END_POINTS.AUTH.GET_USER_INFO,
@@ -33,7 +37,6 @@ export const getUserInfoMutation = {
 
       return userData;
     } catch (error) {
-      console.error("Error fetching user info:", error);
       throw error;
     }
   },

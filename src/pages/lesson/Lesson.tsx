@@ -5,36 +5,43 @@ import LessonItem from "./LessonItem";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { Divider, Typography } from "@mui/material";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
-import { useEffect, useState } from "react";
-import { LessonEntity } from "../../types/dtos/lesson.dto";
+import { useMemo } from "react";
+import LoadingPage from "../LoadingPage";
+import LoadingFailPage from "../LoadingFailPage";
 
 const Lesson = () => {
   const location = useLocation();
-  const currentUser = useGetCurrentUser();
-
   const queryParams = new URLSearchParams(location.search);
-  const { data: lessonList = [] } = useGetLessonList({});
   const scope = queryParams.get("scope") || "all";
 
-  const [currentLessonList, setCurrentLessonList] = useState<
-    LessonEntity[] | []
-  >([]);
+  const {
+    data: currentUser,
+    isLoading: isUserLoading,
+    isError: isUserError,
+  } = useGetCurrentUser();
 
-  useEffect(() => {
+  const {
+    data: lessonList = [],
+    isLoading: isLessonLoading,
+    isError: isLessonError,
+  } = useGetLessonList({});
+
+  const currentLessonList = useMemo(() => {
+    if (isUserLoading) return [];
+
     if (scope === "listened" && currentUser?._id) {
-      setCurrentLessonList(
-        lessonList.filter((item) =>
-          item.listenedBy?.some((user) => user === currentUser?._id)
-        )
+      return lessonList.filter((item) =>
+        item.listenedBy?.some((user) => user === currentUser?._id)
       );
-    } else if (scope === "mine" && currentUser?._id) {
-      setCurrentLessonList(
-        lessonList.filter((item) => item.creator?._id == currentUser._id)
-      );
-    } else if (scope === "all") {
-      setCurrentLessonList(lessonList);
     }
-  }, [scope, lessonList, currentUser]);
+    if (scope === "mine" && currentUser?._id) {
+      return lessonList.filter((item) => item.creator?._id === currentUser._id);
+    }
+    return lessonList;
+  }, [scope, lessonList, currentUser, isUserLoading, isLessonLoading]);
+
+  if (isUserLoading || isLessonLoading) return <LoadingPage />;
+  if (isUserError || isLessonError) return <LoadingFailPage />;
 
   return (
     <div className="flex flex-col gap-4 mt-24 mx-4 md:m-24">

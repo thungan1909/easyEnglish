@@ -1,5 +1,4 @@
 const Settings = () => {
-  console.log("Settings");
   return <>Settings</>;
 };
 

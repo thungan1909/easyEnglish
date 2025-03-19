@@ -17,14 +17,21 @@ import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import { useMemo, useState } from "react";
 import CIconTextItem from "../../components/molecules/cIconTextItem/cIconTextItem";
 import CModal from "../../components/atoms/CModal/CModal";
+import LoadingPage from "../LoadingPage";
+import LoadingFailPage from "../LoadingFailPage";
 
 const LessonDetail = () => {
-  const currentUser = useGetCurrentUser();
-  const [openModalRevenge, setOpenModalRevenge] = useState(false);
-
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: lesson } = useGetLessonById(id ?? "");
+
+  const {
+    data: currentUser,
+    isLoading: isUserLoading,
+    isError: isUserError,
+  } = useGetCurrentUser();
+
+  const [openModalRevenge, setOpenModalRevenge] = useState(false);
 
   const {
     _id,
@@ -57,6 +64,9 @@ const LessonDetail = () => {
     () => currentUser?.listenedLessons?.some((item) => item.lesson === _id),
     [currentUser, _id]
   );
+
+  if (isUserLoading) return <LoadingPage />;
+  if (isUserError) return <LoadingFailPage />;
 
   return (
     <div className="flex md:flex-row flex-col my-24 mx-4 md:m-24 gap-8 justify-between">

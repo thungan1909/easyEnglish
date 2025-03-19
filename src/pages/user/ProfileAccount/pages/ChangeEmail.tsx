@@ -13,7 +13,7 @@ import { useChangeEmailMutation } from "../../../../hooks/user/change-email.hook
 import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
 
 const ChangeEmail = () => {
-  const currentUser = useGetCurrentUser();
+  const { data: currentUser } = useGetCurrentUser();
 
   const { mutate: changeEmailMutation } = useChangeEmailMutation();
 

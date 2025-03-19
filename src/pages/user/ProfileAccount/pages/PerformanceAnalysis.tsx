@@ -1,5 +1,4 @@
 const PerformanceAnalysis = () => {
-  console.log("PerformanceAnalysis");
   return <>PerformanceAnalysis</>;
 };
 

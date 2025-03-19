@@ -24,7 +24,7 @@ import { genderOptions } from "../constant";
 import CButton from "../../../../components/atoms/CButton/CButton";
 
 const UpdateUserInformation = () => {
-  const currentUser = useGetCurrentUser();
+  const { data: currentUser } = useGetCurrentUser();
   const { mutate: updateUserMutation } = useUpdateUserMutation();
 
   const {

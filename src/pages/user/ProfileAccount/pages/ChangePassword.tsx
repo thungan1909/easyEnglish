@@ -12,7 +12,7 @@ import { useChangePasswordMutation } from "../../../../hooks/user/change-passwor
 import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
 
 const ChangePassword = () => {
-  const currentUser = useGetCurrentUser();
+  const { data: currentUser } = useGetCurrentUser();
 
   const { mutate: changePasswordMutation } = useChangePasswordMutation();
 

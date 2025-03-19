@@ -84,7 +84,6 @@ const CreateLesson = () => {
       { file, type },
       {
         onSuccess: (data) => {
-          console.log(data, "Uploaded successfully");
           setValue(
             type === "audio" ? "audioFile" : "imageFile",
             data.secureUrl,
@@ -93,9 +92,8 @@ const CreateLesson = () => {
             }
           );
         },
-        onError: (error) => {
-          console.error(error);
-          alert("Upload failed. Please try again.");
+        onError: () => {
+          notify.error("Upload failed. Please try again.");
         },
       }
     );
@@ -107,9 +105,8 @@ const CreateLesson = () => {
         notify.success("Create lesson successfully");
         navigate(ROUTES_CONSTANTS.LESSON.BASE);
       },
-      onError: (error) => {
-        console.error("Error:", error);
-        alert("Failed to create lesson.");
+      onError: () => {
+        notify.error("Failed to create lesson.");
       },
     });
   };

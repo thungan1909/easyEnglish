@@ -51,7 +51,6 @@ export const useLoginMutation = () => {
         });
 
         const userInfo = await getUserInfoMutation.fn();
-        console.log(userInfo, "userINFO");
         queryClient.setQueryData(USER_QUERY_KEY, userInfo);
       } catch (error) {
         console.error("Failed to fetch user info:", error);

@@ -4,7 +4,7 @@ import { FaSpinner } from "react-icons/fa";
 const LoadingPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-8 text-gray-500">
-      <FaSpinner size={64} />
+      <FaSpinner size={64} className="animate-spin" />
       <Typography variant="h6" className="animate-pulse">
         Loading...
       </Typography>

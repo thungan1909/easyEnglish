@@ -8,5 +8,5 @@ export const useGetCurrentUser = () => {
     queryFn: getUserInfoMutation.fn,
     staleTime: 1000 * 60 * 5, // Cache valid for 5 minutes
     // cacheTime: 1000 * 60 * 30, // Keep data for 30 minutes
-  }).data;
+  });
 };

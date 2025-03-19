@@ -9,7 +9,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { getFirstCharAvatar } from "../../../utils/helpers/getFirstCharAvatar";
 
 const CUserProfileAvatar = () => {
-  const currentUser = useGetCurrentUser();
+  const { data: currentUser } = useGetCurrentUser(); // Extract 'data' from the query result
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
