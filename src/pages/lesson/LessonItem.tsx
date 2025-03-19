@@ -18,21 +18,19 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
 
   return (
     <div
-      className="flex items-center space-x-5 cursor-pointer hover:bg-purple-100 p-4"
+      className="flex items-center space-x-5 cursor-pointer hover:bg-purple-100 md:p-4 p-2"
       key={lesson._id}
       onClick={handleClickLessonItem}
     >
       <img
         src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}
         alt={lesson.title || "Lesson Image"}
-        className="rounded-xl w-30 h-30 "
+        className="rounded-xl md:w-30 md:h-30 w-24 h-24"
       />
-      <div className="flex flex-col space-y-2">
-        <Typography className="text-lg font-semibold line-clamp-1">
-          {lesson.title}
-        </Typography>
+      <div className="flex flex-col gap-2">
+        <Typography className="line-clamp-1">{lesson.title}</Typography>
 
-        <div className="flex text-gray-500 gap-4 mt-1 text-xs">
+        <div className="flex text-gray-400 gap-4">
           <Typography variant="caption">{lesson.code || "Code"}</Typography>
           <Typography variant="caption">
             {lesson.listenCount ?? 0}
@@ -45,11 +43,11 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
           </Typography>
         </div>
 
-        <p className="line-clamp-1 font-light text-xs">
+        <Typography className="line-clamp-1 text-gray-600" variant="caption">
           {lesson.description || lesson.content || "Description"}
-        </p>
+        </Typography>
 
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-4">
           <CButton isRounded variant="outlined" size="small">
             <FaHeart />
           </CButton>

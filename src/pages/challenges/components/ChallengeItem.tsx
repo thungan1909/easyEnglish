@@ -4,7 +4,7 @@ import { FaUserGroup } from "react-icons/fa6";
 import { useMemo } from "react";
 import { IChallenge } from "../types";
 import { calculateDayLeft } from "../../../utils/helpers/caculateDayLeft";
-import ChallengeInfoItem from "./ChallengeInfoItem";
+import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 
 export interface ChallengeItemProps {
   challenge: IChallenge;
@@ -27,12 +27,12 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
           {challenge.title}
         </Typography>
         <div className="md:flex text-xs justify-between">
-          <ChallengeInfoItem
+          <CIconTextItem
             icon={FaMicrophone}
             value={challenge.podcastCount}
             label={challenge.podcastCount > 1 ? "podcasts" : "podcast"}
           />
-          <ChallengeInfoItem
+          <CIconTextItem
             icon={FaHourglass}
             value={
               dayLeft > 0
@@ -46,7 +46,7 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
           {challenge.description}
         </Typography>
         <div className="md:flex text-xs justify-between">
-          <ChallengeInfoItem
+          <CIconTextItem
             icon={FaUserGroup}
             value={challenge.participants}
             label={challenge.participants > 1 ? "participants" : "participant"}

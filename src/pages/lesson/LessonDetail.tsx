@@ -1,4 +1,4 @@
-import { Chip, Typography } from "@mui/material";
+import { Chip, Divider, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import CButton from "../../components/atoms/CButton/CButton";
 import {
@@ -15,6 +15,7 @@ import CBreadcrumbs from "../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { generateBreadcrumbs } from "../../utils/helpers/breadcrumbs";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import { useMemo } from "react";
+import CIconTextItem from "../../components/molecules/cIconTextItem/cIconTextItem";
 
 const LessonDetail = () => {
   const currentUser = useGetCurrentUser();
@@ -55,7 +56,7 @@ const LessonDetail = () => {
   );
 
   return (
-    <div className="relative grid grid-cols-1 p-8 top-24 gap-8 md:grid-cols-2">
+    <div className="flex md:flex-row flex-col mt-24 mx-4 md:m-24 gap-8">
       <div className="flex flex-col gap-4">
         <CBreadcrumbs
           menuItem={generateBreadcrumbs("lesson", {
@@ -119,31 +120,30 @@ const LessonDetail = () => {
           )}
         </div>
 
-        <div className="items-center flex flex-col">
+        <div className="flex flex-col items-center ">
           <img
             src={typeof imageFile === "string" ? imageFile : ""}
             alt={title || "Lesson Image"}
             className="w-80 h-80 rounded-2xl"
           />
 
-          <div className="flex text-xs space-x-8 mt-4 p-2 border-t text-gray-500">
-            <span className="flex items-center gap-2">
-              <FaUserGroup />
-              <Typography variant="body1">
-                {listenCount ?? 0}
-                {listenCount && listenCount > 1 ? " listens" : " listen"}
-              </Typography>
-            </span>
-            <span className="flex items-center gap-2">
-              <FaCopyright />
-              <Typography>{source || "Unknown"}</Typography>
-            </span>
-            <span className="flex items-center gap-2">
-              <FaCalendar />
-              <Typography>
-                {createdAt ? new Date(createdAt).toLocaleString("vi-VN") : ""}
-              </Typography>
-            </span>
+          <div className="flex flex-col mt-4 text-gray-500 w-full gap-4">
+            <Divider />
+            <div className="flex justify-between">
+              <CIconTextItem
+                icon={FaUserGroup}
+                value={listenCount ?? 0}
+                label={listenCount && listenCount > 1 ? "listens" : "listen"}
+              />
+              <CIconTextItem icon={FaCopyright} value={source || "Unknown"} />
+            </div>
+            <CIconTextItem
+              icon={FaCalendar}
+              iconSize={18}
+              value={
+                createdAt ? new Date(createdAt).toLocaleString("vi-VN") : ""
+              }
+            />
           </div>
         </div>
       </div>

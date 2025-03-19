@@ -13,9 +13,11 @@ const Challenges = () => {
   }, [exampleChallenge]);
 
   return (
-    <div className="flex flex-col mt-24 md:mx-42 mx-8 gap-8">
+    <div className="flex flex-col mt-24 mb-48 mx-8 md:m-24 gap-4 ">
       <div>
-        <Typography variant="h6">Challenges</Typography>
+        <Typography variant="h5" textTransform="uppercase">
+          Challenges
+        </Typography>
         <Typography variant="caption" className="text-gray-400">
           List of all current challenges
         </Typography>

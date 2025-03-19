@@ -1,4 +1,4 @@
-const ChallengeInfoItem = ({
+const CIconTextItem = ({
   icon: Icon,
   value,
   label,
@@ -18,4 +18,4 @@ const ChallengeInfoItem = ({
   </div>
 );
 
-export default ChallengeInfoItem;
+export default CIconTextItem;

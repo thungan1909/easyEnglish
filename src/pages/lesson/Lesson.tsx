@@ -3,7 +3,7 @@ import { menuItems } from "./constants";
 import { getLinkClassName } from "../../utils/helpers/style";
 import LessonItem from "./LessonItem";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
-import { Divider } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 
 const Lesson = () => {
   const location = useLocation();
@@ -12,8 +12,16 @@ const Lesson = () => {
   const scope = queryParams.get("scope");
 
   return (
-    <div className="md:flex flex-col items-center md:m-20 m-2 ">
-      <ul className="flex gap-6 mt-24 md:mt-8 px-4">
+    <div className="flex flex-col gap-4 mt-24 mx-4 md:m-24">
+      <div>
+        <Typography variant="h5" textTransform="uppercase">
+          Lessons
+        </Typography>
+        <Typography variant="caption" className="text-gray-400">
+          List of all current lessons
+        </Typography>
+      </div>
+      <ul className="flex md:gap-8 gap-1">
         {menuItems.map((item) => (
           <li key={item.href}>
             <Link
@@ -28,12 +36,12 @@ const Lesson = () => {
           </li>
         ))}
       </ul>
-      <div className="grid mt-4">
+      <div>
         {lessonList.map((lesson) => (
-          <div>
+          <>
             <LessonItem lesson={lesson} key={lesson._id} />
             <Divider />
-          </div>
+          </>
         ))}
       </div>
     </div>
