@@ -6,6 +6,8 @@ import {
   LessonEntity,
   SubmitListenLessonDTO,
   SubmitListenLessonResponse,
+  CompareLessonResponse,
+  CompareListenLessonDTO,
 } from "../types/dtos/lesson.dto";
 import { LessonSubmissionResponse } from "../types/dtos/submission.dto";
 import { TCreateNewLessonSchema } from "../validation/lesson.schema";
@@ -57,6 +59,22 @@ export const submitListenLessonMutation = {
     try {
       return getOriginalResponseData<SubmitListenLessonResponse>(
         await getAxiosInstance().post(END_POINTS.SUBMISSION.LISTEN.SUBMIT, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const compareListenLessonMutation = {
+  name: "compareListenLesson",
+  fn: async (data: CompareListenLessonDTO): Promise<CompareLessonResponse> => {
+    try {
+      return getOriginalResponseData<CompareLessonResponse>(
+        await getAxiosInstance().post(
+          END_POINTS.SUBMISSION.LISTEN.COMPARE,
+          data
+        )
       );
     } catch (error) {
       throw error;

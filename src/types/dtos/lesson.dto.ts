@@ -24,11 +24,19 @@ export interface LessonEntity {
   createdAt?: string;
 }
 
-export interface SubmitListenLessonDTO {
+export interface ListenLessonDTO {
   lessonId: string;
   original_array: string[];
   result_array: string[];
   user_array: string[];
 }
+export interface SubmitListenLessonDTO extends ListenLessonDTO {}
+export interface CompareListenLessonDTO extends ListenLessonDTO {}
 
 export interface SubmitListenLessonResponse {}
+export interface CompareLessonResponse {
+  accuracy?: string;
+  blankCount?: number;
+  correctAnswers?: number;
+  totalFilledBlanks?: number;
+}

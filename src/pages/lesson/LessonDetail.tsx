@@ -14,11 +14,14 @@ import { ROUTES_CONSTANTS } from "../../routers/constants";
 import CBreadcrumbs from "../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { generateBreadcrumbs } from "../../utils/helpers/breadcrumbs";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import CIconTextItem from "../../components/molecules/cIconTextItem/cIconTextItem";
+import CModal from "../../components/atoms/CModal/CModal";
 
 const LessonDetail = () => {
   const currentUser = useGetCurrentUser();
+  const [openModalRevenge, setOpenModalRevenge] = useState(false);
+
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: lesson } = useGetLessonById(id ?? "");
@@ -90,7 +93,7 @@ const LessonDetail = () => {
                 textTransform="capitalize"
                 className="w-[150px]"
                 isRounded
-                onClick={() => handleListen("withoutHint")}
+                onClick={() => setOpenModalRevenge(true)}
               >
                 Revenge
               </CButton>
@@ -147,6 +150,22 @@ const LessonDetail = () => {
           </div>
         </div>
       </div>
+      <CModal
+        isOpen={openModalRevenge}
+        onClose={() => setOpenModalRevenge(false)}
+        title="You want revenge?"
+        confirmText="Revenge with hints"
+        cancelText="Revenge without hints"
+        onConfirm={() => handleListen("hint")}
+        onCancel={() => handleListen("withoutHint")}
+        description={
+          <>
+            Since WELE does not encourage users to re-listen to submitted songs,
+            you will have to pay a "fine" of 4 coins if you want to take
+            revenge. Consider it!
+          </>
+        }
+      />
     </div>
   );
 };

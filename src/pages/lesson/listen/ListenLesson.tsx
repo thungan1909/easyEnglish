@@ -14,24 +14,34 @@ import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 import { useEffect, useMemo, useState } from "react";
-import { SubmitListenLessonDTO } from "../../../types/dtos/lesson.dto";
+import {
+  CompareLessonResponse,
+  CompareListenLessonDTO,
+  SubmitListenLessonDTO,
+} from "../../../types/dtos/lesson.dto";
 import { notify } from "../../../utils/notify";
 import { useSubmitListenLessonMutation } from "../../../hooks/lesson/submit-lesson.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import AudioSection from "./component/AudioSection";
 import LoadingFailPage from "../../LoadingFailPage";
 import LoadingPage from "../../LoadingPage";
+import CModal from "../../../components/atoms/CModal/CModal";
+import { useCompareLessonMutation } from "../../../hooks/lesson/compare-lesson.hook";
 
 const ListenLesson = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const [openModalSubmit, setOpenModalSubmit] = useState(false);
+  const [openModalCompare, setOpenModalCompare] = useState(false);
+  const [accuracy, setAccuracy] = useState("");
+
   const type = queryParams.get("type");
   const { data: lesson, isLoading, isError } = useGetLessonById(id ?? "");
   const { mutate: submitListenLessonMutation } =
     useSubmitListenLessonMutation();
-
+  const { mutate: compareLessonMutation } = useCompareLessonMutation();
   const [userInputs, setUserInputs] = useState<string[]>([]);
 
   const handleInputChange = (index: number, value: string) => {
@@ -61,6 +71,21 @@ const ListenLesson = () => {
     });
   };
 
+  const handleCompareLesson = () => {
+    const payload: CompareListenLessonDTO = {
+      lessonId: id || "",
+      original_array: wordsList ? wordsList : [],
+      result_array: originalWords,
+      user_array: userInputs,
+    };
+
+    compareLessonMutation(payload, {
+      onSuccess: (data: CompareLessonResponse) => {
+        setAccuracy(data?.accuracy || "0");
+        setOpenModalCompare(true);
+      },
+    });
+  };
   const originalWords = useMemo(() => {
     return (lesson?.content || "")
       .split(wordSplitterRegex)
@@ -95,7 +120,6 @@ const ListenLesson = () => {
               className="text-left pl-16"
             />
           )}
-
           <div className="!space-y-8 md:px-16 flex flex-col p-8 ">
             <Typography variant="h5">{lesson?.title || "Title"}</Typography>
             <div className="flex md:gap-8 gap-4 flex-wrap items-center justify-center">
@@ -103,7 +127,7 @@ const ListenLesson = () => {
                 startIcon={<FaPaperPlane />}
                 textTransform="capitalize"
                 className="!px-4"
-                onClick={handleSubmit}
+                onClick={() => setOpenModalSubmit(true)}
               >
                 Submit
               </CButton>
@@ -112,6 +136,7 @@ const ListenLesson = () => {
                 textTransform="capitalize"
                 className="!px-4"
                 variant="outlined"
+                onClick={handleCompareLesson}
               >
                 Check Results
               </CButton>
@@ -159,6 +184,30 @@ const ListenLesson = () => {
               <AudioSection fileURL={lesson?.audioFile as string} />
             )}
           </div>
+          <CModal
+            isOpen={openModalSubmit}
+            onClose={() => setOpenModalSubmit(false)}
+            title="Submit listening"
+            confirmText="Submit"
+            cancelText="Cancel"
+            onConfirm={handleSubmit}
+            onCancel={() => setOpenModalSubmit(false)}
+            description={
+              <>
+                Are you sure you want to submit your listening? There will be no
+                going back!
+              </>
+            }
+          />
+          <CModal
+            isOpen={openModalCompare}
+            onClose={() => setOpenModalCompare(false)}
+            title="Result listening"
+            confirmText="OK"
+            cancelText="Cancel"
+            onConfirm={() => setOpenModalCompare(false)}
+            description={<>{`Your result is now ${accuracy}`}</>}
+          />
         </div>
       )}
     </>
