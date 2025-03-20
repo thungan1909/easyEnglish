@@ -1,13 +1,13 @@
 import { FaBook } from "react-icons/fa";
-import { LessonEntity } from "../../../types/dtos/lesson.dto";
 import { Typography } from "@mui/material";
-import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
+import CIconTextItem from "../../../../components/molecules/cIconTextItem/cIconTextItem";
+import { LessonEntity } from "../../../../types/dtos/lesson.dto";
 
 interface DashboardLessonItemProps {
   lesson: LessonEntity;
 }
 
-const DashboardLessonItem = ({ lesson }: DashboardLessonItemProps) => {
+const LessonCardSquare = ({ lesson }: DashboardLessonItemProps) => {
   const itemClass =
     "flex flex-col items-center p-4 gap-2 rounded-2xl shadow bg-gradient-to-r from-indigo-100 bg-purple-200 hover:bg-purple-400 cursor-pointer transition duration-300";
 
@@ -35,4 +35,4 @@ const DashboardLessonItem = ({ lesson }: DashboardLessonItemProps) => {
   );
 };
 
-export default DashboardLessonItem;
+export default LessonCardSquare;

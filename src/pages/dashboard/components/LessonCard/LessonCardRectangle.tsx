@@ -1,12 +1,12 @@
 import { FaBook, FaPlay } from "react-icons/fa";
-import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 import { Typography } from "@mui/material";
-import { LessonEntity } from "../../../types/dtos/lesson.dto";
+import { LessonEntity } from "../../../../types/dtos/lesson.dto";
+import CIconTextItem from "../../../../components/molecules/cIconTextItem/cIconTextItem";
 
 interface RectangleLessonItemProps {
   lesson: LessonEntity;
 }
-const RectangleLessonItem = ({ lesson }: RectangleLessonItemProps) => {
+const LessonCardRectangle = ({ lesson }: RectangleLessonItemProps) => {
   const itemClass =
     "flex items-center space-x-3 p-2 rounded-2xl shadow bg-gradient-to-r from-indigo-100 bg-purple-200 hover:bg-purple-400 cursor-pointer transition duration-300";
 
@@ -31,4 +31,4 @@ const RectangleLessonItem = ({ lesson }: RectangleLessonItemProps) => {
   );
 };
 
-export default RectangleLessonItem;
+export default LessonCardRectangle;

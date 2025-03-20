@@ -1,6 +1,6 @@
-import SeeMoreButton from "../component/SeeMoreButton";
 import { exampleUserRanking } from "../const";
 import { FaRankingStar } from "react-icons/fa6";
+import SeeMoreButton from "./SeeMoreButton";
 
 const RankingList = () => {
   return (

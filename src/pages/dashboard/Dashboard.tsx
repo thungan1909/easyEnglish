@@ -2,12 +2,11 @@ import { useMemo } from "react";
 import { useAuthentication } from "../../hooks/auth/login.hook";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
-import HeroSection from "./component/HeroSection";
-import LessonSectionLayout from "./LessonSectionLayout";
 
-import RectangleLessonLayout from "./RectangleLessonLayout";
-import RankingList from "./component/RankingList";
-import NewFeeds from "./component/NewFeeds";
+import LessonLayout from "./components/LessonLayout ";
+import RankingList from "./components/RankingList";
+import NewFeeds from "./components/NewFeeds";
+import HeroSection from "./components/HeroSection";
 
 const Dashboard = () => {
   const { isAuth } = useAuthentication();
@@ -27,16 +26,22 @@ const Dashboard = () => {
     <div className="col-span-1 md:col-span-2 flex flex-col gap-6 px-4">
       <HeroSection />
       {isAuth && (
-        <RectangleLessonLayout
+        <LessonLayout
           title="Recent Lessons"
-          lessonList={listenedLesson}
+          lessons={listenedLesson}
           isTwoColumn
+          variant="rectangle"
         />
       )}
-      <LessonSectionLayout title="Newest Lessons" lessonList={lessonList} />
-      <LessonSectionLayout
+      <LessonLayout
+        title="Newest Lessons"
+        lessons={lessonList}
+        variant="square"
+      />
+      <LessonLayout
         title="Recommended for You"
-        lessonList={lessonList}
+        lessons={lessonList}
+        variant="square"
       />
     </div>
   );
@@ -45,9 +50,10 @@ const Dashboard = () => {
     <div className="col-span-1 flex flex-col gap-6">
       <RankingList />
       <NewFeeds />
-      <RectangleLessonLayout
+      <LessonLayout
         title="Most Listened Lessons"
-        lessonList={listenedLesson}
+        lessons={listenedLesson}
+        variant="rectangle"
       />
     </div>
   );
