@@ -1,4 +1,4 @@
-import CButton from "../../../components/atoms/CButton/CButton";
+import SeeMoreButton from "../components/SeeMoreButton";
 import { exampleLessons } from "../const";
 import MostListenedLessonItem from "./MostListenedLessonItem";
 
@@ -9,15 +9,7 @@ const MostListened = () => {
         <h2 id="most-listened-title" className="text-xl font-bold">
           Most Listened Lessons
         </h2>
-        <CButton
-          className="!text-red-500 !normal-case"
-          variant="text"
-          size="large"
-          aria-labelledby="most-listened-title"
-          aria-label="View more most listened lessons"
-        >
-          See more
-        </CButton>
+        <SeeMoreButton />
       </div>
       <div className="grid grid-cols-1 gap-4">
         {exampleLessons.map((lesson) => (

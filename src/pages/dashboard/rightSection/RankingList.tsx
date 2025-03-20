@@ -1,4 +1,4 @@
-import CButton from "../../../components/atoms/CButton/CButton";
+import SeeMoreButton from "../components/SeeMoreButton";
 import { exampleUserRanking } from "../const";
 import { FaRankingStar } from "react-icons/fa6";
 
@@ -7,14 +7,7 @@ const RankingList = () => {
     <div className="bg-white shadow rounded-2xl p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Weekly Ranking List</h2>
-        <CButton
-          className="!text-red-500 !normal-case"
-          variant="text"
-          size="large"
-          aria-label="View full ranking list"
-        >
-          See more
-        </CButton>
+        <SeeMoreButton />
       </div>
       <div className="grid gap-3">
         {exampleUserRanking.map((user) => (

@@ -1,4 +1,4 @@
-import CButton from "../../../components/atoms/CButton/CButton";
+import SeeMoreButton from "../components/SeeMoreButton";
 import { exampleUserNewfeed } from "../const";
 
 const NewFeeds = () => {
@@ -6,14 +6,7 @@ const NewFeeds = () => {
     <div className="bg-white shadow rounded-2xl p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">New Feeds</h2>
-        <CButton
-          className="!text-red-500 !normal-case"
-          variant="text"
-          size="large"
-          aria-label="View more new feeds"
-        >
-          See more
-        </CButton>
+        <SeeMoreButton />
       </div>
       <div className="grid gap-3">
         {exampleUserNewfeed.map((user) => (

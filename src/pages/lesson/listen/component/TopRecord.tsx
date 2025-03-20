@@ -1,7 +1,7 @@
-import CButton from "../../../../components/atoms/CButton/CButton";
 import { exampleUserRanking } from "../../../dashboard/const";
 import { Typography } from "@mui/material";
 import { FaMedal, FaTrophy } from "react-icons/fa";
+import SeeMoreButton from "../../../dashboard/components/SeeMoreButton";
 
 const TopRecord = () => {
   return (
@@ -11,14 +11,7 @@ const TopRecord = () => {
           <FaTrophy className="text-amber-300" />
           <span> Top Record</span>
         </Typography>
-        <CButton
-          className="!text-red-500 !normal-case"
-          variant="text"
-          size="large"
-          aria-label="View full ranking list"
-        >
-          See more
-        </CButton>
+        <SeeMoreButton />
       </div>
       <div className="grid gap-3">
         {exampleUserRanking.map((user) => (

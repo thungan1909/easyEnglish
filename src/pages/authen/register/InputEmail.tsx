@@ -94,7 +94,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
             }}
             variant="text"
             size="large"
-            className="!ml-1 !normal-case"
+            className="!ml-1"
           >
             Log in
           </CButton>

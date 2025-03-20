@@ -16,7 +16,7 @@ export interface IButton {
   variant?: "text" | "contained" | "outlined";
   isRounded?: boolean;
   size?: "small" | "medium" | "large";
-  textTransform?: "capitalize" | "lowercase" | "uppercase" | "normal-case";
+  textTransform?: "capitalize" | "lowercase" | "uppercase" | "none";
 }
 
 const CButton = ({
@@ -32,7 +32,7 @@ const CButton = ({
   variant = "contained",
   isRounded = false,
   size = "medium",
-  textTransform = "normal-case",
+  textTransform = "none",
 }: IButton): JSX.Element => {
   const variantStyles = {
     contained: {

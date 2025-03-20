@@ -135,7 +135,6 @@ const Navbar = ({ isAuth }: NavbarProps) => {
         ) : (
           <div className="flex gap-3">
             <CButton
-              className="!normal-case space-x-1.5 "
               variant="text"
               onClick={() => {
                 navigate(ROUTES_CONSTANTS.AUTH.LOGIN);
@@ -145,7 +144,6 @@ const Navbar = ({ isAuth }: NavbarProps) => {
             </CButton>
 
             <CButton
-              className="!normal-case space-x-1.5"
               isRounded
               onClick={() => {
                 navigate(ROUTES_CONSTANTS.AUTH.REGISTER);
