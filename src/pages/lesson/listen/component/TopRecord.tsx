@@ -1,7 +1,7 @@
 import { exampleUserRanking } from "../../../dashboard/const";
 import { Typography } from "@mui/material";
 import { FaMedal, FaTrophy } from "react-icons/fa";
-import SeeMoreButton from "../../../dashboard/components/SeeMoreButton";
+import SeeMoreButton from "../../../dashboard/component/SeeMoreButton";
 
 const TopRecord = () => {
   return (

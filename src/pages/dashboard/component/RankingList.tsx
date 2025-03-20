@@ -1,4 +1,4 @@
-import SeeMoreButton from "../components/SeeMoreButton";
+import SeeMoreButton from "../component/SeeMoreButton";
 import { exampleUserRanking } from "../const";
 import { FaRankingStar } from "react-icons/fa6";
 

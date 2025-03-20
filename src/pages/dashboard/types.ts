@@ -1,15 +1,3 @@
-export interface Lesson {
-  scope: string;
-  id: string;
-  title: string;
-  listens: string;
-  provider: string;
-  image: string;
-  progress: string;
-  description?: string;
-  createDate?: string;
-}
-
 export interface User {
   id: string;
   name: string;

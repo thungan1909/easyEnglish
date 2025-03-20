@@ -1,34 +1,59 @@
+import { useMemo } from "react";
 import { useAuthentication } from "../../hooks/auth/login.hook";
-import HeroSection from "./leftsection/HeroSection";
-import NewestLesson from "./leftsection/NewestLesson";
-import RecentLessons from "./leftsection/RecentLesson";
-import RecommendLesson from "./leftsection/RecommendLesson";
-import MostListened from "./rightSection/MostListened";
-import NewFeeds from "./rightSection/NewFeeds";
-import RankingList from "./rightSection/RankingList";
+import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
+import { useGetCurrentUser } from "../../hooks/user/user.hook";
+import HeroSection from "./component/HeroSection";
+import LessonSectionLayout from "./LessonSectionLayout";
+
+import RectangleLessonLayout from "./RectangleLessonLayout";
+import RankingList from "./component/RankingList";
+import NewFeeds from "./component/NewFeeds";
 
 const Dashboard = () => {
   const { isAuth } = useAuthentication();
+  const { data: lessonList = [] } = useGetLessonList({});
+
+  const { data: currentUser } = useGetCurrentUser();
+
+  const listenedLesson = useMemo(
+    () =>
+      lessonList.filter((item) =>
+        item.listenedBy?.includes(currentUser?._id ?? "")
+      ),
+    [lessonList, currentUser]
+  );
 
   const leftSection = (
-    <div className="space-y-8 p-4 md:col-span-3 w-full md:w-[720px]">
+    <div className="col-span-1 md:col-span-2 flex flex-col gap-6 px-4">
       <HeroSection />
-      {isAuth && <RecentLessons />}
-      <NewestLesson />
-      <RecommendLesson />
+      {isAuth && (
+        <RectangleLessonLayout
+          title="Recent Lessons"
+          lessonList={listenedLesson}
+          isTwoColumn
+        />
+      )}
+      <LessonSectionLayout title="Newest Lessons" lessonList={lessonList} />
+      <LessonSectionLayout
+        title="Recommended for You"
+        lessonList={lessonList}
+      />
     </div>
   );
 
   const rightSection = (
-    <div className="space-y-8 p-4 md:ml-24 md:col-span-2 md:w-[420px]">
+    <div className="col-span-1 flex flex-col gap-6">
       <RankingList />
       <NewFeeds />
-      <MostListened />
+      <RectangleLessonLayout
+        title="Most Listened Lessons"
+        lessonList={listenedLesson}
+      />
     </div>
   );
 
   return (
-    <div className="md:flex md:justify-center mx-2 mt-24">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-24 md:m-24 ">
       {leftSection}
       {rightSection}
     </div>

@@ -1,4 +1,4 @@
-import SeeMoreButton from "../components/SeeMoreButton";
+import SeeMoreButton from "../component/SeeMoreButton";
 import { exampleUserNewfeed } from "../const";
 
 const NewFeeds = () => {
