@@ -3,6 +3,7 @@ import { LessonEntity } from "../../../types/dtos/lesson.dto";
 import SeeMoreButton from "./SeeMoreButton";
 import LessonCardRectangle from "./LessonCard/LessonCardRectangle";
 import LessonCardSquare from "./LessonCard/LessonCardSquare";
+import NoDataSection from "../../lesson/NoDataSection";
 
 export interface LessonLayoutProps {
   title?: string;
@@ -32,7 +33,7 @@ const LessonLayout = ({
           <SeeMoreButton />
         </div>
       )}
-      {lessons.length > 0 && (
+      {lessons.length > 0 ? (
         <div className={gridClasses}>
           {lessons.map((lesson) =>
             isRectangle ? (
@@ -42,6 +43,8 @@ const LessonLayout = ({
             )
           )}
         </div>
+      ) : (
+        <NoDataSection />
       )}
     </div>
   );

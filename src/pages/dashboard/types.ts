@@ -23,14 +23,3 @@ export interface Setting {
   autoplay: boolean;
   autoplaySpeed: number;
 }
-
-export interface Slide {
-  image: string;
-  title: string;
-  description: string;
-  stats: {
-    numberPodcast: number;
-    numberParticipant: number;
-    daysLeft: number;
-  };
-}

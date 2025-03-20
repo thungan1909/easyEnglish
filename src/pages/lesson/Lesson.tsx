@@ -8,6 +8,7 @@ import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import { useMemo } from "react";
 import LoadingPage from "../LoadingPage";
 import LoadingFailPage from "../LoadingFailPage";
+import NoDataSection from "./NoDataSection";
 
 const Lesson = () => {
   const location = useLocation();
@@ -68,14 +69,18 @@ const Lesson = () => {
           </li>
         ))}
       </ul>
-      <div>
-        {currentLessonList.map((lesson) => (
-          <div key={lesson._id}>
-            <LessonItem lesson={lesson} />
-            <Divider />
-          </div>
-        ))}
-      </div>
+      {currentLessonList.length > 0 ? (
+        <div>
+          {currentLessonList.map((lesson) => (
+            <div key={lesson._id}>
+              <LessonItem lesson={lesson} />
+              <Divider />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <NoDataSection />
+      )}
     </div>
   );
 };
