@@ -13,9 +13,18 @@ export interface UserDTO {
   university?: string;
   major?: string;
   avatarUrl: string;
+
+  // Lesson history
   listenedLessons?: {
-    lesson: string; // Lesson ID
-    listenedAt: string; // Date in ISO format
+    lesson: string;
+    listenedAt: string;
+  }[];
+
+  // Score system
+  totalScore: number;
+  weeklyScores: {
+    weekStart: string;
+    score: number;
   }[];
 }
 

@@ -35,7 +35,7 @@ export interface CompareListenLessonDTO extends ListenLessonDTO {}
 
 export interface SubmitListenLessonResponse {}
 export interface CompareLessonResponse {
-  accuracy?: string;
+  accuracy?: number;
   blankCount?: number;
   correctAnswers?: number;
   totalFilledBlanks?: number;

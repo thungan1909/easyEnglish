@@ -62,7 +62,10 @@ const LessonResult = () => {
 
       <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
         <div className="flex flex-col gap-4">
-          <ProgressBarSection />
+          <ProgressBarSection
+            score={lessonResult?.score}
+            accuracy={lessonResult?.accuracy}
+          />
           <div className="h-[240px] p-4 rounded-2xl shadow bg-white">
             <Typography variant="h6" className="flex items-center gap-2">
               <FaTriangleExclamation className="text-red-500" />

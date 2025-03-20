@@ -33,16 +33,17 @@ const ListenLesson = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const type = queryParams.get("type");
+
   const [openModalSubmit, setOpenModalSubmit] = useState(false);
   const [openModalCompare, setOpenModalCompare] = useState(false);
   const [accuracy, setAccuracy] = useState("");
+  const [userInputs, setUserInputs] = useState<string[]>([]);
 
-  const type = queryParams.get("type");
   const { data: lesson, isLoading, isError } = useGetLessonById(id ?? "");
   const { mutate: submitListenLessonMutation } =
     useSubmitListenLessonMutation();
   const { mutate: compareLessonMutation } = useCompareLessonMutation();
-  const [userInputs, setUserInputs] = useState<string[]>([]);
 
   const handleInputChange = (index: number, value: string) => {
     setUserInputs((prevInputs) => {
@@ -63,7 +64,11 @@ const ListenLesson = () => {
     submitListenLessonMutation(payload, {
       onSuccess: () => {
         notify.success("Submission successful!");
-        navigate(ROUTES_CONSTANTS.LESSON.LISTEN.RESULT);
+        if (id) {
+          navigate(ROUTES_CONSTANTS.LESSON.LISTEN.RESULT.replace(":id", id));
+        } else {
+          navigate(ROUTES_CONSTANTS.LESSON.BASE);
+        }
       },
       onError: () => {
         notify.error("Submission failed. Please try again.");
@@ -81,7 +86,7 @@ const ListenLesson = () => {
 
     compareLessonMutation(payload, {
       onSuccess: (data: CompareLessonResponse) => {
-        setAccuracy(data?.accuracy || "0");
+        setAccuracy(data?.accuracy?.toString() || "0");
         setOpenModalCompare(true);
       },
     });
@@ -206,7 +211,7 @@ const ListenLesson = () => {
             confirmText="OK"
             cancelText="Cancel"
             onConfirm={() => setOpenModalCompare(false)}
-            description={<>{`Your result is now ${accuracy}`}</>}
+            description={<>{`Your result is now ${accuracy}%`}</>}
           />
         </div>
       )}

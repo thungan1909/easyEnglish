@@ -7,6 +7,7 @@ export interface LessonSubmissionResponse {
   correct_answers: number;
   total_filled_blanks: number;
   accuracy: number;
+  score: number;
   submittedAt: string;
   createdAt: string;
   updatedAt: string;
