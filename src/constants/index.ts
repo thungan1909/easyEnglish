@@ -34,6 +34,9 @@ export const END_POINTS = {
       GET_TOP_SCORE: "/submission/top-score",
     },
   },
+  LEADERBOARD: {
+    GET_TOP_WEEKLY: "leaderboard/top-weekly",
+  },
 };
 
 export const COOKIES = {

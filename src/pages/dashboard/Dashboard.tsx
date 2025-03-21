@@ -21,7 +21,6 @@ const Dashboard = () => {
   }, [lessonList, currentUser]);
 
   const mostListened = useMemo(() => {
-    // if (!lessonList || lessonList.length === 0) return [];
     return lessonList
       .filter((item) => item.listenCount)
       .sort((a, b) => b.listenCount - a.listenCount)

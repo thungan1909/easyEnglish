@@ -34,7 +34,9 @@ const HeroSection = ({ lessons }: HeroSectionProps) => {
               <Typography className="max-w-[80%] line-clamp-2" variant="h3">
                 {lesson.title}
               </Typography>
-              <Typography variant="body2">{lesson.description}</Typography>
+              <Typography variant="body2" className="max-w-[80%] line-clamp-3">
+                {lesson.description}
+              </Typography>
 
               <div className="flex items-center space-x-8 text-xs">
                 <CIconTextItem

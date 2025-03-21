@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
@@ -14,14 +14,20 @@ import LoadingPage from "../../LoadingPage";
 import LoadingFailPage from "../../LoadingFailPage";
 import TopRecord from "./component/TopRecord";
 import ResultCard from "./component/ResultCard";
+import { useGetCurrentUser } from "../../../hooks/user/user.hook";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const LessonResult = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const { data: currentUser, isLoading: isUserLoading } = useGetCurrentUser();
+
+  if (!id) return <LoadingFailPage />;
 
   // Fetching data
   const { data: lesson } = useGetLessonById(id ?? "");
   const { data: topScoresData } = useGetTopScores(id ?? "");
-
   const {
     data: lessonResult,
     isLoading: isLessonResultLoading,
@@ -29,6 +35,18 @@ const LessonResult = () => {
   } = useGetLessonResultById(id ?? "");
 
   //TODO: Prevent enter page if not listen page before
+  // Check if the lesson has been listened to
+  const hasListened = currentUser?.listenedLessons?.some(
+    (l) => l.lesson === id
+  );
+
+  // Redirect if the user hasn't listened to the lesson
+  if (!isUserLoading && !hasListened) {
+    navigate(ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", id));
+
+    // navigate(`/lesson/${id}`);
+    // return null;
+  }
 
   // Data extraction
   const topScores = topScoresData?.topScores ?? [];

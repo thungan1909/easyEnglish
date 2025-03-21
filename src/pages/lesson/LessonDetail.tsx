@@ -64,6 +64,7 @@ const LessonDetail = () => {
     () => currentUser?.listenedLessons?.some((item) => item.lesson === _id),
     [currentUser, _id]
   );
+  console.log(isListen, "isListen");
 
   if (isUserLoading) return <LoadingPage />;
   if (isUserError) return <LoadingFailPage />;
