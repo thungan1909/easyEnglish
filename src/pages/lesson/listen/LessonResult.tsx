@@ -9,8 +9,6 @@ import ProgressBarSection from "./component/ProgressBarSection";
 import { FaTriangleExclamation } from "react-icons/fa6";
 import TopRecord from "./component/TopRecord";
 import { FaBook, FaBookOpen } from "react-icons/fa";
-import { useEffect } from "react";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import LoadingPage from "../../LoadingPage";
 import LoadingFailPage from "../../LoadingFailPage";
 
@@ -31,17 +29,17 @@ const LessonResult = () => {
     isError: isLessonResultError,
   } = useGetLessonResultById(id ?? "");
 
-  useEffect(() => {
-    if (currentUser?._id && lesson?.listenedBy) {
-      const hasListened = lesson.listenedBy.some(
-        (userId) => userId === currentUser._id
-      );
+  // useEffect(() => {
+  //   if (currentUser?._id && lesson?.listenedBy) {
+  //     const hasListened = lesson.listenedBy.some(
+  //       (userId) => userId === currentUser._id
+  //     );
 
-      if (!hasListened) {
-        navigate(ROUTES_CONSTANTS.AUTH.PAGE_NOT_FOUND);
-      }
-    }
-  }, [currentUser, lesson, navigate]);
+  //     if (!hasListened) {
+  //       navigate(ROUTES_CONSTANTS.AUTH.PAGE_NOT_FOUND);
+  //     }
+  //   }
+  // }, [currentUser, lesson, navigate]);
 
   if (isUserLoading || isLessonResultLoading) return <LoadingPage />;
   if (isUserError || isLessonResultError) return <LoadingFailPage />;
@@ -73,7 +71,7 @@ const LessonResult = () => {
             </Typography>
           </div>
         </div>
-        <TopRecord />
+        <TopRecord topScores={lesson?.topScores} />
       </div>
       <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
         <div className="p-4 rounded-2xl shadow bg-white">

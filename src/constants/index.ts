@@ -18,6 +18,8 @@ export const END_POINTS = {
     UPDATE_AVATAR: "/user/update-avatar",
     CHANGE_PASSWORD: "/user/change-password",
     CHANGE_EMAIL: "/user/change-email",
+    GET_BY_ID: "/user/:id",
+    GET_BY_IDS: "/user/ids",
   },
   LESSON: {
     CREATE: "/lesson/create",

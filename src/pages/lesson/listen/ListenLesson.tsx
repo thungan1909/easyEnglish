@@ -65,9 +65,9 @@ const ListenLesson = () => {
       onSuccess: () => {
         notify.success("Submission successful!");
         if (id) {
-          navigate(ROUTES_CONSTANTS.LESSON.LISTEN.RESULT.replace(":id", id));
-        } else {
-          navigate(ROUTES_CONSTANTS.LESSON.BASE);
+          navigate({
+            pathname: ROUTES_CONSTANTS.LESSON.LISTEN.RESULT.replace(":id", id),
+          });
         }
       },
       onError: () => {

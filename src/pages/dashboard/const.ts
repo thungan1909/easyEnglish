@@ -65,10 +65,9 @@ export const exampleUserNewfeed: RecentUserActivity[] = [
     avatar: lesson4,
   },
 ];
-
 export const settingSlider: Setting = {
   dots: true,
-  infinite: true,
+  infinite: false, // Stops looping to prevent duplicate slides
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,

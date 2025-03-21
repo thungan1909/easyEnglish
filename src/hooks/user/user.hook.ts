@@ -1,6 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { USER_QUERY_KEY } from "../../constants";
-import { getUserInfoMutation } from "../../apis/user.api";
+import { getUserInfoMutation, getUsersByIds } from "../../apis/user.api";
+import { UserDTO } from "../../types/dtos/user.dto";
+import { IHttpError } from "../../types/dtos/http";
 
 export const useGetCurrentUser = () => {
   return useQuery({
@@ -8,5 +10,11 @@ export const useGetCurrentUser = () => {
     queryFn: getUserInfoMutation.fn,
     staleTime: 1000 * 60 * 5, // Cache valid for 5 minutes
     // cacheTime: 1000 * 60 * 30, // Keep data for 30 minutes
+  });
+};
+
+export const useGetUsersByIds = () => {
+  return useMutation<UserDTO[], IHttpError, string[]>({
+    mutationFn: (ids: string[]) => getUsersByIds.fn(ids),
   });
 };

@@ -22,6 +22,14 @@ export interface LessonEntity {
   creator: UserDTO;
   progress: string;
   createdAt?: string;
+
+  // /** ✅ New field: Top scores for the lesson */
+  topScores: {
+    user: string; // User id
+    score: number; // Score achieved
+    accuracy: number;
+    submittedAt: string; // Timestamp of submission
+  }[];
 }
 
 export interface ListenLessonDTO {

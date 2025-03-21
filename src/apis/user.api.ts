@@ -8,8 +8,8 @@ import {
   UpdateUserAvatarResponse,
   UpdateUserDTO,
   UpdateUserResponse,
+  UserDTO,
 } from "../types/dtos/user.dto";
-import { notify } from "../utils/notify";
 import {
   TChangeEmailSchema,
   TUserChangePasswordSchema,
@@ -90,6 +90,23 @@ export const changeEmailMutation = {
       return getOriginalResponseData<ChangeEmailResponse>(
         await getAxiosInstance().post(END_POINTS.USER.CHANGE_EMAIL, data)
       );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const getUsersByIds = {
+  name: "getUsersByIds",
+  fn: async (ids: string[]): Promise<UserDTO[]> => {
+    try {
+      const response = await getAxiosInstance().get(
+        `${END_POINTS.USER.GET_BY_IDS}`,
+        {
+          params: { ids: ids.join(",") },
+        }
+      );
+      return getOriginalResponseData<UserDTO[]>(response);
     } catch (error) {
       throw error;
     }

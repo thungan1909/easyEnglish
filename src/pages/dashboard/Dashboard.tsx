@@ -21,10 +21,11 @@ const Dashboard = () => {
   }, [lessonList, currentUser]);
 
   const mostListened = useMemo(() => {
+    // if (!lessonList || lessonList.length === 0) return [];
     return lessonList
       .filter((item) => item.listenCount)
       .sort((a, b) => b.listenCount - a.listenCount)
-      .slice(0, 3);
+      .slice(0, Math.min(lessonList.length, 3)); // Take up to 3, but not more than available
   }, [lessonList]);
 
   const newestLesson = useMemo(
@@ -43,7 +44,7 @@ const Dashboard = () => {
   const leftSection = (
     <div className="col-span-1 md:col-span-2 flex flex-col gap-6 px-4">
       <HeroSection lessons={mostListened} />
-      {isAuth && (
+      {isAuth && listenedLesson.length > 0 && (
         <LessonLayout
           title="Recent Lessons"
           lessons={listenedLesson}
