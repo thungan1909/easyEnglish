@@ -9,7 +9,10 @@ import {
   CompareLessonResponse,
   CompareListenLessonDTO,
 } from "../types/dtos/lesson.dto";
-import { LessonSubmissionResponse } from "../types/dtos/submission.dto";
+import {
+  LessonSubmissionResponse,
+  TopScoresResponse,
+} from "../types/dtos/submission.dto";
 import { TCreateNewLessonSchema } from "../validation/lesson.schema";
 
 export const createLessonMutation = {
@@ -90,6 +93,24 @@ export const getLessonResultById = {
         await getAxiosInstance().get(END_POINTS.SUBMISSION.LISTEN.GET_RESULT, {
           params: { lessonId: id },
         })
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const getTopScores = {
+  name: "getTopScores",
+  fn: async (id: string): Promise<TopScoresResponse> => {
+    try {
+      return getOriginalResponseData<TopScoresResponse>(
+        await getAxiosInstance().get(
+          END_POINTS.SUBMISSION.LISTEN.GET_TOP_SCORE,
+          {
+            params: { lessonId: id },
+          }
+        )
       );
     } catch (error) {
       throw error;

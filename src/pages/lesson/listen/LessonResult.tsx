@@ -1,27 +1,26 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 import { Typography } from "@mui/material";
-import { useGetLessonResultById } from "../../../hooks/lesson/get-result.hook";
-import { useGetCurrentUser } from "../../../hooks/user/user.hook";
+import {
+  useGetLessonResultById,
+  useGetTopScores,
+} from "../../../hooks/lesson/get-result.hook";
 import ProgressBarSection from "./component/ProgressBarSection";
 import { FaTriangleExclamation } from "react-icons/fa6";
-import TopRecord from "./component/TopRecord";
 import { FaBook, FaBookOpen } from "react-icons/fa";
 import LoadingPage from "../../LoadingPage";
 import LoadingFailPage from "../../LoadingFailPage";
+import TopRecord from "./component/TopRecord";
+import ResultCard from "./component/ResultCard";
 
 const LessonResult = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { data: lesson } = useGetLessonById(id ?? "");
 
-  const {
-    data: currentUser,
-    isLoading: isUserLoading,
-    isError: isUserError,
-  } = useGetCurrentUser();
+  // Fetching data
+  const { data: lesson } = useGetLessonById(id ?? "");
+  const { data: topScoresData } = useGetTopScores(id ?? "");
 
   const {
     data: lessonResult,
@@ -29,41 +28,33 @@ const LessonResult = () => {
     isError: isLessonResultError,
   } = useGetLessonResultById(id ?? "");
 
-  // useEffect(() => {
-  //   if (currentUser?._id && lesson?.listenedBy) {
-  //     const hasListened = lesson.listenedBy.some(
-  //       (userId) => userId === currentUser._id
-  //     );
+  //TODO: Prevent enter page if not listen page before
 
-  //     if (!hasListened) {
-  //       navigate(ROUTES_CONSTANTS.AUTH.PAGE_NOT_FOUND);
-  //     }
-  //   }
-  // }, [currentUser, lesson, navigate]);
+  // Data extraction
+  const topScores = topScoresData?.topScores ?? [];
+  const { title, _id: lessonId } = lesson || {};
+  const { score, accuracy, result_array, user_array } = lessonResult || {};
 
-  if (isUserLoading || isLessonResultLoading) return <LoadingPage />;
-  if (isUserError || isLessonResultError) return <LoadingFailPage />;
+  if (isLessonResultLoading) return <LoadingPage />;
+  if (isLessonResultError) return <LoadingFailPage />;
 
   return (
     <div className="flex flex-col gap-8 mt-24 mx-4 md:m-24">
+      {/* Breadcrumbs & Title */}
       <div className="flex flex-col gap-4">
         <CBreadcrumbs
           menuItem={generateBreadcrumbs("listenLessonResult", {
-            id: lesson?._id,
-            title: lesson?.title,
+            id: lessonId,
+            title,
           })}
         />
-        <div>
-          <Typography variant="h5">{lesson?.title || "Title"}</Typography>
-        </div>
+        <Typography variant="h5">{lesson?.title || "Title"}</Typography>
       </div>
 
+      {/* Progress & Top Scores */}
       <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
         <div className="flex flex-col gap-4">
-          <ProgressBarSection
-            score={lessonResult?.score}
-            accuracy={lessonResult?.accuracy}
-          />
+          <ProgressBarSection score={score} accuracy={accuracy} />
           <div className="h-[240px] p-4 rounded-2xl shadow bg-white">
             <Typography variant="h6" className="flex items-center gap-2">
               <FaTriangleExclamation className="text-red-500" />
@@ -71,24 +62,21 @@ const LessonResult = () => {
             </Typography>
           </div>
         </div>
-        <TopRecord topScores={lesson?.topScores} />
+        <TopRecord topScores={topScores} />
       </div>
-      <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
-        <div className="p-4 rounded-2xl shadow bg-white">
-          <Typography variant="h6" className="flex items-center gap-2">
-            <FaBook className="text-green-500" />
-            <span> Result</span>
-          </Typography>
-          <div className="mt-4">{lessonResult?.result_array?.join(" ")}</div>
-        </div>
 
-        <div className="p-4 rounded-2xl shadow bg-white">
-          <Typography variant="h6" className="flex items-center gap-2">
-            <FaBookOpen className="text-green-500" />
-            <span> Your listening </span>
-          </Typography>
-          <div className="mt-4">{lessonResult?.user_array?.join(" ")}</div>
-        </div>
+      {/* Result & User Listening */}
+      <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
+        <ResultCard
+          icon={<FaBook className="text-green-500" />}
+          title="Result"
+          content={result_array}
+        />
+        <ResultCard
+          icon={<FaBookOpen className="text-green-500" />}
+          title="Your listening"
+          content={user_array}
+        />
       </div>
     </div>
   );

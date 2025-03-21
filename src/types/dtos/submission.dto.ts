@@ -16,3 +16,16 @@ export interface LessonSubmissionResponse {
 export interface LessonSubmissionDTO {
   id: string;
 }
+
+export interface TopScoresResponse {
+  topScores: {
+    user: {
+      _id: string;
+      username: string;
+      fullName: string;
+      avatarUrl: string;
+    };
+    score: number;
+    accuracy: number;
+  }[];
+}

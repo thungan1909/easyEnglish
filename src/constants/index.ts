@@ -31,6 +31,7 @@ export const END_POINTS = {
       SUBMIT: "/submission/listen/submit",
       COMPARE: "/submission/listen/compare",
       GET_RESULT: "/submission/result",
+      GET_TOP_SCORE: "/submission/top-score",
     },
   },
 };
