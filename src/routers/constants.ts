@@ -34,6 +34,7 @@ export const ROUTES_CONSTANTS = {
   },
   CHALLENGE: {
     BASE: "/challenges",
+    DETAIL: "/challenge/detail/:id",
   },
   CLASSES: {
     BASE: "/classes",

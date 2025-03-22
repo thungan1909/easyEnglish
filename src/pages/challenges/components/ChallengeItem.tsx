@@ -5,19 +5,30 @@ import { useMemo } from "react";
 import { IChallenge } from "../types";
 import { calculateDayLeft } from "../../../utils/helpers/caculateDayLeft";
 import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
+import { useNavigate } from "react-router-dom";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { ChallengeDTO } from "../../../types/dtos/challenge.dto";
 
 export interface ChallengeItemProps {
-  challenge: IChallenge;
+  challenge: ChallengeDTO;
 }
 
 const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
+  const navigate = useNavigate();
   const dayLeft = useMemo(
     () => calculateDayLeft(challenge.endTime),
     [challenge.endTime]
   );
 
+  const handleClickOnChallengeItem = () => {
+    navigate(ROUTES_CONSTANTS.CHALLENGE.DETAIL.replace(":id", challenge._id));
+  };
+
   return (
-    <div className="w-full flex flex-col shadow rounded-2xl bg-white p-4">
+    <div
+      className="w-full flex flex-col shadow rounded-2xl bg-white p-4"
+      onClick={handleClickOnChallengeItem}
+    >
       <img
         src={challenge.imageSrc}
         className="w-full h-32 md:h-40 lg:h-48 rounded-2xl"

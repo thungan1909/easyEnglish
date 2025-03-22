@@ -4,11 +4,11 @@ import { FaUserGroup } from "react-icons/fa6";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { calculateDayLeft } from "../../../utils/helpers/caculateDayLeft";
 import { useMemo } from "react";
-import { IChallenge } from "../types";
 import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
+import { ChallengeDTO } from "../../../types/dtos/challenge.dto";
 
 export interface ChallengeBannerProps {
-  challenge: IChallenge;
+  challenge: ChallengeDTO;
 }
 
 const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {

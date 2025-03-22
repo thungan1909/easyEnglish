@@ -1,5 +1,5 @@
-export interface IChallenge {
-  challengeId: string;
+export interface ChallengeDTO {
+  _id: string;
   title: string;
   description: string;
   imageSrc: string;

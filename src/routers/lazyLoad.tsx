@@ -125,3 +125,10 @@ export const ChallengePage = withDynamicImport(
     loading: true,
   }
 );
+
+export const ChallengeDetailPage = withDynamicImport(
+  () => import("../pages/challenges/ChallengeDetail"),
+  {
+    loading: true,
+  }
+);

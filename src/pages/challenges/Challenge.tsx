@@ -4,10 +4,11 @@ import exampleChallenge from "./constants";
 import { IChallenge } from "./types";
 import { useMemo } from "react";
 import ChallengeItem from "./components/ChallengeItem";
+import { ChallengeDTO } from "../../types/dtos/challenge.dto";
 
 const Challenges = () => {
   const newestChallenge = useMemo(() => {
-    return exampleChallenge.reduce<IChallenge | undefined>((latest, item) => {
+    return exampleChallenge.reduce<ChallengeDTO | undefined>((latest, item) => {
       return !latest || item.startTime > latest.startTime ? item : latest;
     }, undefined);
   }, [exampleChallenge]);
@@ -27,7 +28,7 @@ const Challenges = () => {
 
       <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
         {exampleChallenge.map((item) => (
-          <ChallengeItem key={item.id} challenge={item} />
+          <ChallengeItem key={item._id} challenge={item} />
         ))}
       </div>
     </div>

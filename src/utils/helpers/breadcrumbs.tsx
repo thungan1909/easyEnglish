@@ -19,7 +19,8 @@ export const generateBreadcrumbs = (
     | "listenLesson"
     | "listenLessonResult"
     | "profile"
-    | "settings",
+    | "settings"
+    | "challenge",
   options?: { id?: string; title?: string; type?: string }
 ): TBreadcrumbItem[] => {
   const breadcrumbs: TBreadcrumbItem[] = [
@@ -32,11 +33,22 @@ export const generateBreadcrumbs = (
       if (options?.id) {
         breadcrumbs.push({
           href: ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", options.id),
-          label: options.title || "Lesson Details",
+          label: options.title || "Lesson Detail",
         });
       }
       break;
-
+    case "challenge":
+      breadcrumbs.push({
+        href: ROUTES_CONSTANTS.CHALLENGE.BASE,
+        label: "Challenge",
+      });
+      if (options?.id) {
+        breadcrumbs.push({
+          href: ROUTES_CONSTANTS.CHALLENGE.DETAIL.replace(":id", options.id),
+          label: options.title || "Challenge Detail",
+        });
+      }
+      break;
     case "listenLesson":
       breadcrumbs.push({ href: ROUTES_CONSTANTS.LESSON.BASE, label: "Lesson" });
       if (options?.id) {

@@ -1,3 +1,4 @@
+import ChallengeDetail from "../pages/challenges/ChallengeDetail";
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
 import { lessonListenPaths, lessonPaths, ROUTES_CONSTANTS } from "./constants";
@@ -58,6 +59,11 @@ const lessonRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.CHALLENGE.BASE,
     element: <ChallengePage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.CHALLENGE.DETAIL,
+    element: <ChallengeDetail />,
     showWithPermission: true,
   },
 ];

@@ -37,6 +37,9 @@ export const END_POINTS = {
   LEADERBOARD: {
     GET_TOP_WEEKLY: "leaderboard/top-weekly",
   },
+  CHALLENGE: {
+    GET_CHALLENGE_BY_ID: "/challenge/:id",
+  },
 };
 
 export const COOKIES = {
