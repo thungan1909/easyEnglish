@@ -1,4 +1,3 @@
-import { exampleUserNewfeed } from "../const";
 import SeeMoreButton from "./SeeMoreButton";
 
 const NewFeeds = () => {
@@ -9,7 +8,7 @@ const NewFeeds = () => {
         <SeeMoreButton />
       </div>
       <div className="grid gap-3">
-        {exampleUserNewfeed.map((user) => (
+        {/* {exampleUserNewfeed.map((user) => (
           <div
             key={user.id}
             className="flex items-center shadow rounded-2xl p-4 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
@@ -38,7 +37,7 @@ const NewFeeds = () => {
               </div>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );

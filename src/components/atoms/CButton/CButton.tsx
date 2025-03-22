@@ -8,10 +8,10 @@ export interface IButton {
   className?: string;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
-  onClick?: any;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   startIcon?: JSX.Element | null;
   loading?: boolean;
-  style?: any;
+  style?: React.CSSProperties | undefined;
   endIcon?: JSX.Element | null;
   variant?: "text" | "contained" | "outlined";
   isRounded?: boolean;

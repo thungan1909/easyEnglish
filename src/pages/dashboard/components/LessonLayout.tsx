@@ -4,6 +4,8 @@ import SeeMoreButton from "./SeeMoreButton";
 import LessonCardRectangle from "./LessonCard/LessonCardRectangle";
 import LessonCardSquare from "./LessonCard/LessonCardSquare";
 import NoDataSection from "../../lesson/NoDataSection";
+import { useNavigate } from "react-router-dom";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 export interface LessonLayoutProps {
   title?: string;
@@ -18,6 +20,7 @@ const LessonLayout = ({
   isTwoColumn = false,
   variant = "rectangle",
 }: LessonLayoutProps) => {
+  const navigate = useNavigate();
   const isRectangle = variant === "rectangle";
   const gridClasses = isRectangle
     ? isTwoColumn
@@ -30,7 +33,9 @@ const LessonLayout = ({
       {title && (
         <div className="flex justify-between items-center mb-4">
           <Typography variant="h6">{title}</Typography>
-          <SeeMoreButton />
+          <SeeMoreButton
+            onClick={() => navigate(ROUTES_CONSTANTS.LESSON.BASE)}
+          />
         </div>
       )}
       {lessons.length > 0 ? (

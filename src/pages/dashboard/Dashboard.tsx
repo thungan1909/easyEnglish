@@ -24,7 +24,7 @@ const Dashboard = () => {
     return lessonList
       .filter((item) => item.listenCount)
       .sort((a, b) => b.listenCount - a.listenCount)
-      .slice(0, Math.min(lessonList.length, 3)); // Take up to 3, but not more than available
+      .slice(0, Math.min(lessonList.length, 3));
   }, [lessonList]);
 
   const newestLesson = useMemo(
@@ -67,7 +67,7 @@ const Dashboard = () => {
   const rightSection = (
     <div className="col-span-1 flex flex-col gap-6">
       <RankingList />
-      <NewFeeds />
+      {/* <NewFeeds /> */}
       <LessonLayout
         title="Most Listened Lessons"
         lessons={mostListened}

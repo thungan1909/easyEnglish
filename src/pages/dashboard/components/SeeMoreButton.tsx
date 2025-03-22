@@ -1,17 +1,17 @@
-import { useNavigate } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
-const SeeMoreButton = () => {
-  const navigate = useNavigate();
+export interface SeeMoreButtonProps {
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+}
 
+const SeeMoreButton = ({ onClick }: SeeMoreButtonProps) => {
   return (
     <CButton
       className="!text-red-500"
       variant="text"
       size="large"
       aria-label="See more"
-      onClick={() => navigate(ROUTES_CONSTANTS.LESSON.BASE)}
+      onClick={onClick}
     >
       See more
     </CButton>

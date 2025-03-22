@@ -3,6 +3,7 @@ import SeeMoreButton from "./SeeMoreButton";
 import { useGetTopWeekly } from "../../../hooks/leaderboard/get-top-weekly.hook";
 import { Avatar } from "@mui/material";
 import { getFirstCharAvatar } from "../../../utils/helpers/getFirstCharAvatar";
+import NoDataSection from "../../lesson/NoDataSection";
 
 const RankingList = () => {
   const { data: topWeekly = [] } = useGetTopWeekly();
@@ -18,27 +19,33 @@ const RankingList = () => {
         <SeeMoreButton />
       </div>
       <div className="grid gap-3">
-        {sortedTopWeekly.map((user, index) => (
-          <div
-            key={index}
-            className="flex items-center shadow rounded-2xl p-4 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
-          >
-            <span>{index + 1}.</span>
-            <Avatar
-              alt="user-avatar"
-              src={user.avatarUrl}
-              sx={{ width: 48, height: 48 }}
-            >
-              {!user.avatarUrl && getFirstCharAvatar(user.username)}
-            </Avatar>
-            <span className="truncate min-w-0">{user.username}</span>
+        {sortedTopWeekly.length > 0 ? (
+          <>
+            {sortedTopWeekly.map((user, index) => (
+              <div
+                key={index}
+                className="flex items-center shadow rounded-2xl p-4 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
+              >
+                <span>{index + 1}.</span>
+                <Avatar
+                  alt="user-avatar"
+                  src={user.avatarUrl}
+                  sx={{ width: 48, height: 48 }}
+                >
+                  {!user.avatarUrl && getFirstCharAvatar(user.username)}
+                </Avatar>
+                <span className="truncate min-w-0">{user.username}</span>
 
-            <div className="flex space-x-2 items-center ml-auto">
-              <span className="text-sm">{user.totalWeeklyScore}</span>
-              <FaRankingStar />
-            </div>
-          </div>
-        ))}
+                <div className="flex space-x-2 items-center ml-auto">
+                  <span className="text-sm">{user.totalWeeklyScore}</span>
+                  <FaRankingStar />
+                </div>
+              </div>
+            ))}
+          </>
+        ) : (
+          <NoDataSection />
+        )}
       </div>
     </div>
   );
