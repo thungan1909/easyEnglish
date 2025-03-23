@@ -38,16 +38,26 @@ const StatisticCard = ({
     >
       <div
         className={clsx(
-          "w-14 h-14 rounded-lg flex items-center justify-center",
+          "w-12 h-12 rounded-lg flex items-center justify-center",
           bgIconColor
         )}
       >
         {icon}
       </div>
       <div>
-        <Typography className="font-bold">{value}</Typography>
+        <Typography
+          sx={{
+            typography: { xs: "body2", md: "body1" },
+          }}
+        >
+          {value}
+        </Typography>
         {description && (
-          <Typography variant="body2" className="opacity-70">
+          <Typography
+            sx={{
+              typography: { xs: "caption", md: "body2" },
+            }}
+          >
             {description}
           </Typography>
         )}

@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import ChallengeBanner from "./components/ChallengeBanner";
 import exampleChallenge from "./constants";
-import { IChallenge } from "./types";
 import { useMemo } from "react";
 import ChallengeItem from "./components/ChallengeItem";
 import { ChallengeDTO } from "../../types/dtos/challenge.dto";

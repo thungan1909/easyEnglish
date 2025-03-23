@@ -2,7 +2,6 @@ import { Typography } from "@mui/material";
 import { FaCoins, FaHourglass, FaMicrophone } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { useMemo } from "react";
-import { IChallenge } from "../types";
 import { calculateDayLeft } from "../../../utils/helpers/caculateDayLeft";
 import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 import { useNavigate } from "react-router-dom";

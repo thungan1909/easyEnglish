@@ -1,19 +1,23 @@
-import { useParams } from "react-router-dom";
 import ChallengeBanner from "./components/ChallengeBanner";
-import { useGetChallengeById } from "../../hooks/challenge/get-challenge.hook";
 import NoDataSection from "../lesson/NoDataSection";
 import exampleChallenge from "./constants";
 import CBreadcrumbs from "../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { generateBreadcrumbs } from "../../utils/helpers/breadcrumbs";
-import { Chip, Typography } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import StatisticCard, { StatisticCardProps } from "./components/StatisticCard";
 import { FaCheckCircle } from "react-icons/fa";
+import ChallengePodcastList from "./components/ChallengePodcastList";
+import { UserDTO } from "../../types/dtos/user.dto";
+import ChallengeParticipants from "./components/ChallengeParticipants";
 
 const ChallengeDetail = () => {
   // const { id } = useParams();
   // const { data: challenge } = useGetChallengeById(id ?? "");
+  const isMd = useMediaQuery("(min-width: 768px)"); // Detect if screen is `md` size
 
-  const challenge = exampleChallenge[0];
+  const challenge = exampleChallenge.exampleChallenge[0];
+  const participants = exampleChallenge.exUserParticipants;
+
   const {
     _id,
     title,
@@ -22,33 +26,34 @@ const ChallengeDetail = () => {
     startTime,
     endTime,
     timeLeft,
-    participants,
+    // participants,
     podcastCount,
     coin,
     fee,
+    lessonList,
   } = challenge;
 
   const listStatisCard: StatisticCardProps[] = [
     {
-      icon: <FaCheckCircle size={32} />,
+      icon: <FaCheckCircle size={isMd ? 32 : 12} />,
       description: "Completed lessons",
       value: "168",
       mainColor: "blue",
     },
     {
-      icon: <FaCheckCircle size={32} />,
+      icon: <FaCheckCircle size={isMd ? 32 : 12} />,
       description: "Listening time",
       value: "260:38:10s",
       mainColor: "orange",
     },
     {
-      icon: <FaCheckCircle size={32} />,
+      icon: <FaCheckCircle size={isMd ? 32 : 12} />,
       description: "Total score",
       value: "1.554,56",
       mainColor: "green",
     },
     {
-      icon: <FaCheckCircle size={32} />,
+      icon: <FaCheckCircle size={isMd ? 32 : 12} />,
       description: "Accuracy",
       value: "90,94%",
       mainColor: "purple",
@@ -56,7 +61,7 @@ const ChallengeDetail = () => {
   ];
 
   return (
-    <div className="flex flex-col md:m-24">
+    <div className="flex flex-col md:m-24 mx-4">
       <CBreadcrumbs
         menuItem={generateBreadcrumbs("challenge", {
           id: _id,
@@ -64,13 +69,15 @@ const ChallengeDetail = () => {
         })}
       />
       {challenge ? (
-        <div className="flex flex-col mt-8 gap-6">
+        <div className="flex flex-col mt-8 gap-4">
           <ChallengeBanner challenge={challenge} />
-          <div className="flex gap-4 justify-evenly">
+          <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
             {listStatisCard?.map((item, index) => (
               <StatisticCard key={index} {...item} />
             ))}
           </div>
+          <ChallengePodcastList lessonList={lessonList} />
+          <ChallengeParticipants participants={participants} />
         </div>
       ) : (
         <NoDataSection />
