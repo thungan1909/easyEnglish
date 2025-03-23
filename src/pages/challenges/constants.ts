@@ -1,6 +1,5 @@
 import lesson1 from "../../assets/podcast_1059.png";
 import lesson2 from "../../assets/podcast_1036.png";
-// import lesson3 from "../../assets/podcast_1365.png";
 
 import { ChallengeDTO } from "../../types/dtos/challenge.dto";
 import { UserDTO } from "../../types/dtos/user.dto";

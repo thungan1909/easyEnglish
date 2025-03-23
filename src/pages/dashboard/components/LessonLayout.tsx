@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { LessonEntity } from "../../../types/dtos/lesson.dto";
+import { LessonDTO } from "../../../types/dtos/lesson.dto";
 import SeeMoreButton from "./SeeMoreButton";
 import LessonCardRectangle from "./LessonCard/LessonCardRectangle";
 import LessonCardSquare from "./LessonCard/LessonCardSquare";
@@ -9,7 +9,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 export interface LessonLayoutProps {
   title?: string;
-  lessons: LessonEntity[];
+  lessons: LessonDTO[];
   isTwoColumn?: boolean;
   variant?: "rectangle" | "square";
 }

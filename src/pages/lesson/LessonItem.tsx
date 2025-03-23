@@ -3,10 +3,10 @@ import CButton from "../../components/atoms/CButton/CButton";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
-import { LessonEntity } from "../../types/dtos/lesson.dto";
+import { LessonDTO } from "../../types/dtos/lesson.dto";
 
 interface LessonItemProps {
-  lesson: LessonEntity;
+  lesson: LessonDTO;
 }
 
 const LessonItem = ({ lesson }: LessonItemProps) => {

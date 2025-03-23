@@ -20,10 +20,6 @@ export const getUserInfoMutation = {
   fn: async (): Promise<GetUserDTO | null> => {
     try {
       const token = localStorage.getItem("ACCESS_TOKEN");
-      // if (!token) {
-      //   console.log("No token found. Redirecting to login...");
-      //   return null;
-      // }
 
       const response = await getAxiosInstance().get(
         END_POINTS.AUTH.GET_USER_INFO,

@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { LessonEntity } from "../../../types/dtos/lesson.dto";
+import { LessonDTO } from "../../../types/dtos/lesson.dto";
 import { FaMedal, FaPlay } from "react-icons/fa";
 import { UserDTO } from "../../../types/dtos/user.dto";
 

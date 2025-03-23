@@ -6,7 +6,7 @@ export interface LessonListQueryFilter {
   scope?: string;
 }
 
-export interface LessonEntity {
+export interface LessonDTO {
   _id: string;
   code: string;
   title: string;

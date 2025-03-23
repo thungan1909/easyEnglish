@@ -6,11 +6,11 @@ import { FaMicrophone } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { Typography } from "@mui/material";
 import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
-import { LessonEntity } from "../../../types/dtos/lesson.dto";
+import { LessonDTO } from "../../../types/dtos/lesson.dto";
 import NoDataSection from "../../lesson/NoDataSection";
 
 export interface HeroSectionProps {
-  lessons: LessonEntity[];
+  lessons: LessonDTO[];
 }
 
 const HeroSection = ({ lessons }: HeroSectionProps) => {

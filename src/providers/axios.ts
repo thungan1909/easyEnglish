@@ -60,12 +60,6 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(errorWrapper);
     }
 
-    // if (response.data?.access_token && response.data?.refresh_token) {
-    //   persistToken({
-    //     accessToken: response.data.access_token,
-    //     refreshToken: response.data.refresh_token,
-    //   });
-    // }
     return response;
   },
   (error: AxiosError): Promise<IHttpError> => {

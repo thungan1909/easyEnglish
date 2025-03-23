@@ -1,10 +1,10 @@
 import { FaBook, FaPlay } from "react-icons/fa";
 import { Typography } from "@mui/material";
-import { LessonEntity } from "../../../../types/dtos/lesson.dto";
+import { LessonDTO } from "../../../../types/dtos/lesson.dto";
 import CIconTextItem from "../../../../components/molecules/cIconTextItem/cIconTextItem";
 
 interface RectangleLessonItemProps {
-  lesson: LessonEntity;
+  lesson: LessonDTO;
 }
 const LessonCardRectangle = ({ lesson }: RectangleLessonItemProps) => {
   const itemClass =

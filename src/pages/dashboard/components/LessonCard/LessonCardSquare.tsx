@@ -1,10 +1,10 @@
 import { FaBook } from "react-icons/fa";
 import { Typography } from "@mui/material";
 import CIconTextItem from "../../../../components/molecules/cIconTextItem/cIconTextItem";
-import { LessonEntity } from "../../../../types/dtos/lesson.dto";
+import { LessonDTO } from "../../../../types/dtos/lesson.dto";
 
 interface DashboardLessonItemProps {
-  lesson: LessonEntity;
+  lesson: LessonDTO;
 }
 
 const LessonCardSquare = ({ lesson }: DashboardLessonItemProps) => {

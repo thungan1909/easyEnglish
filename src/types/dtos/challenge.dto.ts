@@ -1,4 +1,4 @@
-import { LessonEntity } from "./lesson.dto";
+import { LessonDTO } from "./lesson.dto";
 
 export interface ChallengeDTO {
   _id: string;
@@ -12,5 +12,5 @@ export interface ChallengeDTO {
   podcastCount: number;
   coin: number;
   fee: number;
-  lessonList: LessonEntity[];
+  lessonList: LessonDTO[];
 }

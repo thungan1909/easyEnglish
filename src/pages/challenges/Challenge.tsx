@@ -7,9 +7,12 @@ import { ChallengeDTO } from "../../types/dtos/challenge.dto";
 
 const Challenges = () => {
   const newestChallenge = useMemo(() => {
-    return exampleChallenge.reduce<ChallengeDTO | undefined>((latest, item) => {
-      return !latest || item.startTime > latest.startTime ? item : latest;
-    }, undefined);
+    return exampleChallenge.exampleChallenge.reduce<ChallengeDTO | undefined>(
+      (latest, item) => {
+        return !latest || item.startTime > latest.startTime ? item : latest;
+      },
+      undefined
+    );
   }, [exampleChallenge]);
 
   return (
@@ -26,7 +29,7 @@ const Challenges = () => {
       {newestChallenge && <ChallengeBanner challenge={newestChallenge} />}
 
       <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
-        {exampleChallenge.map((item) => (
+        {exampleChallenge?.exampleChallenge.map((item: ChallengeDTO) => (
           <ChallengeItem key={item._id} challenge={item} />
         ))}
       </div>

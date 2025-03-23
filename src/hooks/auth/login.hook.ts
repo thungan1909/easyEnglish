@@ -29,7 +29,7 @@ export const useLoginMutation = () => {
         }
 
         // Store tokens & userId in localStorage or state
-        await persistToken({
+        persistToken({
           accessToken: access_token,
           refreshToken: refresh_token,
         });

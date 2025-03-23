@@ -8,11 +8,11 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { LessonEntity } from "../../../types/dtos/lesson.dto";
+import { LessonDTO } from "../../../types/dtos/lesson.dto";
 import { FaPlay } from "react-icons/fa";
 
 export interface ChallengePodcastListProps {
-  lessonList: LessonEntity[];
+  lessonList: LessonDTO[];
 }
 
 const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {

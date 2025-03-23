@@ -3,7 +3,7 @@ import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
   CreateLessonResponse,
   LessonListQueryFilter,
-  LessonEntity,
+  LessonDTO,
   SubmitListenLessonDTO,
   SubmitListenLessonResponse,
   CompareLessonResponse,
@@ -34,8 +34,8 @@ export const createLessonMutation = {
 
 export const getLessonListQuery = {
   name: "getLessonListQuery",
-  fn: async (filter: LessonListQueryFilter): Promise<LessonEntity[]> => {
-    return getOriginalResponseData<LessonEntity[]>(
+  fn: async (filter: LessonListQueryFilter): Promise<LessonDTO[]> => {
+    return getOriginalResponseData<LessonDTO[]>(
       await getAxiosInstance().get(END_POINTS.LESSON.GET_LIST_LESSON, {
         data: filter,
       })
@@ -45,8 +45,8 @@ export const getLessonListQuery = {
 
 export const getLessonByIdQuery = {
   name: "getLessonByIdQuery",
-  fn: async (id: string): Promise<LessonEntity> => {
-    return getOriginalResponseData<LessonEntity>(
+  fn: async (id: string): Promise<LessonDTO> => {
+    return getOriginalResponseData<LessonDTO>(
       await getAxiosInstance().get(
         END_POINTS.LESSON.GET_LESSON_BY_ID.replace(":id", id)
       )
