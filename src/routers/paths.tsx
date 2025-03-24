@@ -23,6 +23,7 @@ import {
   LessonResultPage,
   ManageMyUploadsPage,
   EditLessonPage,
+  NewsFeedPage,
 } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
@@ -114,6 +115,12 @@ const mainRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT,
     element: <EditLessonPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.FEEDS.BASE,
+    element: <NewsFeedPage />,
+
     showWithPermission: true,
   },
   ...profileRoutes,

@@ -133,3 +133,12 @@ export const EditLessonPage = withDynamicImport(
     loading: true,
   }
 );
+
+// FEEDS
+
+export const NewsFeedPage = withDynamicImport(
+  () => import("../pages/news-feed/NewsFeed"),
+  {
+    loading: true,
+  }
+);

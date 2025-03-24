@@ -2,14 +2,13 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const menuConfig = {
   primary: ["Home", "Lesson", "Challenges"],
-  more: ["Classes", "Feeds", "Ranking List"],
+  more: ["Feeds", "Ranking List"],
 };
 
 export const menuItems = [
   { href: ROUTES_CONSTANTS.DASHBOARD, label: "Home" },
   { href: ROUTES_CONSTANTS.LESSON.BASE, label: "Lesson" },
   { href: ROUTES_CONSTANTS.CHALLENGE.BASE, label: "Challenges" },
-  { href: ROUTES_CONSTANTS.CLASSES.BASE, label: "Classes" },
   { href: ROUTES_CONSTANTS.FEEDS.BASE, label: "Feeds" },
   { href: ROUTES_CONSTANTS.RANKING_LIST.BASE, label: "Ranking List" },
 ];

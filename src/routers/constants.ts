@@ -40,11 +40,8 @@ export const ROUTES_CONSTANTS = {
     BASE: "/challenges",
     DETAIL: "/challenge/detail/:id",
   },
-  CLASSES: {
-    BASE: "/classes",
-  },
   FEEDS: {
-    BASE: "/new-feed",
+    BASE: "/news-feed",
   },
   RANKING_LIST: {
     BASE: "/ranking",
