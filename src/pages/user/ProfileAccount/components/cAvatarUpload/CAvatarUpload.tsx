@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { getFirstCharAvatar } from "../../../../../utils/helpers/getFirstCharAvatar";
 import CButton from "../../../../../components/atoms/CButton/CButton";
 import { FaFloppyDisk } from "react-icons/fa6";
-import { useUploadFileMutation } from "../../../../../hooks/upload/upload-file";
+import { useUploadFileMutation } from "../../../../../hooks/upload/upload-file.hook";
 import { UploadFileResponse } from "../../../../../types/dtos/upload.dto";
-import { useUpdateUserAvatarMutation } from "../../../../../hooks/user/edit-user.hook";
+import { useUpdateUserAvatarMutation } from "../../../../../hooks/user/update-user.hook";
 import { notify } from "../../../../../utils/notify";
 
 export interface CAvatarUploadProps {

@@ -2,35 +2,25 @@ import { Divider, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
-import LoadingPage from "../common-pages/LoadingPage";
 import LoadingFailPage from "../common-pages/LoadingFailPage";
 import LessonItem from "../lesson/components/LessonItem";
 import NoDataSection from "../common-pages/NoDataSection";
 
 const ManageMyUpload = () => {
-  const {
-    data: currentUser,
-    isLoading: isUserLoading,
-    isError: isUserError,
-  } = useGetCurrentUser();
+  const { data: currentUser, isError: isUserError } = useGetCurrentUser();
 
-  const {
-    data: lessonList = [],
-    isLoading: isLessonLoading,
-    isError: isLessonError,
-  } = useGetLessonList({});
+  const { data: lessonList = [], isError: isLessonError } = useGetLessonList(
+    {}
+  );
 
   const currentLessonList = useMemo(() => {
-    if (isUserLoading) return [];
-
     if (currentUser?._id) {
       return lessonList.filter((item) => item.creator?._id === currentUser._id);
     }
 
     return lessonList;
-  }, [lessonList, currentUser, isUserLoading, isLessonLoading]);
+  }, [lessonList, currentUser]);
 
-  if (isUserLoading || isLessonLoading) return <LoadingPage />;
   if (isUserError || isLessonError) return <LoadingFailPage />;
 
   return (

@@ -29,7 +29,10 @@ export interface UserDTO {
 }
 
 // UpdateUserDTO now extends UserDTO but removes 'avatarUrl'
-export type UpdateUserDTO = Omit<UserDTO, "avatarUrl" | "_id">;
+export type UpdateUserDTO = Omit<
+  UserDTO,
+  "avatarUrl" | "_id" | "totalScore" | "weeklyScores"
+>;
 
 // Separate DTO for updating only the avatar
 export interface UpdateUserAvatarDTO {

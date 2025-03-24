@@ -10,7 +10,6 @@ import {
 import ProgressBarSection from "./component/ProgressBarSection";
 import { FaTriangleExclamation } from "react-icons/fa6";
 import { FaBook, FaBookOpen } from "react-icons/fa";
-import LoadingPage from "../../common-pages/LoadingPage";
 import LoadingFailPage from "../../common-pages/LoadingFailPage";
 import TopRecord from "./component/TopRecord";
 import ResultCard from "./component/ResultCard";
@@ -27,11 +26,8 @@ const LessonResult = () => {
 
   const { data: lesson } = useGetLessonById(id ?? "");
   const { data: topScoresData } = useGetTopScores(id ?? "");
-  const {
-    data: lessonResult,
-    isLoading: isLessonResultLoading,
-    isError: isLessonResultError,
-  } = useGetLessonResultById(id ?? "");
+  const { data: lessonResult, isError: isLessonResultError } =
+    useGetLessonResultById(id ?? "");
 
   const hasListened = currentUser?.listenedLessons?.some(
     (l) => l.lesson === id
@@ -45,7 +41,6 @@ const LessonResult = () => {
   const { title, _id: lessonId } = lesson || {};
   const { score, accuracy, result_array, user_array } = lessonResult || {};
 
-  if (isLessonResultLoading) return <LoadingPage />;
   if (isLessonResultError) return <LoadingFailPage />;
 
   return (

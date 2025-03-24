@@ -6,7 +6,6 @@ import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { Divider, Typography } from "@mui/material";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import { useMemo } from "react";
-import LoadingPage from "../common-pages/LoadingPage";
 import LoadingFailPage from "../common-pages/LoadingFailPage";
 import NoDataSection from "../common-pages/NoDataSection";
 
@@ -15,21 +14,13 @@ const Lesson = () => {
   const queryParams = new URLSearchParams(location.search);
   const scope = queryParams.get("scope") || "all";
 
-  const {
-    data: currentUser,
-    isLoading: isUserLoading,
-    isError: isUserError,
-  } = useGetCurrentUser();
+  const { data: currentUser, isError: isUserError } = useGetCurrentUser();
 
-  const {
-    data: lessonList = [],
-    isLoading: isLessonLoading,
-    isError: isLessonError,
-  } = useGetLessonList({});
+  const { data: lessonList = [], isError: isLessonError } = useGetLessonList(
+    {}
+  );
 
   const currentLessonList = useMemo(() => {
-    if (isUserLoading) return [];
-
     if (scope === "listened" && currentUser?._id) {
       return lessonList.filter((item) =>
         item.listenedBy?.some((user) => user === currentUser?._id)
@@ -39,9 +30,8 @@ const Lesson = () => {
       return lessonList.filter((item) => item.creator?._id === currentUser._id);
     }
     return lessonList;
-  }, [scope, lessonList, currentUser, isUserLoading, isLessonLoading]);
+  }, [scope, lessonList, currentUser]);
 
-  if (isUserLoading || isLessonLoading) return <LoadingPage />;
   if (isUserError || isLessonError) return <LoadingFailPage />;
 
   return (

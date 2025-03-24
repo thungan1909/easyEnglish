@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { notify } from "../../../utils/notify";
 import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
-import { useUploadFileMutation } from "../../../hooks/upload/upload-file";
+import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
 
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();

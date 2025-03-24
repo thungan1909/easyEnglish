@@ -18,20 +18,13 @@ import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import { useMemo, useState } from "react";
 import CIconTextItem from "../../components/molecules/cIconTextItem/cIconTextItem";
 import CModal from "../../components/atoms/CModal/CModal";
-import LoadingPage from "../common-pages/LoadingPage";
 import LoadingFailPage from "../common-pages/LoadingFailPage";
 
 const LessonDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: lesson } = useGetLessonById(id ?? "");
-
-  const {
-    data: currentUser,
-    isLoading: isUserLoading,
-    isError: isUserError,
-  } = useGetCurrentUser();
-
+  const { data: currentUser, isError: isUserError } = useGetCurrentUser();
   const [openModalRevenge, setOpenModalRevenge] = useState(false);
 
   const {
@@ -66,7 +59,6 @@ const LessonDetail = () => {
     [currentUser, _id]
   );
 
-  if (isUserLoading) return <LoadingPage />;
   if (isUserError) return <LoadingFailPage />;
 
   return (

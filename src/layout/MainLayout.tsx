@@ -14,6 +14,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
   const location = useLocation();
+
   const [isAddNewPage, setIsAddNewPage] = useState(false);
 
   useEffect(() => {

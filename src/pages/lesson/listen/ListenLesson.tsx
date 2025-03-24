@@ -24,7 +24,6 @@ import { useSubmitListenLessonMutation } from "../../../hooks/lesson/submit-less
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import AudioSection from "./component/AudioSection";
 import LoadingFailPage from "../../common-pages/LoadingFailPage";
-import LoadingPage from "../../common-pages/LoadingPage";
 import CModal from "../../../components/atoms/CModal/CModal";
 import { useCompareLessonMutation } from "../../../hooks/lesson/compare-lesson.hook";
 
@@ -40,7 +39,8 @@ const ListenLesson = () => {
   const [accuracy, setAccuracy] = useState("");
   const [userInputs, setUserInputs] = useState<string[]>([]);
 
-  const { data: lesson, isLoading, isError } = useGetLessonById(id ?? "");
+  const { data: lesson, isError: isLessonError } = useGetLessonById(id ?? "");
+
   const { mutate: submitListenLessonMutation } =
     useSubmitListenLessonMutation();
   const { mutate: compareLessonMutation } = useCompareLessonMutation();
@@ -107,115 +107,109 @@ const ListenLesson = () => {
     }
   }, [wordsList]);
 
+  if (isLessonError) return <LoadingFailPage />;
+
   return (
-    <>
-      {isLoading ? (
-        <LoadingPage />
-      ) : isError ? (
-        <LoadingFailPage />
-      ) : (
-        <div className="mt-32" key={id}>
-          {lesson && (
-            <CBreadcrumbs
-              menuItem={generateBreadcrumbs("listenLesson", {
-                id: lesson._id,
-                title: lesson.title,
-                type: type || "",
-              })}
-              className="text-left pl-16"
-            />
-          )}
-          <div className="!space-y-8 md:px-16 flex flex-col p-8 ">
-            <Typography variant="h5">{lesson?.title || "Title"}</Typography>
-            <div className="flex md:gap-8 gap-4 flex-wrap items-center justify-center">
-              <CButton
-                startIcon={<FaPaperPlane />}
-                textTransform="capitalize"
-                className="!px-4"
-                onClick={() => setOpenModalSubmit(true)}
-              >
-                Submit
-              </CButton>
-              <CButton
-                startIcon={<FaClipboardCheck />}
-                textTransform="capitalize"
-                className="!px-4"
-                variant="outlined"
-                onClick={handleCompareLesson}
-              >
-                Check Results
-              </CButton>
-              <CButton
-                startIcon={<FaExclamationTriangle />}
-                textTransform="capitalize"
-                className="!px-4"
-                variant="outlined"
-              >
-                Show Mistakes
-              </CButton>
-              <CButton
-                startIcon={<FaRegSave />}
-                textTransform="capitalize"
-                className="!px-4"
-                variant="outlined"
-              >
-                Save Draft
-              </CButton>
-              <CButton
-                startIcon={<FaLightbulb />}
-                textTransform="capitalize"
-                className="!px-4"
-                variant="outlined"
-              >
-                Hint Words
-              </CButton>
-            </div>
-            <div className="flex gap-2 flex-wrap !mb-32">
-              {wordsList?.map((word, index) => {
-                const originalWord = originalWords?.[index] || "";
-                return (
-                  <CWordInput
-                    key={index}
-                    word={word}
-                    originalWord={originalWord}
-                    onChange={(value) => handleInputChange(index, value)}
-                  />
-                );
-              })}
-            </div>
-          </div>
-          <div className="fixed bottom-0 w-full">
-            {lesson?.audioFile && (
-              <AudioSection fileURL={lesson?.audioFile as string} />
-            )}
-          </div>
-          <CModal
-            isOpen={openModalSubmit}
-            onClose={() => setOpenModalSubmit(false)}
-            title="Submit listening"
-            confirmText="Submit"
-            cancelText="Cancel"
-            onConfirm={handleSubmit}
-            onCancel={() => setOpenModalSubmit(false)}
-            description={
-              <>
-                Are you sure you want to submit your listening? There will be no
-                going back!
-              </>
-            }
-          />
-          <CModal
-            isOpen={openModalCompare}
-            onClose={() => setOpenModalCompare(false)}
-            title="Result listening"
-            confirmText="OK"
-            cancelText="Cancel"
-            onConfirm={() => setOpenModalCompare(false)}
-            description={<>{`Your result is now ${accuracy}%`}</>}
-          />
-        </div>
+    <div className="mt-32" key={id}>
+      {lesson && (
+        <CBreadcrumbs
+          menuItem={generateBreadcrumbs("listenLesson", {
+            id: lesson._id,
+            title: lesson.title,
+            type: type || "",
+          })}
+          className="text-left pl-16"
+        />
       )}
-    </>
+      <div className="!space-y-8 md:px-16 flex flex-col p-8 ">
+        <Typography variant="h5">{lesson?.title || "Title"}</Typography>
+        <div className="flex md:gap-8 gap-4 flex-wrap items-center justify-center">
+          <CButton
+            startIcon={<FaPaperPlane />}
+            textTransform="capitalize"
+            className="!px-4"
+            onClick={() => setOpenModalSubmit(true)}
+          >
+            Submit
+          </CButton>
+          <CButton
+            startIcon={<FaClipboardCheck />}
+            textTransform="capitalize"
+            className="!px-4"
+            variant="outlined"
+            onClick={handleCompareLesson}
+          >
+            Check Results
+          </CButton>
+          <CButton
+            startIcon={<FaExclamationTriangle />}
+            textTransform="capitalize"
+            className="!px-4"
+            variant="outlined"
+          >
+            Show Mistakes
+          </CButton>
+          <CButton
+            startIcon={<FaRegSave />}
+            textTransform="capitalize"
+            className="!px-4"
+            variant="outlined"
+          >
+            Save Draft
+          </CButton>
+          <CButton
+            startIcon={<FaLightbulb />}
+            textTransform="capitalize"
+            className="!px-4"
+            variant="outlined"
+          >
+            Hint Words
+          </CButton>
+        </div>
+        <div className="flex gap-2 flex-wrap !mb-32">
+          {wordsList?.map((word, index) => {
+            const originalWord = originalWords?.[index] || "";
+            return (
+              <CWordInput
+                key={index}
+                word={word}
+                originalWord={originalWord}
+                onChange={(value) => handleInputChange(index, value)}
+              />
+            );
+          })}
+        </div>
+      </div>
+      <div className="fixed bottom-0 w-full">
+        {lesson?.audioFile && (
+          <AudioSection fileURL={lesson?.audioFile as string} />
+        )}
+      </div>
+      <CModal
+        isOpen={openModalSubmit}
+        onClose={() => setOpenModalSubmit(false)}
+        title="Submit listening"
+        confirmText="Submit"
+        cancelText="Cancel"
+        onConfirm={handleSubmit}
+        onCancel={() => setOpenModalSubmit(false)}
+        description={
+          <>
+            Are you sure you want to submit your listening? There will be no
+            going back!
+          </>
+        }
+      />
+      <CModal
+        isOpen={openModalCompare}
+        onClose={() => setOpenModalCompare(false)}
+        title="Result listening"
+        confirmText="OK"
+        cancelText="Cancel"
+        onConfirm={() => setOpenModalCompare(false)}
+        description={<>{`Your result is now ${accuracy}%`}</>}
+      />
+    </div>
   );
 };
 

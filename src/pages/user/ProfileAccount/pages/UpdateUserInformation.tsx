@@ -6,7 +6,7 @@ import {
   UpdateUserSchema,
 } from "../../../../validation/user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUpdateUserMutation } from "../../../../hooks/user/edit-user.hook";
+import { useUpdateUserMutation } from "../../../../hooks/user/update-user.hook";
 import {
   FaAddressCard,
   FaBuilding,

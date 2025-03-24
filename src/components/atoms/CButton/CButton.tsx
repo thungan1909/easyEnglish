@@ -1,23 +1,8 @@
-import { JSX, ReactNode } from "react";
+import { JSX } from "react";
 
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-
-export interface IButton {
-  children?: string | ReactNode;
-  className?: string;
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
-  startIcon?: JSX.Element | null;
-  loading?: boolean;
-  style?: React.CSSProperties | undefined;
-  endIcon?: JSX.Element | null;
-  variant?: "text" | "contained" | "outlined";
-  isRounded?: boolean;
-  size?: "small" | "medium" | "large";
-  textTransform?: "capitalize" | "lowercase" | "uppercase" | "none";
-}
+import { IButton } from "./types";
 
 const CButton = ({
   children,

@@ -72,6 +72,15 @@ export const UpdateUserSchema = zod.object({
   detailAddress: zod.string().optional(),
   university: zod.string().optional(),
   major: zod.string().optional(),
+  totalScore: zod.number().optional(),
+  weeklyScores: zod
+    .array(
+      zod.object({
+        weekStart: zod.string(),
+        score: zod.number(),
+      })
+    )
+    .optional(),
 });
 
 export type TUpdateUserSchema = zod.infer<typeof UpdateUserSchema>;

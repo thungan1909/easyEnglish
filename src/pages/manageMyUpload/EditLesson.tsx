@@ -19,7 +19,7 @@ import {
   wordSplitterRegex,
 } from "../../constants/regex";
 import { notify } from "../../utils/notify";
-import { useUploadFileMutation } from "../../hooks/upload/upload-file";
+import { useUploadFileMutation } from "../../hooks/upload/upload-file.hook";
 import { useEditLessonMutation } from "../../hooks/lesson/edit-lesson.hook";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
 

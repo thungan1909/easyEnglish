@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../routers/constants";
-import { useAuthentication } from "../hooks/auth.hook";
+import { useAuthentication } from "../hooks/auth/login.hook";
 
 interface AuthGuardProps {
   children: React.ReactNode;

@@ -1,17 +1,6 @@
 import { TextareaAutosize } from "@mui/material";
 import { JSX } from "react";
-
-export interface ITextArea {
-  maxRows?: number;
-  minRows?: number;
-  maxLength?: number;
-  ariaLabel?: string;
-  placeholder?: string;
-  className?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  disabled?: boolean;
-}
+import { ITextArea } from "./types";
 
 const CTextArea = ({
   maxRows = 100,

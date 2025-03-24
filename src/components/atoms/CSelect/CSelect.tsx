@@ -15,8 +15,7 @@ const CSelect = ({
   label,
 }: ISelect) => {
   const handleChange = (e: SelectChangeEvent<string>) => {
-    const selectedValue = e.target.value;
-    if (onChangeValue) onChangeValue(selectedValue);
+    if (onChangeValue) onChangeValue(e.target.value);
   };
 
   return (

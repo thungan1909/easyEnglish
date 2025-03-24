@@ -25,6 +25,7 @@ const resolver = zodResolver(UserSignInSchema);
 const Login = () => {
   const navigate = useNavigate();
   const { isAuth } = useAuthentication();
+  const { mutate: loginMutation } = useLoginMutation();
 
   const {
     control,
@@ -37,8 +38,6 @@ const Login = () => {
       password: "",
     },
   });
-
-  const { mutate: loginMutation } = useLoginMutation();
 
   const onSubmitLogin = (data: TUserSignInSchema) => {
     loginMutation(data, {

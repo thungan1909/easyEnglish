@@ -1,6 +1,7 @@
 // Only using react lazy in this file
 // eslint-disable-next-line no-restricted-imports
 import { FunctionComponent, JSX, lazy, Suspense } from "react";
+import LoadingPage from "../pages/common-pages/LoadingPage";
 
 export const withDynamicImport = <TComponent extends FunctionComponent<any>>(
   callback: () => Promise<{ default: TComponent }>,
@@ -21,14 +22,13 @@ export const withDynamicImport = <TComponent extends FunctionComponent<any>>(
     };
   }
 
-  // const defaultLoadingEl = <Loader />;
+  const defaultLoading = <LoadingPage />;
 
-  // const loadingEl = loading === true ? defaultLoadingEl : loading;
+  const loadingEl = loading === true ? defaultLoading : loading;
 
   return (props: React.ComponentProps<TComponent>): JSX.Element => {
     return (
-      // <Suspense fallback={loadingEl}>
-      <Suspense>
+      <Suspense fallback={loadingEl}>
         <LazyElement {...props} />
       </Suspense>
     );
