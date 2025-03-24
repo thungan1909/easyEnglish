@@ -1,4 +1,4 @@
-import { FaHeart, FaList, FaPlus } from "react-icons/fa";
+import { FaHeart, FaImage, FaList, FaPlus } from "react-icons/fa";
 import CButton from "../../components/atoms/CButton/CButton";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -22,11 +22,16 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
       key={lesson._id}
       onClick={handleClickLessonItem}
     >
-      <img
-        src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}
-        alt={lesson.title || "Lesson Image"}
-        className="rounded-xl md:w-30 md:h-30 w-24 h-24"
-      />
+      {lesson?.imageFile ? (
+        <img
+          src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}
+          alt={lesson.title || "Lesson Image"}
+          className="rounded-xl md:w-30 md:h-30 w-24 h-24"
+        />
+      ) : (
+        <FaImage className="md:w-30 md:h-30 w-24 h-24" />
+      )}
+
       <div className="flex flex-col gap-2">
         <Typography className="line-clamp-1">{lesson.title}</Typography>
 

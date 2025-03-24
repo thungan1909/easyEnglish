@@ -41,13 +41,13 @@ const exampleChallenge: ChallengeDTO[] = [
         createdAt: "2025-03-15T12:00:00Z",
         topScores: [
           {
-            user: "user1",
+            userId: "user1",
             score: 95,
             accuracy: 98,
             submittedAt: "2025-03-21T10:00:00Z",
           },
           {
-            user: "user2",
+            userId: "user2",
             score: 90,
             accuracy: 95,
             submittedAt: "2025-03-21T11:00:00Z",
@@ -79,13 +79,13 @@ const exampleChallenge: ChallengeDTO[] = [
         createdAt: "2025-03-16T12:00:00Z",
         topScores: [
           {
-            user: "user3",
+            userId: "user3",
             score: 88,
             accuracy: 92,
             submittedAt: "2025-03-22T09:30:00Z",
           },
           {
-            user: "user4",
+            userId: "user4",
             score: 85,
             accuracy: 90,
             submittedAt: "2025-03-22T10:45:00Z",

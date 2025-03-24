@@ -29,7 +29,12 @@ const errorOptions: ToastOptions = {
 
 const show = (message: string, options: ToastOptions): Id => {
   try {
-    return toast(message, options || defaultOptions);
+    return toast(message, {
+      ...options,
+      style: {
+        fontFamily: "var(--font-family) !important",
+      },
+    });
   } catch (e) {
     console.error("notify.show.fail", e);
     return "";

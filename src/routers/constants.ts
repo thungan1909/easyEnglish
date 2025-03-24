@@ -20,8 +20,8 @@ export const ROUTES_CONSTANTS = {
     ADD_NEW: "/lesson/add-new",
     LISTEN: {
       RESULT: "/lesson/result/:id",
+      BASE: "/lesson/listen/:id",
       TYPE: {
-        BASE: "/lesson/listen/:id",
         WITH_HINT: "/lesson/listen/:id?type=hint",
         WITHOUT_HINT: "/lesson/listen/:id?type=withoutHint",
       },
@@ -53,8 +53,9 @@ export const lessonPaths = [
 ];
 
 export const lessonListenPaths = [
-  ROUTES_CONSTANTS.LESSON.LISTEN.TYPE.BASE,
-  ...Object.values(ROUTES_CONSTANTS.LESSON.LISTEN.TYPE),
+  ROUTES_CONSTANTS.LESSON.LISTEN.BASE,
+  `${ROUTES_CONSTANTS.LESSON.LISTEN.BASE}?type=hint`,
+  `${ROUTES_CONSTANTS.LESSON.LISTEN.BASE}?type=withoutHint`,
 ];
 
 export const profileAccountPaths = [

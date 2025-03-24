@@ -6,6 +6,7 @@ import {
   FaCheck,
   FaCopyright,
   FaHeadphones,
+  FaImage,
   FaLightbulb,
 } from "react-icons/fa";
 import { FaRepeat, FaUserGroup } from "react-icons/fa6";
@@ -48,7 +49,7 @@ const LessonDetail = () => {
     if (!_id) return;
 
     navigate({
-      pathname: ROUTES_CONSTANTS.LESSON.LISTEN.TYPE.BASE.replace(":id", _id),
+      pathname: ROUTES_CONSTANTS.LESSON.LISTEN.BASE.replace(":id", _id),
       search: `?type=${type}`,
     });
   };
@@ -135,11 +136,15 @@ const LessonDetail = () => {
         </div>
 
         <div className="flex flex-col items-center ">
-          <img
-            src={typeof imageFile === "string" ? imageFile : ""}
-            alt={title || "Lesson Image"}
-            className="w-80 h-80 rounded-2xl"
-          />
+          {imageFile ? (
+            <img
+              src={typeof imageFile === "string" ? imageFile : ""}
+              alt={title || "Lesson Image"}
+              className="w-80 h-80 rounded-2xl"
+            />
+          ) : (
+            <FaImage className="w-80 h-80" />
+          )}
 
           <div className="flex flex-col mt-4 text-gray-500 w-full gap-4 text-sm">
             <Divider />

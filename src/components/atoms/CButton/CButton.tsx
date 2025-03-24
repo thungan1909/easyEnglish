@@ -77,6 +77,7 @@ const CButton = ({
       size={size}
       disableElevation
       disableRipple
+      tabIndex={0}
       sx={{
         padding: size === "small" ? 0.5 : size === "medium" ? 1 : 2,
         borderRadius: isRounded ? "9999px" : "8px",

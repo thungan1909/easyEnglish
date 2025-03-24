@@ -12,7 +12,7 @@ export const AuthenticationLayout = ({
 }: AuthenticationLayoutProps) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r to-purple-200 p-5">
-      <div className="w-1/2 mb-8">{stepperSection}</div>
+      <div className="md:w-1/2 w-full mb-8">{stepperSection}</div>
       <div className="bg-white shadow rounded-2xl overflow-hidden flex w-full max-w-4xl">
         <div className="md:w-1/2 md:flex hidden bg-gradient-to-r from-indigo-300 to bg-purple-400">
           <img

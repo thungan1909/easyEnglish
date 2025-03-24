@@ -1,4 +1,4 @@
-import { FaBook, FaPlay } from "react-icons/fa";
+import { FaBook, FaImage, FaPlay } from "react-icons/fa";
 import { Typography } from "@mui/material";
 import { LessonDTO } from "../../../../types/dtos/lesson.dto";
 import CIconTextItem from "../../../../components/molecules/cIconTextItem/cIconTextItem";
@@ -12,11 +12,15 @@ const LessonCardRectangle = ({ lesson }: RectangleLessonItemProps) => {
 
   return (
     <div key={lesson._id} className={itemClass}>
-      <img
-        src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}
-        alt={lesson.title}
-        className="w-16 h-16 rounded-2xl object-cover"
-      />
+      {lesson?.imageFile ? (
+        <img
+          src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}
+          alt={lesson.title}
+          className="w-16 h-16 rounded-2xl object-cover"
+        />
+      ) : (
+        <FaImage className="md:w-30 md:h-30 w-24 h-24" />
+      )}
       <div className="flex flex-col flex-1 gap-1">
         <Typography variant="caption"> {lesson.code}</Typography>
         <Typography className="text-black line-clamp-2" variant="body2">

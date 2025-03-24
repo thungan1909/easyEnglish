@@ -23,12 +23,11 @@ export interface LessonDTO {
   progress: string;
   createdAt?: string;
 
-  // /** ✅ New field: Top scores for the lesson */
   topScores: {
-    user: string; // User id
-    score: number; // Score achieved
+    userId: string;
+    score: number;
     accuracy: number;
-    submittedAt: string; // Timestamp of submission
+    submittedAt: string;
   }[];
 }
 

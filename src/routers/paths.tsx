@@ -1,3 +1,4 @@
+import React from "react";
 import ChallengeDetail from "../pages/challenges/ChallengeDetail";
 import PageNotFound from "../pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
@@ -68,57 +69,42 @@ const lessonRoutes: RouteItemConfig[] = [
   },
 ];
 
+const profileRoutes: RouteItemConfig[] = [
+  {
+    path: ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT,
+    component: UpdateUserInformationPage,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.CHANGE_PASSWORD,
+    component: ChangePasswordPage,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.CHANGE_EMAIL,
+    component: ChangeEmailPage,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.ANALYSIS,
+    component: PerformanceAnalysisPage,
+  },
+  {
+    path: ROUTES_CONSTANTS.USER.SETTINGS,
+    component: SettingsPage,
+  },
+].map(({ path, component }) => ({
+  path,
+  element: (
+    <ProfileAccountPage>{React.createElement(component)}</ProfileAccountPage>
+  ),
+  showWithPermission: true,
+}));
+
 const mainRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.DASHBOARD,
     element: <DashboardPage />,
     showWithPermission: true,
   },
-  {
-    path: ROUTES_CONSTANTS.USER.PROFILE_ACCOUNT,
-    element: (
-      <ProfileAccountPage>
-        <UpdateUserInformationPage />
-      </ProfileAccountPage>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.USER.CHANGE_PASSWORD,
-    element: (
-      <ProfileAccountPage>
-        <ChangePasswordPage />
-      </ProfileAccountPage>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.USER.CHANGE_EMAIL,
-    element: (
-      <ProfileAccountPage>
-        <ChangeEmailPage />
-      </ProfileAccountPage>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.USER.ANALYSIS,
-    element: (
-      <ProfileAccountPage>
-        <PerformanceAnalysisPage />
-      </ProfileAccountPage>
-    ),
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.USER.SETTINGS,
-    element: (
-      <ProfileAccountPage>
-        <SettingsPage />
-      </ProfileAccountPage>
-    ),
-    showWithPermission: true,
-  },
+  ...profileRoutes,
   ...lessonRoutes,
 ];
 

@@ -1,4 +1,4 @@
-import { FaBook } from "react-icons/fa";
+import { FaBook, FaImage } from "react-icons/fa";
 import { Typography } from "@mui/material";
 import CIconTextItem from "../../../../components/molecules/cIconTextItem/cIconTextItem";
 import { LessonDTO } from "../../../../types/dtos/lesson.dto";
@@ -13,11 +13,15 @@ const LessonCardSquare = ({ lesson }: DashboardLessonItemProps) => {
 
   return (
     <div key={lesson._id} aria-label={lesson.title} className={itemClass}>
-      <img
-        src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}
-        alt={lesson.title}
-        className="w-32 h-32 rounded-2xl object-cover"
-      />
+      {lesson?.imageFile ? (
+        <img
+          src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}
+          alt={lesson.title}
+          className="w-32 h-32 rounded-2xl object-cover"
+        />
+      ) : (
+        <FaImage className="md:w-30 md:h-30 w-24 h-24" />
+      )}
       <div className="flex flex-col text-center items-center gap-2">
         <Typography variant="body2">
           {lesson.code} - {lesson.title}
