@@ -6,11 +6,15 @@ const CWordInput = ({
   originalWord,
   readOnly,
   onChange,
+  onKeyDown,
+  inputRef,
 }: {
   word: string;
   originalWord: string;
   readOnly?: boolean;
   onChange?: (value: string) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  inputRef?: React.Ref<HTMLInputElement>;
 }) => {
   const [inputWidth, setInputWidth] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -29,9 +33,11 @@ const CWordInput = ({
 
   return word === "" ? (
     <CTextField
+      inputRef={inputRef} // Attach ref here
       maxLength={originalWord.length}
       disabled={readOnly}
       onChange={(e) => onChange?.(e.target.value)}
+      onKeyDown={onKeyDown}
       sx={{
         width: `${inputWidth}px`,
         minHeight: "20px",

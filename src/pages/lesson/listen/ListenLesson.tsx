@@ -13,7 +13,7 @@ import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
 import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   CompareLessonResponse,
   CompareListenLessonDTO,
@@ -38,9 +38,9 @@ const ListenLesson = () => {
   const [openModalCompare, setOpenModalCompare] = useState(false);
   const [accuracy, setAccuracy] = useState("");
   const [userInputs, setUserInputs] = useState<string[]>([]);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const { data: lesson, isError: isLessonError } = useGetLessonById(id ?? "");
-
   const { mutate: submitListenLessonMutation } =
     useSubmitListenLessonMutation();
   const { mutate: compareLessonMutation } = useCompareLessonMutation();
@@ -52,6 +52,17 @@ const ListenLesson = () => {
       return newInputs;
     });
   };
+
+  const handleKeyDown = useCallback(
+    (index: number, e: React.KeyboardEvent) => {
+      if (e.key === "Enter") {
+        inputRefs.current[index + 1]?.focus();
+      } else if (e.key === "Backspace" && !userInputs[index] && index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+    },
+    [userInputs]
+  );
 
   const handleSubmit = () => {
     const payload: SubmitListenLessonDTO = {
@@ -91,6 +102,7 @@ const ListenLesson = () => {
       },
     });
   };
+
   const originalWords = useMemo(() => {
     return (lesson?.content || "")
       .split(wordSplitterRegex)
@@ -174,7 +186,11 @@ const ListenLesson = () => {
                 key={index}
                 word={word}
                 originalWord={originalWord}
+                inputRef={(el) => {
+                  if (el) inputRefs.current[index] = el;
+                }}
                 onChange={(value) => handleInputChange(index, value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
               />
             );
           })}

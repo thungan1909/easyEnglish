@@ -77,38 +77,23 @@ export const ProfileAccountPage = withDynamicImport(
 );
 
 export const UpdateUserInformationPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/pages/UpdateUserInformation"),
-  {
-    loading: true,
-  }
+  () => import("../pages/user/ProfileAccount/pages/UpdateUserInformation")
 );
 
 export const ChangePasswordPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/pages/ChangePassword"),
-  {
-    loading: true,
-  }
+  () => import("../pages/user/ProfileAccount/pages/ChangePassword")
 );
 
 export const ChangeEmailPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/pages/ChangeEmail"),
-  {
-    loading: true,
-  }
+  () => import("../pages/user/ProfileAccount/pages/ChangeEmail")
 );
 
 export const PerformanceAnalysisPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/pages/PerformanceAnalysis"),
-  {
-    loading: true,
-  }
+  () => import("../pages/user/ProfileAccount/pages/PerformanceAnalysis")
 );
 
 export const SettingsPage = withDynamicImport(
-  () => import("../pages/user/ProfileAccount/pages/Settings"),
-  {
-    loading: true,
-  }
+  () => import("../pages/user/ProfileAccount/pages/Settings")
 );
 
 export const LessonResultPage = withDynamicImport(
