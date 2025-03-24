@@ -7,7 +7,7 @@ import {
   punctuationRegex,
   wordSplitterRegex,
 } from "../../../constants/regex";
-import LoginReminder from "../../LoginReminder";
+import LoginReminder from "../../common-pages/LoginReminder";
 import { useCreateLessonMutation } from "../../../hooks/lesson/create-lesson.hook";
 import {
   CreateNewLessonSchema,

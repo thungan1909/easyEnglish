@@ -27,14 +27,13 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
     const isPasswordField = type === "password";
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      let newValue = e.target.value.slice(0, maxLength);
+      // let newValue = e.target.value.slice(0, maxLength);
       // setInputValue(newValue);
       if (onChange) {
         onChange(e);
       }
     };
 
-    // console.log("inputValueinputValue", inputValue);
     return (
       <TextField
         {...props}

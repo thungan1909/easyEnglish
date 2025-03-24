@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import CButton from "../components/atoms/CButton/CButton";
+import CButton from "../../components/atoms/CButton/CButton";
 import { Typography } from "@mui/material";
-import { ROUTES_CONSTANTS } from "../routers/constants";
+import { ROUTES_CONSTANTS } from "../../routers/constants";
 
 const PageNotFound = () => {
   const navigate = useNavigate();

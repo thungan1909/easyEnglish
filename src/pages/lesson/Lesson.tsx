@@ -6,9 +6,9 @@ import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { Divider, Typography } from "@mui/material";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import { useMemo } from "react";
-import LoadingPage from "../LoadingPage";
-import LoadingFailPage from "../LoadingFailPage";
-import NoDataSection from "../NoDataSection";
+import LoadingPage from "../common-pages/LoadingPage";
+import LoadingFailPage from "../common-pages/LoadingFailPage";
+import NoDataSection from "../common-pages/NoDataSection";
 
 const Lesson = () => {
   const location = useLocation();

@@ -5,13 +5,14 @@ import CIconTextItem from "../../../../components/molecules/cIconTextItem/cIconT
 
 interface RectangleLessonItemProps {
   lesson: LessonDTO;
+  onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
-const LessonCardRectangle = ({ lesson }: RectangleLessonItemProps) => {
+const LessonCardRectangle = ({ lesson, onClick }: RectangleLessonItemProps) => {
   const itemClass =
     "flex items-center space-x-3 p-2 rounded-2xl shadow bg-gradient-to-r from-indigo-100 bg-purple-200 hover:bg-purple-400 cursor-pointer transition duration-300";
 
   return (
-    <div key={lesson._id} className={itemClass}>
+    <div key={lesson._id} className={itemClass} onClick={onClick}>
       {lesson?.imageFile ? (
         <img
           src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}

@@ -3,7 +3,7 @@ import { LessonDTO } from "../../../types/dtos/lesson.dto";
 import SeeMoreButton from "./SeeMoreButton";
 import LessonCardRectangle from "./LessonCard/LessonCardRectangle";
 import LessonCardSquare from "./LessonCard/LessonCardSquare";
-import NoDataSection from "../../NoDataSection";
+import NoDataSection from "../../common-pages/NoDataSection";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
@@ -42,9 +42,25 @@ const LessonLayout = ({
         <div className={gridClasses}>
           {lessons.map((lesson) =>
             isRectangle ? (
-              <LessonCardRectangle key={lesson._id} lesson={lesson} />
+              <LessonCardRectangle
+                key={lesson._id}
+                lesson={lesson}
+                onClick={() =>
+                  navigate(
+                    ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", lesson._id)
+                  )
+                }
+              />
             ) : (
-              <LessonCardSquare key={lesson._id} lesson={lesson} />
+              <LessonCardSquare
+                key={lesson._id}
+                lesson={lesson}
+                onClick={() =>
+                  navigate(
+                    ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", lesson._id)
+                  )
+                }
+              />
             )
           )}
         </div>

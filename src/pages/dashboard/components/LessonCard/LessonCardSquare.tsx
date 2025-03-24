@@ -5,14 +5,20 @@ import { LessonDTO } from "../../../../types/dtos/lesson.dto";
 
 interface DashboardLessonItemProps {
   lesson: LessonDTO;
+  onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-const LessonCardSquare = ({ lesson }: DashboardLessonItemProps) => {
+const LessonCardSquare = ({ lesson, onClick }: DashboardLessonItemProps) => {
   const itemClass =
     "flex flex-col items-center p-4 gap-2 rounded-2xl shadow bg-gradient-to-r from-indigo-100 bg-purple-200 hover:bg-purple-400 cursor-pointer transition duration-300";
 
   return (
-    <div key={lesson._id} aria-label={lesson.title} className={itemClass}>
+    <div
+      key={lesson._id}
+      aria-label={lesson.title}
+      className={itemClass}
+      onClick={onClick}
+    >
       {lesson?.imageFile ? (
         <img
           src={typeof lesson?.imageFile === "string" ? lesson.imageFile : ""}

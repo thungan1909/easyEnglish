@@ -10,8 +10,8 @@ import {
 import ProgressBarSection from "./component/ProgressBarSection";
 import { FaTriangleExclamation } from "react-icons/fa6";
 import { FaBook, FaBookOpen } from "react-icons/fa";
-import LoadingPage from "../../LoadingPage";
-import LoadingFailPage from "../../LoadingFailPage";
+import LoadingPage from "../../common-pages/LoadingPage";
+import LoadingFailPage from "../../common-pages/LoadingFailPage";
 import TopRecord from "./component/TopRecord";
 import ResultCard from "./component/ResultCard";
 import { useGetCurrentUser } from "../../../hooks/user/user.hook";
@@ -25,7 +25,6 @@ const LessonResult = () => {
 
   if (!id) return <LoadingFailPage />;
 
-  // Fetching data
   const { data: lesson } = useGetLessonById(id ?? "");
   const { data: topScoresData } = useGetTopScores(id ?? "");
   const {
@@ -34,21 +33,14 @@ const LessonResult = () => {
     isError: isLessonResultError,
   } = useGetLessonResultById(id ?? "");
 
-  //TODO: Prevent enter page if not listen page before
-  // Check if the lesson has been listened to
   const hasListened = currentUser?.listenedLessons?.some(
     (l) => l.lesson === id
   );
 
-  // Redirect if the user hasn't listened to the lesson
   if (!isUserLoading && !hasListened) {
     navigate(ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", id));
-
-    // navigate(`/lesson/${id}`);
-    // return null;
   }
 
-  // Data extraction
   const topScores = topScoresData?.topScores ?? [];
   const { title, _id: lessonId } = lesson || {};
   const { score, accuracy, result_array, user_array } = lessonResult || {};

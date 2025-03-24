@@ -3,7 +3,7 @@ import SeeMoreButton from "./SeeMoreButton";
 import { useGetTopWeekly } from "../../../hooks/leaderboard/get-top-weekly.hook";
 import { Avatar } from "@mui/material";
 import { getFirstCharAvatar } from "../../../utils/helpers/getFirstCharAvatar";
-import NoDataSection from "../../NoDataSection";
+import NoDataSection from "../../common-pages/NoDataSection";
 
 const RankingList = () => {
   const { data: topWeekly = [] } = useGetTopWeekly();

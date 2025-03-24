@@ -1,5 +1,5 @@
 import ChallengeBanner from "./components/ChallengeBanner";
-import NoDataSection from "../NoDataSection";
+import NoDataSection from "../common-pages/NoDataSection";
 import exampleChallenge from "./constants";
 import CBreadcrumbs from "../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { generateBreadcrumbs } from "../../utils/helpers/breadcrumbs";

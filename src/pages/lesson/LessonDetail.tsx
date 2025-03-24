@@ -18,8 +18,8 @@ import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import { useMemo, useState } from "react";
 import CIconTextItem from "../../components/molecules/cIconTextItem/cIconTextItem";
 import CModal from "../../components/atoms/CModal/CModal";
-import LoadingPage from "../LoadingPage";
-import LoadingFailPage from "../LoadingFailPage";
+import LoadingPage from "../common-pages/LoadingPage";
+import LoadingFailPage from "../common-pages/LoadingFailPage";
 
 const LessonDetail = () => {
   const navigate = useNavigate();

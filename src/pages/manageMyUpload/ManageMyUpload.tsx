@@ -2,10 +2,10 @@ import { Divider, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
-import LoadingPage from "../LoadingPage";
-import LoadingFailPage from "../LoadingFailPage";
+import LoadingPage from "../common-pages/LoadingPage";
+import LoadingFailPage from "../common-pages/LoadingFailPage";
 import LessonItem from "../lesson/components/LessonItem";
-import NoDataSection from "../NoDataSection";
+import NoDataSection from "../common-pages/NoDataSection";
 
 const ManageMyUpload = () => {
   const {

@@ -23,8 +23,8 @@ import { notify } from "../../../utils/notify";
 import { useSubmitListenLessonMutation } from "../../../hooks/lesson/submit-lesson.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import AudioSection from "./component/AudioSection";
-import LoadingFailPage from "../../LoadingFailPage";
-import LoadingPage from "../../LoadingPage";
+import LoadingFailPage from "../../common-pages/LoadingFailPage";
+import LoadingPage from "../../common-pages/LoadingPage";
 import CModal from "../../../components/atoms/CModal/CModal";
 import { useCompareLessonMutation } from "../../../hooks/lesson/compare-lesson.hook";
 

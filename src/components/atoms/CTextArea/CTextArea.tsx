@@ -37,7 +37,8 @@ const CTextArea = ({
       onChange={onChange}
       style={{
         border: "1px solid",
-        paddingInline: "16px",
+        borderRadius: "1rem",
+        padding: "16px",
         borderColor: "var(--main-color)",
         pointerEvents: disabled ? "none" : "auto",
         opacity: disabled ? 0.6 : 1,
