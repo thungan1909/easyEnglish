@@ -5,9 +5,13 @@ import { TEditLessonSchema } from "../../validation/lesson.schema";
 import { EditLessonResponse } from "../../types/dtos/lesson.dto";
 
 export const useEditLessonMutation = () => {
-  return useMutation<EditLessonResponse, IHttpError, TEditLessonSchema>({
-    mutationFn: async (formData: TEditLessonSchema) => {
-      return editLessonMutation.fn(formData);
+  return useMutation<
+    EditLessonResponse,
+    IHttpError,
+    { lessonId: string; data: TEditLessonSchema }
+  >({
+    mutationFn: async ({ lessonId, data }) => {
+      return editLessonMutation.fn(lessonId, data);
     },
   });
 };

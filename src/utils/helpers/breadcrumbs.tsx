@@ -58,7 +58,7 @@ export const generateBreadcrumbs = (
         });
       }
       breadcrumbs.push({
-        href: `${ROUTES_CONSTANTS.LESSON.LISTEN.TYPE.BASE}?id=${options?.id}`,
+        href: `${ROUTES_CONSTANTS.LESSON.LISTEN.BASE}?id=${options?.id}`,
         label: options?.type
           ? `Listen (${
               options.type === "withoutHint" ? "Without Hint" : "Hint"

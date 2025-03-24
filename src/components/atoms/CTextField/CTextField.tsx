@@ -12,7 +12,7 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
       customStyle = {},
       label,
       placeholder,
-      value = "",
+      value,
       maxLength = 1024,
       onChange,
       onKeyDown,
@@ -22,18 +22,19 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
     },
     ref
   ) => {
-    const [inputValue, setInputValue] = useState(value);
+    // const [inputValue, setInputValue] = useState(value);
     const [showPassword, setShowPassword] = useState(false);
     const isPasswordField = type === "password";
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       let newValue = e.target.value.slice(0, maxLength);
-      setInputValue(newValue);
+      // setInputValue(newValue);
       if (onChange) {
         onChange(e);
       }
     };
 
+    // console.log("inputValueinputValue", inputValue);
     return (
       <TextField
         {...props}
@@ -43,7 +44,8 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
         type={isPasswordField && !showPassword ? "password" : "text"}
         className={className}
         disabled={disabled}
-        value={inputValue}
+        // value={inputValue}
+        value={value}
         onChange={handleChange}
         slotProps={{
           input: {
@@ -72,7 +74,7 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
         onInput={(e) => {
           const target = e.target as HTMLInputElement;
           if (target.value.length > maxLength) {
-            target.value = target.value.slice(0, maxLength); //Incase type=text, maxLength not work
+            target.value = target.value.slice(0, maxLength);
           }
         }}
         sx={{

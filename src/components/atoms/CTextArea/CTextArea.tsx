@@ -10,6 +10,7 @@ export interface ITextArea {
   className?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  disabled?: boolean;
 }
 
 const CTextArea = ({
@@ -21,6 +22,7 @@ const CTextArea = ({
   className = "",
   value = "",
   onChange,
+  disabled = false,
 }: ITextArea): JSX.Element => {
   return (
     <TextareaAutosize
@@ -31,11 +33,15 @@ const CTextArea = ({
       placeholder={placeholder}
       className={className}
       value={value}
+      disabled={disabled}
       onChange={onChange}
       style={{
         border: "1px solid",
         paddingInline: "16px",
         borderColor: "var(--main-color)",
+        pointerEvents: disabled ? "none" : "auto",
+        opacity: disabled ? 0.6 : 1,
+        backgroundColor: disabled ? "#f0f0f0" : "white",
       }}
     />
   );

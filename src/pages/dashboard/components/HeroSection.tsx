@@ -7,13 +7,14 @@ import { FaUserGroup } from "react-icons/fa6";
 import { Typography } from "@mui/material";
 import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 import { LessonDTO } from "../../../types/dtos/lesson.dto";
-import NoDataSection from "../../lesson/NoDataSection";
+import NoDataSection from "../../NoDataSection";
 
 export interface HeroSectionProps {
   lessons: LessonDTO[];
 }
 
 const HeroSection = ({ lessons }: HeroSectionProps) => {
+  console.log(lessons);
   return (
     <div className="min-h-80 cursor-pointer">
       <Slider {...settingSlider}>

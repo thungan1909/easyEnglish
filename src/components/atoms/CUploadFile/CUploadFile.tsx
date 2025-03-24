@@ -65,7 +65,7 @@ const CUploadFile = ({
   }, [defaultFileURL]);
 
   return (
-    <div className="border-2 border-dashed border-purple-600 p-6 flex flex-col items-center gap-3 rounded-2xl justify-center">
+    <div className="border-2 border-dashed border-purple-600 p-6 flex flex-col gap-3 rounded-2xl items-center">
       <Typography variant="h6" className="!mb-2">
         {title}
       </Typography>

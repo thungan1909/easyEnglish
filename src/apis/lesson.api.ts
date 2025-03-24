@@ -124,12 +124,19 @@ export const getTopScores = {
 
 export const editLessonMutation = {
   name: "editLesson",
-  fn: async (formData: TEditLessonSchema): Promise<EditLessonResponse> => {
+  fn: async (
+    lessonId: string,
+    formData: TEditLessonSchema
+  ): Promise<EditLessonResponse> => {
     try {
       return getOriginalResponseData<EditLessonResponse>(
-        await getAxiosInstance().post(END_POINTS.LESSON.CREATE, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
+        await getAxiosInstance().put(
+          END_POINTS.LESSON.EDIT.replace(":id", lessonId),
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
       );
     } catch (error) {
       throw error;

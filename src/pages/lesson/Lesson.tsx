@@ -1,14 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import { menuItems } from "./constants";
 import { getLinkClassName } from "../../utils/helpers/style";
-import LessonItem from "./LessonItem";
+import LessonItem from "./components/LessonItem";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { Divider, Typography } from "@mui/material";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import { useMemo } from "react";
 import LoadingPage from "../LoadingPage";
 import LoadingFailPage from "../LoadingFailPage";
-import NoDataSection from "./NoDataSection";
+import NoDataSection from "../NoDataSection";
 
 const Lesson = () => {
   const location = useLocation();
@@ -72,7 +72,10 @@ const Lesson = () => {
       {currentLessonList.length > 0 ? (
         currentLessonList.map((lesson) => (
           <div key={lesson._id}>
-            <LessonItem lesson={lesson} type="lesson" />
+            <LessonItem
+              lesson={lesson}
+              type={scope === "mine" ? "my-uploads" : "lesson"}
+            />
             <Divider />
           </div>
         ))

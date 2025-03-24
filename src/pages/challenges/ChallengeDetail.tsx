@@ -1,5 +1,5 @@
 import ChallengeBanner from "./components/ChallengeBanner";
-import NoDataSection from "../lesson/NoDataSection";
+import NoDataSection from "../NoDataSection";
 import exampleChallenge from "./constants";
 import CBreadcrumbs from "../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { generateBreadcrumbs } from "../../utils/helpers/breadcrumbs";
@@ -7,7 +7,6 @@ import { useMediaQuery } from "@mui/material";
 import StatisticCard, { StatisticCardProps } from "./components/StatisticCard";
 import { FaCheckCircle } from "react-icons/fa";
 import ChallengePodcastList from "./components/ChallengePodcastList";
-import { UserDTO } from "../../types/dtos/user.dto";
 import ChallengeParticipants from "./components/ChallengeParticipants";
 
 const ChallengeDetail = () => {

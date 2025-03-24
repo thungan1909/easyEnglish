@@ -4,8 +4,8 @@ import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import LoadingPage from "../LoadingPage";
 import LoadingFailPage from "../LoadingFailPage";
-import LessonItem from "../lesson/LessonItem";
-import NoDataSection from "../lesson/NoDataSection";
+import LessonItem from "../lesson/components/LessonItem";
+import NoDataSection from "../NoDataSection";
 
 const ManageMyUpload = () => {
   const {

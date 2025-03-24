@@ -19,7 +19,7 @@ const LessonCardRectangle = ({ lesson }: RectangleLessonItemProps) => {
           className="w-16 h-16 rounded-2xl object-cover"
         />
       ) : (
-        <FaImage className="md:w-30 md:h-30 w-24 h-24" />
+        <FaImage className="w-16 h-16" />
       )}
       <div className="flex flex-col flex-1 gap-1">
         <Typography variant="caption"> {lesson.code}</Typography>

@@ -3,7 +3,7 @@ import { LessonDTO } from "../../../types/dtos/lesson.dto";
 import SeeMoreButton from "./SeeMoreButton";
 import LessonCardRectangle from "./LessonCard/LessonCardRectangle";
 import LessonCardSquare from "./LessonCard/LessonCardSquare";
-import NoDataSection from "../../lesson/NoDataSection";
+import NoDataSection from "../../NoDataSection";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 

@@ -5,7 +5,6 @@ import { useGetCurrentUser } from "../../hooks/user/user.hook";
 
 import LessonLayout from "./components/LessonLayout";
 import RankingList from "./components/RankingList";
-import NewFeeds from "./components/NewFeeds";
 import HeroSection from "./components/HeroSection";
 
 const Dashboard = () => {
@@ -21,10 +20,13 @@ const Dashboard = () => {
   }, [lessonList, currentUser]);
 
   const mostListened = useMemo(() => {
-    return lessonList
+    const sortedLessons = lessonList
       .filter((item) => item.listenCount)
-      .sort((a, b) => b.listenCount - a.listenCount)
-      .slice(0, Math.min(lessonList.length, 3));
+      .sort((a, b) => b.listenCount - a.listenCount);
+
+    return sortedLessons.length > 0
+      ? sortedLessons.slice(0, Math.min(sortedLessons.length, 3))
+      : lessonList;
   }, [lessonList]);
 
   const newestLesson = useMemo(

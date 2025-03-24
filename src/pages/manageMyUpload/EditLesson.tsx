@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetLessonById } from "../../hooks/lesson/get-lesson.hook";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   EditLessonSchema,
   TEditLessonSchema,
@@ -21,15 +21,17 @@ import {
 import { notify } from "../../utils/notify";
 import { useUploadFileMutation } from "../../hooks/upload/upload-file";
 import { useEditLessonMutation } from "../../hooks/lesson/edit-lesson.hook";
+import { ROUTES_CONSTANTS } from "../../routers/constants";
 
 const EditLesson = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { data: lesson } = useGetLessonById(id ?? "");
   const [lessonWords, setLessonWords] = useState<{
     withHint: string[];
     withoutHint: string[];
   }>({ withHint: [], withoutHint: [] });
+  const [isUpdateLessonContent, setIsUpdateLessonContent] = useState(false);
   const { mutate: uploadFileMutation } = useUploadFileMutation();
   const { mutate: editLessonMutation } = useEditLessonMutation();
 
@@ -40,9 +42,9 @@ const EditLesson = () => {
     handleSubmit,
     setValue,
     watch,
-    formState: { isValid, errors },
+    reset,
+    formState: { isValid },
   } = useForm<TEditLessonSchema>({
-    defaultValues: lesson,
     mode: "onChange",
     resolver: zodResolver(EditLessonSchema),
   });
@@ -70,7 +72,8 @@ const EditLesson = () => {
   };
 
   const generateWords = (withSuggestions: boolean) => {
-    if (!lessonContent.trim()) return;
+    const trimmedContent = lessonContent.trim();
+    if (!trimmedContent) return;
 
     const words = lessonContent
       .split(wordSplitterRegex)
@@ -104,23 +107,30 @@ const EditLesson = () => {
     .filter((word) => word.trim() || punctuationRegex.test(word));
 
   const onSubmit = async (data: TEditLessonSchema) => {
-    console.log(data);
-    // editLessonMutation(data, {
-    //   onSuccess: () => {
-    //     notify.success("Edit lesson successfully");
-    //     navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.BASE);
-    //   },
-    //   onError: () => {
-    //     notify.error("Failed to edit lesson.");
-    //   },
-    // });
+    if (!id) {
+      notify.error("Lesson ID is missing.");
+      return;
+    }
+
+    editLessonMutation(
+      { lessonId: id, data },
+      {
+        onSuccess: () => {
+          notify.success("Edit lesson successfully");
+          navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.BASE);
+        },
+        onError: () => {
+          notify.error("Failed to edit lesson.");
+        },
+      }
+    );
   };
 
-  console.log(watch(), isValid, errors);
-  console.log(errors, "error");
-  console.log(isValid, "isValid");
-  console.log("isHintValid", isHintValid);
-  console.log("isHintValidisHintValid", !isHintValid && !isValid);
+  useEffect(() => {
+    if (lesson) {
+      reset(lesson);
+    }
+  }, [lesson, reset]);
 
   return (
     <form
@@ -148,7 +158,7 @@ const EditLesson = () => {
                 label="Lesson's title"
                 placeholder="Lesson's title"
                 className="w-full"
-                maxLength={50}
+                maxLength={25}
               />
               {fieldState.error && (
                 <Typography color="error" variant="caption">
@@ -158,6 +168,7 @@ const EditLesson = () => {
             </div>
           )}
         />
+
         <Controller
           name="source"
           control={control}
@@ -185,7 +196,6 @@ const EditLesson = () => {
         <Controller
           name="audioFile"
           control={control}
-          // defaultValue={lesson?.audioFile || ""}
           render={({ field }) => (
             <CUploadFile
               accept="audio"
@@ -198,7 +208,6 @@ const EditLesson = () => {
         <Controller
           name="imageFile"
           control={control}
-          // defaultValue={lesson?.imageFile || ""}
           render={({ field }) => (
             <CUploadFile
               accept="image"
@@ -231,80 +240,97 @@ const EditLesson = () => {
           </div>
         )}
       />
-      <Controller
-        name="content"
-        control={control}
-        defaultValue=""
-        render={({ field, fieldState }) => (
-          <div className="">
-            <CTextArea
-              {...field}
-              maxRows={25}
-              minRows={5}
-              maxLength={4000}
-              placeholder="Enter lesson's content..."
-              className="w-full"
-            />
-            {fieldState.error && (
-              <Typography color="error" variant="caption">
-                {fieldState.error.message}
-              </Typography>
-            )}
-          </div>
-        )}
-      />
       <div className="flex flex-col items-center">
         <CButton
-          onClick={() => {
-            generateWords(true);
-            generateWords(false);
-          }}
+          onClick={() => setIsUpdateLessonContent((prev) => !prev)}
           isRounded
           size="medium"
-          className="w-[50%] !mb-3"
-          disabled={!lessonContent?.trim()}
+          className="w-[50%]"
         >
-          Generate hint
+          {`${
+            isUpdateLessonContent ? `Disable` : `Enable`
+          } edit lesson content`}
         </CButton>
-
-        <Typography color="info" variant="caption">
-          Please generate hint before click on Save button
-        </Typography>
       </div>
-      {isHintValid && (
-        <div className="grid md:grid-cols-2 gap-4 mt-4">
-          <div className=" p-4 flex flex-wrap gap-2">
-            {lessonWords.withHint?.map((word, index) => {
-              const originalWord = originalWords?.[index] || "";
-              return (
-                <CWordInput
-                  key={index}
-                  word={word}
-                  originalWord={originalWord}
-                  readOnly
+      {isUpdateLessonContent && (
+        <>
+          <Controller
+            name="content"
+            control={control}
+            defaultValue=""
+            render={({ field, fieldState }) => (
+              <div>
+                <CTextArea
+                  {...field}
+                  maxRows={25}
+                  minRows={5}
+                  maxLength={4000}
+                  placeholder="Enter lesson's content..."
+                  className="w-full"
                 />
-              );
-            })}
+                {fieldState.error && (
+                  <Typography color="error" variant="caption">
+                    {fieldState.error.message}
+                  </Typography>
+                )}
+              </div>
+            )}
+          />
+          <div className="flex flex-col items-center">
+            <CButton
+              onClick={() => {
+                generateWords(true);
+                generateWords(false);
+              }}
+              isRounded
+              size="medium"
+              className="w-[50%] !mb-3"
+              disabled={!lessonContent?.trim()}
+            >
+              Generate hint
+            </CButton>
+
+            <Typography color="info" variant="caption">
+              Please generate hint before click on Save button
+            </Typography>
           </div>
-          <div className="p-4 flex flex-wrap gap-2">
-            {lessonWords.withoutHint?.map((word, index) => {
-              const originalWord = originalWords?.[index] || "";
-              return (
-                <CWordInput
-                  key={index}
-                  word={word}
-                  originalWord={originalWord}
-                  readOnly
-                />
-              );
-            })}
-          </div>
-        </div>
+          {isHintValid && (
+            <div className="grid md:grid-cols-2 gap-4 mt-4">
+              <div className=" p-4 flex flex-wrap gap-2">
+                {lessonWords.withHint?.map((word, index) => {
+                  const originalWord = originalWords?.[index] || "";
+                  return (
+                    <CWordInput
+                      key={index}
+                      word={word}
+                      originalWord={originalWord}
+                      readOnly
+                    />
+                  );
+                })}
+              </div>
+              <div className="p-4 flex flex-wrap gap-2">
+                {lessonWords.withoutHint?.map((word, index) => {
+                  const originalWord = originalWords?.[index] || "";
+                  return (
+                    <CWordInput
+                      key={index}
+                      word={word}
+                      originalWord={originalWord}
+                      readOnly
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </>
       )}
+
       <CButton
         className="w-full"
         type="submit"
-        // disabled={!isValid || !isHintValid}
+        disabled={!isValid || (isUpdateLessonContent && !isHintValid)}
         isRounded
       >
         Save
