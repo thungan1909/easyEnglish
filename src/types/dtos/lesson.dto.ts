@@ -2,6 +2,7 @@ import { UserDTO } from "./user.dto";
 
 export interface CreateLessonResponse {}
 export interface EditLessonResponse {}
+export interface DeleteLessonResponse {}
 
 export interface LessonListQueryFilter {
   scope?: string;

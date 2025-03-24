@@ -143,3 +143,19 @@ export const editLessonMutation = {
     }
   },
 };
+
+export const deleteLessonMutation = {
+  name: "deleteLesson",
+  fn: async (lessonId: string): Promise<EditLessonResponse> => {
+    try {
+      console.log(lessonId);
+      return getOriginalResponseData<EditLessonResponse>(
+        await getAxiosInstance().delete(
+          END_POINTS.LESSON.DELETE.replace(":id", lessonId)
+        )
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};

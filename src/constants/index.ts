@@ -24,6 +24,7 @@ export const END_POINTS = {
   LESSON: {
     CREATE: "/lesson/create",
     EDIT: "/lesson/edit/:id",
+    DELETE: "/lesson/delete/:id",
     GET_LIST_LESSON: "/lesson/list/inquiry",
     GET_LESSON_BY_ID: "/lesson/:id",
   },
@@ -54,4 +55,5 @@ export const LOCALSTORAGE_AUTHINFO_KEY = "authenticationInfo";
 export const TOKEN_CACHE_TIME = 8 * 60 * 60 * 1000; // 8 hours
 export const TOKEN_STALE_TIME = TOKEN_CACHE_TIME - 60 * 1000; // 8 hours - 1 minute
 export const USER_QUERY_KEY = ["user"];
+export const LESSON_QUERY_KEY = ["lesson"];
 export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
