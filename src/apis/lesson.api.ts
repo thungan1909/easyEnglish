@@ -8,12 +8,16 @@ import {
   SubmitListenLessonResponse,
   CompareLessonResponse,
   CompareListenLessonDTO,
+  EditLessonResponse,
 } from "../types/dtos/lesson.dto";
 import {
   LessonSubmissionResponse,
   TopScoresResponse,
 } from "../types/dtos/submission.dto";
-import { TCreateNewLessonSchema } from "../validation/lesson.schema";
+import {
+  TCreateNewLessonSchema,
+  TEditLessonSchema,
+} from "../validation/lesson.schema";
 
 export const createLessonMutation = {
   name: "createLesson",
@@ -111,6 +115,21 @@ export const getTopScores = {
             params: { lessonId: id },
           }
         )
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const editLessonMutation = {
+  name: "editLesson",
+  fn: async (formData: TEditLessonSchema): Promise<EditLessonResponse> => {
+    try {
+      return getOriginalResponseData<EditLessonResponse>(
+        await getAxiosInstance().post(END_POINTS.LESSON.CREATE, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
       );
     } catch (error) {
       throw error;

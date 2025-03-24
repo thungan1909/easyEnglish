@@ -132,3 +132,19 @@ export const ChallengeDetailPage = withDynamicImport(
     loading: true,
   }
 );
+
+// MANAGE LISTENING
+
+export const ManageMyUploadsPage = withDynamicImport(
+  () => import("../pages/manageMyUpload/ManageMyUpload"),
+  {
+    loading: true,
+  }
+);
+
+export const EditLessonPage = withDynamicImport(
+  () => import("../pages/manageMyUpload/EditLesson"),
+  {
+    loading: true,
+  }
+);

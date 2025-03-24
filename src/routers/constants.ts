@@ -14,6 +14,10 @@ export const ROUTES_CONSTANTS = {
     ANALYSIS: "/user/performance-analysis",
     SETTINGS: "/user/settings",
   },
+  MANAGE_MY_UPLOAD: {
+    BASE: "/manage-my-upload",
+    EDIT: "/manage-my-upload/edit/:id",
+  },
   LESSON: {
     BASE: "/lesson",
     DETAIL: "/lesson/detail/:id",

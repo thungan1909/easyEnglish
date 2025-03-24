@@ -9,7 +9,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { getFirstCharAvatar } from "../../../utils/helpers/getFirstCharAvatar";
 
 const CUserProfileAvatar = () => {
-  const { data: currentUser } = useGetCurrentUser(); // Extract 'data' from the query result
+  const { data: currentUser } = useGetCurrentUser();
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -77,9 +77,12 @@ const CUserProfileAvatar = () => {
               variant="text"
               textTransform="capitalize"
               className="gap-2"
+              onClick={() => {
+                navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.BASE);
+              }}
             >
               <FaFolder />
-              Manage listening
+              Manage my uploads
             </CButton>
             <CButton
               variant="text"

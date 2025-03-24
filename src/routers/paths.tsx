@@ -21,6 +21,8 @@ import {
   ChangeEmailPage,
   ChallengePage,
   LessonResultPage,
+  ManageMyUploadsPage,
+  EditLessonPage,
 } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
@@ -102,6 +104,16 @@ const mainRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.DASHBOARD,
     element: <DashboardPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.BASE,
+    element: <ManageMyUploadsPage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT,
+    element: <EditLessonPage />,
     showWithPermission: true,
   },
   ...profileRoutes,

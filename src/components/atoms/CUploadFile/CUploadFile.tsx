@@ -1,23 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import CButton from "../CButton/CButton";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FaCloudUploadAlt,
   FaFileAudio,
   FaImage,
   FaTimes,
 } from "react-icons/fa";
-
-export type CUploadFileProps = {
-  onChangeFileSelected?: (data: File) => void;
-  accept: "image" | "audio";
-  title?: string;
-};
+import { CUploadFileProps } from "./types";
 
 const CUploadFile = ({
   onChangeFileSelected,
   accept,
   title,
+  defaultFileURL,
 }: CUploadFileProps) => {
   const inputElement = useRef<HTMLInputElement | null>(null);
   const [uploadFileName, setUploadFileName] = useState<string | null>(null);
@@ -39,7 +35,7 @@ const CUploadFile = ({
     }
   };
   const onClickButton = () => {
-    inputElement.current?.click(); // Trigger the hidden file input
+    inputElement.current?.click();
   };
 
   const removeFile = () => {
@@ -55,6 +51,18 @@ const CUploadFile = ({
       inputElement.current.value = "";
     }
   };
+
+  useEffect(() => {
+    if (defaultFileURL) {
+      if (typeof defaultFileURL === "string") {
+        setFileURL(defaultFileURL);
+        setUploadFileName(defaultFileURL.split("/").pop() || "Default Audio");
+      } else if (defaultFileURL instanceof File) {
+        setFileURL(URL.createObjectURL(defaultFileURL));
+        setUploadFileName(defaultFileURL.name);
+      }
+    }
+  }, [defaultFileURL]);
 
   return (
     <div className="border-2 border-dashed border-purple-600 p-6 flex flex-col items-center gap-3 rounded-2xl justify-center">

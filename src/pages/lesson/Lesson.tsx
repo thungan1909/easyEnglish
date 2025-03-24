@@ -70,14 +70,12 @@ const Lesson = () => {
         ))}
       </ul>
       {currentLessonList.length > 0 ? (
-        <div>
-          {currentLessonList.map((lesson) => (
-            <div key={lesson._id}>
-              <LessonItem lesson={lesson} />
-              <Divider />
-            </div>
-          ))}
-        </div>
+        currentLessonList.map((lesson) => (
+          <div key={lesson._id}>
+            <LessonItem lesson={lesson} type="lesson" />
+            <Divider />
+          </div>
+        ))
       ) : (
         <NoDataSection />
       )}

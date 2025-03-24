@@ -1,6 +1,7 @@
 import { UserDTO } from "./user.dto";
 
 export interface CreateLessonResponse {}
+export interface EditLessonResponse {}
 
 export interface LessonListQueryFilter {
   scope?: string;

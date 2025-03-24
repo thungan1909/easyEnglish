@@ -110,6 +110,7 @@ const CreateLesson = () => {
       },
     });
   };
+
   useEffect(() => {
     if (lessonContent) {
       setIsHintValid(false);

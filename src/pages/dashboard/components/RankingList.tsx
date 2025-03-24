@@ -20,29 +20,27 @@ const RankingList = () => {
       </div>
       <div className="grid gap-3">
         {sortedTopWeekly.length > 0 ? (
-          <>
-            {sortedTopWeekly.map((user, index) => (
-              <div
-                key={index}
-                className="flex items-center shadow rounded-2xl p-4 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
+          sortedTopWeekly.map((user, index) => (
+            <div
+              key={index}
+              className="flex items-center shadow rounded-2xl p-4 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
+            >
+              <span>{index + 1}.</span>
+              <Avatar
+                alt="user-avatar"
+                src={user.avatarUrl}
+                sx={{ width: 48, height: 48 }}
               >
-                <span>{index + 1}.</span>
-                <Avatar
-                  alt="user-avatar"
-                  src={user.avatarUrl}
-                  sx={{ width: 48, height: 48 }}
-                >
-                  {!user.avatarUrl && getFirstCharAvatar(user.username)}
-                </Avatar>
-                <span className="truncate min-w-0">{user.username}</span>
+                {!user.avatarUrl && getFirstCharAvatar(user.username)}
+              </Avatar>
+              <span className="truncate min-w-0">{user.username}</span>
 
-                <div className="flex space-x-2 items-center ml-auto">
-                  <span className="text-sm">{user.totalWeeklyScore}</span>
-                  <FaRankingStar />
-                </div>
+              <div className="flex space-x-2 items-center ml-auto">
+                <span className="text-sm">{user.totalWeeklyScore}</span>
+                <FaRankingStar />
               </div>
-            ))}
-          </>
+            </div>
+          ))
         ) : (
           <NoDataSection />
         )}

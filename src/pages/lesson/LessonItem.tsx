@@ -1,15 +1,17 @@
-import { FaHeart, FaImage, FaList, FaPlus } from "react-icons/fa";
+import { FaHeart, FaImage, FaList, FaPlus, FaTrash } from "react-icons/fa";
 import CButton from "../../components/atoms/CButton/CButton";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
 import { LessonDTO } from "../../types/dtos/lesson.dto";
+import { FaPenToSquare } from "react-icons/fa6";
 
 interface LessonItemProps {
   lesson: LessonDTO;
+  type: "lesson" | "my-uploads";
 }
 
-const LessonItem = ({ lesson }: LessonItemProps) => {
+const LessonItem = ({ lesson, type }: LessonItemProps) => {
   const navigate = useNavigate();
 
   const handleClickLessonItem = () => {
@@ -53,17 +55,43 @@ const LessonItem = ({ lesson }: LessonItemProps) => {
         </Typography>
 
         <div className="flex gap-4">
-          <CButton isRounded variant="outlined" size="small">
-            <FaHeart />
-          </CButton>
+          {type === "lesson" ? (
+            <>
+              <CButton isRounded variant="outlined" size="small">
+                <FaHeart />
+              </CButton>
+              <CButton isRounded variant="outlined" size="small">
+                <FaList />
+              </CButton>
+              <CButton isRounded variant="outlined" size="small">
+                <FaPlus />
+              </CButton>
+            </>
+          ) : (
+            <>
+              <CButton
+                isRounded
+                variant="outlined"
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
 
-          <CButton isRounded variant="outlined" size="small">
-            <FaList />
-          </CButton>
+                  navigate(
+                    ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT.replace(
+                      ":id",
+                      lesson._id
+                    )
+                  );
+                }}
+              >
+                <FaPenToSquare />
+              </CButton>
 
-          <CButton isRounded variant="outlined" size="small">
-            <FaPlus />
-          </CButton>
+              <CButton isRounded variant="outlined" size="small">
+                <FaTrash />
+              </CButton>
+            </>
+          )}
         </div>
       </div>
     </div>

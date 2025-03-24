@@ -29,3 +29,26 @@ export const CreateNewLessonSchema = zod.object({
 });
 
 export type TCreateNewLessonSchema = zod.infer<typeof CreateNewLessonSchema>;
+
+export const EditLessonSchema = zod.object({
+  title: zod.string().min(1, invalidLessonTitleMsg),
+  content: zod.string().min(1, invalidLessonContentMsg),
+  description: zod.string().optional(),
+  wordsWithHint: zod.array(zod.string()).min(1, invalidLessonWordListMsg),
+  wordsWithoutHint: zod.array(zod.string()).min(1, invalidLessonWordListMsg),
+  audioFile: zod
+    .union([
+      zod.string().url({ message: invalidLessonAudioFileMsg }),
+      zod.instanceof(File, { message: invalidLessonAudioFileMsg }),
+    ])
+    .optional(),
+  imageFile: zod
+    .union([
+      zod.string().url({ message: invalidLessonImageFileMsg }),
+      zod.instanceof(File, { message: invalidLessonImageFileMsg }),
+    ])
+    .optional(),
+  source: zod.string().optional(),
+});
+
+export type TEditLessonSchema = zod.infer<typeof EditLessonSchema>;
