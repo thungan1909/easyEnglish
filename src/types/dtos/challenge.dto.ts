@@ -17,7 +17,7 @@ export interface ChallengeDTO {
   averageScore: number; // New field
   averageAccuracy: number; // New field
   isCompleted: boolean; // Tracks if challenge is completed
-  lessonList: LessonDTO[]; // Array of lessons
+  lessons: LessonDTO[]; // Array of lessons
 }
 
 export interface CreateChallengeResponse {

@@ -7,7 +7,6 @@ export interface IChallenge {
   endTime: Date;
   timeLeft?: number;
   participants: number;
-  podcastCount: number;
   coin: number;
   fee: number;
 }

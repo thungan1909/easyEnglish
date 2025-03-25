@@ -33,8 +33,8 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
         <div className="md:flex text-xs justify-between">
           <CIconTextItem
             icon={FaMicrophone}
-            value={challenge.podcastCount || 0}
-            label={challenge.podcastCount > 1 ? "podcasts" : "podcast"}
+            value={challenge.lessons.length || 0}
+            label={challenge.lessons.length > 1 ? "podcasts" : "podcast"}
           />
           <CIconTextItem
             icon={FaHourglass}

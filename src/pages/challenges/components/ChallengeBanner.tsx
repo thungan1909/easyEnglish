@@ -67,21 +67,24 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
               }
             />
           </div>
+
           <div className="flex md:flex-row flex-col md:gap-8 gap-2 text-xs">
             <CIconTextItem
               icon={FaMicrophone}
-              value={challenge.podcastCount || 0}
-              label={challenge.podcastCount > 1 ? "podcasts" : "podcast"}
+              value={challenge.lessons.length || 0}
+              label={challenge.lessons.length > 1 ? "podcasts" : "podcast"}
             />
             <div className="flex gap-1 items-center">
               <FaCoins />
-              <span className="text-green-500">+{challenge?.coinAward}</span>
-              <span>/</span>
+              <span className="text-green-500"> +{challenge?.coinAward}</span>
+              <span> / </span>
               <span className="text-red-500">-{challenge?.coinFee}</span>
             </div>
           </div>
         </div>
-        <CButton textTransform="capitalize">Learn more</CButton>
+        <CButton textTransform="capitalize" isRounded>
+          Learn more
+        </CButton>
       </div>
     </div>
   );

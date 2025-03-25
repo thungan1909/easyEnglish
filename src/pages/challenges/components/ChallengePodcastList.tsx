@@ -34,7 +34,7 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
             {lessonList?.map((item) => (
               <TableRow>
                 <TableCell align="center">{item.title}</TableCell>
-                <TableCell align="center">{"33"}</TableCell>
+                <TableCell align="center">{item.progress || "-"}</TableCell>
                 <TableCell align="center">{"100%"}</TableCell>
                 <TableCell align="center">
                   <Chip label="Completed" color="success"></Chip>
