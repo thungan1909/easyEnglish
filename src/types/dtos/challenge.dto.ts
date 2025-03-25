@@ -14,3 +14,5 @@ export interface ChallengeDTO {
   fee: number;
   lessonList: LessonDTO[];
 }
+
+export interface CreateChallengeResponse {}

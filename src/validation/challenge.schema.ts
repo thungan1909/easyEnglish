@@ -6,9 +6,11 @@ import {
 
 export const CreateChallengeSchema = zod.object({
   title: zod.string().min(1, invalidLessonTitleMsg),
-  startDate: zod.date(),
-  endDate: zod.date(),
+  startDate: zod.date().optional(),
+  endDate: zod.date().optional(),
   description: zod.string().optional(),
+  fee: zod.number().optional(),
+  award: zod.number().optional(),
   lessons: zod
     .array(
       zod.object({

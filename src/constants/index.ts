@@ -40,6 +40,7 @@ export const END_POINTS = {
     GET_TOP_WEEKLY: "leaderboard/top-weekly",
   },
   CHALLENGE: {
+    CREATE: "/challenge/create",
     GET_CHALLENGE_BY_ID: "/challenge/:id",
   },
 };

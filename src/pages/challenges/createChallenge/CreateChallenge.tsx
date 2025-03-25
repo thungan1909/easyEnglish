@@ -15,47 +15,69 @@ import {
   TCreateChallengeSchema,
 } from "../../../validation/challenge.schema";
 import LessonCardSquare from "../../dashboard/components/LessonCard/LessonCardSquare";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useCreateLChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { notify } from "../../../utils/notify";
+import { useNavigate } from "react-router-dom";
 
 const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
+  const navigate = useNavigate();
 
   const { data: lessonList = [] } = useGetLessonList({});
-  const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
+  const { mutate: createChallengeMutation } = useCreateLChallengeMutation();
+  const [selectedLessons, setSelectedLessons] = useState<
+    { id: string; title: string }[]
+  >([]);
 
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { isValid },
   } = useForm<TCreateChallengeSchema>({
     mode: "onChange",
     resolver: zodResolver(CreateChallengeSchema),
   });
 
-  const toggleLessonSelection = (lessonId: string) => {
+  const toggleLessonSelection = (lessonId: string, lessonTitle: string) => {
     setSelectedLessons((prev) =>
-      prev.includes(lessonId)
-        ? prev.filter((id) => id !== lessonId)
-        : [...prev, lessonId]
+      prev.some((lesson) => lesson.id === lessonId)
+        ? prev.filter((lesson) => lesson.id !== lessonId)
+        : [...prev, { id: lessonId, title: lessonTitle }]
     );
   };
 
   const onSubmit = async (data: TCreateChallengeSchema) => {
-    console.log("Form Data Submitted:", data);
+    createChallengeMutation(data, {
+      onSuccess: () => {
+        notify.success("Challenge created successfully");
+        navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
+      },
+      onError: () => {
+        notify.error("Failed to create challenge.");
+      },
+    });
   };
+
+  useEffect(() => {
+    setValue("lessons", selectedLessons);
+  }, [selectedLessons, setValue]);
 
   return (
     <>
       {isAuth ? (
         <div className="mt-24 md:m-24 mx-4">
           <Typography variant="h5" textTransform="uppercase">
-            Add new challenges
+            Create a New Challenge
           </Typography>
           <form
             className="flex flex-col space-y-6 mt-8"
             onSubmit={handleSubmit(onSubmit)}
           >
+            {/* <div className="grid md:grid-cols-2 gap-4"> */}
             <Controller
               name="title"
               control={control}
@@ -80,12 +102,73 @@ const CreateChallenge = () => {
             />
             <div className="grid md:grid-cols-2 gap-4">
               <Controller
+                name="award"
+                control={control}
+                defaultValue={0}
+                render={({ field, fieldState }) => (
+                  <div>
+                    <CTextField
+                      {...field}
+                      type="number"
+                      label="Coin Award"
+                      placeholder="Enter coin award"
+                      className="w-full"
+                      value={
+                        field.value !== undefined ? String(field.value) : ""
+                      }
+                      onChange={(e) => {
+                        const newValue =
+                          e.target.value === "" ? "" : Number(e.target.value);
+                        field.onChange(newValue);
+                      }}
+                      maxLength={50}
+                    />
+                    {fieldState.error && (
+                      <Typography color="error" variant="caption">
+                        {fieldState.error.message}
+                      </Typography>
+                    )}
+                  </div>
+                )}
+              />
+              <Controller
+                name="fee"
+                control={control}
+                defaultValue={0}
+                render={({ field, fieldState }) => (
+                  <div>
+                    <CTextField
+                      {...field}
+                      type="number"
+                      label="Coin Fee"
+                      placeholder="Enter coin fee"
+                      className="w-full"
+                      value={
+                        field.value !== undefined ? String(field.value) : ""
+                      }
+                      onChange={(e) => {
+                        const newValue =
+                          e.target.value === "" ? "" : Number(e.target.value);
+                        field.onChange(newValue);
+                      }}
+                    />
+                    {fieldState.error && (
+                      <Typography color="error" variant="caption">
+                        {fieldState.error.message}
+                      </Typography>
+                    )}
+                  </div>
+                )}
+              />
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <Controller
                 name="startDate"
                 control={control}
                 render={({ field: { value, onChange } }) => (
                   <CDatePicker
                     value={value ? dayjs(value) : null}
-                    onChange={onChange}
+                    onChange={(date) => onChange(date ? date.toDate() : null)}
                     label="Start date"
                   />
                 )}
@@ -96,7 +179,7 @@ const CreateChallenge = () => {
                 render={({ field: { value, onChange } }) => (
                   <CDatePicker
                     value={value ? dayjs(value) : null}
-                    onChange={onChange}
+                    onChange={(date) => onChange(date ? date.toDate() : null)}
                     label="End date"
                   />
                 )}
@@ -126,40 +209,44 @@ const CreateChallenge = () => {
               )}
             />
 
-            <div className="p-4 shadow-lg rounded-lg ">
+            <div className="">
               <div className="flex">
                 <Typography variant="h6" className="!my-4">
                   Select lessons for this challenge
                 </Typography>
 
-                <div className=" flex items-center relative ml-auto">
+                <div className="flex items-center relative ml-auto">
                   <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500" />
                   <input
                     type="text"
-                    placeholder="Search something..."
+                    placeholder="Search lessons..."
                     className="bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-purple-400"
                   />
                 </div>
               </div>
 
-              {lessonList.length > 0 ? (
-                <div className="grid gap-4 grid-cols-2 md:grid-cols-8">
-                  {lessonList.map((lesson) => (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {lessonList.length > 0 ? (
+                  lessonList.map((lesson) => (
                     <div
                       key={lesson._id}
                       className="flex flex-col items-center gap-2"
                     >
                       <LessonCardSquare lesson={lesson} isShowSource={false} />
                       <Checkbox
-                        checked={selectedLessons.includes(lesson._id)}
-                        onChange={() => toggleLessonSelection(lesson._id)}
+                        checked={selectedLessons.some(
+                          (l) => l.id === lesson._id
+                        )}
+                        onChange={() =>
+                          toggleLessonSelection(lesson._id, lesson.title)
+                        }
                       />
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <NoDataSection />
-              )}
+                  ))
+                ) : (
+                  <NoDataSection />
+                )}
+              </div>
             </div>
 
             <CButton
