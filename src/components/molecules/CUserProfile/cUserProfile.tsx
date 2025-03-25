@@ -62,9 +62,7 @@ const CUserProfileAvatar = () => {
               {getFirstCharAvatar(currentUser?.username)}
             </Avatar>
             <div className="flex flex-col">
-              <Typography>
-                {currentUser?.fullName || "Doan Thu Ngan"}
-              </Typography>
+              <Typography>{currentUser?.fullName || "Full name"}</Typography>
 
               <Typography variant="caption" className="text-gray-500">
                 {currentUser?.username}

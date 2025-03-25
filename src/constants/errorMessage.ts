@@ -14,3 +14,4 @@ export const invalidLessonContentMsg = "Lesson's content is required";
 export const invalidLessonWordListMsg = "Lesson's words list is required";
 export const invalidLessonAudioFileMsg = "Lesson's audio file is required";
 export const invalidLessonImageFileMsg = "Lesson's image file is required";
+export const invalidChallengeLessonMsg = "Lesson's image file is required";

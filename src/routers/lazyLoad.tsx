@@ -118,6 +118,13 @@ export const ChallengeDetailPage = withDynamicImport(
   }
 );
 
+export const CreateChallengePage = withDynamicImport(
+  () => import("../pages/challenges/createChallenge/CreateChallenge"),
+  {
+    loading: true,
+  }
+);
+
 // MANAGE LISTENING
 
 export const ManageMyUploadsPage = withDynamicImport(

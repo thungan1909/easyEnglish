@@ -1,14 +1,14 @@
 import { Avatar, Typography } from "@mui/material";
-import { UserDTO } from "../../types/dtos/user.dto";
+import { UserDTO } from "../../../types/dtos/user.dto";
 
 export interface UserBasicInfoCardProps {
-  currentUser: UserDTO;
+  currentUser?: UserDTO;
 }
 
 const UserBasicInfoCard = ({ currentUser }: UserBasicInfoCardProps) => {
   return (
-    <div className="bg-white p-4 rounded-lg w-[80%]">
-      <div className="flex gap-4">
+    <div className="bg-white shadow p-4 rounded-lg">
+      <div className="flex items-center gap-4">
         <Avatar
           alt="user-avatar"
           src={
@@ -16,31 +16,31 @@ const UserBasicInfoCard = ({ currentUser }: UserBasicInfoCardProps) => {
               ? currentUser?.avatarUrl
               : ""
           }
-          sx={{ width: 42, height: 42 }}
+          sx={{ width: 56, height: 56 }}
         />
         <div>
           <Typography className="text-black">
             {currentUser?.fullName || "Full name"}
           </Typography>
           <Typography variant="caption" className="text-gray-500">
-            {currentUser?.username || "User name"}
+            @{currentUser?.username || "User name"}
           </Typography>
         </div>
       </div>
-      <div className="flex justify-between mt-2 p-2 bg-gray-100 rounded-lg ">
-        <div className="text-center">
-          <Typography>28</Typography>
+
+      <div className="flex justify-around text-center mt-2 p-2 bg-gray-100 rounded-lg">
+        <div>
+          <Typography>{currentUser?.listenedLessons?.length}</Typography>
           <Typography variant="caption" className="text-gray-500">
             Podcasts
           </Typography>
         </div>
         <div className="text-center">
-          <Typography>1.187</Typography>
+          <Typography>{currentUser?.totalScore}</Typography>
           <Typography variant="caption" className="text-gray-500">
-            Listend words
+            Total score
           </Typography>
         </div>
-
         <div className="text-center">
           <Typography>218</Typography>
           <Typography variant="caption" className="text-gray-500">

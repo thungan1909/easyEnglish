@@ -124,169 +124,174 @@ const CreateLesson = () => {
   return (
     <>
       {isAuth ? (
-        <form
-          className="mt-16 p-8 md:p-16 flex flex-col space-y-6 "
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="grid md:grid-cols-2 md:gap-6 gap-3">
-            <Controller
-              name="title"
-              control={control}
-              defaultValue=""
-              render={({ field, fieldState }) => (
-                <div>
-                  <CTextField
-                    {...field}
-                    type="text"
-                    label="Lesson's title"
-                    placeholder="Lesson's title"
-                    className="w-full"
-                    maxLength={50}
-                  />
-                  {fieldState.error && (
-                    <Typography color="error" variant="caption">
-                      {fieldState.error.message}
-                    </Typography>
-                  )}
-                </div>
-              )}
-            />
-            <Controller
-              name="source"
-              control={control}
-              defaultValue=""
-              render={({ field, fieldState }) => (
-                <div>
-                  <CTextField
-                    {...field}
-                    type="text"
-                    label="Lesson's source"
-                    placeholder="Lesson's source"
-                    className="w-full"
-                    maxLength={50}
-                  />
-                  {fieldState.error && (
-                    <Typography color="error" variant="caption">
-                      {fieldState.error.message}
-                    </Typography>
-                  )}
-                </div>
-              )}
-            />
-          </div>
-          <div className="grid md:grid-cols-2 md:gap-6 gap-6">
-            <CUploadFile
-              accept="audio"
-              onChangeFileSelected={(file) => handleFileUpload(file, "audio")}
-              title="Lesson's audio"
-            />
-            <CUploadFile
-              accept="image"
-              onChangeFileSelected={(file) => handleFileUpload(file, "image")}
-              title="Lesson's image"
-            />
-          </div>
-          <Controller
-            name="description"
-            control={control}
-            defaultValue=""
-            render={({ field, fieldState }) => (
-              <div>
-                <CTextArea
-                  {...field}
-                  maxRows={25}
-                  minRows={5}
-                  maxLength={4000}
-                  placeholder="Enter lesson's description"
-                  className="w-full"
-                />
-                {fieldState.error && (
-                  <Typography color="error" variant="caption">
-                    {fieldState.error.message}
-                  </Typography>
-                )}
-              </div>
-            )}
-          />
-          <Controller
-            name="content"
-            control={control}
-            defaultValue=""
-            render={({ field, fieldState }) => (
-              <div className="">
-                <CTextArea
-                  {...field}
-                  maxRows={25}
-                  minRows={5}
-                  maxLength={4000}
-                  placeholder="Enter lesson's content..."
-                  className="w-full"
-                />
-                {fieldState.error && (
-                  <Typography color="error" variant="caption">
-                    {fieldState.error.message}
-                  </Typography>
-                )}
-              </div>
-            )}
-          />
-          <div className="flex flex-col items-center">
-            <CButton
-              onClick={() => {
-                generateWords(true);
-                generateWords(false);
-              }}
-              isRounded
-              size="medium"
-              className="w-[50%] !mb-3"
-              disabled={!lessonContent?.trim()}
-            >
-              Generate hint
-            </CButton>
-
-            <Typography color="info" variant="caption">
-              Please generate hint before click on Save button
-            </Typography>
-          </div>
-          {isHintValid && (
-            <div className="grid md:grid-cols-2 gap-4 mt-4">
-              <div className=" p-4 flex flex-wrap gap-2">
-                {lessonWords.withHint?.map((word, index) => {
-                  const originalWord = originalWords?.[index] || "";
-                  return (
-                    <CWordInput
-                      key={index}
-                      word={word}
-                      originalWord={originalWord}
-                      readOnly
-                    />
-                  );
-                })}
-              </div>
-              <div className="p-4 flex flex-wrap gap-2">
-                {lessonWords.withoutHint?.map((word, index) => {
-                  const originalWord = originalWords?.[index] || "";
-                  return (
-                    <CWordInput
-                      key={index}
-                      word={word}
-                      originalWord={originalWord}
-                      readOnly
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          )}
-          <CButton
-            className="w-full"
-            type="submit"
-            disabled={!isValid || !isHintValid}
-            isRounded
+        <div className="mt-24 md:m-24 mx-4">
+          <Typography variant="h5" textTransform="uppercase">
+            Add new lesson
+          </Typography>
+          <form
+            className="flex flex-col space-y-6 mt-8"
+            onSubmit={handleSubmit(onSubmit)}
           >
-            Save
-          </CButton>
-        </form>
+            <div className="grid md:grid-cols-2 md:gap-6 gap-3">
+              <Controller
+                name="title"
+                control={control}
+                defaultValue=""
+                render={({ field, fieldState }) => (
+                  <div>
+                    <CTextField
+                      {...field}
+                      type="text"
+                      label="Lesson's title"
+                      placeholder="Lesson's title"
+                      className="w-full"
+                      maxLength={50}
+                    />
+                    {fieldState.error && (
+                      <Typography color="error" variant="caption">
+                        {fieldState.error.message}
+                      </Typography>
+                    )}
+                  </div>
+                )}
+              />
+              <Controller
+                name="source"
+                control={control}
+                defaultValue=""
+                render={({ field, fieldState }) => (
+                  <div>
+                    <CTextField
+                      {...field}
+                      type="text"
+                      label="Lesson's source"
+                      placeholder="Lesson's source"
+                      className="w-full"
+                      maxLength={50}
+                    />
+                    {fieldState.error && (
+                      <Typography color="error" variant="caption">
+                        {fieldState.error.message}
+                      </Typography>
+                    )}
+                  </div>
+                )}
+              />
+            </div>
+            <div className="grid md:grid-cols-2 md:gap-6 gap-6">
+              <CUploadFile
+                accept="audio"
+                onChangeFileSelected={(file) => handleFileUpload(file, "audio")}
+                title="Lesson's audio"
+              />
+              <CUploadFile
+                accept="image"
+                onChangeFileSelected={(file) => handleFileUpload(file, "image")}
+                title="Lesson's image"
+              />
+            </div>
+            <Controller
+              name="description"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState }) => (
+                <div>
+                  <CTextArea
+                    {...field}
+                    maxRows={25}
+                    minRows={5}
+                    maxLength={4000}
+                    placeholder="Enter lesson's description"
+                    className="w-full"
+                  />
+                  {fieldState.error && (
+                    <Typography color="error" variant="caption">
+                      {fieldState.error.message}
+                    </Typography>
+                  )}
+                </div>
+              )}
+            />
+            <Controller
+              name="content"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState }) => (
+                <div className="">
+                  <CTextArea
+                    {...field}
+                    maxRows={25}
+                    minRows={5}
+                    maxLength={4000}
+                    placeholder="Enter lesson's content..."
+                    className="w-full"
+                  />
+                  {fieldState.error && (
+                    <Typography color="error" variant="caption">
+                      {fieldState.error.message}
+                    </Typography>
+                  )}
+                </div>
+              )}
+            />
+            <div className="flex flex-col items-center">
+              <CButton
+                onClick={() => {
+                  generateWords(true);
+                  generateWords(false);
+                }}
+                isRounded
+                size="medium"
+                className="w-[50%] !mb-3"
+                disabled={!lessonContent?.trim()}
+              >
+                Generate hint
+              </CButton>
+
+              <Typography color="info" variant="caption">
+                Please generate hint before click on Save button
+              </Typography>
+            </div>
+            {isHintValid && (
+              <div className="grid md:grid-cols-2 gap-4 mt-4">
+                <div className=" p-4 flex flex-wrap gap-2">
+                  {lessonWords.withHint?.map((word, index) => {
+                    const originalWord = originalWords?.[index] || "";
+                    return (
+                      <CWordInput
+                        key={index}
+                        word={word}
+                        originalWord={originalWord}
+                        readOnly
+                      />
+                    );
+                  })}
+                </div>
+                <div className="p-4 flex flex-wrap gap-2">
+                  {lessonWords.withoutHint?.map((word, index) => {
+                    const originalWord = originalWords?.[index] || "";
+                    return (
+                      <CWordInput
+                        key={index}
+                        word={word}
+                        originalWord={originalWord}
+                        readOnly
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            <CButton
+              className="w-full"
+              type="submit"
+              disabled={!isValid || !isHintValid}
+              isRounded
+            >
+              Save
+            </CButton>
+          </form>
+        </div>
       ) : (
         <LoginReminder />
       )}

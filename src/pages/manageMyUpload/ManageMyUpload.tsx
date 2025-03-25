@@ -1,10 +1,9 @@
-import { Divider, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import LoadingFailPage from "../common-pages/LoadingFailPage";
-import LessonItem from "../lesson/components/LessonItem";
-import NoDataSection from "../common-pages/NoDataSection";
+import LessonLayout from "../dashboard/components/LessonLayout";
 
 const ManageMyUpload = () => {
   const { data: currentUser, isError: isUserError } = useGetCurrentUser();
@@ -33,17 +32,11 @@ const ManageMyUpload = () => {
           List of all my current uploads
         </Typography>
       </div>
-
-      {currentLessonList?.length > 0 ? (
-        currentLessonList?.map((lesson) => (
-          <div key={lesson._id}>
-            <LessonItem lesson={lesson} type="my-uploads" />
-            <Divider />
-          </div>
-        ))
-      ) : (
-        <NoDataSection />
-      )}
+      <LessonLayout
+        title="Recommended for You"
+        lessons={currentLessonList}
+        variant="square"
+      />
     </div>
   );
 };

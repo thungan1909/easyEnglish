@@ -6,9 +6,14 @@ import { LessonDTO } from "../../../../types/dtos/lesson.dto";
 interface DashboardLessonItemProps {
   lesson: LessonDTO;
   onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
+  isShowSource?: boolean;
 }
 
-const LessonCardSquare = ({ lesson, onClick }: DashboardLessonItemProps) => {
+const LessonCardSquare = ({
+  lesson,
+  onClick,
+  isShowSource = true,
+}: DashboardLessonItemProps) => {
   const itemClass =
     "flex flex-col items-center p-4 gap-2 rounded-2xl shadow bg-gradient-to-r from-indigo-100 bg-purple-200 hover:bg-purple-400 cursor-pointer transition duration-300";
 
@@ -32,14 +37,17 @@ const LessonCardSquare = ({ lesson, onClick }: DashboardLessonItemProps) => {
         <Typography variant="body2">
           {lesson.code} - {lesson.title}
         </Typography>
-
-        <div className="text-gray-500 text-xs">
-          <CIconTextItem
-            icon={FaBook}
-            iconSize={12}
-            value={lesson.source || "Unknown"}
-          />
-        </div>
+        {isShowSource ? (
+          <div className="text-gray-500 text-xs">
+            <CIconTextItem
+              icon={FaBook}
+              iconSize={12}
+              value={lesson.source || "Unknown"}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

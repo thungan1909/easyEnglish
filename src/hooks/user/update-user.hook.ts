@@ -13,9 +13,15 @@ import {
 import { USER_QUERY_KEY } from "../../constants";
 
 export const useUpdateUserMutation = () => {
+  const queryClient = useQueryClient();
   return useMutation<UpdateUserResponse, IHttpError, UpdateUserDTO>({
     mutationFn: async (data: UpdateUserDTO) => {
       return updateUserMutation.fn(data);
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: USER_QUERY_KEY,
+      });
     },
   });
 };

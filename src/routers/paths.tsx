@@ -24,6 +24,7 @@ import {
   ManageMyUploadsPage,
   EditLessonPage,
   NewsFeedPage,
+  CreateChallengePage,
 } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
@@ -60,16 +61,6 @@ const lessonRoutes: RouteItemConfig[] = [
     element: <CreateLessonPage />,
     showWithPermission: true,
   },
-  {
-    path: ROUTES_CONSTANTS.CHALLENGE.BASE,
-    element: <ChallengePage />,
-    showWithPermission: true,
-  },
-  {
-    path: ROUTES_CONSTANTS.CHALLENGE.DETAIL,
-    element: <ChallengeDetail />,
-    showWithPermission: true,
-  },
 ];
 
 const profileRoutes: RouteItemConfig[] = [
@@ -101,6 +92,24 @@ const profileRoutes: RouteItemConfig[] = [
   showWithPermission: true,
 }));
 
+const challengeRoutes: RouteItemConfig[] = [
+  {
+    path: ROUTES_CONSTANTS.CHALLENGE.BASE,
+    element: <ChallengePage />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.CHALLENGE.DETAIL,
+    element: <ChallengeDetail />,
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.CHALLENGE.ADD_NEW,
+    element: <CreateChallengePage />,
+    showWithPermission: true,
+  },
+];
+
 const mainRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.DASHBOARD,
@@ -123,6 +132,7 @@ const mainRoutes: RouteItemConfig[] = [
 
     showWithPermission: true,
   },
+  ...challengeRoutes,
   ...profileRoutes,
   ...lessonRoutes,
 ];
