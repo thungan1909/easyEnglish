@@ -1,8 +1,6 @@
 import { Typography } from "@mui/material";
 import { FaCoins, FaHourglass, FaMicrophone } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
-import { useMemo } from "react";
-import { calculateDayLeft } from "../../../utils/helpers/caculateDayLeft";
 import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
@@ -14,10 +12,6 @@ export interface ChallengeItemProps {
 
 const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
   const navigate = useNavigate();
-  const dayLeft = useMemo(
-    () => calculateDayLeft(challenge.endTime),
-    [challenge.endTime]
-  );
 
   const handleClickOnChallengeItem = () => {
     navigate(ROUTES_CONSTANTS.CHALLENGE.DETAIL.replace(":id", challenge._id));
@@ -29,8 +23,8 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
       onClick={handleClickOnChallengeItem}
     >
       <img
-        src={challenge.imageSrc}
-        className="w-full h-32 md:h-40 lg:h-48 rounded-2xl"
+        src={challenge.imageFile}
+        className="w-full h-32 md:h-40 lg:h-48 rounded-2xl object-cover"
       />
       <div className="flex flex-col gap-4">
         <Typography variant="subtitle1" className="line-clamp-1">
@@ -39,17 +33,25 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
         <div className="md:flex text-xs justify-between">
           <CIconTextItem
             icon={FaMicrophone}
-            value={challenge.podcastCount}
+            value={challenge.podcastCount || 0}
             label={challenge.podcastCount > 1 ? "podcasts" : "podcast"}
           />
           <CIconTextItem
             icon={FaHourglass}
             value={
-              dayLeft > 0
-                ? `${dayLeft} ${dayLeft > 1 ? "days" : "day"} left`
+              challenge?.timeLeft && challenge.timeLeft > 0
+                ? `${Math.ceil(challenge.timeLeft / (1000 * 60 * 60 * 24))} ${
+                    Math.ceil(challenge.timeLeft / (1000 * 60 * 60 * 24)) > 1
+                      ? "days"
+                      : "day"
+                  } left`
                 : "Expired"
             }
-            color={dayLeft > 0 ? "text-green-500" : "text-red-500"}
+            color={
+              challenge?.timeLeft && challenge.timeLeft > 0
+                ? "text-green-500"
+                : "text-red-500"
+            }
           />
         </div>
         <Typography variant="caption" className="text-gray-500 line-clamp-2">
@@ -58,14 +60,16 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
         <div className="md:flex text-xs justify-between">
           <CIconTextItem
             icon={FaUserGroup}
-            value={challenge.participants}
-            label={challenge.participants > 1 ? "participants" : "participant"}
+            value={challenge.participantsCount || 0}
+            label={
+              challenge.participantsCount > 1 ? "participants" : "participant"
+            }
           />
           <div className="flex gap-1 items-center">
             <FaCoins />
-            <span className="text-green-500">+{challenge.coin}</span>
+            <span className="text-green-500">+{challenge.coinAward}</span>
             <span>/</span>
-            <span className="text-red-500">-{challenge.fee}</span>
+            <span className="text-red-500">-{challenge.coinFee}</span>
           </div>
         </div>
       </div>

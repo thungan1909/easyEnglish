@@ -1,19 +1,18 @@
 import { Typography } from "@mui/material";
 import ChallengeBanner from "./components/ChallengeBanner";
-import exampleChallenge from "./constants";
 import { useMemo } from "react";
 import ChallengeItem from "./components/ChallengeItem";
 import { ChallengeDTO } from "../../types/dtos/challenge.dto";
+import { useGetChallengeList } from "../../hooks/challenge/get-challenge.hook";
 
 const Challenges = () => {
+  const { data: challengeList = [] } = useGetChallengeList();
+
   const newestChallenge = useMemo(() => {
-    return exampleChallenge.exampleChallenge.reduce<ChallengeDTO | undefined>(
-      (latest, item) => {
-        return !latest || item.startTime > latest.startTime ? item : latest;
-      },
-      undefined
-    );
-  }, [exampleChallenge]);
+    return challengeList.reduce<ChallengeDTO | undefined>((latest, item) => {
+      return !latest || item.startDate > latest.endDate ? item : latest;
+    }, undefined);
+  }, [challengeList]);
 
   return (
     <div className="flex flex-col mt-24 mb-48 mx-8 md:m-24 gap-4 ">
@@ -29,7 +28,7 @@ const Challenges = () => {
       {newestChallenge && <ChallengeBanner challenge={newestChallenge} />}
 
       <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
-        {exampleChallenge?.exampleChallenge.map((item: ChallengeDTO) => (
+        {challengeList.map((item: ChallengeDTO) => (
           <ChallengeItem key={item._id} challenge={item} />
         ))}
       </div>

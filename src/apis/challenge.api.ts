@@ -31,3 +31,12 @@ export const createChallengeMutation = {
     }
   },
 };
+
+export const getChallengeListQuery = {
+  name: "getChallengeListQuery",
+  fn: async (): Promise<ChallengeDTO[]> => {
+    return getOriginalResponseData<ChallengeDTO[]>(
+      await getAxiosInstance().get(END_POINTS.CHALLENGE.GET_LIST_CHALLENGE)
+    );
+  },
+};

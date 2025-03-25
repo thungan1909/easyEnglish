@@ -17,17 +17,22 @@ import {
 import LessonCardSquare from "../../dashboard/components/LessonCard/LessonCardSquare";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useCreateLChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { useCreateChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
+import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
+import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
+  const currentDate = dayjs().toDate();
 
   const { data: lessonList = [] } = useGetLessonList({});
-  const { mutate: createChallengeMutation } = useCreateLChallengeMutation();
+  const { mutate: createChallengeMutation } = useCreateChallengeMutation();
+  const { mutate: uploadFileMutation } = useUploadFileMutation();
+
   const [selectedLessons, setSelectedLessons] = useState<
     { id: string; title: string }[]
   >([]);
@@ -38,6 +43,10 @@ const CreateChallenge = () => {
     setValue,
     formState: { isValid },
   } = useForm<TCreateChallengeSchema>({
+    defaultValues: {
+      startDate: currentDate,
+      endDate: currentDate,
+    },
     mode: "onChange",
     resolver: zodResolver(CreateChallengeSchema),
   });
@@ -62,6 +71,22 @@ const CreateChallenge = () => {
     });
   };
 
+  const handleFileUpload = async (file: File, type: "audio" | "image") => {
+    uploadFileMutation(
+      { file, type },
+      {
+        onSuccess: (data) => {
+          setValue("imageFile", data.secureUrl, {
+            shouldValidate: true,
+          });
+        },
+        onError: () => {
+          notify.error("Upload failed. Please try again.");
+        },
+      }
+    );
+  };
+
   useEffect(() => {
     setValue("lessons", selectedLessons);
   }, [selectedLessons, setValue]);
@@ -77,50 +102,19 @@ const CreateChallenge = () => {
             className="flex flex-col space-y-6 mt-8"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {/* <div className="grid md:grid-cols-2 gap-4"> */}
-            <Controller
-              name="title"
-              control={control}
-              defaultValue=""
-              render={({ field, fieldState }) => (
-                <div>
-                  <CTextField
-                    {...field}
-                    type="text"
-                    label="Challenge's title"
-                    placeholder="Enter challenge's title"
-                    className="w-full"
-                    maxLength={50}
-                  />
-                  {fieldState.error && (
-                    <Typography color="error" variant="caption">
-                      {fieldState.error.message}
-                    </Typography>
-                  )}
-                </div>
-              )}
-            />
             <div className="grid md:grid-cols-2 gap-4">
               <Controller
-                name="award"
+                name="title"
                 control={control}
-                defaultValue={0}
+                defaultValue=""
                 render={({ field, fieldState }) => (
                   <div>
                     <CTextField
                       {...field}
-                      type="number"
-                      label="Coin Award"
-                      placeholder="Enter coin award"
+                      type="text"
+                      label="Challenge's title"
+                      placeholder="Enter challenge's title"
                       className="w-full"
-                      value={
-                        field.value !== undefined ? String(field.value) : ""
-                      }
-                      onChange={(e) => {
-                        const newValue =
-                          e.target.value === "" ? "" : Number(e.target.value);
-                        field.onChange(newValue);
-                      }}
                       maxLength={50}
                     />
                     {fieldState.error && (
@@ -131,36 +125,75 @@ const CreateChallenge = () => {
                   </div>
                 )}
               />
-              <Controller
-                name="fee"
-                control={control}
-                defaultValue={0}
-                render={({ field, fieldState }) => (
-                  <div>
-                    <CTextField
-                      {...field}
-                      type="number"
-                      label="Coin Fee"
-                      placeholder="Enter coin fee"
-                      className="w-full"
-                      value={
-                        field.value !== undefined ? String(field.value) : ""
-                      }
-                      onChange={(e) => {
-                        const newValue =
-                          e.target.value === "" ? "" : Number(e.target.value);
-                        field.onChange(newValue);
-                      }}
-                    />
-                    {fieldState.error && (
-                      <Typography color="error" variant="caption">
-                        {fieldState.error.message}
-                      </Typography>
-                    )}
-                  </div>
-                )}
-              />
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <Controller
+                  name="coinAward"
+                  control={control}
+                  defaultValue={0}
+                  render={({ field, fieldState }) => (
+                    <div>
+                      <CTextField
+                        {...field}
+                        type="number"
+                        label="Coin Award"
+                        placeholder="Enter coin award"
+                        className="w-full"
+                        value={
+                          field.value !== undefined ? String(field.value) : ""
+                        }
+                        onChange={(e) => {
+                          const newValue =
+                            e.target.value === "" ? "" : Number(e.target.value);
+                          field.onChange(newValue);
+                        }}
+                        maxLength={50}
+                      />
+                      {fieldState.error && (
+                        <Typography color="error" variant="caption">
+                          {fieldState.error.message}
+                        </Typography>
+                      )}
+                    </div>
+                  )}
+                />
+                <Controller
+                  name="coinFee"
+                  control={control}
+                  defaultValue={0}
+                  render={({ field, fieldState }) => (
+                    <div>
+                      <CTextField
+                        {...field}
+                        type="number"
+                        label="Coin Fee"
+                        placeholder="Enter coin fee"
+                        className="w-full"
+                        value={
+                          field.value !== undefined ? String(field.value) : ""
+                        }
+                        onChange={(e) => {
+                          const newValue =
+                            e.target.value === "" ? "" : Number(e.target.value);
+                          field.onChange(newValue);
+                        }}
+                      />
+                      {fieldState.error && (
+                        <Typography color="error" variant="caption">
+                          {fieldState.error.message}
+                        </Typography>
+                      )}
+                    </div>
+                  )}
+                />
+              </div>
             </div>
+            <CUploadFile
+              accept="image"
+              onChangeFileSelected={(file) => handleFileUpload(file, "image")}
+              title="Challenge's banner"
+            />
+
             <div className="grid md:grid-cols-2 gap-4">
               <Controller
                 name="startDate"
@@ -230,7 +263,7 @@ const CreateChallenge = () => {
                   lessonList.map((lesson) => (
                     <div
                       key={lesson._id}
-                      className="flex flex-col items-center gap-2"
+                      className="flex flex-col items-center"
                     >
                       <LessonCardSquare lesson={lesson} isShowSource={false} />
                       <Checkbox
