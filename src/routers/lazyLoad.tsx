@@ -149,3 +149,12 @@ export const NewsFeedPage = withDynamicImport(
     loading: true,
   }
 );
+
+// ADMIN
+
+export const AdminDashboardPage = withDynamicImport(
+  () => import("../pages/admin/AdminDashboard/AdminDashboard"),
+  {
+    loading: true,
+  }
+);

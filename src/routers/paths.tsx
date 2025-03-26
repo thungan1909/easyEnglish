@@ -25,6 +25,7 @@ import {
   EditLessonPage,
   NewsFeedPage,
   CreateChallengePage,
+  AdminDashboardPage,
 } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
@@ -129,7 +130,11 @@ const mainRoutes: RouteItemConfig[] = [
   {
     path: ROUTES_CONSTANTS.FEEDS.BASE,
     element: <NewsFeedPage />,
-
+    showWithPermission: true,
+  },
+  {
+    path: ROUTES_CONSTANTS.ADMIN.DASHBOARD,
+    element: <AdminDashboardPage />,
     showWithPermission: true,
   },
   ...challengeRoutes,

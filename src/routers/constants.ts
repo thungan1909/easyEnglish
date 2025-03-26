@@ -47,6 +47,9 @@ export const ROUTES_CONSTANTS = {
   RANKING_LIST: {
     BASE: "/ranking",
   },
+  ADMIN: {
+    DASHBOARD: "/admin/dashboard",
+  },
 };
 
 export const lessonPaths = [
