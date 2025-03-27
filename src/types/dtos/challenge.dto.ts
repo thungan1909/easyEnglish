@@ -1,4 +1,5 @@
 import { LessonDTO } from "./lesson.dto";
+import { LessonSubmissionResponse } from "./submission.dto";
 import { UserDTO } from "./user.dto";
 
 export interface ChallengeDTO {
@@ -20,9 +21,17 @@ export interface ChallengeDTO {
   isCompleted: boolean;
   lessons: LessonDTO[];
   creator: UserDTO;
+  participants: ChallengeParticipantDTO[];
 }
 
 export interface CreateChallengeResponse {
   message: string;
   challenge: ChallengeDTO;
+}
+
+export interface ChallengeParticipantDTO {
+  user: UserDTO;
+  totalScore: number;
+  averageAccuracy: number;
+  lessonResults: LessonSubmissionResponse[];
 }

@@ -26,6 +26,12 @@ import AudioSection from "./component/AudioSection";
 import LoadingFailPage from "../../common-pages/LoadingFailPage";
 import CModal from "../../../components/atoms/CModal/CModal";
 import { useCompareLessonMutation } from "../../../hooks/lesson/compare-lesson.hook";
+import {
+  ChallengeDTO,
+  ChallengeParticipantDTO,
+} from "../../../types/dtos/challenge.dto";
+import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
+import { useGetCurrentUser } from "../../../hooks/user/user.hook";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -41,6 +47,7 @@ const ListenLesson = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const { data: lesson, isError: isLessonError } = useGetLessonById(id ?? "");
+  const { data: currentUser } = useGetCurrentUser();
   const { mutate: submitListenLessonMutation } =
     useSubmitListenLessonMutation();
   const { mutate: compareLessonMutation } = useCompareLessonMutation();
@@ -64,6 +71,50 @@ const ListenLesson = () => {
     [userInputs]
   );
 
+  const updateChallengeParticipants = (
+    challenge: ChallengeDTO,
+    submission: LessonSubmissionResponse
+  ): ChallengeDTO => {
+    const { user, lesson, score, accuracy } = submission;
+
+    // Kiểm tra xem user đã có trong participants chưa
+    const existingParticipant = challenge.participants.find(
+      (participant) => participant.user._id === user
+    );
+
+    if (existingParticipant) {
+      existingParticipant.totalScore += score;
+      existingParticipant.lessonResults.push(submission);
+
+      // Cập nhật accuracy trung bình
+      const totalLessons = existingParticipant.lessonResults.length;
+      existingParticipant.averageAccuracy =
+        existingParticipant.lessonResults.reduce(
+          (acc, lesson) => acc + lesson.accuracy,
+          0
+        ) / totalLessons;
+    } else {
+      const newParticipant: ChallengeParticipantDTO = {
+        user: currentUser
+          ? currentUser
+          : {
+              _id: user,
+              username: "",
+              email: "",
+              avatarUrl: "",
+              totalScore: 0,
+              weeklyScores: [],
+            },
+        totalScore: score,
+        averageAccuracy: accuracy,
+        lessonResults: [submission],
+      };
+      challenge.participants.push(newParticipant);
+    }
+
+    return { ...challenge, participantsCount: challenge.participants.length };
+  };
+
   const handleSubmit = () => {
     const payload: SubmitListenLessonDTO = {
       lessonId: id || "",
@@ -73,8 +124,14 @@ const ListenLesson = () => {
     };
 
     submitListenLessonMutation(payload, {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        const lessonResult = data as LessonSubmissionResponse;
         notify.success("Submission successful!");
+
+        setChallengeData((prevChallenge) =>
+          updateChallengeParticipants(prevChallenge, lessonResult)
+        );
+
         if (id) {
           navigate({
             pathname: ROUTES_CONSTANTS.LESSON.LISTEN.RESULT.replace(":id", id),
@@ -230,3 +287,6 @@ const ListenLesson = () => {
 };
 
 export default ListenLesson;
+function setChallengeData(arg0: (prevChallenge: any) => ChallengeDTO) {
+  throw new Error("Function not implemented.");
+}
