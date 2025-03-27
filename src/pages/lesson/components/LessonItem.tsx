@@ -38,10 +38,9 @@ const LessonItem = ({ lesson, type }: LessonItemProps) => {
         <FaImage className="md:w-30 md:h-30 w-24 h-24" />
       )}
 
-      <div className="flex flex-col gap-2">
-        <Typography className="line-clamp-1">{lesson.title}</Typography>
-
-        <div className="flex text-gray-400 gap-4">
+      <div className="flex flex-col gap-2 md:w-full w-[60%]">
+        <Typography className="line-clamp-2">{lesson.title}</Typography>
+        <div className="flex md:flex-row flex-col text-gray-400 md:gap-4 gap-1">
           <Typography variant="caption">{lesson.code || "Code"}</Typography>
           <Typography variant="caption">
             {lesson.listenCount ?? 0}
@@ -54,7 +53,7 @@ const LessonItem = ({ lesson, type }: LessonItemProps) => {
           </Typography>
         </div>
 
-        <Typography className="line-clamp-1 text-gray-600" variant="caption">
+        <Typography className="line-clamp-3 text-gray-600" variant="caption">
           {lesson.description || lesson.content || "Description"}
         </Typography>
 
@@ -73,7 +72,6 @@ const LessonItem = ({ lesson, type }: LessonItemProps) => {
                   </CButton>
                 </span>
               </Tooltip>
-
               <Tooltip title="Add to waiting list">
                 <span>
                   <CButton
@@ -86,7 +84,6 @@ const LessonItem = ({ lesson, type }: LessonItemProps) => {
                   </CButton>
                 </span>
               </Tooltip>
-
               <Tooltip title="Add to playlist">
                 <span>
                   <CButton
@@ -101,7 +98,7 @@ const LessonItem = ({ lesson, type }: LessonItemProps) => {
               </Tooltip>
             </>
           ) : (
-            <MyUploadsActions lessonId={lesson?._id} />
+            <MyUploadsActions id={lesson?._id} type="lesson" />
           )}
         </div>
       </div>

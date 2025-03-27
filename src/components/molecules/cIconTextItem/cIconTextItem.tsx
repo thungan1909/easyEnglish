@@ -13,7 +13,7 @@ const CIconTextItem = ({
   color?: string;
   iconSize?: number;
 }) => (
-  <div className="flex gap-1.5 items-center">
+  <div className="flex gap-1 items-center">
     <Icon size={iconSize} />
     <Typography color={color} variant="caption">
       {value}

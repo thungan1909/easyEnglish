@@ -22,6 +22,7 @@ import { notify } from "../../utils/notify";
 import { useUploadFileMutation } from "../../hooks/upload/upload-file.hook";
 import { useEditLessonMutation } from "../../hooks/lesson/edit-lesson.hook";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
+import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
 
 const EditLesson = () => {
   const navigate = useNavigate();
@@ -137,14 +138,10 @@ const EditLesson = () => {
       className="mt-16 p-8 md:p-16 flex flex-col space-y-6 "
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div>
-        <Typography variant="h5" textTransform="uppercase">
-          Edit lesson
-        </Typography>
-        <Typography variant="caption" className="text-gray-400">
-          Edit my upload lesson
-        </Typography>
-      </div>
+      <CPageTitle
+        title="Edit lesson"
+        titleDescription="Edit my upload lesson"
+      />
       <div className="grid md:grid-cols-2 md:gap-6 gap-3">
         <Controller
           name="title"
@@ -326,7 +323,6 @@ const EditLesson = () => {
           )}
         </>
       )}
-
       <CButton
         className="w-full"
         type="submit"

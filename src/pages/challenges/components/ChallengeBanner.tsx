@@ -11,16 +11,16 @@ export interface ChallengeBannerProps {
 
 const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
   return (
-    <div className="flex md:gap-12 gap-4 p-4 shadow rounded-2xl bg-white">
+    <div className="flex gap-4 p-2 shadow rounded-2xl bg-white">
       <img
         src={challenge.imageFile}
-        className="md:w-96 md:h-48 w-32 object-cover rounded-2xl"
+        className="md:w-96 md:h-56 w-48 h-80 object-cover rounded-2xl"
         alt="Challenge Banner"
       />
-      <div className="flex flex-col justify-between items-start w-1/2 gap-4">
+      <div className="flex flex-col md:gap-4 gap-2 items-start w-1/2">
         <Typography
           sx={{
-            typography: { xs: "body1", md: "h5" },
+            typography: { xs: "body1", md: "h6" },
           }}
         >
           {challenge.title}
@@ -35,13 +35,14 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
         </Typography>
 
         <div className="flex flex-col md:gap-4 gap-2">
-          <div className="flex md:flex-row flex-col md:gap-8 gap-2 text-xs">
+          <div className="flex md:flex-row flex-col md:gap-4 gap-2 text-xs">
             <CIconTextItem
               icon={FaCalendar}
               value={`${new Date(challenge.startDate).toLocaleDateString(
                 "en-GB"
               )} - ${new Date(challenge.endDate).toLocaleDateString("en-GB")}`}
             />
+
             <CIconTextItem
               icon={FaHourglass}
               value={
@@ -59,6 +60,7 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
                   : "text-red-500"
               }
             />
+
             <CIconTextItem
               icon={FaUserGroup}
               value={challenge.participantsCount}
@@ -68,7 +70,7 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
             />
           </div>
 
-          <div className="flex md:flex-row flex-col md:gap-8 gap-2 text-xs">
+          <div className="flex md:flex-row flex-col md:gap-4 gap-2 text-xs">
             <CIconTextItem
               icon={FaMicrophone}
               value={challenge.lessons.length || 0}
@@ -82,6 +84,7 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
             </div>
           </div>
         </div>
+
         <CButton textTransform="capitalize" isRounded>
           Learn more
         </CButton>

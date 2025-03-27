@@ -1,9 +1,9 @@
-import { Typography } from "@mui/material";
 import ChallengeBanner from "./components/ChallengeBanner";
 import { useMemo } from "react";
 import ChallengeItem from "./components/ChallengeItem";
 import { ChallengeDTO } from "../../types/dtos/challenge.dto";
 import { useGetChallengeList } from "../../hooks/challenge/get-challenge.hook";
+import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
 
 const Challenges = () => {
   const { data: challengeList = [] } = useGetChallengeList();
@@ -15,21 +15,17 @@ const Challenges = () => {
   }, [challengeList]);
 
   return (
-    <div className="flex flex-col mt-24 mb-48 mx-8 md:m-24 gap-4 ">
-      <div>
-        <Typography variant="h5" textTransform="uppercase">
-          Challenges
-        </Typography>
-        <Typography variant="caption" className="text-gray-400">
-          List of all current challenges
-        </Typography>
-      </div>
+    <div className="flex flex-col m-24 mx-4 md:m-24 gap-4">
+      <CPageTitle
+        title="Challenges"
+        titleDescription="List of all current challenges"
+      />
 
       {newestChallenge && <ChallengeBanner challenge={newestChallenge} />}
 
-      <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-3 grid-cols-2 gap-4">
         {challengeList.map((item: ChallengeDTO) => (
-          <ChallengeItem key={item._id} challenge={item} />
+          <ChallengeItem challenge={item} type="default" />
         ))}
       </div>
     </div>

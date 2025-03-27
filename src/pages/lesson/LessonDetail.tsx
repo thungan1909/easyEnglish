@@ -77,8 +77,8 @@ const LessonDetail = () => {
         </Typography>
       </div>
 
-      <div className="flex flex-col space-y-8  justify-center items-center">
-        <div className="flex gap-8">
+      <div className="flex flex-col space-y-8 justify-center items-center">
+        <div className="flex md:gap-8 gap-2">
           {isListen ? (
             <>
               <CButton

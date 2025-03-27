@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 
 const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
@@ -95,9 +96,7 @@ const CreateChallenge = () => {
     <>
       {isAuth ? (
         <div className="mt-24 md:m-24 mx-4">
-          <Typography variant="h5" textTransform="uppercase">
-            Create a New Challenge
-          </Typography>
+          <CPageTitle title=" Create a New Challenge" />
           <form
             className="flex flex-col space-y-6 mt-8"
             onSubmit={handleSubmit(onSubmit)}

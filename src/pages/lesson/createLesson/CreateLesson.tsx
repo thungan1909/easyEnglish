@@ -23,6 +23,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { notify } from "../../../utils/notify";
 import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
+import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();
@@ -125,9 +126,7 @@ const CreateLesson = () => {
     <>
       {isAuth ? (
         <div className="mt-24 md:m-24 mx-4">
-          <Typography variant="h5" textTransform="uppercase">
-            Add new lesson
-          </Typography>
+          <CPageTitle title="Add new lesson" />
           <form
             className="flex flex-col space-y-6 mt-8"
             onSubmit={handleSubmit(onSubmit)}

@@ -1,16 +1,18 @@
 import { Typography } from "@mui/material";
 import { FaCoins, FaHourglass, FaMicrophone } from "react-icons/fa";
-import { FaUserGroup } from "react-icons/fa6";
 import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { ChallengeDTO } from "../../../types/dtos/challenge.dto";
+import MyUploadsActions from "../../manageMyUpload/MyUploadsActions";
+import { FaUserGroup } from "react-icons/fa6";
 
 export interface ChallengeItemProps {
   challenge: ChallengeDTO;
+  type: "default" | "mine";
 }
 
-const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
+const ChallengeItem = ({ challenge, type }: ChallengeItemProps) => {
   const navigate = useNavigate();
 
   const handleClickOnChallengeItem = () => {
@@ -24,7 +26,7 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
     >
       <img
         src={challenge.imageFile}
-        className="w-full h-32 md:h-40 lg:h-48 rounded-2xl object-cover"
+        className="h-32 rounded-2xl object-cover"
       />
       <div className="flex flex-col gap-4">
         <Typography variant="subtitle1" className="line-clamp-1">
@@ -57,20 +59,30 @@ const ChallengeItem = ({ challenge }: ChallengeItemProps) => {
         <Typography variant="caption" className="text-gray-500 line-clamp-2">
           {challenge.description}
         </Typography>
-        <div className="md:flex text-xs justify-between">
-          <CIconTextItem
-            icon={FaUserGroup}
-            value={challenge.participantsCount || 0}
-            label={
-              challenge.participantsCount > 1 ? "participants" : "participant"
-            }
-          />
-          <div className="flex gap-1 items-center">
-            <FaCoins />
-            <span className="text-green-500">+{challenge.coinAward}</span>
-            <span>/</span>
-            <span className="text-red-500">-{challenge.coinFee}</span>
-          </div>
+        <div
+          className={`flex ${type === "default" ? "justify-between" : "gap-4"}`}
+        >
+          {type === "default" ? (
+            <>
+              <CIconTextItem
+                icon={FaUserGroup}
+                value={challenge.participantsCount || 0}
+                label={
+                  challenge.participantsCount > 1
+                    ? "participants"
+                    : "participant"
+                }
+              />
+              <div className="flex gap-1 items-center">
+                <FaCoins />
+                <span className="text-green-500">+{challenge.coinAward}</span>
+                <span>/</span>
+                <span className="text-red-500">-{challenge.coinFee}</span>
+              </div>
+            </>
+          ) : (
+            <MyUploadsActions id={challenge?._id} type="challenge" />
+          )}
         </div>
       </div>
     </div>

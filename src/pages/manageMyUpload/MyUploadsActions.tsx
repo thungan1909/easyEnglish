@@ -5,45 +5,60 @@ import { FaTrash } from "react-icons/fa";
 import ActionButton from "../lesson/components/ActionButton";
 import { useDeleteLessonMutation } from "../../hooks/lesson/delete-lesson.hook";
 import { notify } from "../../utils/notify";
-
-export const MyUploadsActions = ({ lessonId }: { lessonId: string }) => {
+export interface MyUploadsActionsProps {
+  id: string;
+  type: "lesson" | "challenge";
+}
+export const MyUploadsActions = ({ id, type }: MyUploadsActionsProps) => {
   const navigate = useNavigate();
   const { mutate: deleteLessonMutation } = useDeleteLessonMutation();
+  const { mutate: deleteChallengeMutation } = useDeleteLessonMutation();
 
+  const handleDelete = (e: React.MouseEvent<Element, MouseEvent>) => {
+    e.stopPropagation();
+    if (type === "lesson") {
+      deleteLessonMutation(
+        {
+          lessonId: id,
+        },
+        {
+          onSuccess: () => {
+            notify.success("Delete lesson successfully");
+            navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.BASE);
+          },
+          onError: () => {
+            notify.error("Failed to edit lesson.");
+          },
+        }
+      );
+    } else {
+      deleteChallengeMutation(
+        {
+          lessonId: id,
+        },
+        {
+          onSuccess: () => {
+            notify.success("Delete lesson successfully");
+            navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.BASE);
+          },
+          onError: () => {
+            notify.error("Failed to edit lesson.");
+          },
+        }
+      );
+    }
+  };
   return (
     <>
       <ActionButton
         title="Edit"
         onClick={(e) => {
           e.stopPropagation();
-          navigate(
-            ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT.replace(":id", lessonId)
-          );
+          navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT.replace(":id", id));
         }}
         icon={<FaPenToSquare />}
       />
-      <ActionButton
-        title="Delete"
-        onClick={(e) => {
-          e.stopPropagation();
-
-          deleteLessonMutation(
-            {
-              lessonId: lessonId,
-            },
-            {
-              onSuccess: () => {
-                notify.success("Delete lesson successfully");
-                navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.BASE);
-              },
-              onError: () => {
-                notify.error("Failed to edit lesson.");
-              },
-            }
-          );
-        }}
-        icon={<FaTrash />}
-      />
+      <ActionButton title="Delete" onClick={handleDelete} icon={<FaTrash />} />
     </>
   );
 };
