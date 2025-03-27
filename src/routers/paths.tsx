@@ -1,5 +1,5 @@
 import React from "react";
-import ChallengeDetail from "../pages/challenges/ChallengeDetail";
+import ChallengeDetail from "../pages/challenges/challengeDetail/ChallengeDetail";
 import PageNotFound from "../pages/common-pages/PageNotFound";
 import { RouteItemConfig } from "../types/route-config";
 import { lessonListenPaths, lessonPaths, ROUTES_CONSTANTS } from "./constants";

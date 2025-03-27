@@ -21,6 +21,11 @@ const ManageMyUpload = () => {
           setUploadValue(newUploadValue as UploadTypeEnum)
         }
         centered
+        sx={{
+          "MuiButtonBase-root-MuiTab-root.Mui-selected": {
+            color: "purple",
+          },
+        }}
       >
         <Tab label="Lesson" value={UploadTypeEnum.lesson} />
         <Tab label="Challenge" value={UploadTypeEnum.challenge} />

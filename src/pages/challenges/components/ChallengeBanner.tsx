@@ -11,7 +11,7 @@ export interface ChallengeBannerProps {
 
 const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
   return (
-    <div className="flex gap-4 p-2 shadow rounded-2xl bg-white">
+    <div className="flex gap-4 p-4 shadow rounded-2xl bg-white">
       <img
         src={challenge.imageFile}
         className="md:w-96 md:h-56 w-48 h-80 object-cover rounded-2xl"

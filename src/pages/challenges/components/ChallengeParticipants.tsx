@@ -1,5 +1,4 @@
 import {
-  Chip,
   Table,
   TableBody,
   TableCell,
@@ -8,8 +7,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { LessonDTO } from "../../../types/dtos/lesson.dto";
-import { FaMedal, FaPlay } from "react-icons/fa";
+import { FaMedal } from "react-icons/fa";
 import { UserDTO } from "../../../types/dtos/user.dto";
 
 export interface ChallengeParticipantsProps {
@@ -21,7 +19,7 @@ const ChallengeParticipants = ({
 }: ChallengeParticipantsProps) => {
   return (
     <>
-      <Typography variant="h6">Lesson in this challenge</Typography>
+      <Typography variant="h6">Members Joined</Typography>
       <TableContainer className="flex flex-col gap-4 rounded-2xl overflow-hidden shadow-lg">
         <Table className="rounded-2xl bg-white" aria-label="simple table">
           <TableHead className="bg-purple-300">

@@ -32,7 +32,7 @@ const StatisticCard = ({
   return (
     <div
       className={clsx(
-        "flex-1 flex items-center rounded-lg p-4 gap-4 shadow",
+        "flex-1 flex items-center rounded-lg p-2 gap-2 shadow",
         bgColor
       )}
     >
