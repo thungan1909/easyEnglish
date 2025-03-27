@@ -40,3 +40,14 @@ export const getChallengeListQuery = {
     );
   },
 };
+
+export const getChallengesByLessonIdAPI = {
+  name: "getChallengesByLessonIdAPI",
+  fn: async (id: string): Promise<ChallengeDTO[]> => {
+    return getOriginalResponseData<ChallengeDTO[]>(
+      await getAxiosInstance().get(
+        END_POINTS.CHALLENGE.GET_LIST_BY_LESSON_ID.replace(":id", id)
+      )
+    );
+  },
+};

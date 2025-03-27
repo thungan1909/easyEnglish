@@ -43,6 +43,7 @@ export const END_POINTS = {
     CREATE: "/challenge/create",
     GET_CHALLENGE_BY_ID: "/challenge/:id",
     GET_LIST_CHALLENGE: "/challenge/list/inquiry",
+    GET_LIST_BY_LESSON_ID: "/challenge/get-by-lesson/:id",
   },
 };
 

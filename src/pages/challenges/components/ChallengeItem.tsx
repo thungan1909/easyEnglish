@@ -42,10 +42,8 @@ const ChallengeItem = ({ challenge, type }: ChallengeItemProps) => {
             icon={FaHourglass}
             value={
               challenge?.timeLeft && challenge.timeLeft > 0
-                ? `${Math.ceil(challenge.timeLeft / (1000 * 60 * 60 * 24))} ${
-                    Math.ceil(challenge.timeLeft / (1000 * 60 * 60 * 24)) > 1
-                      ? "days"
-                      : "day"
+                ? `${Math.ceil(challenge.timeLeft / 24)} ${
+                    Math.ceil(challenge.timeLeft / 24) > 1 ? "days" : "day"
                   } left`
                 : "Expired"
             }
@@ -60,7 +58,9 @@ const ChallengeItem = ({ challenge, type }: ChallengeItemProps) => {
           {challenge.description}
         </Typography>
         <div
-          className={`flex ${type === "default" ? "justify-between" : "gap-4"}`}
+          className={`flex ${
+            type === "default" ? "justify-between" : "gap-4"
+          } text-xs`}
         >
           {type === "default" ? (
             <>
@@ -73,7 +73,7 @@ const ChallengeItem = ({ challenge, type }: ChallengeItemProps) => {
                     : "participant"
                 }
               />
-              <div className="flex gap-1 items-center">
+              <div className="flex gap-1 items-center text-xs">
                 <FaCoins />
                 <span className="text-green-500">+{challenge.coinAward}</span>
                 <span>/</span>

@@ -47,10 +47,8 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
               icon={FaHourglass}
               value={
                 challenge?.timeLeft && challenge.timeLeft > 0
-                  ? `${Math.ceil(challenge.timeLeft / (1000 * 60 * 60 * 24))} ${
-                      Math.ceil(challenge.timeLeft / (1000 * 60 * 60 * 24)) > 1
-                        ? "days"
-                        : "day"
+                  ? `${Math.ceil(challenge.timeLeft / 24)} ${
+                      Math.ceil(challenge.timeLeft / 24) > 1 ? "days" : "day"
                     } left`
                   : "Expired"
               }
