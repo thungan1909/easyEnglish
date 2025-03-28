@@ -9,17 +9,20 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { LessonDTO } from "../../../types/dtos/lesson.dto";
-import { FaPlay } from "react-icons/fa";
 import NoDataSection from "../../common-pages/NoDataSection";
 import { useEffect, useState } from "react";
 import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
-import { getLessonResultById } from "../../../apis/lesson.api";
+import {
+  getLessonByIdQuery,
+  getLessonResultById,
+} from "../../../apis/lesson.api";
 import { useNavigate } from "react-router-dom";
+import { LessonDTO } from "../../../types/dtos/lesson.dto";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { FaPlay } from "react-icons/fa";
 
 export interface ChallengePodcastListProps {
-  lessonList: LessonDTO[];
+  lessonList: string[]; //contains lessonID
 }
 
 const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
@@ -27,28 +30,32 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
   const [lessonResults, setLessonResults] = useState<
     Record<string, LessonSubmissionResponse>
   >({});
+  const [lessonDetails, setLessonDetails] = useState<Record<string, LessonDTO>>(
+    {}
+  );
 
+  const fetchLessonData = async () => {
+    const results: Record<string, LessonSubmissionResponse> = {};
+    const details: Record<string, LessonDTO> = {};
+
+    await Promise.all(
+      lessonList.map(async (lessonID) => {
+        try {
+          const lessonDetail = await getLessonByIdQuery.fn(lessonID);
+          details[lessonID] = lessonDetail;
+          const result = await getLessonResultById.fn(lessonID);
+          results[lessonID] = result;
+        } catch (error) {
+          console.error(`Error fetching lesson result for ${lessonID}`, error);
+        }
+      })
+    );
+    setLessonResults(results);
+    setLessonDetails(details);
+  };
   useEffect(() => {
-    const fetchLessonResults = async () => {
-      const results: Record<string, LessonSubmissionResponse> = {};
-      await Promise.all(
-        lessonList.map(async (lesson) => {
-          try {
-            const result = await getLessonResultById.fn(lesson._id);
-            results[lesson._id] = result;
-          } catch (error) {
-            console.error(
-              `Error fetching lesson result for ${lesson._id}`,
-              error
-            );
-          }
-        })
-      );
-      setLessonResults(results);
-    };
-
-    if (lessonList.length > 0) {
-      fetchLessonResults();
+    if (lessonList?.length > 0) {
+      fetchLessonData();
     }
   }, [lessonList]);
 
@@ -67,13 +74,16 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {lessonList.length > 0 ? (
-              lessonList.map((lesson) => {
-                const lessonResult = lessonResults[lesson._id];
-
+            {lessonList?.length > 0 ? (
+              lessonList.map((lessonID) => {
+                const lessonResult = lessonResults[lessonID];
+                const lessonDetail = lessonDetails[lessonID];
+                console.log(lessonDetail);
                 return (
-                  <TableRow key={lesson._id}>
-                    <TableCell align="center">{lesson.title}</TableCell>
+                  <TableRow key={lessonID}>
+                    <TableCell align="center">
+                      {lessonDetail ? lessonDetail.title : "-"}
+                    </TableCell>
                     <TableCell align="center">
                       {lessonResult ? lessonResult.score : "-"}
                     </TableCell>
@@ -94,7 +104,7 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
                           navigate(
                             ROUTES_CONSTANTS.LESSON.DETAIL.replace(
                               ":id",
-                              lesson._id
+                              lessonDetail._id
                             )
                           );
                         }}

@@ -44,6 +44,8 @@ export const END_POINTS = {
     GET_CHALLENGE_BY_ID: "/challenge/:id",
     GET_LIST_CHALLENGE: "/challenge/list/inquiry",
     GET_LIST_BY_LESSON_ID: "/challenge/get-by-lesson/:id",
+    UPDATE: "/challenge/update",
+    UPDATE_LIST: "/challenge/list/update",
   },
 };
 
@@ -60,3 +62,4 @@ export const TOKEN_STALE_TIME = TOKEN_CACHE_TIME - 60 * 1000; // 8 hours - 1 min
 export const USER_QUERY_KEY = ["user"];
 export const LESSON_QUERY_KEY = ["lesson"];
 export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
+export const CHALLENGE_QUERY_KEY = ["challenge"];

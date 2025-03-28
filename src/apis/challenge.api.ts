@@ -3,6 +3,9 @@ import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
   ChallengeDTO,
   CreateChallengeResponse,
+  GetChallengesByLessonIdAPIResponse,
+  UpdateChallengeDTO,
+  UpdateChallengeResponse,
 } from "../types/dtos/challenge.dto";
 import { TCreateChallengeSchema } from "../validation/challenge.schema";
 
@@ -43,11 +46,37 @@ export const getChallengeListQuery = {
 
 export const getChallengesByLessonIdAPI = {
   name: "getChallengesByLessonIdAPI",
-  fn: async (id: string): Promise<ChallengeDTO[]> => {
-    return getOriginalResponseData<ChallengeDTO[]>(
+  fn: async (id: string): Promise<GetChallengesByLessonIdAPIResponse> => {
+    return getOriginalResponseData<GetChallengesByLessonIdAPIResponse>(
       await getAxiosInstance().get(
         END_POINTS.CHALLENGE.GET_LIST_BY_LESSON_ID.replace(":id", id)
       )
     );
+  },
+};
+
+export const updateChallengeMutation = {
+  name: "updateChallengeMutation",
+  fn: async (data: UpdateChallengeDTO): Promise<UpdateChallengeResponse> => {
+    try {
+      return getOriginalResponseData<UpdateChallengeResponse>(
+        await getAxiosInstance().put(END_POINTS.CHALLENGE.UPDATE, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const updateChallengeListMutation = {
+  name: "updateChallengeListMutation",
+  fn: async (data: UpdateChallengeDTO[]): Promise<UpdateChallengeResponse> => {
+    try {
+      return getOriginalResponseData<UpdateChallengeResponse>(
+        await getAxiosInstance().put(END_POINTS.CHALLENGE.UPDATE_LIST, data)
+      );
+    } catch (error) {
+      throw error;
+    }
   },
 };

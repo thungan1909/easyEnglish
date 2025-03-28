@@ -1,4 +1,3 @@
-import { LessonDTO } from "./lesson.dto";
 import { LessonSubmissionResponse } from "./submission.dto";
 import { UserDTO } from "./user.dto";
 
@@ -19,7 +18,7 @@ export interface ChallengeDTO {
   averageScore: number;
   averageAccuracy: number;
   isCompleted: boolean;
-  lessons: LessonDTO[];
+  lessons: string[];
   creator: UserDTO;
   participants: ChallengeParticipantDTO[];
 }
@@ -30,8 +29,16 @@ export interface CreateChallengeResponse {
 }
 
 export interface ChallengeParticipantDTO {
-  user: UserDTO;
+  userId: string;
   totalScore: number;
   averageAccuracy: number;
   lessonResults: LessonSubmissionResponse[];
 }
+
+export interface GetChallengesByLessonIdAPIResponse {
+  challenges: ChallengeDTO[];
+  exists: boolean;
+}
+
+export type UpdateChallengeDTO = Omit<ChallengeDTO, "_id">;
+export interface UpdateChallengeResponse {}

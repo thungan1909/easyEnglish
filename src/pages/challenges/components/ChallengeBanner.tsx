@@ -71,8 +71,8 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
           <div className="flex md:flex-row flex-col md:gap-4 gap-2 text-xs">
             <CIconTextItem
               icon={FaMicrophone}
-              value={challenge.lessons.length || 0}
-              label={challenge.lessons.length > 1 ? "podcasts" : "podcast"}
+              value={challenge.lessons?.length || 0}
+              label={challenge.lessons?.length > 1 ? "podcasts" : "podcast"}
             />
             <div className="flex gap-1 items-center">
               <FaCoins />

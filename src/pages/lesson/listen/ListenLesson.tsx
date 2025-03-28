@@ -31,12 +31,11 @@ import {
   ChallengeParticipantDTO,
 } from "../../../types/dtos/challenge.dto";
 import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
-import { useGetCurrentUser } from "../../../hooks/user/user.hook";
 import { useGetChallengesByLessonId } from "../../../hooks/challenge/get-challlenge.hook";
+import { useUpdateChallengeListMutation } from "../../../hooks/challenge/update-challenge.hook";
 
 const ListenLesson = () => {
   const { id } = useParams();
-
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -53,6 +52,8 @@ const ListenLesson = () => {
     useSubmitListenLessonMutation();
   const { mutate: compareLessonMutation } = useCompareLessonMutation();
   const { data: challengeList } = useGetChallengesByLessonId(id ?? "");
+  const { mutate: updateChallengeListMutation } =
+    useUpdateChallengeListMutation();
 
   const handleInputChange = (index: number, value: string) => {
     setUserInputs((prevInputs) => {
@@ -64,11 +65,13 @@ const ListenLesson = () => {
 
   const handleKeyDown = useCallback(
     (index: number, e: React.KeyboardEvent) => {
-      if (e.key === "Enter" || e.key === "ArrowRight" || e.key === " ") {
-        e.preventDefault(); // Prevents adding spaces in inputs
+      const keysToMoveForward = ["Enter", "ArrowRight", " "];
+      const keysToMoveBackward = ["Backspace", "ArrowLeft"];
+
+      if (keysToMoveForward.includes(e.key)) {
+        e.preventDefault();
         let nextIndex = index + 1;
 
-        // Skip over non-input elements
         while (
           nextIndex < inputRefs.current.length &&
           !inputRefs.current[nextIndex]
@@ -76,16 +79,18 @@ const ListenLesson = () => {
           nextIndex++;
         }
 
-        // If the next input contains only a space, clear it before focusing
         if (inputRefs.current[nextIndex]?.value.trim() === "") {
           inputRefs.current[nextIndex]!.value = "";
         }
 
         inputRefs.current[nextIndex]?.focus();
-      } else if (e.key === "Backspace" && !userInputs[index] && index > 0) {
+      } else if (
+        keysToMoveBackward.includes(e.key) &&
+        !userInputs[index] &&
+        index > 0
+      ) {
         let prevIndex = index - 1;
 
-        // Skip over non-input elements
         while (prevIndex >= 0 && !inputRefs.current[prevIndex]) {
           prevIndex--;
         }
@@ -100,38 +105,48 @@ const ListenLesson = () => {
     challenge: ChallengeDTO,
     submission: LessonSubmissionResponse
   ): ChallengeDTO => {
-    const { user, score, accuracy } = submission;
-
-    // Tìm người dùng trong danh sách participants
+    const { userId, score, accuracy } = submission;
     const existingParticipant = challenge.participants.find(
-      (participant) => participant.user._id === user
+      (participant) => participant.userId?.toString() === userId?.toString()
     );
 
     if (existingParticipant) {
-      // Cập nhật tổng điểm
       existingParticipant.totalScore += score;
 
-      // Thêm kết quả bài học mới
-      existingParticipant.lessonResults.push(submission);
+      // Prevent duplicate lessonResults
+      const existingLesson = existingParticipant.lessonResults.find(
+        (lr) => lr.lessonId === submission.lessonId
+      );
 
-      // Cập nhật accuracy trung bình
+      if (!existingLesson) {
+        existingParticipant.lessonResults.push(submission);
+      } else {
+        // **Update existing lessonResult instead of duplicating**
+        existingLesson.score = submission.score;
+        existingLesson.accuracy = submission.accuracy;
+      }
+
+      console.log(existingParticipant.lessonResults, "Updated lessonResults");
+
+      // **Recalculate averageAccuracy correctly**
       const totalLessons = existingParticipant.lessonResults.length;
-      existingParticipant.averageAccuracy =
-        existingParticipant.lessonResults.reduce(
-          (acc, lesson) => acc + lesson.accuracy,
-          0
-        ) / totalLessons;
+      const totalAccuracy = existingParticipant.lessonResults.reduce(
+        (acc, lesson) => acc + lesson.accuracy,
+        0
+      );
+
+      existingParticipant.averageAccuracy = totalAccuracy / totalLessons;
+
+      console.log(
+        totalLessons,
+        totalAccuracy,
+        existingParticipant.averageAccuracy,
+        "Updated averageAccuracy"
+      );
     } else {
-      // Nếu chưa có user trong danh sách participants, tạo mới
+      // New participant
       const newParticipant: ChallengeParticipantDTO = {
-        user: {
-          _id: user,
-          username: "", // Cần lấy từ backend nếu cần hiển thị
-          email: "",
-          avatarUrl: "",
-          totalScore: 0,
-          weeklyScores: [],
-        },
+        userId,
         totalScore: score,
         averageAccuracy: accuracy,
         lessonResults: [submission],
@@ -154,18 +169,14 @@ const ListenLesson = () => {
     submitListenLessonMutation(payload, {
       onSuccess: async (data) => {
         const lessonResult = data as LessonSubmissionResponse;
+        let updatedChallenges: ChallengeDTO[] = [];
 
-        if (challengeList.length > 0) {
-          // Cập nhật danh sách participants cho từng challenge
-          const updatedChallenges = updateChallengeParticipants(
-            challengeList,
-            lessonResult
+        if (challengeList?.exists) {
+          updatedChallenges = challengeList.challenges.map((challenge) =>
+            updateChallengeParticipants(challenge, lessonResult)
           );
-
-          // Gửi danh sách challenge đã cập nhật lên server
-          // await updateChallengesAPI(updatedChallenges);
+          updateChallengeListMutation(updatedChallenges);
         }
-
         notify.success("Submission successful!");
         if (id) {
           navigate({

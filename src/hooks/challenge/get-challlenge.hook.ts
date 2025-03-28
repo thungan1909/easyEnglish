@@ -1,12 +1,12 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { ChallengeDTO } from "../../types/dtos/challenge.dto";
+import { GetChallengesByLessonIdAPIResponse } from "../../types/dtos/challenge.dto";
 import { IHttpError } from "../../types/dtos/http";
 import { getChallengesByLessonIdAPI } from "../../apis/challenge.api";
 
 export const useGetChallengesByLessonId = (
   id: string
-): UseQueryResult<ChallengeDTO[], IHttpError> => {
-  return useQuery<ChallengeDTO[], IHttpError>({
+): UseQueryResult<GetChallengesByLessonIdAPIResponse, IHttpError> => {
+  return useQuery<GetChallengesByLessonIdAPIResponse, IHttpError>({
     queryKey: [getChallengesByLessonIdAPI.name, id],
     queryFn: async () => getChallengesByLessonIdAPI.fn(id),
     refetchOnWindowFocus: false,
