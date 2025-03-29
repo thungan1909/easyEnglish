@@ -29,6 +29,7 @@ import { useCompareLessonMutation } from "../../../hooks/lesson/compare-lesson.h
 import {
   ChallengeDTO,
   ChallengeParticipantDTO,
+  SubmissionResponse,
 } from "../../../types/dtos/challenge.dto";
 import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
 import { useGetChallengesByLessonId } from "../../../hooks/challenge/get-challlenge.hook";
@@ -105,37 +106,57 @@ const ListenLesson = () => {
     challenge: ChallengeDTO,
     submission: LessonSubmissionResponse
   ): ChallengeDTO => {
-    const { userId, score, accuracy } = submission;
-    const existingParticipant = challenge.participants.find(
-      (participant) => participant.userId?.toString() === userId?.toString()
-    );
+    console.log(submission, "submission");
+    const { userId, score, accuracy, lessonId } = submission;
+    console.log(challenge, "challenge");
+    console.log(challenge.participants, "All Participants");
+    console.log("Participants Count 1:", challenge.participants.length);
+    console.log("Count 2", challenge.participantsCount);
+    console.log(userId, "User ID in submission");
+
+    // Tạo bản sao mảng participants
+    const updatedParticipants = [...challenge.participants];
+
+    const existingParticipant = updatedParticipants.find((participant) => {
+      return String(participant.userId) === String(userId);
+    });
+
+    console.log(existingParticipant);
 
     if (existingParticipant) {
-      existingParticipant.totalScore += score;
-
-      // Prevent duplicate lessonResults
-      const existingLesson = existingParticipant.lessonResults.find(
-        (lr) => lr.lessonId === submission.lessonId
+      console.log(
+        existingParticipant.lessonResults,
+        "existingParticipant.lessonResults"
       );
 
-      if (!existingLesson) {
-        existingParticipant.lessonResults.push(submission);
+      // Kiểm tra xem lessonId đã tồn tại chưa
+      const existingLesson = existingParticipant.lessonResults.find(
+        (lr) => lr.lessonId?.toString() === lessonId?.toString()
+      );
+
+      if (existingLesson) {
+        // Nếu đã có, trừ điểm cũ trước khi cộng điểm mới
+        existingParticipant.totalScore -= existingLesson.score;
+        existingLesson.score = score;
+        existingLesson.accuracy = accuracy;
       } else {
-        // **Update existing lessonResult instead of duplicating**
-        existingLesson.score = submission.score;
-        existingLesson.accuracy = submission.accuracy;
+        existingParticipant.lessonResults.push(submission);
       }
+
+      // Cập nhật totalScore
+      existingParticipant.totalScore += score;
 
       console.log(existingParticipant.lessonResults, "Updated lessonResults");
 
-      // **Recalculate averageAccuracy correctly**
+      // Tính lại `averageAccuracy`
       const totalLessons = existingParticipant.lessonResults.length;
       const totalAccuracy = existingParticipant.lessonResults.reduce(
-        (acc, lesson) => acc + lesson.accuracy,
+        (acc, lesson) => acc + (lesson.accuracy || 0),
         0
       );
 
-      existingParticipant.averageAccuracy = totalAccuracy / totalLessons;
+      existingParticipant.averageAccuracy =
+        totalLessons > 0 ? totalAccuracy / totalLessons : 0;
 
       console.log(
         totalLessons,
@@ -144,17 +165,18 @@ const ListenLesson = () => {
         "Updated averageAccuracy"
       );
     } else {
-      // New participant
       const newParticipant: ChallengeParticipantDTO = {
         userId,
         totalScore: score,
         averageAccuracy: accuracy,
         lessonResults: [submission],
       };
-
+      console.log("new", newParticipant);
       challenge.participants.push(newParticipant);
+      console.log("PUSH", challenge.participants);
     }
 
+    console.log("CHALLLELELELLE", challenge, challenge.participants.length);
     return { ...challenge, participantsCount: challenge.participants.length };
   };
 
@@ -169,12 +191,15 @@ const ListenLesson = () => {
     submitListenLessonMutation(payload, {
       onSuccess: async (data) => {
         const lessonResult = data as LessonSubmissionResponse;
-        let updatedChallenges: ChallengeDTO[] = [];
 
+        let updatedChallenges: ChallengeDTO[] = [];
+        console.log(lessonResult, "lessonResult");
         if (challengeList?.exists) {
+          console.log("exist");
           updatedChallenges = challengeList.challenges.map((challenge) =>
             updateChallengeParticipants(challenge, lessonResult)
           );
+          console.log(updatedChallenges, "updatedChallenges");
           updateChallengeListMutation(updatedChallenges);
         }
         notify.success("Submission successful!");

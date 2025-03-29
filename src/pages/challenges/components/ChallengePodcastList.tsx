@@ -78,7 +78,6 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
               lessonList.map((lessonID) => {
                 const lessonResult = lessonResults[lessonID];
                 const lessonDetail = lessonDetails[lessonID];
-                console.log(lessonDetail);
                 return (
                   <TableRow key={lessonID}>
                     <TableCell align="center">

@@ -35,6 +35,13 @@ export interface ChallengeParticipantDTO {
   lessonResults: LessonSubmissionResponse[];
 }
 
+export interface SubmissionResponse {
+  submissionId: string;
+  lessonId: string;
+  score: number;
+  accuracy: number;
+}
+
 export interface GetChallengesByLessonIdAPIResponse {
   challenges: ChallengeDTO[];
   exists: boolean;
