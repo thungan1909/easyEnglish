@@ -9,7 +9,6 @@ export interface ChallengeDTO {
   startDate: Date;
   endDate: Date;
   timeLeft?: number;
-  participantsCount: number;
   completedUsersCount: number;
   totalCompletionTime: number;
   podcastCount: number;
@@ -17,6 +16,8 @@ export interface ChallengeDTO {
   coinAward: number;
   averageScore: number;
   averageAccuracy: number;
+  totalSumission: number;
+  totalScore: number;
   isCompleted: boolean;
   lessons: string[];
   creator: UserDTO;

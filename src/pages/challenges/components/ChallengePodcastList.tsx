@@ -10,54 +10,19 @@ import {
   Typography,
 } from "@mui/material";
 import NoDataSection from "../../common-pages/NoDataSection";
-import { useEffect, useState } from "react";
-import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
-import {
-  getLessonByIdQuery,
-  getLessonResultById,
-} from "../../../apis/lesson.api";
 import { useNavigate } from "react-router-dom";
-import { LessonDTO } from "../../../types/dtos/lesson.dto";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { FaPlay } from "react-icons/fa";
+import { useGetLessonByIdList } from "../../../hooks/lesson/get-lesson.hook";
 
 export interface ChallengePodcastListProps {
-  lessonList: string[]; //contains lessonID
+  lessonList: string[];
 }
 
 const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
   const navigate = useNavigate();
-  const [lessonResults, setLessonResults] = useState<
-    Record<string, LessonSubmissionResponse>
-  >({});
-  const [lessonDetails, setLessonDetails] = useState<Record<string, LessonDTO>>(
-    {}
-  );
-
-  const fetchLessonData = async () => {
-    const results: Record<string, LessonSubmissionResponse> = {};
-    const details: Record<string, LessonDTO> = {};
-
-    await Promise.all(
-      lessonList.map(async (lessonID) => {
-        try {
-          const lessonDetail = await getLessonByIdQuery.fn(lessonID);
-          details[lessonID] = lessonDetail;
-          const result = await getLessonResultById.fn(lessonID);
-          results[lessonID] = result;
-        } catch (error) {
-          console.error(`Error fetching lesson result for ${lessonID}`, error);
-        }
-      })
-    );
-    setLessonResults(results);
-    setLessonDetails(details);
-  };
-  useEffect(() => {
-    if (lessonList?.length > 0) {
-      fetchLessonData();
-    }
-  }, [lessonList]);
+  const idsQuery = lessonList.join(",");
+  const { data: lessonDataList } = useGetLessonByIdList(idsQuery ?? "");
 
   return (
     <>
@@ -74,23 +39,23 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {lessonList?.length > 0 ? (
-              lessonList.map((lessonID) => {
-                const lessonResult = lessonResults[lessonID];
-                const lessonDetail = lessonDetails[lessonID];
+            {lessonDataList && lessonDataList.length > 0 ? (
+              lessonDataList?.map((lesson) => {
                 return (
-                  <TableRow key={lessonID}>
+                  <TableRow key={lesson.lessonId}>
+                    <TableCell align="center">{lesson.title}</TableCell>
                     <TableCell align="center">
-                      {lessonDetail ? lessonDetail.title : "-"}
+                      {lesson.userSubmission
+                        ? lesson.userSubmission.score
+                        : "-"}
                     </TableCell>
                     <TableCell align="center">
-                      {lessonResult ? lessonResult.score : "-"}
+                      {lesson.userSubmission
+                        ? lesson.userSubmission.accuracy
+                        : "-"}
                     </TableCell>
                     <TableCell align="center">
-                      {lessonResult ? `${lessonResult.accuracy}%` : "-"}
-                    </TableCell>
-                    <TableCell align="center">
-                      {lessonResult ? (
+                      {lesson.userSubmission ? (
                         <Chip label="Completed" color="success" />
                       ) : (
                         <Chip label="Not Started" color="default" />
@@ -99,14 +64,14 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
                     <TableCell align="center">
                       <IconButton
                         className="flex justify-center bg-amber-300"
-                        onClick={() => {
+                        onClick={() =>
                           navigate(
                             ROUTES_CONSTANTS.LESSON.DETAIL.replace(
                               ":id",
-                              lessonDetail._id
+                              lesson.lessonId
                             )
-                          );
-                        }}
+                          )
+                        }
                       >
                         <FaPlay size={16} />
                       </IconButton>

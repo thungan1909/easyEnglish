@@ -11,7 +11,8 @@ import {
   EditLessonResponse,
 } from "../types/dtos/lesson.dto";
 import {
-  LessonSubmissionResponse,
+  LessonSubmissionResult,
+  LessonSubmissionResultDetail,
   TopScoresResponse,
 } from "../types/dtos/submission.dto";
 import {
@@ -91,9 +92,9 @@ export const compareListenLessonMutation = {
 
 export const getLessonResultById = {
   name: "getLessonResultById",
-  fn: async (id: string): Promise<LessonSubmissionResponse> => {
+  fn: async (id: string): Promise<LessonSubmissionResult> => {
     try {
-      return getOriginalResponseData<LessonSubmissionResponse>(
+      return getOriginalResponseData<LessonSubmissionResult>(
         await getAxiosInstance().get(END_POINTS.SUBMISSION.LISTEN.GET_RESULT, {
           params: { lessonId: id },
         })
@@ -156,5 +157,16 @@ export const deleteLessonMutation = {
     } catch (error) {
       throw error;
     }
+  },
+};
+
+export const getLessonByIdList = {
+  name: "getLessonByIdList",
+  fn: async (idsQuery: string): Promise<LessonSubmissionResultDetail[]> => {
+    return getOriginalResponseData<LessonSubmissionResultDetail[]>(
+      await getAxiosInstance().get(
+        `${END_POINTS.LESSON.GET_LESSON_BY_ID_LIST}?ids=${idsQuery}`
+      )
+    );
   },
 };

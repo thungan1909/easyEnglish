@@ -66,9 +66,9 @@ const ChallengeItem = ({ challenge, type }: ChallengeItemProps) => {
             <>
               <CIconTextItem
                 icon={FaUserGroup}
-                value={challenge.participantsCount || 0}
+                value={challenge.participants.length || 0}
                 label={
-                  challenge.participantsCount > 1
+                  challenge.participants.length > 1
                     ? "participants"
                     : "participant"
                 }

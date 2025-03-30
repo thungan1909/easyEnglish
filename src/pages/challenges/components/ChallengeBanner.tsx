@@ -61,9 +61,11 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
 
             <CIconTextItem
               icon={FaUserGroup}
-              value={challenge.participantsCount}
+              value={challenge.participants.length}
               label={
-                challenge.participantsCount > 1 ? "participants" : "participant"
+                challenge.participants.length > 1
+                  ? "participants"
+                  : "participant"
               }
             />
           </div>

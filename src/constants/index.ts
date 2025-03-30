@@ -27,6 +27,7 @@ export const END_POINTS = {
     DELETE: "/lesson/delete/:id",
     GET_LIST_LESSON: "/lesson/list/inquiry",
     GET_LESSON_BY_ID: "/lesson/:id",
+    GET_LESSON_BY_ID_LIST: "/lesson/batch",
   },
   SUBMISSION: {
     LISTEN: {

@@ -111,7 +111,6 @@ const ListenLesson = () => {
     console.log(challenge, "challenge");
     console.log(challenge.participants, "All Participants");
     console.log("Participants Count 1:", challenge.participants.length);
-    console.log("Count 2", challenge.participantsCount);
     console.log(userId, "User ID in submission");
 
     // Tạo bản sao mảng participants
@@ -177,7 +176,7 @@ const ListenLesson = () => {
     }
 
     console.log("CHALLLELELELLE", challenge, challenge.participants.length);
-    return { ...challenge, participantsCount: challenge.participants.length };
+    return { ...challenge };
   };
 
   const handleSubmit = () => {
