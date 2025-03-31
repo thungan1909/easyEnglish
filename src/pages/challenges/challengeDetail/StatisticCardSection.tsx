@@ -11,25 +11,25 @@ const ChallengeStatisticSection = ({
     {
       icon: <FaBook size={24} />,
       description: "Number of Lessons",
-      value: challenge?.lessons?.length?.toString() || "0",
+      value: challenge?.lessons?.length || 0,
       mainColor: "blue",
     },
     {
       icon: <FaHeadphones size={24} />,
-      description: "Listening time",
-      value: "0",
+      description: "Total submission",
+      value: challenge?.totalSubmission || 0,
       mainColor: "orange",
     },
     {
       icon: <FaTrophy size={24} />,
       description: "Avarage score",
-      value: challenge?.averageScore?.toString() || "0",
+      value: challenge?.averageScore || 0,
       mainColor: "green",
     },
     {
       icon: <FaPercent size={24} />,
       description: "Avarage Accuracy",
-      value: challenge?.averageAccuracy?.toString() || "0%",
+      value: challenge?.averageAccuracy || 0,
       mainColor: "purple",
     },
   ];

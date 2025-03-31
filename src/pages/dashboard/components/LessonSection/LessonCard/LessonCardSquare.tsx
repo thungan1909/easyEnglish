@@ -1,7 +1,7 @@
 import { FaBook, FaImage } from "react-icons/fa";
 import { Typography } from "@mui/material";
-import CIconTextItem from "../../../../components/molecules/cIconTextItem/cIconTextItem";
-import { LessonDTO } from "../../../../types/dtos/lesson.dto";
+import CIconTextItem from "../../../../../components/molecules/cIconTextItem/cIconTextItem";
+import { LessonDTO } from "../../../../../types/dtos/lesson.dto";
 
 interface DashboardLessonItemProps {
   lesson: LessonDTO;

@@ -29,7 +29,6 @@ import { useCompareLessonMutation } from "../../../hooks/lesson/compare-lesson.h
 import {
   ChallengeDTO,
   ChallengeParticipantDTO,
-  SubmissionResponse,
 } from "../../../types/dtos/challenge.dto";
 import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
 import { useGetChallengesByLessonId } from "../../../hooks/challenge/get-challlenge.hook";
@@ -106,35 +105,20 @@ const ListenLesson = () => {
     challenge: ChallengeDTO,
     submission: LessonSubmissionResponse
   ): ChallengeDTO => {
-    console.log(submission, "submission");
     const { userId, score, accuracy, lessonId } = submission;
-    console.log(challenge, "challenge");
-    console.log(challenge.participants, "All Participants");
-    console.log("Participants Count 1:", challenge.participants.length);
-    console.log(userId, "User ID in submission");
 
-    // Tạo bản sao mảng participants
     const updatedParticipants = [...challenge.participants];
 
     const existingParticipant = updatedParticipants.find((participant) => {
-      return String(participant.userId) === String(userId);
+      return String(participant.user._id) === String(userId);
     });
 
-    console.log(existingParticipant);
-
     if (existingParticipant) {
-      console.log(
-        existingParticipant.lessonResults,
-        "existingParticipant.lessonResults"
-      );
-
-      // Kiểm tra xem lessonId đã tồn tại chưa
       const existingLesson = existingParticipant.lessonResults.find(
         (lr) => lr.lessonId?.toString() === lessonId?.toString()
       );
 
       if (existingLesson) {
-        // Nếu đã có, trừ điểm cũ trước khi cộng điểm mới
         existingParticipant.totalScore -= existingLesson.score;
         existingLesson.score = score;
         existingLesson.accuracy = accuracy;
@@ -142,12 +126,8 @@ const ListenLesson = () => {
         existingParticipant.lessonResults.push(submission);
       }
 
-      // Cập nhật totalScore
       existingParticipant.totalScore += score;
 
-      console.log(existingParticipant.lessonResults, "Updated lessonResults");
-
-      // Tính lại `averageAccuracy`
       const totalLessons = existingParticipant.lessonResults.length;
       const totalAccuracy = existingParticipant.lessonResults.reduce(
         (acc, lesson) => acc + (lesson.accuracy || 0),
@@ -156,26 +136,20 @@ const ListenLesson = () => {
 
       existingParticipant.averageAccuracy =
         totalLessons > 0 ? totalAccuracy / totalLessons : 0;
-
-      console.log(
-        totalLessons,
-        totalAccuracy,
-        existingParticipant.averageAccuracy,
-        "Updated averageAccuracy"
-      );
     } else {
       const newParticipant: ChallengeParticipantDTO = {
-        userId,
+        user: {
+          _id: userId,
+        },
         totalScore: score,
         averageAccuracy: accuracy,
         lessonResults: [submission],
+        totalAccuracy: 0,
+        averageScore: 0,
       };
-      console.log("new", newParticipant);
       challenge.participants.push(newParticipant);
-      console.log("PUSH", challenge.participants);
     }
 
-    console.log("CHALLLELELELLE", challenge, challenge.participants.length);
     return { ...challenge };
   };
 
@@ -192,13 +166,10 @@ const ListenLesson = () => {
         const lessonResult = data as LessonSubmissionResponse;
 
         let updatedChallenges: ChallengeDTO[] = [];
-        console.log(lessonResult, "lessonResult");
         if (challengeList?.exists) {
-          console.log("exist");
           updatedChallenges = challengeList.challenges.map((challenge) =>
             updateChallengeParticipants(challenge, lessonResult)
           );
-          console.log(updatedChallenges, "updatedChallenges");
           updateChallengeListMutation(updatedChallenges);
         }
         notify.success("Submission successful!");

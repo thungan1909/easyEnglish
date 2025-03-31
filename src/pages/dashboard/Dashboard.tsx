@@ -3,13 +3,16 @@ import { useAuthentication } from "../../hooks/auth/login.hook";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
 
-import LessonLayout from "./components/LessonLayout";
-import RankingList from "./components/RankingList";
-import HeroSection from "./components/HeroSection";
+import HeroSection from "./components/Challenge/HeroSection";
+import { useGetChallengeList } from "../../hooks/challenge/get-challenge.hook";
+import LessonLayout from "./components/LessonSection/LessonLayout";
+import RankingList from "./components/UserActivity/RankingList";
+import ChallengeLayout from "./components/Challenge/ChallengeLayout";
 
 const Dashboard = () => {
   const { isAuth } = useAuthentication();
   const { data: lessonList = [] } = useGetLessonList({});
+  const { data: challengeList = [] } = useGetChallengeList();
   const { data: currentUser } = useGetCurrentUser();
 
   const listenedLesson = useMemo(() => {
@@ -42,9 +45,22 @@ const Dashboard = () => {
     [lessonList]
   );
 
+  const newestChallenge = useMemo(
+    () =>
+      challengeList
+        .filter((item) => item.createdAt)
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt as string).getTime() -
+            new Date(a.createdAt as string).getTime()
+        )
+        .slice(0, 3),
+    [challengeList]
+  );
+
   const leftSection = (
     <div className="col-span-1 md:col-span-2 flex flex-col gap-6 px-4">
-      <HeroSection lessons={mostListened} />
+      <HeroSection challenges={newestChallenge} />
       {isAuth && listenedLesson.length > 0 && (
         <LessonLayout
           title="Recent Lessons"
@@ -69,12 +85,12 @@ const Dashboard = () => {
   const rightSection = (
     <div className="col-span-1 flex flex-col gap-6">
       <RankingList />
-      {/* <NewFeeds /> */}
       <LessonLayout
         title="Most Listened Lessons"
         lessons={mostListened}
         variant="rectangle"
       />
+      <ChallengeLayout title="Challenge" challenges={challengeList} />
     </div>
   );
 

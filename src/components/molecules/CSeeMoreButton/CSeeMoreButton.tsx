@@ -1,4 +1,4 @@
-import CButton from "../../../components/atoms/CButton/CButton";
+import CButton from "../../atoms/CButton/CButton";
 
 export interface SeeMoreButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;

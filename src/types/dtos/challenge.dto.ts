@@ -16,12 +16,13 @@ export interface ChallengeDTO {
   coinAward: number;
   averageScore: number;
   averageAccuracy: number;
-  totalSumission: number;
+  totalSubmission: number;
   totalScore: number;
   isCompleted: boolean;
   lessons: string[];
   creator: UserDTO;
   participants: ChallengeParticipantDTO[];
+  createdAt: string;
 }
 
 export interface CreateChallengeResponse {
@@ -30,9 +31,11 @@ export interface CreateChallengeResponse {
 }
 
 export interface ChallengeParticipantDTO {
-  userId: string;
+  user: { username?: string; fullName?: string; _id: string };
   totalScore: number;
+  totalAccuracy: number;
   averageAccuracy: number;
+  averageScore: number;
   lessonResults: LessonSubmissionResponse[];
 }
 

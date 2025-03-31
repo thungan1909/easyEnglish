@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
-import { LessonDTO } from "../../../types/dtos/lesson.dto";
-import SeeMoreButton from "./SeeMoreButton";
-import LessonCardRectangle from "./LessonCard/LessonCardRectangle";
-import LessonCardSquare from "./LessonCard/LessonCardSquare";
-import NoDataSection from "../../common-pages/NoDataSection";
+import { ROUTES_CONSTANTS } from "../../../../routers/constants";
+import SeeMoreButton from "../../../../components/molecules/CSeeMoreButton/CSeeMoreButton";
 import { useNavigate } from "react-router-dom";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import LessonCardSquare from "./LessonCard/LessonCardSquare";
+import LessonCardRectangle from "./LessonCard/LessonCardRectangle";
+import NoDataSection from "../../../common-pages/NoDataSection";
+import { LessonDTO } from "../../../../types/dtos/lesson.dto";
 
 export interface LessonLayoutProps {
   title?: string;

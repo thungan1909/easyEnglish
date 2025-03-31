@@ -14,7 +14,7 @@ import {
   CreateChallengeSchema,
   TCreateChallengeSchema,
 } from "../../../validation/challenge.schema";
-import LessonCardSquare from "../../dashboard/components/LessonCard/LessonCardSquare";
+import LessonCardSquare from "../../dashboard/components/LessonSection/LessonCard/LessonCardSquare";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useCreateChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";

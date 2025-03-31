@@ -1,10 +1,11 @@
 import { Typography } from "@mui/material";
 import clsx from "clsx";
 import { JSX } from "react";
+import formatNumber from "../../../utils/helpers/formatNumber";
 
 export interface StatisticCardProps {
   icon: JSX.Element;
-  value: string;
+  value: number;
   description?: string;
   mainColor?: "purple" | "orange" | "green" | "blue";
 }
@@ -50,7 +51,7 @@ const StatisticCard = ({
             typography: { xs: "body2", md: "body1" },
           }}
         >
-          {value}
+          {formatNumber(value)}
         </Typography>
         {description && (
           <Typography

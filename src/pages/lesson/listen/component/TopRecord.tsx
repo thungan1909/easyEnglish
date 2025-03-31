@@ -1,6 +1,6 @@
 import { Avatar, Typography } from "@mui/material";
 import { FaMedal, FaTrophy } from "react-icons/fa";
-import SeeMoreButton from "../../../dashboard/components/SeeMoreButton";
+import SeeMoreButton from "../../../../components/molecules/CSeeMoreButton/CSeeMoreButton";
 import { getFirstCharAvatar } from "../../../../utils/helpers/getFirstCharAvatar";
 import { TopScoresResponse } from "../../../../types/dtos/submission.dto";
 

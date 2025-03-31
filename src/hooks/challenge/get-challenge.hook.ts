@@ -5,7 +5,6 @@ import {
   getChallengeByIdQuery,
   getChallengeListQuery,
 } from "../../apis/challenge.api";
-import { LessonDTO } from "../../types/dtos/lesson.dto";
 
 export const useGetChallengeList = (): UseQueryResult<
   ChallengeDTO[],
