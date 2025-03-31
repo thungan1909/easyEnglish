@@ -33,10 +33,15 @@ const CreateChallenge = () => {
   const { data: lessonList = [] } = useGetLessonList({});
   const { mutate: createChallengeMutation } = useCreateChallengeMutation();
   const { mutate: uploadFileMutation } = useUploadFileMutation();
-
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedLessons, setSelectedLessons] = useState<
     { id: string; title: string }[]
   >([]);
+  const [isAllSelected, setIsAllSelected] = useState(false);
+
+  const filteredLessons = lessonList.filter((lesson) =>
+    lesson.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const {
     control,
@@ -88,9 +93,26 @@ const CreateChallenge = () => {
     );
   };
 
+  const handleToggleAll = () => {
+    if (isAllSelected) {
+      setSelectedLessons([]);
+    } else {
+      setSelectedLessons(
+        lessonList.map((lesson) => ({ id: lesson._id, title: lesson.title }))
+      );
+    }
+    setIsAllSelected(!isAllSelected);
+  };
+
   useEffect(() => {
     setValue("lessons", selectedLessons);
   }, [selectedLessons, setValue]);
+
+  useEffect(() => {
+    setIsAllSelected(
+      lessonList.length > 0 && selectedLessons.length === lessonList.length
+    );
+  }, [selectedLessons, lessonList]);
 
   return (
     <>
@@ -105,7 +127,6 @@ const CreateChallenge = () => {
               <Controller
                 name="title"
                 control={control}
-                defaultValue=""
                 render={({ field, fieldState }) => (
                   <div>
                     <CTextField
@@ -253,13 +274,17 @@ const CreateChallenge = () => {
                     type="text"
                     placeholder="Search lessons..."
                     className="bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-purple-400"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
+                {/* Check all */}
+                <Checkbox checked={isAllSelected} onChange={handleToggleAll} />
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {lessonList.length > 0 ? (
-                  lessonList.map((lesson) => (
+                {filteredLessons.length > 0 ? (
+                  filteredLessons.map((lesson) => (
                     <div
                       key={lesson._id}
                       className="flex flex-col items-center"

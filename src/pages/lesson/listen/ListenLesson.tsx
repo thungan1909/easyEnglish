@@ -110,8 +110,9 @@ const ListenLesson = () => {
     const updatedParticipants = [...challenge.participants];
 
     const existingParticipant = updatedParticipants.find((participant) => {
-      return String(participant.user._id) === String(userId);
+      return String(participant?.user?._id) === String(userId);
     });
+    console.log(existingParticipant, "existingParticipant");
 
     if (existingParticipant) {
       const existingLesson = existingParticipant.lessonResults.find(
