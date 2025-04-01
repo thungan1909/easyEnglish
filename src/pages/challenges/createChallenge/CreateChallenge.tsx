@@ -117,7 +117,7 @@ const CreateChallenge = () => {
   return (
     <>
       {isAuth ? (
-        <div className="mt-24 md:m-24 mx-4">
+        <div>
           <CPageTitle title=" Create a New Challenge" />
           <form
             className="flex flex-col space-y-6 mt-8"
@@ -261,30 +261,38 @@ const CreateChallenge = () => {
                 </div>
               )}
             />
-
             <div className="">
-              <div className="flex">
+              <div className="flex md:flex-row flex-col md:items-center items-start ">
                 <Typography variant="h6" className="!my-4">
                   Select lessons for this challenge
                 </Typography>
 
-                <div className="flex items-center relative ml-auto">
-                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500" />
-                  <input
-                    type="text"
-                    placeholder="Search lessons..."
-                    className="bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-purple-400"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
+                <div className="flex md:flex-row flex-col md:ml-auto">
+                  <div className="flex items-center">
+                    <Checkbox
+                      checked={isAllSelected}
+                      onChange={handleToggleAll}
+                    />
+                    <Typography variant="body2">
+                      {selectedLessons.length} selected lessons
+                    </Typography>
+                  </div>
+                  <div className="flex items-center justify-center relative ">
+                    <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500" />
+                    <input
+                      type="text"
+                      placeholder="Search lessons..."
+                      className="bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-purple-400"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
                 </div>
-                {/* Check all */}
-                <Checkbox checked={isAllSelected} onChange={handleToggleAll} />
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {filteredLessons.length > 0 ? (
-                  filteredLessons.map((lesson) => (
+              {filteredLessons.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                  {filteredLessons.map((lesson) => (
                     <div
                       key={lesson._id}
                       className="flex flex-col items-center"
@@ -299,13 +307,12 @@ const CreateChallenge = () => {
                         }
                       />
                     </div>
-                  ))
-                ) : (
-                  <NoDataSection />
-                )}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <NoDataSection />
+              )}
             </div>
-
             <CButton
               className="w-full"
               type="submit"

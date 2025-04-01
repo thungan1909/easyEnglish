@@ -36,12 +36,12 @@ const Lesson = () => {
   if (isUserError || isLessonError) return <LoadingFailPage />;
 
   return (
-    <div className="flex flex-col gap-4 mt-24 mx-4 md:m-24">
+    <div className="flex flex-col gap-4">
       <CPageTitle
         title="Lessons"
         titleDescription="List of all current lessons"
       />
-      <ul className="flex md:gap-8 gap-1">
+      <ul className="flex md:gap-8 gap-4">
         {menuItems.map((item) => (
           <li key={item.href}>
             <Link

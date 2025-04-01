@@ -14,7 +14,7 @@ const ManageMyUpload = () => {
   );
 
   return (
-    <div className="flex flex-col gap-4 mt-24 mx-4 md:m-24">
+    <div className="flex flex-col gap-4">
       <Tabs
         value={uploadValue}
         onChange={(_, newUploadValue: string) =>

@@ -7,6 +7,7 @@ const CDatePicker = ({ onChange, value, label }: IDatePicker) => {
     <DatePicker
       value={value || dayjs()}
       label={label}
+      format="DD/MM/YYYY"
       onChange={(val) => {
         onChange(val);
       }}

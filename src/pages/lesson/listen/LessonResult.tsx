@@ -39,12 +39,13 @@ const LessonResult = () => {
 
   const topScores = topScoresData?.topScores ?? [];
   const { title, _id: lessonId } = lesson || {};
-  const { score, accuracy, result_array, user_array } = lessonResult || {};
+  const { score, accuracy, result_array, user_array } =
+    lessonResult?.submission || {};
 
   if (isLessonResultError) return <LoadingFailPage />;
 
   return (
-    <div className="flex flex-col gap-8 mt-24 mx-4 md:m-24">
+    <div className="flex flex-col gap-8">
       {/* Breadcrumbs & Title */}
       <div className="flex flex-col gap-4">
         <CBreadcrumbs

@@ -2,14 +2,14 @@ import { FaBook, FaImage, FaPlay } from "react-icons/fa";
 import { Typography } from "@mui/material";
 import { LessonDTO } from "../../../../../types/dtos/lesson.dto";
 import CIconTextItem from "../../../../../components/molecules/cIconTextItem/cIconTextItem";
+import { dashboardItemBackground } from "../../../const";
 
 interface RectangleLessonItemProps {
   lesson: LessonDTO;
   onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
 const LessonCardRectangle = ({ lesson, onClick }: RectangleLessonItemProps) => {
-  const itemClass =
-    "flex items-center space-x-3 p-2 rounded-2xl shadow bg-gradient-to-r from-indigo-100 bg-purple-200 hover:bg-purple-400 cursor-pointer transition duration-300";
+  const itemClass = `${dashboardItemBackground} flex items-center p-2 gap-2`;
 
   return (
     <div key={lesson._id} className={itemClass} onClick={onClick}>

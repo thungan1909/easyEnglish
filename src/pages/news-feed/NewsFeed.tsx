@@ -2,7 +2,7 @@ import UserBasicInfoCard from "./components/UserBasicInfoCard";
 import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import FeedColumn from "./components/FeedColumn";
-import LessonLayout from "../dashboard/components/LessonLayout";
+import LessonLayout from "../dashboard/components/LessonSection/LessonLayout";
 
 const NewsFeed = () => {
   const { data: currentUser } = useGetCurrentUser();

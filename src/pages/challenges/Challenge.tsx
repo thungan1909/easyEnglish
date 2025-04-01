@@ -15,7 +15,7 @@ const Challenges = () => {
   }, [challengeList]);
 
   return (
-    <div className="flex flex-col m-24 mx-4 md:m-24 gap-4">
+    <div className="flex flex-col gap-4">
       <CPageTitle
         title="Challenges"
         titleDescription="List of all current challenges"
@@ -25,7 +25,7 @@ const Challenges = () => {
 
       <div className="grid md:grid-cols-3 grid-cols-2 gap-4">
         {challengeList.map((item: ChallengeDTO) => (
-          <ChallengeItem challenge={item} type="default" />
+          <ChallengeItem challenge={item} type="default" key={item._id} />
         ))}
       </div>
     </div>

@@ -13,7 +13,7 @@ const ChallengeDetail = () => {
   const { data: challenge } = useGetChallengeById(id ?? "");
 
   return (
-    <div className="flex flex-col md:m-24 mx-4">
+    <div className="flex flex-col">
       <CBreadcrumbs
         menuItem={generateBreadcrumbs("challenge", {
           id: challenge?._id,

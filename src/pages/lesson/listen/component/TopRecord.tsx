@@ -17,34 +17,31 @@ const TopRecord = ({ topScores }: TopScoresResponse) => {
         <SeeMoreButton />
       </div>
       <div className="grid gap-3">
-        {sortedScores.map((score, index) => {
-          return (
-            <div
-              key={score.user._id}
-              className="flex items-center shadow rounded-2xl p-3 space-x-3 text-black bg-purple-200  cursor-pointer transition duration-300"
+        {sortedScores.map((score, index) => (
+          <div
+            key={score.user._id}
+            className="flex items-center shadow rounded-2xl p-3 space-x-3 text-black bg-purple-200  cursor-pointer transition duration-300"
+          >
+            <span>{index + 1}.</span>
+            <Avatar
+              alt="user-avatar"
+              src={score.user.avatarUrl}
+              sx={{ width: 48, height: 48 }}
             >
-              <span>{index + 1}.</span>
-              <Avatar
-                alt="user-avatar"
-                src={score.user.avatarUrl}
-                sx={{ width: 48, height: 48 }}
-              >
-                {!score.user.avatarUrl &&
-                  getFirstCharAvatar(score.user.username)}
-              </Avatar>
-              <span className="truncate min-w-0">
-                {score.user.username || score.user.username}
-              </span>
-              <div className="flex  items-center ml-auto gap-2">
-                <Typography variant="body2">{score.score}</Typography>
-                <Typography className="text-green-500" variant="body2">
-                  ({score.accuracy} %)
-                </Typography>
-                <FaMedal className="text-amber-300" />
-              </div>
+              {!score.user.avatarUrl && getFirstCharAvatar(score.user.username)}
+            </Avatar>
+            <span className="truncate min-w-0">
+              {score.user.username || score.user.username}
+            </span>
+            <div className="flex  items-center ml-auto gap-2">
+              <Typography variant="body2">{score.score}</Typography>
+              <Typography className="text-green-500" variant="body2">
+                ({score.accuracy} %)
+              </Typography>
+              <FaMedal className="text-amber-300" />
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { FaBook, FaImage } from "react-icons/fa";
 import { Typography } from "@mui/material";
 import CIconTextItem from "../../../../../components/molecules/cIconTextItem/cIconTextItem";
 import { LessonDTO } from "../../../../../types/dtos/lesson.dto";
+import { dashboardItemBackground } from "../../../const";
 
 interface DashboardLessonItemProps {
   lesson: LessonDTO;
@@ -14,8 +15,7 @@ const LessonCardSquare = ({
   onClick,
   isShowSource = true,
 }: DashboardLessonItemProps) => {
-  const itemClass =
-    "flex flex-col items-center p-4 gap-2 rounded-2xl shadow bg-gradient-to-r from-indigo-100 bg-purple-200 hover:bg-purple-400 cursor-pointer transition duration-300";
+  const itemClass = `${dashboardItemBackground} flex flex-col items-center p-2 gap-2`;
 
   return (
     <div
@@ -31,7 +31,7 @@ const LessonCardSquare = ({
           className="w-32 h-32 rounded-2xl object-cover"
         />
       ) : (
-        <FaImage className="md:w-30 md:h-30 w-24 h-24" />
+        <FaImage className="md:w-32 md:h-32 w-24 h-24" />
       )}
       <div className="flex flex-col text-center items-center gap-2">
         <Typography variant="body2">

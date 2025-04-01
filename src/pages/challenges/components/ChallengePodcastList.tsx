@@ -40,45 +40,41 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
           </TableHead>
           <TableBody>
             {lessonDataList && lessonDataList.length > 0 ? (
-              lessonDataList?.map((lesson) => {
-                return (
-                  <TableRow key={lesson.lessonId}>
-                    <TableCell align="center">{lesson.title}</TableCell>
-                    <TableCell align="center">
-                      {lesson.userSubmission
-                        ? lesson.userSubmission.score
-                        : "-"}
-                    </TableCell>
-                    <TableCell align="center">
-                      {lesson.userSubmission
-                        ? lesson.userSubmission.accuracy
-                        : "-"}
-                    </TableCell>
-                    <TableCell align="center">
-                      {lesson.userSubmission ? (
-                        <Chip label="Completed" color="success" />
-                      ) : (
-                        <Chip label="Not Started" color="default" />
-                      )}
-                    </TableCell>
-                    <TableCell align="center">
-                      <IconButton
-                        className="flex justify-center bg-amber-300"
-                        onClick={() =>
-                          navigate(
-                            ROUTES_CONSTANTS.LESSON.DETAIL.replace(
-                              ":id",
-                              lesson.lessonId
-                            )
+              lessonDataList?.map((lesson) => (
+                <TableRow key={lesson.lessonId}>
+                  <TableCell align="center">{lesson.title}</TableCell>
+                  <TableCell align="center">
+                    {lesson.userSubmission ? lesson.userSubmission.score : "-"}
+                  </TableCell>
+                  <TableCell align="center">
+                    {lesson.userSubmission
+                      ? lesson.userSubmission.accuracy
+                      : "-"}
+                  </TableCell>
+                  <TableCell align="center">
+                    {lesson.userSubmission ? (
+                      <Chip label="Completed" color="success" />
+                    ) : (
+                      <Chip label="Not Started" color="default" />
+                    )}
+                  </TableCell>
+                  <TableCell align="center">
+                    <IconButton
+                      className="flex justify-center bg-amber-300"
+                      onClick={() =>
+                        navigate(
+                          ROUTES_CONSTANTS.LESSON.DETAIL.replace(
+                            ":id",
+                            lesson.lessonId
                           )
-                        }
-                      >
-                        <FaPlay size={16} />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                );
-              })
+                        )
+                      }
+                    >
+                      <FaPlay size={16} />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
             ) : (
               <TableRow>
                 <TableCell colSpan={5} align="center">

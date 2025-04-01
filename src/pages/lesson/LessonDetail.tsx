@@ -62,7 +62,7 @@ const LessonDetail = () => {
   if (isUserError) return <LoadingFailPage />;
 
   return (
-    <div className="flex md:flex-row flex-col my-24 mx-4 md:m-24 gap-8 justify-between">
+    <div className="flex md:flex-row flex-col gap-8 justify-between">
       <div className="flex flex-col gap-4">
         <CBreadcrumbs
           menuItem={generateBreadcrumbs("lesson", {
@@ -78,7 +78,7 @@ const LessonDetail = () => {
       </div>
 
       <div className="flex flex-col space-y-8 justify-center items-center">
-        <div className="flex md:gap-8 gap-2">
+        <div className="flex md:gap-4 gap-2">
           {isListen ? (
             <>
               <CButton

@@ -4,6 +4,7 @@ import { ROUTES_CONSTANTS } from "../../../../routers/constants";
 import { Typography } from "@mui/material";
 import CIconTextItem from "../../../../components/molecules/cIconTextItem/cIconTextItem";
 import { FaHourglass, FaMicrophone } from "react-icons/fa";
+import { dashboardItemBackground } from "../../const";
 
 export interface ChallengeItemProps {
   challenge: ChallengeDTO;
@@ -18,7 +19,7 @@ const ChallengeDashboardItem = ({ challenge }: ChallengeItemProps) => {
 
   return (
     <div
-      className="w-full flex flex-col shadow rounded-2xl bg-white p-4"
+      className={`${dashboardItemBackground} flex flex-col p-4`}
       onClick={handleClickOnChallengeItem}
     >
       <img

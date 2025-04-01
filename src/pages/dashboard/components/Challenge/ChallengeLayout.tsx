@@ -28,7 +28,7 @@ const ChallengeLayout = ({ title, challenges }: ChallengeLayoutProps) => {
       {challenges.length > 0 ? (
         <div className={gridClasses}>
           {challenges.map((challenge) => (
-            <ChallengeDashboardItem challenge={challenge} />
+            <ChallengeDashboardItem challenge={challenge} key={challenge._id} />
           ))}
         </div>
       ) : (

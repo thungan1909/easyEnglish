@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Navbar from "../components/molecules/cNavbar/Navbar";
 import { FaPlus } from "react-icons/fa";
 import CButton from "../components/atoms/CButton/CButton";
@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../routers/constants";
 import { useAuthentication } from "../hooks/auth/login.hook";
 import { motion } from "framer-motion";
+import { ProfileAccountPage } from "../routers/lazyLoad";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -23,13 +24,18 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     setIsAddNewPage(location.pathname.includes("add-new"));
   }, [location]);
 
+  const isProfilePage = React.Children.toArray(children).some(
+    (child) => React.isValidElement(child) && child.type === ProfileAccountPage
+  );
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar isAuth={isAuth} />
-      <div>{children}</div>
+      <div className={isProfilePage ? "" : "my-24 md:m-24 px-4"}>
+        {children}
+      </div>
 
       {!isAddNewPage && (
-        <div className="fixed bottom-12 right-12 flex flex-col items-end gap-3">
+        <div className="fixed bottom-12 right-12 flex flex-col items-end gap-3 ">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={isMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}

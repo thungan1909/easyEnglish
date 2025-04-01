@@ -125,7 +125,7 @@ const CreateLesson = () => {
   return (
     <>
       {isAuth ? (
-        <div className="mt-24 md:m-24 mx-4">
+        <>
           <CPageTitle title="Add new lesson" />
           <form
             className="flex flex-col space-y-6 mt-8"
@@ -290,7 +290,7 @@ const CreateLesson = () => {
               Save
             </CButton>
           </form>
-        </div>
+        </>
       ) : (
         <LoginReminder />
       )}
