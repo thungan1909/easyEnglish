@@ -110,7 +110,7 @@ const ListenLesson = () => {
     const updatedParticipants = [...challenge.participants];
 
     const existingParticipant = updatedParticipants.find((participant) => {
-      return String(participant?.user?._id) === String(userId);
+      return String(participant?.userId) === String(userId);
     });
     console.log(existingParticipant, "existingParticipant");
 
@@ -139,9 +139,7 @@ const ListenLesson = () => {
         totalLessons > 0 ? totalAccuracy / totalLessons : 0;
     } else {
       const newParticipant: ChallengeParticipantDTO = {
-        user: {
-          _id: userId,
-        },
+        userId: userId,
         totalScore: score,
         averageAccuracy: accuracy,
         lessonResults: [submission],

@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { FaPlay } from "react-icons/fa";
 import { useGetLessonByIdList } from "../../../hooks/lesson/get-lesson.hook";
+import formatNumber from "../../../utils/helpers/formatNumber";
 
 export interface ChallengePodcastListProps {
   lessonList: string[];
@@ -31,11 +32,11 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
         <Table className="rounded-2xl bg-white" aria-label="simple table">
           <TableHead className="bg-purple-300">
             <TableRow>
-              <TableCell align="center">Title</TableCell>
-              <TableCell align="center">Your point</TableCell>
-              <TableCell align="center">Accuracy</TableCell>
-              <TableCell align="center">Status</TableCell>
-              <TableCell align="center">Play</TableCell>
+              <TableCell align="center">Lesson Tittle</TableCell>
+              <TableCell align="center">Your Score</TableCell>
+              <TableCell align="center">Listening Accuracy (%)</TableCell>
+              <TableCell align="center">Completion Status</TableCell>
+              <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -44,11 +45,13 @@ const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
                 <TableRow key={lesson.lessonId}>
                   <TableCell align="center">{lesson.title}</TableCell>
                   <TableCell align="center">
-                    {lesson.userSubmission ? lesson.userSubmission.score : "-"}
+                    {lesson.userSubmission
+                      ? formatNumber(lesson.userSubmission.score)
+                      : "-"}
                   </TableCell>
                   <TableCell align="center">
                     {lesson.userSubmission
-                      ? lesson.userSubmission.accuracy
+                      ? formatNumber(lesson.userSubmission.accuracy) + " %"
                       : "-"}
                   </TableCell>
                   <TableCell align="center">

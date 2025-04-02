@@ -7,9 +7,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { FaMedal } from "react-icons/fa";
-import { ChallengeParticipantDTO } from "../../../types/dtos/challenge.dto";
 import formatNumber from "../../../utils/helpers/formatNumber";
+import { ChallengeParticipantDTO } from "../../../types/dtos/challenge.dto";
 
 export interface ChallengeParticipantsProps {
   participants: ChallengeParticipantDTO[];
@@ -25,30 +24,31 @@ const ChallengeParticipants = ({
         <Table className="rounded-2xl bg-white" aria-label="simple table">
           <TableHead className="bg-purple-300">
             <TableRow>
-              <TableCell align="center">Fullname</TableCell>
-              <TableCell align="center">Average accuracy</TableCell>
-              <TableCell align="center">Average point</TableCell>
+              <TableCell align="center">Member Name</TableCell>
+              <TableCell align="center">Total Score</TableCell>
+              <TableCell align="center">Average Score </TableCell>
+              <TableCell align="center">Average Accuracy (%)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {participants?.map((item, index) => (
-              <TableRow key={item.user._id || index}>
+              <TableRow key={item?.userId || index}>
                 <TableCell align="center">
                   <div className="flex justify-center items-center gap-1">
                     <span>{index + 1}.</span>
-                    {item.user.fullName || item.user.username}
+                    {item.fullName || item.username}
                   </div>
+                </TableCell>
+                <TableCell align="center">
+                  <Typography>{formatNumber(item.totalScore)}</Typography>
+                </TableCell>
+                <TableCell align="center">
+                  <Typography>{formatNumber(item.averageScore)}</Typography>
                 </TableCell>
                 <TableCell align="center">
                   <Typography>
                     {formatNumber(item.averageAccuracy)} %
                   </Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <div className="flex justify-center items-center gap-1">
-                    <Typography>{formatNumber(item.averageScore)}</Typography>
-                    <FaMedal className="text-yellow-500" size={18} />
-                  </div>
                 </TableCell>
               </TableRow>
             ))}

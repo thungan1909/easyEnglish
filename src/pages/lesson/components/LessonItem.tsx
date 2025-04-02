@@ -54,7 +54,7 @@ const LessonItem = ({ lesson, type }: LessonItemProps) => {
         </div>
 
         <Typography className="line-clamp-3 text-gray-600" variant="caption">
-          {lesson.description || lesson.content || "Description"}
+          {lesson.description}
         </Typography>
 
         <div className="flex gap-4">

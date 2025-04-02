@@ -10,13 +10,13 @@ const ChallengeStatisticSection = ({
   const listStatisCard: StatisticCardProps[] = [
     {
       icon: <FaBook size={24} />,
-      description: "Number of Lessons",
-      value: challenge?.lessons?.length || 0,
+      description: "Total Participants",
+      value: challenge?.participants.length || 0,
       mainColor: "blue",
     },
     {
       icon: <FaHeadphones size={24} />,
-      description: "Total submission",
+      description: "Total Submissions",
       value: challenge?.totalSubmission || 0,
       mainColor: "orange",
     },
@@ -28,7 +28,7 @@ const ChallengeStatisticSection = ({
     },
     {
       icon: <FaPercent size={24} />,
-      description: "Avarage Accuracy",
+      description: "Overall Accuracy",
       value: challenge?.averageAccuracy || 0,
       mainColor: "purple",
     },

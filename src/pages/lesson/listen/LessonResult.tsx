@@ -15,27 +15,27 @@ import TopRecord from "./component/TopRecord";
 import ResultCard from "./component/ResultCard";
 import { useGetCurrentUser } from "../../../hooks/user/user.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { useEffect } from "react";
 
 const LessonResult = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const { data: currentUser, isLoading: isUserLoading } = useGetCurrentUser();
-
-  if (!id) return <LoadingFailPage />;
-
   const { data: lesson } = useGetLessonById(id ?? "");
   const { data: topScoresData } = useGetTopScores(id ?? "");
   const { data: lessonResult, isError: isLessonResultError } =
     useGetLessonResultById(id ?? "");
 
-  const hasListened = currentUser?.listenedLessons?.some(
-    (l) => l.lesson === id
-  );
+  const hasListened = currentUser
+    ? currentUser.listenedLessons?.some((l) => l.lesson === id)
+    : undefined;
 
-  if (!isUserLoading && !hasListened) {
-    navigate(ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", id));
-  }
+  useEffect(() => {
+    if (!isUserLoading && currentUser && id && !hasListened) {
+      navigate(ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", id));
+    }
+  }, [isUserLoading, currentUser, hasListened, id, navigate]);
 
   const topScores = topScoresData?.topScores ?? [];
   const { title, _id: lessonId } = lesson || {};

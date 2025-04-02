@@ -155,7 +155,7 @@ const EditLesson = () => {
                 label="Lesson's title"
                 placeholder="Lesson's title"
                 className="w-full"
-                maxLength={25}
+                maxLength={50}
               />
               {fieldState.error && (
                 <Typography color="error" variant="caption">
@@ -178,7 +178,7 @@ const EditLesson = () => {
                 label="Lesson's source"
                 placeholder="Lesson's source"
                 className="w-full"
-                maxLength={50}
+                maxLength={20}
               />
               {fieldState.error && (
                 <Typography color="error" variant="caption">

@@ -4,6 +4,7 @@ import ChallengeItem from "./components/ChallengeItem";
 import { ChallengeDTO } from "../../types/dtos/challenge.dto";
 import { useGetChallengeList } from "../../hooks/challenge/get-challenge.hook";
 import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
+import NoDataSection from "../common-pages/NoDataSection";
 
 const Challenges = () => {
   const { data: challengeList = [] } = useGetChallengeList();
@@ -22,12 +23,15 @@ const Challenges = () => {
       />
 
       {newestChallenge && <ChallengeBanner challenge={newestChallenge} />}
-
-      <div className="grid md:grid-cols-3 grid-cols-2 gap-4">
-        {challengeList.map((item: ChallengeDTO) => (
-          <ChallengeItem challenge={item} type="default" key={item._id} />
-        ))}
-      </div>
+      {challengeList.length > 0 ? (
+        <div className="grid md:grid-cols-3 grid-cols-2 gap-4">
+          {challengeList.map((item: ChallengeDTO) => (
+            <ChallengeItem challenge={item} type="default" key={item._id} />
+          ))}
+        </div>
+      ) : (
+        <NoDataSection />
+      )}
     </div>
   );
 };

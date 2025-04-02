@@ -31,7 +31,9 @@ export interface CreateChallengeResponse {
 }
 
 export interface ChallengeParticipantDTO {
-  user: { username?: string; fullName?: string; _id: string };
+  userId: string;
+  username?: string;
+  fullName?: string;
   totalScore: number;
   totalAccuracy: number;
   averageAccuracy: number;

@@ -166,7 +166,7 @@ const CreateLesson = () => {
                       label="Lesson's source"
                       placeholder="Lesson's source"
                       className="w-full"
-                      maxLength={50}
+                      maxLength={20}
                     />
                     {fieldState.error && (
                       <Typography color="error" variant="caption">
