@@ -1,11 +1,11 @@
 import { Avatar } from "@mui/material";
-import { useGetTopWeekly } from "../../../../hooks/leaderboard/get-top-weekly.hook";
-import SeeMoreButton from "../../../../components/molecules/CSeeMoreButton/CSeeMoreButton";
-import { getFirstCharAvatar } from "../../../../utils/helpers/getFirstCharAvatar";
+import { useGetTopWeekly } from "../../../hooks/leaderboard/get-top-weekly.hook";
+import SeeMoreButton from "../../../components/molecules/CSeeMoreButton/CSeeMoreButton";
+import { getFirstCharAvatar } from "../../../utils/helpers/getFirstCharAvatar";
 import { FaRankingStar } from "react-icons/fa6";
-import NoDataSection from "../../../common-pages/NoDataSection";
+import NoDataSection from "../../common-pages/NoDataSection";
 
-const RankingList = () => {
+const WeeklyRankingList = () => {
   const { data: topWeekly = [] } = useGetTopWeekly();
 
   const sortedTopWeekly = [...topWeekly].sort(
@@ -49,4 +49,4 @@ const RankingList = () => {
   );
 };
 
-export default RankingList;
+export default WeeklyRankingList;

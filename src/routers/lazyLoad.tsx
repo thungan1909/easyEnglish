@@ -158,3 +158,11 @@ export const AdminDashboardPage = withDynamicImport(
     loading: true,
   }
 );
+
+// RANKING LIST
+export const RankingListPage = withDynamicImport(
+  () => import("../pages/ranking/RankingList"),
+  {
+    loading: true,
+  }
+);

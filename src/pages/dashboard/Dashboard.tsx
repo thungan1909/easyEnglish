@@ -6,8 +6,8 @@ import { useGetCurrentUser } from "../../hooks/user/user.hook";
 import HeroSection from "./components/Challenge/HeroSection";
 import { useGetChallengeList } from "../../hooks/challenge/get-challenge.hook";
 import LessonLayout from "./components/LessonSection/LessonLayout";
-import RankingList from "./components/UserActivity/RankingList";
 import ChallengeLayout from "./components/Challenge/ChallengeLayout";
+import WeeklyRankingList from "./components/RankingList";
 
 const Dashboard = () => {
   const { isAuth } = useAuthentication();
@@ -84,7 +84,7 @@ const Dashboard = () => {
 
   const rightSection = (
     <div className="col-span-1 flex flex-col gap-6">
-      <RankingList />
+      <WeeklyRankingList />
       <LessonLayout
         title="Most Listened Lessons"
         lessons={mostListened}
