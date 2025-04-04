@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
-import { useGetCurrentUser } from "../../hooks/user/user.hook";
-import LoadingFailPage from "../common-pages/LoadingFailPage";
-import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
-import LessonItem from "../lesson/components/LessonItem";
+import { useGetLessonList } from "../../../hooks/lesson/get-lesson.hook";
+import { useGetCurrentUser } from "../../../hooks/user/user.hook";
+import LoadingFailPage from "../../common-pages/LoadingFailPage";
+import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
+import LessonItem from "../../lesson/components/LessonItem";
 import { Divider } from "@mui/material";
-import NoDataSection from "../common-pages/NoDataSection";
+import NoDataSection from "../../common-pages/NoDataSection";
 
 const MyLesson = () => {
   const { data: currentUser, isError: isUserError } = useGetCurrentUser();

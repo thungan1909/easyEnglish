@@ -9,10 +9,7 @@ import {
 } from "../../../constants/regex";
 import LoginReminder from "../../common-pages/LoginReminder";
 import { useCreateLessonMutation } from "../../../hooks/lesson/create-lesson.hook";
-import {
-  CreateNewLessonSchema,
-  TCreateNewLessonSchema,
-} from "../../../validation/lesson.schema";
+import { LessonSchema, TLessonSchema } from "../../../validation/lesson.schema";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
@@ -43,9 +40,9 @@ const CreateLesson = () => {
     setValue,
     watch,
     formState: { isValid },
-  } = useForm<TCreateNewLessonSchema>({
+  } = useForm<TLessonSchema>({
     mode: "onChange",
-    resolver: zodResolver(CreateNewLessonSchema),
+    resolver: zodResolver(LessonSchema),
   });
 
   const lessonContent = watch("content");
@@ -100,7 +97,7 @@ const CreateLesson = () => {
     );
   };
 
-  const onSubmit = async (data: TCreateNewLessonSchema) => {
+  const onSubmit = async (data: TLessonSchema) => {
     createLessonMutation(data, {
       onSuccess: () => {
         notify.success("Create lesson successfully");

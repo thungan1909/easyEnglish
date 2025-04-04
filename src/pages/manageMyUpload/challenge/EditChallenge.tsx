@@ -10,28 +10,30 @@ import CDatePicker from "../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
 import { useGetLessonList } from "../../../hooks/lesson/get-lesson.hook";
 import NoDataSection from "../../common-pages/NoDataSection";
-import {
-  ChallengeSchema,
-  TChallengeSchema,
-} from "../../../validation/challenge.schema";
+
 import LessonCardSquare from "../../dashboard/components/LessonSection/LessonCard/LessonCardSquare";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useCreateChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";
 import { notify } from "../../../utils/notify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
+import { useUpdateChallengeMutation } from "../../../hooks/challenge/update-challenge.hook";
+import {
+  ChallengeSchema,
+  TChallengeSchema,
+} from "../../../validation/challenge.schema";
+import { useGetChallengeById } from "../../../hooks/challenge/get-challenge.hook";
 
-const CreateChallenge = () => {
+const EditChallenge = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
-  const currentDate = dayjs().toDate();
-
+  const { id } = useParams<{ id: string }>();
+  const { data: challenge } = useGetChallengeById(id ?? "");
   const { data: lessonList = [] } = useGetLessonList({});
-  const { mutate: createChallengeMutation } = useCreateChallengeMutation();
+  const { mutate: updateChallengeMutation } = useUpdateChallengeMutation();
   const { mutate: uploadFileMutation } = useUploadFileMutation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
@@ -45,12 +47,9 @@ const CreateChallenge = () => {
     control,
     handleSubmit,
     setValue,
+    reset,
     formState: { isValid },
   } = useForm<TChallengeSchema>({
-    defaultValues: {
-      startDate: currentDate,
-      endDate: currentDate,
-    },
     mode: "onChange",
     resolver: zodResolver(ChallengeSchema),
   });
@@ -64,15 +63,25 @@ const CreateChallenge = () => {
   };
 
   const onSubmit = async (data: TChallengeSchema) => {
-    createChallengeMutation(data, {
-      onSuccess: () => {
-        notify.success("Challenge created successfully");
-        navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
+    if (!id) {
+      notify.error("Challenge ID is missing");
+      return;
+    }
+    updateChallengeMutation(
+      {
+        challengeId: id,
+        data,
       },
-      onError: () => {
-        notify.error("Failed to create challenge.");
-      },
-    });
+      {
+        onSuccess: () => {
+          notify.success("Challenge created successfully");
+          navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
+        },
+        onError: () => {
+          notify.error("Failed to create challenge.");
+        },
+      }
+    );
   };
 
   const handleFileUpload = async (file: File, type: "audio" | "image") => {
@@ -92,13 +101,12 @@ const CreateChallenge = () => {
   };
 
   const handleToggleAll = () => {
+    console.log("isAlll", isAllSelected);
     if (isAllSelected) {
       setSelectedLessons([]);
     } else {
-      setSelectedLessons(
-        lessonList.map((lesson) => lesson._id)
-        // lessonList.map((lesson) => ({ id: lesson._id, title: lesson.title }))
-      );
+      console.log(lessonList, "lesson");
+      setSelectedLessons(lessonList.map((lesson) => lesson._id));
     }
     setIsAllSelected(!isAllSelected);
   };
@@ -112,6 +120,13 @@ const CreateChallenge = () => {
       lessonList.length > 0 && selectedLessons.length === lessonList.length
     );
   }, [selectedLessons, lessonList]);
+
+  useEffect(() => {
+    if (challenge) {
+      console.log(challenge, "challenge");
+      reset(challenge);
+    }
+  }, [challenge, reset]);
 
   return (
     <>
@@ -325,4 +340,4 @@ const CreateChallenge = () => {
   );
 };
 
-export default CreateChallenge;
+export default EditChallenge;

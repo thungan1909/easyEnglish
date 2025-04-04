@@ -15,16 +15,11 @@ import {
   LessonSubmissionResultDetail,
   TopScoresResponse,
 } from "../types/dtos/submission.dto";
-import {
-  TCreateNewLessonSchema,
-  TEditLessonSchema,
-} from "../validation/lesson.schema";
+import { TLessonSchema, TLessonSchema } from "../validation/lesson.schema";
 
 export const createLessonMutation = {
   name: "createLesson",
-  fn: async (
-    formData: TCreateNewLessonSchema
-  ): Promise<CreateLessonResponse> => {
+  fn: async (formData: TLessonSchema): Promise<CreateLessonResponse> => {
     try {
       return getOriginalResponseData<CreateLessonResponse>(
         await getAxiosInstance().post(END_POINTS.LESSON.CREATE, formData, {
@@ -127,7 +122,7 @@ export const editLessonMutation = {
   name: "editLesson",
   fn: async (
     lessonId: string,
-    formData: TEditLessonSchema
+    formData: TLessonSchema
   ): Promise<EditLessonResponse> => {
     try {
       return getOriginalResponseData<EditLessonResponse>(

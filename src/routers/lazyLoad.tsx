@@ -135,7 +135,14 @@ export const ManageMyUploadsPage = withDynamicImport(
 );
 
 export const EditLessonPage = withDynamicImport(
-  () => import("../pages/manageMyUpload/EditLesson"),
+  () => import("../pages/manageMyUpload/lesson/EditLesson"),
+  {
+    loading: true,
+  }
+);
+
+export const EditChallengePage = withDynamicImport(
+  () => import("../pages/manageMyUpload/challenge/EditChallenge"),
   {
     loading: true,
   }

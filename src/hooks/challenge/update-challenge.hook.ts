@@ -9,12 +9,17 @@ import {
   updateChallengeMutation,
   updateChallengeListMutation,
 } from "../../apis/challenge.api";
+import { TChallengeSchema } from "../../validation/challenge.schema";
 
 export const useUpdateChallengeMutation = () => {
   const queryClient = useQueryClient();
-  return useMutation<UpdateChallengeResponse, IHttpError, UpdateChallengeDTO>({
-    mutationFn: async (data: UpdateChallengeDTO) => {
-      return updateChallengeMutation.fn(data);
+  return useMutation<
+    UpdateChallengeResponse,
+    IHttpError,
+    { challengeId: string; data: TChallengeSchema }
+  >({
+    mutationFn: async ({ challengeId, data }) => {
+      return updateChallengeMutation.fn(challengeId, data);
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({

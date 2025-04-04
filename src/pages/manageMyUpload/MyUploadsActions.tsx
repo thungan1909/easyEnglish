@@ -48,14 +48,23 @@ export const MyUploadsActions = ({ id, type }: MyUploadsActionsProps) => {
       );
     }
   };
+
+  const handleEdit = (e: React.MouseEvent<Element, MouseEvent>) => {
+    e.stopPropagation();
+    let routes = "";
+    if (type === "challenge") {
+      routes = ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT.CHALLENGE;
+    } else {
+      routes = ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT.LESSON;
+    }
+    navigate(routes.replace(":id", id));
+  };
+
   return (
     <>
       <ActionButton
         title="Edit"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT.replace(":id", id));
-        }}
+        onClick={handleEdit}
         icon={<FaPenToSquare />}
       />
       <ActionButton title="Delete" onClick={handleDelete} icon={<FaTrash />} />

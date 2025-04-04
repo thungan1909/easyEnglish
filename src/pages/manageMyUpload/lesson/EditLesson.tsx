@@ -1,28 +1,25 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetLessonById } from "../../hooks/lesson/get-lesson.hook";
+import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import { useEffect, useState } from "react";
-import {
-  EditLessonSchema,
-  TEditLessonSchema,
-} from "../../validation/lesson.schema";
+import { LessonSchema, TLessonSchema } from "../../../validation/lesson.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import CTextField from "../../components/atoms/CTextField/CTextField";
+import CTextField from "../../../components/atoms/CTextField/CTextField";
 import { Typography } from "@mui/material";
-import CUploadFile from "../../components/atoms/CUploadFile/CUploadFile";
-import CTextArea from "../../components/atoms/CTextArea/CTextArea";
-import CButton from "../../components/atoms/CButton/CButton";
-import CWordInput from "../../components/atoms/CWordInput/CWordInput";
+import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
+import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
+import CButton from "../../../components/atoms/CButton/CButton";
+import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
 import {
   exactPunctuationRegex,
   punctuationRegex,
   wordSplitterRegex,
-} from "../../constants/regex";
-import { notify } from "../../utils/notify";
-import { useUploadFileMutation } from "../../hooks/upload/upload-file.hook";
-import { useEditLessonMutation } from "../../hooks/lesson/edit-lesson.hook";
-import { ROUTES_CONSTANTS } from "../../routers/constants";
-import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
+} from "../../../constants/regex";
+import { notify } from "../../../utils/notify";
+import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
+import { useEditLessonMutation } from "../../../hooks/lesson/edit-lesson.hook";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 
 const EditLesson = () => {
   const navigate = useNavigate();
@@ -45,9 +42,9 @@ const EditLesson = () => {
     watch,
     reset,
     formState: { isValid },
-  } = useForm<TEditLessonSchema>({
+  } = useForm<TLessonSchema>({
     mode: "onChange",
-    resolver: zodResolver(EditLessonSchema),
+    resolver: zodResolver(LessonSchema),
   });
 
   const lessonContent = watch("content");
@@ -107,7 +104,7 @@ const EditLesson = () => {
     ?.split(wordSplitterRegex)
     .filter((word) => word.trim() || punctuationRegex.test(word));
 
-  const onSubmit = async (data: TEditLessonSchema) => {
+  const onSubmit = async (data: TLessonSchema) => {
     if (!id) {
       notify.error("Lesson ID is missing.");
       return;

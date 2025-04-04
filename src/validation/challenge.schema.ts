@@ -5,7 +5,7 @@ import {
   invalidLessonTitleMsg,
 } from "../constants/errorMessage";
 
-export const CreateChallengeSchema = zod.object({
+export const ChallengeSchema = zod.object({
   title: zod.string().min(1, invalidLessonTitleMsg),
   startDate: zod.date().optional(),
   endDate: zod.date().optional(),
@@ -25,13 +25,15 @@ export const CreateChallengeSchema = zod.object({
     ])
     .optional(),
   lessons: zod
-    .array(
-      zod.object({
-        id: zod.string(),
-        title: zod.string().min(1, invalidLessonTitleMsg),
-      })
-    )
+    .string()
+    .array()
+
+    // zod.object({
+    //   // id: zod.string(),
+    //   // title: zod.string().min(1, invalidLessonTitleMsg),
+    // })
+    //()
     .min(1, invalidChallengeLessonMsg),
 });
 
-export type TCreateChallengeSchema = zod.infer<typeof CreateChallengeSchema>;
+export type TChallengeSchema = zod.infer<typeof ChallengeSchema>;

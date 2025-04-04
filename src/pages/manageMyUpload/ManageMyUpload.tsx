@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Tab, Tabs } from "@mui/material";
-import MyLesson from "./MyLesson";
-import MyChallenge from "./MyChallenge";
+import MyLesson from "./lesson/MyLesson";
+import MyChallenge from "./challenge/MyChallenge";
 
 export enum UploadTypeEnum {
   challenge = "CHALLENGE",

@@ -7,7 +7,7 @@ import {
   UpdateChallengeDTO,
   UpdateChallengeResponse,
 } from "../types/dtos/challenge.dto";
-import { TCreateChallengeSchema } from "../validation/challenge.schema";
+import { TChallengeSchema } from "../validation/challenge.schema";
 
 export const getChallengeByIdQuery = {
   name: "getChallengeByIdQuery",
@@ -57,10 +57,16 @@ export const getChallengesByLessonIdAPI = {
 
 export const updateChallengeMutation = {
   name: "updateChallengeMutation",
-  fn: async (data: UpdateChallengeDTO): Promise<UpdateChallengeResponse> => {
+  fn: async (
+    challengeId: string,
+    data: TChallengeSchema
+  ): Promise<UpdateChallengeResponse> => {
     try {
       return getOriginalResponseData<UpdateChallengeResponse>(
-        await getAxiosInstance().put(END_POINTS.CHALLENGE.UPDATE, data)
+        await getAxiosInstance().put(
+          END_POINTS.CHALLENGE.UPDATE.replace(":id", challengeId),
+          data
+        )
       );
     } catch (error) {
       throw error;
