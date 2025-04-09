@@ -31,8 +31,8 @@ import {
   ChallengeParticipantDTO,
 } from "../../../types/dtos/challenge.dto";
 import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
-import { useGetChallengesByLessonId } from "../../../hooks/challenge/get-challlenge.hook";
 import { useUpdateChallengeListMutation } from "../../../hooks/challenge/update-challenge.hook";
+import { useGetChallengesByLessonId } from "../../../hooks/challenge/get-challenge.hook";
 
 const ListenLesson = () => {
   const { id } = useParams();

@@ -106,10 +106,7 @@ const CreateChallenge = () => {
     if (isAllSelected) {
       setSelectedLessons([]);
     } else {
-      setSelectedLessons(
-        lessonList.map((lesson) => lesson._id)
-        // lessonList.map((lesson) => ({ id: lesson._id, title: lesson.title }))
-      );
+      setSelectedLessons(lessonList.map((lesson) => lesson._id));
     }
     setIsAllSelected(!isAllSelected);
   };

@@ -1,39 +1,26 @@
 import * as zod from "zod";
 import {
+  coinAwardChallengeMsg,
+  coinFeeChallengeMsg,
   invalidChallengeLessonMsg,
+  invalidChallengeTitleMsg,
   invalidLessonImageFileMsg,
-  invalidLessonTitleMsg,
 } from "../constants/errorMessage";
 
 export const ChallengeSchema = zod.object({
-  title: zod.string().min(1, invalidLessonTitleMsg),
+  title: zod.string().min(1, invalidChallengeTitleMsg),
   startDate: zod.date().optional(),
   endDate: zod.date().optional(),
   description: zod.string().optional(),
-  coinFee: zod
-    .number()
-    .min(0, { message: "Fee must be 0 or greater." })
-    .optional(),
-  coinAward: zod
-    .number()
-    .min(0, { message: "Award must be 0 or greater." })
-    .optional(),
+  coinFee: zod.number().min(0, coinFeeChallengeMsg).optional(),
+  coinAward: zod.number().min(0, coinAwardChallengeMsg).optional(),
   imageFile: zod
     .union([
       zod.string().url({ message: invalidLessonImageFileMsg }),
       zod.instanceof(File, { message: invalidLessonImageFileMsg }),
     ])
     .optional(),
-  lessons: zod
-    .string()
-    .array()
-
-    // zod.object({
-    //   // id: zod.string(),
-    //   // title: zod.string().min(1, invalidLessonTitleMsg),
-    // })
-    //()
-    .min(1, invalidChallengeLessonMsg),
+  lessons: zod.string().array().min(1, invalidChallengeLessonMsg),
 });
 
 export type TChallengeSchema = zod.infer<typeof ChallengeSchema>;

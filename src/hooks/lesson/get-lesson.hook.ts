@@ -10,7 +10,6 @@ import {
   getLessonByIdQuery,
   getLessonListQuery,
 } from "../../apis/lesson.api";
-import { getChallengeByIdQuery } from "../../apis/challenge.api";
 import { LessonSubmissionResultDetail } from "../../types/dtos/submission.dto";
 
 export const useGetLessonList = (

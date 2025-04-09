@@ -10,7 +10,6 @@ import CDatePicker from "../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
 import { useGetLessonList } from "../../../hooks/lesson/get-lesson.hook";
 import NoDataSection from "../../common-pages/NoDataSection";
-
 import LessonCardSquare from "../../dashboard/components/LessonSection/LessonCard/LessonCardSquare";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -90,7 +89,6 @@ const EditChallenge = () => {
         onSuccess: () => {
           notify.success("Challenge update successfully");
           navigate(ROUTES_CONSTANTS.CHALLENGE.DETAIL.replace(":id", id));
-          // navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
         },
         onError: () => {
           notify.error("Failed to create challenge.");

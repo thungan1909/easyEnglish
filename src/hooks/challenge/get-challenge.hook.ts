@@ -5,6 +5,8 @@ import {
   getChallengeByIdQuery,
   getChallengeListQuery,
 } from "../../apis/challenge.api";
+import { GetChallengesByLessonIdAPIResponse } from "../../types/dtos/challenge.dto";
+import { getChallengesByLessonIdAPI } from "../../apis/challenge.api";
 
 export const useGetChallengeList = (): UseQueryResult<
   ChallengeDTO[],
@@ -28,5 +30,18 @@ export const useGetChallengeById = (
     refetchOnWindowFocus: false,
     retry: 3,
     retryDelay: 3000,
+  });
+};
+
+export const useGetChallengesByLessonId = (
+  id: string
+): UseQueryResult<GetChallengesByLessonIdAPIResponse, IHttpError> => {
+  return useQuery<GetChallengesByLessonIdAPIResponse, IHttpError>({
+    queryKey: [getChallengesByLessonIdAPI.name, id],
+    queryFn: async () => getChallengesByLessonIdAPI.fn(id),
+    refetchOnWindowFocus: false,
+    retry: 3,
+    retryDelay: 3000,
+    enabled: !!id,
   });
 };
