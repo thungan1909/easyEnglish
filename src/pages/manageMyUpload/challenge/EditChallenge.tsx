@@ -18,7 +18,6 @@ import { notify } from "../../../utils/notify";
 import { useNavigate, useParams } from "react-router-dom";
 import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 import { useUpdateChallengeMutation } from "../../../hooks/challenge/update-challenge.hook";
 import {
@@ -26,15 +25,19 @@ import {
   TChallengeSchema,
 } from "../../../validation/challenge.schema";
 import { useGetChallengeById } from "../../../hooks/challenge/get-challenge.hook";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { validateDateRange } from "../../../utils/helpers/periodDateValidation";
 
 const EditChallenge = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+
   const { data: challenge } = useGetChallengeById(id ?? "");
   const { data: lessonList = [] } = useGetLessonList({});
   const { mutate: updateChallengeMutation } = useUpdateChallengeMutation();
   const { mutate: uploadFileMutation } = useUploadFileMutation();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
@@ -48,6 +51,7 @@ const EditChallenge = () => {
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { isValid },
   } = useForm<TChallengeSchema>({
     mode: "onChange",
@@ -67,6 +71,16 @@ const EditChallenge = () => {
       notify.error("Challenge ID is missing");
       return;
     }
+
+    const startDate = watch("startDate");
+    const endDate = watch("endDate");
+
+    if (!startDate || !endDate) {
+      notify.error("Start date and end date are required.");
+      return;
+    }
+    if (!validateDateRange(startDate, endDate)) return;
+
     updateChallengeMutation(
       {
         challengeId: id,
@@ -74,8 +88,9 @@ const EditChallenge = () => {
       },
       {
         onSuccess: () => {
-          notify.success("Challenge created successfully");
-          navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
+          notify.success("Challenge update successfully");
+          navigate(ROUTES_CONSTANTS.CHALLENGE.DETAIL.replace(":id", id));
+          // navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
         },
         onError: () => {
           notify.error("Failed to create challenge.");
@@ -101,11 +116,9 @@ const EditChallenge = () => {
   };
 
   const handleToggleAll = () => {
-    console.log("isAlll", isAllSelected);
     if (isAllSelected) {
       setSelectedLessons([]);
     } else {
-      console.log(lessonList, "lesson");
       setSelectedLessons(lessonList.map((lesson) => lesson._id));
     }
     setIsAllSelected(!isAllSelected);
@@ -123,8 +136,8 @@ const EditChallenge = () => {
 
   useEffect(() => {
     if (challenge) {
-      console.log(challenge, "challenge");
       reset(challenge);
+      setSelectedLessons(challenge.lessons || []);
     }
   }, [challenge, reset]);
 
@@ -191,6 +204,7 @@ const EditChallenge = () => {
                     </div>
                   )}
                 />
+
                 <Controller
                   name="coinFee"
                   control={control}
@@ -222,10 +236,20 @@ const EditChallenge = () => {
                 />
               </div>
             </div>
-            <CUploadFile
-              accept="image"
-              onChangeFileSelected={(file) => handleFileUpload(file, "image")}
-              title="Challenge's banner"
+
+            <Controller
+              name="imageFile"
+              control={control}
+              render={({ field }) => (
+                <CUploadFile
+                  accept="image"
+                  onChangeFileSelected={(file) =>
+                    handleFileUpload(file, "image")
+                  }
+                  title="Challenge's banner"
+                  defaultFileURL={field.value}
+                />
+              )}
             />
 
             <div className="grid md:grid-cols-2 gap-4">
@@ -275,6 +299,7 @@ const EditChallenge = () => {
                 </div>
               )}
             />
+
             <div className="">
               <div className="flex md:flex-row flex-col md:items-center items-start ">
                 <Typography variant="h6" className="!my-4">

@@ -64,3 +64,4 @@ export const USER_QUERY_KEY = ["user"];
 export const LESSON_QUERY_KEY = ["lesson"];
 export const AUTHENTICATION_QUERY_KEY = ["getAuthentication"];
 export const CHALLENGE_QUERY_KEY = ["challenge"];
+export const CHALLENGE_LIST_QUERY_KEY = ["challenge_list"];

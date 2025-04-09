@@ -24,6 +24,7 @@ import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
+import { validateDateRange } from "../../../utils/helpers/periodDateValidation";
 
 const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
@@ -45,6 +46,7 @@ const CreateChallenge = () => {
     control,
     handleSubmit,
     setValue,
+    watch,
     formState: { isValid },
   } = useForm<TChallengeSchema>({
     defaultValues: {
@@ -64,6 +66,15 @@ const CreateChallenge = () => {
   };
 
   const onSubmit = async (data: TChallengeSchema) => {
+    const startDate = watch("startDate");
+    const endDate = watch("endDate");
+
+    if (!startDate || !endDate) {
+      notify.error("Start date and end date are required.");
+      return;
+    }
+    if (!validateDateRange(startDate, endDate)) return;
+
     createChallengeMutation(data, {
       onSuccess: () => {
         notify.success("Challenge created successfully");

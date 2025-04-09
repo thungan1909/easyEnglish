@@ -8,6 +8,7 @@ import { CHALLENGE_QUERY_KEY } from "../../constants";
 import {
   updateChallengeMutation,
   updateChallengeListMutation,
+  getChallengeByIdQuery,
 } from "../../apis/challenge.api";
 import { TChallengeSchema } from "../../validation/challenge.schema";
 
@@ -21,9 +22,9 @@ export const useUpdateChallengeMutation = () => {
     mutationFn: async ({ challengeId, data }) => {
       return updateChallengeMutation.fn(challengeId, data);
     },
-    onSuccess: async () => {
+    onSuccess: async (_, { challengeId }) => {
       await queryClient.invalidateQueries({
-        queryKey: CHALLENGE_QUERY_KEY,
+        queryKey: [getChallengeByIdQuery.name, challengeId],
       });
     },
   });

@@ -29,11 +29,11 @@ const EditLesson = () => {
     withHint: string[];
     withoutHint: string[];
   }>({ withHint: [], withoutHint: [] });
+  const [isHintValid, setIsHintValid] = useState(false);
+
   const [isUpdateLessonContent, setIsUpdateLessonContent] = useState(false);
   const { mutate: uploadFileMutation } = useUploadFileMutation();
   const { mutate: editLessonMutation } = useEditLessonMutation();
-
-  const [isHintValid, setIsHintValid] = useState(false);
 
   const {
     control,

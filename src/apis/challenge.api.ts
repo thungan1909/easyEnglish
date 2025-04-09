@@ -22,9 +22,7 @@ export const getChallengeByIdQuery = {
 
 export const createChallengeMutation = {
   name: "createChallenge",
-  fn: async (
-    formData: TCreateChallengeSchema
-  ): Promise<CreateChallengeResponse> => {
+  fn: async (formData: TChallengeSchema): Promise<CreateChallengeResponse> => {
     try {
       return getOriginalResponseData<CreateChallengeResponse>(
         await getAxiosInstance().post(END_POINTS.CHALLENGE.CREATE, formData)

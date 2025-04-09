@@ -12,7 +12,6 @@ const RankingList = () => {
     (a, b) => b.totalWeeklyScore - a.totalWeeklyScore
   );
 
-  console.log(topWeekly, "topWeekly", sortedTopWeekly.slice(1, 3));
   return (
     <div className="bg-white shadow rounded-2xl p-4">
       <div className="flex justify-between items-center mb-4">
