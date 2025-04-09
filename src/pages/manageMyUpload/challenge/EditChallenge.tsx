@@ -33,37 +33,37 @@ const EditChallenge = () => {
   const { id } = useParams<{ id: string }>();
 
   const { data: challenge } = useGetChallengeById(id ?? "");
-  const { data: lessonList = [] } = useGetLessonList({});
+  //const { data: lessonList = [] } = useGetLessonList({});
   const { mutate: updateChallengeMutation } = useUpdateChallengeMutation();
   const { mutate: uploadFileMutation } = useUploadFileMutation();
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
-  const [isAllSelected, setIsAllSelected] = useState(false);
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
+  // const [isAllSelected, setIsAllSelected] = useState(false);
 
-  const filteredLessons = lessonList.filter((lesson) =>
-    lesson.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredLessons = lessonList.filter((lesson) =>
+  //   lesson.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
-  const {
-    control,
-    handleSubmit,
-    setValue,
-    reset,
-    watch,
-    formState: { isValid },
-  } = useForm<TChallengeSchema>({
-    mode: "onChange",
-    resolver: zodResolver(ChallengeSchema),
-  });
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   setValue,
+  //   reset,
+  //   watch,
+  //   formState: { isValid },
+  // } = useForm<TChallengeSchema>({
+  //   mode: "onChange",
+  //   resolver: zodResolver(ChallengeSchema),
+  // });
 
-  const toggleLessonSelection = (lessonId: string) => {
-    setSelectedLessons((prev) =>
-      prev.some((lesson) => lesson === lessonId)
-        ? prev.filter((lesson) => lesson !== lessonId)
-        : [...prev, lessonId]
-    );
-  };
+  // const toggleLessonSelection = (lessonId: string) => {
+  //   setSelectedLessons((prev) =>
+  //     prev.some((lesson) => lesson === lessonId)
+  //       ? prev.filter((lesson) => lesson !== lessonId)
+  //       : [...prev, lessonId]
+  //   );
+  // };
 
   const onSubmit = async (data: TChallengeSchema) => {
     if (!id) {
@@ -113,31 +113,31 @@ const EditChallenge = () => {
     );
   };
 
-  const handleToggleAll = () => {
-    if (isAllSelected) {
-      setSelectedLessons([]);
-    } else {
-      setSelectedLessons(lessonList.map((lesson) => lesson._id));
-    }
-    setIsAllSelected(!isAllSelected);
-  };
+  // const handleToggleAll = () => {
+  //   if (isAllSelected) {
+  //     setSelectedLessons([]);
+  //   } else {
+  //     setSelectedLessons(lessonList.map((lesson) => lesson._id));
+  //   }
+  //   setIsAllSelected(!isAllSelected);
+  // };
 
-  useEffect(() => {
-    setValue("lessons", selectedLessons);
-  }, [selectedLessons, setValue]);
+  // useEffect(() => {
+  //   setValue("lessons", selectedLessons);
+  // }, [selectedLessons, setValue]);
 
-  useEffect(() => {
-    setIsAllSelected(
-      lessonList.length > 0 && selectedLessons.length === lessonList.length
-    );
-  }, [selectedLessons, lessonList]);
+  // useEffect(() => {
+  //   setIsAllSelected(
+  //     lessonList.length > 0 && selectedLessons.length === lessonList.length
+  //   );
+  // }, [selectedLessons, lessonList]);
 
-  useEffect(() => {
-    if (challenge) {
-      reset(challenge);
-      setSelectedLessons(challenge.lessons || []);
-    }
-  }, [challenge, reset]);
+  // useEffect(() => {
+  //   if (challenge) {
+  //     reset(challenge);
+  //     setSelectedLessons(challenge.lessons || []);
+  //   }
+  // }, [challenge, reset]);
 
   return (
     <>
