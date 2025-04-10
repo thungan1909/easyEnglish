@@ -39,9 +39,9 @@ export interface ListenLessonDTO {
   result_array: string[];
   user_array: string[];
 }
+
 export interface SubmitListenLessonDTO extends ListenLessonDTO {}
 export interface CompareListenLessonDTO extends ListenLessonDTO {}
-
 export interface SubmitListenLessonResponse {}
 export interface CompareLessonResponse {
   accuracy?: number;

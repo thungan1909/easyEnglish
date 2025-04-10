@@ -149,7 +149,8 @@ export const EditLessonPage = withDynamicImport(
 );
 
 export const EditChallengePage = withDynamicImport(
-  () => import("../pages/manageMyUpload/challenge/EditChallenge"),
+  //() => import("../pages/manageMyUpload/challenge/EditChallenge"),
+  () => import("../pages/challenges/EditChallenge"),
   {
     loading: true,
   }

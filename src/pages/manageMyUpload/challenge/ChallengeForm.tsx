@@ -1,7 +1,7 @@
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
-import { Controller, SubmitHandler } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Checkbox, Typography } from "@mui/material";
 import CDatePicker from "../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
@@ -41,7 +41,10 @@ const ChallengeForm = ({
   handleFileUpload,
 }: ChallengeFormProps) => {
   return (
-    <form className="flex flex-col space-y-6 mt-8" onSubmit={onSubmit}>
+    <form
+      className="flex flex-col space-y-6 mt-8"
+      onSubmit={onSubmit} // Use handleSubmit to wrap your onSubmit function
+    >
       <div className="grid md:grid-cols-2 gap-4">
         <Controller
           name="title"

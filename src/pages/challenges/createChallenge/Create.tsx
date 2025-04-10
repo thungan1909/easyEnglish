@@ -1,40 +1,50 @@
-import CTextField from "../../../components/atoms/CTextField/CTextField";
-import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
-import CButton from "../../../components/atoms/CButton/CButton";
-import LoginReminder from "../../common-pages/LoginReminder";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Checkbox, Typography } from "@mui/material";
-import { useAuthentication } from "../../../hooks/auth/login.hook";
-import CDatePicker from "../../../components/atoms/CDatePicker/CDatePicker";
-import dayjs from "dayjs";
-import { useGetLessonList } from "../../../hooks/lesson/get-lesson.hook";
-import NoDataSection from "../../common-pages/NoDataSection";
-import {
-  ChallengeSchema,
-  TChallengeSchema,
-} from "../../../validation/challenge.schema";
-import LessonCardSquare from "../../dashboard/components/LessonSection/LessonCard/LessonCardSquare";
-import { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
 import { useCreateChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
-import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
-import { validateDateRange } from "../../../utils/helpers/periodDateValidation";
-import ChallengeForm from "../../manageMyUpload/challenge/ChallengeForm";
 import { useChallengeForm } from "../../../hookForm/useChallengeForm";
+import { useAuthentication } from "../../../hooks/auth/login.hook";
+import ChallengeForm from "../../manageMyUpload/challenge/ChallengeForm";
+import LoginReminder from "../../common-pages/LoginReminder";
+import { ChallengeDTO } from "../../../types/dtos/challenge.dto";
+import dayjs from "dayjs";
+import { useGetCurrentUser } from "../../../hooks/user/user.hook";
+import { UserDTO } from "../../../types/dtos/user.dto";
 
 const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
+  const { data: currentUser } = useGetCurrentUser();
 
   const { mutate: createChallengeMutation } = useCreateChallengeMutation();
   const { mutate: uploadFileMutation } = useUploadFileMutation();
 
+  const defaultValue: ChallengeDTO = {
+    _id: "",
+    title: "",
+    description: "",
+    imageFile: "",
+
+    completedUsersCount: 0,
+    totalCompletionTime: 0,
+    podcastCount: 0,
+    coinFee: 0,
+    coinAward: 0,
+    averageScore: 0,
+    averageAccuracy: 0,
+    totalSubmission: 0,
+    totalScore: 0,
+    isCompleted: false,
+    lessons: [],
+
+    participants: [],
+    createdAt: "",
+    startDate: dayjs().toDate(),
+    endDate: dayjs().toDate(),
+    creator: currentUser as UserDTO,
+  };
   const {
     control,
     onSubmit,
@@ -47,7 +57,7 @@ const CreateChallenge = () => {
     handleToggleAll,
     isAllSelected,
     setValue,
-  } = useChallengeForm({}, (data) =>
+  } = useChallengeForm({ ...defaultValue }, (data) =>
     createChallengeMutation(data, {
       onSuccess: () => {
         notify.success("Challenge created successfully");
@@ -58,27 +68,6 @@ const CreateChallenge = () => {
       },
     })
   );
-
-  //   const onSubmit = async (data: TChallengeSchema) => {
-  //     const startDate = watch("startDate");
-  //     const endDate = watch("endDate");
-
-  //     if (!startDate || !endDate) {
-  //       notify.error("Start date and end date are required.");
-  //       return;
-  //     }
-  //     if (!validateDateRange(startDate, endDate)) return;
-
-  //     createChallengeMutation(data, {
-  //       onSuccess: () => {
-  //         notify.success("Challenge created successfully");
-  //         navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
-  //       },
-  //       onError: () => {
-  //         notify.error("Failed to create challenge.");
-  //       },
-  //     });
-  //   };
 
   const handleFileUpload = async (file: File, type: "audio" | "image") => {
     uploadFileMutation(
@@ -95,25 +84,6 @@ const CreateChallenge = () => {
       }
     );
   };
-
-  // const handleToggleAll = () => {
-  //   if (isAllSelected) {
-  //     setSelectedLessons([]);
-  //   } else {
-  //     setSelectedLessons(lessonList.map((lesson) => lesson._id));
-  //   }
-  //   setIsAllSelected(!isAllSelected);
-  // };
-
-  // useEffect(() => {
-  //   setValue("lessons", selectedLessons);
-  // }, [selectedLessons, setValue]);
-
-  // useEffect(() => {
-  //   setIsAllSelected(
-  //     lessonList.length > 0 && selectedLessons.length === lessonList.length
-  //   );
-  // }, [selectedLessons, lessonList]);
 
   return (
     <>

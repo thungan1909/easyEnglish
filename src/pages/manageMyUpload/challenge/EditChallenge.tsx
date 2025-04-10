@@ -31,55 +31,46 @@ const EditChallenge = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-
   const { data: challenge } = useGetChallengeById(id ?? "");
-  //const { data: lessonList = [] } = useGetLessonList({});
+  const { data: lessonList = [] } = useGetLessonList({});
   const { mutate: updateChallengeMutation } = useUpdateChallengeMutation();
   const { mutate: uploadFileMutation } = useUploadFileMutation();
-
-  // const [searchTerm, setSearchTerm] = useState("");
-  // const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
-  // const [isAllSelected, setIsAllSelected] = useState(false);
-
-  // const filteredLessons = lessonList.filter((lesson) =>
-  //   lesson.title.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
-  // const {
-  //   control,
-  //   handleSubmit,
-  //   setValue,
-  //   reset,
-  //   watch,
-  //   formState: { isValid },
-  // } = useForm<TChallengeSchema>({
-  //   mode: "onChange",
-  //   resolver: zodResolver(ChallengeSchema),
-  // });
-
-  // const toggleLessonSelection = (lessonId: string) => {
-  //   setSelectedLessons((prev) =>
-  //     prev.some((lesson) => lesson === lessonId)
-  //       ? prev.filter((lesson) => lesson !== lessonId)
-  //       : [...prev, lessonId]
-  //   );
-  // };
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
+  const [isAllSelected, setIsAllSelected] = useState(false);
+  const filteredLessons = lessonList.filter((lesson) =>
+    lesson.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    reset,
+    watch,
+    formState: { isValid },
+  } = useForm<TChallengeSchema>({
+    mode: "onChange",
+    resolver: zodResolver(ChallengeSchema),
+  });
+  const toggleLessonSelection = (lessonId: string) => {
+    setSelectedLessons((prev) =>
+      prev.some((lesson) => lesson === lessonId)
+        ? prev.filter((lesson) => lesson !== lessonId)
+        : [...prev, lessonId]
+    );
+  };
   const onSubmit = async (data: TChallengeSchema) => {
     if (!id) {
       notify.error("Challenge ID is missing");
       return;
     }
-
     const startDate = watch("startDate");
     const endDate = watch("endDate");
-
     if (!startDate || !endDate) {
       notify.error("Start date and end date are required.");
       return;
     }
     if (!validateDateRange(startDate, endDate)) return;
-
     updateChallengeMutation(
       {
         challengeId: id,
@@ -96,7 +87,6 @@ const EditChallenge = () => {
       }
     );
   };
-
   const handleFileUpload = async (file: File, type: "audio" | "image") => {
     uploadFileMutation(
       { file, type },
@@ -112,33 +102,28 @@ const EditChallenge = () => {
       }
     );
   };
-
-  // const handleToggleAll = () => {
-  //   if (isAllSelected) {
-  //     setSelectedLessons([]);
-  //   } else {
-  //     setSelectedLessons(lessonList.map((lesson) => lesson._id));
-  //   }
-  //   setIsAllSelected(!isAllSelected);
-  // };
-
-  // useEffect(() => {
-  //   setValue("lessons", selectedLessons);
-  // }, [selectedLessons, setValue]);
-
-  // useEffect(() => {
-  //   setIsAllSelected(
-  //     lessonList.length > 0 && selectedLessons.length === lessonList.length
-  //   );
-  // }, [selectedLessons, lessonList]);
-
-  // useEffect(() => {
-  //   if (challenge) {
-  //     reset(challenge);
-  //     setSelectedLessons(challenge.lessons || []);
-  //   }
-  // }, [challenge, reset]);
-
+  const handleToggleAll = () => {
+    if (isAllSelected) {
+      setSelectedLessons([]);
+    } else {
+      setSelectedLessons(lessonList.map((lesson) => lesson._id));
+    }
+    setIsAllSelected(!isAllSelected);
+  };
+  useEffect(() => {
+    setValue("lessons", selectedLessons);
+  }, [selectedLessons, setValue]);
+  useEffect(() => {
+    setIsAllSelected(
+      lessonList.length > 0 && selectedLessons.length === lessonList.length
+    );
+  }, [selectedLessons, lessonList]);
+  useEffect(() => {
+    if (challenge) {
+      reset(challenge);
+      setSelectedLessons(challenge.lessons || []);
+    }
+  }, [challenge, reset]);
   return (
     <>
       {isAuth ? (
@@ -170,7 +155,6 @@ const EditChallenge = () => {
                   </div>
                 )}
               />
-
               <div className="grid md:grid-cols-2 gap-4">
                 <Controller
                   name="coinAward"
@@ -202,7 +186,6 @@ const EditChallenge = () => {
                     </div>
                   )}
                 />
-
                 <Controller
                   name="coinFee"
                   control={control}
@@ -234,7 +217,6 @@ const EditChallenge = () => {
                 />
               </div>
             </div>
-
             <Controller
               name="imageFile"
               control={control}
@@ -249,7 +231,6 @@ const EditChallenge = () => {
                 />
               )}
             />
-
             <div className="grid md:grid-cols-2 gap-4">
               <Controller
                 name="startDate"
@@ -274,7 +255,6 @@ const EditChallenge = () => {
                 )}
               />
             </div>
-
             <Controller
               name="description"
               control={control}
@@ -297,13 +277,11 @@ const EditChallenge = () => {
                 </div>
               )}
             />
-
             <div className="">
               <div className="flex md:flex-row flex-col md:items-center items-start ">
                 <Typography variant="h6" className="!my-4">
                   Select lessons for this challenge
                 </Typography>
-
                 <div className="flex md:flex-row flex-col md:ml-auto">
                   <div className="flex items-center">
                     <Checkbox
@@ -326,7 +304,6 @@ const EditChallenge = () => {
                   </div>
                 </div>
               </div>
-
               {filteredLessons.length > 0 ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                   {filteredLessons.map((lesson) => (

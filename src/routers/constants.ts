@@ -17,8 +17,8 @@ export const ROUTES_CONSTANTS = {
   MANAGE_MY_UPLOAD: {
     BASE: "/manage-my-upload",
     EDIT: {
-      LESSON: "/manage-my-upload/edit/lesson/:id",
-      CHALLENGE: "/manage-my-upload/edit/challenge/:id",
+      LESSON: "/manage-my-upload/update/lesson/:id",
+      CHALLENGE: "/manage-my-upload/update/challenge/:id",
     },
   },
   LESSON: {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useGetLessonList } from "../hooks/lesson/get-lesson.hook";
 import {
   ChallengeSchema,
@@ -16,6 +16,13 @@ export const useChallengeForm = (
 ) => {
   const currentDate = dayjs().toDate();
 
+  const initialValues = {
+    startDate: currentDate,
+    endDate: currentDate,
+    lessons: [],
+    ...defaultValues,
+  };
+
   const { data: lessonList = [] } = useGetLessonList({});
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
@@ -28,11 +35,7 @@ export const useChallengeForm = (
     reset,
     formState: { isValid },
   } = useForm<TChallengeSchema>({
-    defaultValues: {
-      startDate: defaultValues?.startDate ?? currentDate,
-      endDate: defaultValues?.endDate ?? currentDate,
-      ...defaultValues,
-    },
+    defaultValues: initialValues,
     mode: "onChange",
     resolver: zodResolver(ChallengeSchema),
   });
@@ -70,13 +73,6 @@ export const useChallengeForm = (
     );
   }, [selectedLessons, lessonList]);
 
-  useEffect(() => {
-    if (defaultValues) {
-      reset(defaultValues);
-      //   setSelectedLessons(challenge.lessons || []);
-    }
-  }, [defaultValues, reset]);
-
   const onSubmit = async (data: TChallengeSchema) => {
     const startDate = watch("startDate");
     const endDate = watch("endDate");
@@ -88,6 +84,20 @@ export const useChallengeForm = (
     if (!validateDateRange(startDate, endDate)) return;
     onSubmitCallback?.(data);
   };
+
+  // useEffect(() => {
+  //   if (defaultValues) {
+  //     reset(defaultValues);
+  //     setSelectedLessons(defaultValues.lessons || []);
+  //   }
+  // }, [defaultValues, reset]);
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+      setSelectedLessons(defaultValues.lessons || []);
+    }
+  }, [defaultValues, reset]);
 
   return {
     control,
@@ -101,5 +111,6 @@ export const useChallengeForm = (
     handleToggleAll,
     isAllSelected,
     setValue,
+    reset,
   };
 };
