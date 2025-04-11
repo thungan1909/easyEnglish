@@ -6,7 +6,7 @@ import { useChallengeForm } from "../../hookForm/useChallengeForm";
 import { notify } from "../../utils/notify";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
 import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
-import ChallengeForm from "../manageMyUpload/challenge/ChallengeForm";
+import ChallengeForm from "./ChallengeForm";
 import LoginReminder from "../common-pages/LoginReminder";
 import { useGetChallengeById } from "../../hooks/challenge/get-challenge.hook";
 import { useMemo } from "react";
@@ -84,6 +84,7 @@ const EditChallenge = () => {
           <ChallengeForm
             control={control}
             onSubmit={onSubmit}
+            isValid={isValid}
             handleSubmit={handleSubmit}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}

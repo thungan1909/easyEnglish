@@ -1,19 +1,17 @@
-import { useCreateChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";
-import { notify } from "../../../utils/notify";
+import { useCreateChallengeMutation } from "../../hooks/challenge/create-challenge.hook";
+import { notify } from "../../utils/notify";
 import { useNavigate } from "react-router-dom";
-import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
-import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
-import { useChallengeForm } from "../../../hookForm/useChallengeForm";
-import { useAuthentication } from "../../../hooks/auth/login.hook";
-import ChallengeForm from "../../manageMyUpload/challenge/ChallengeForm";
-import LoginReminder from "../../common-pages/LoginReminder";
-import { useGetCurrentUser } from "../../../hooks/user/user.hook";
+import { useUploadFileMutation } from "../../hooks/upload/upload-file.hook";
+import { ROUTES_CONSTANTS } from "../../routers/constants";
+import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
+import { useChallengeForm } from "../../hookForm/useChallengeForm";
+import { useAuthentication } from "../../hooks/auth/login.hook";
+import ChallengeForm from "./ChallengeForm";
+import LoginReminder from "../common-pages/LoginReminder";
 
 const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
-  const { data: currentUser } = useGetCurrentUser();
 
   const { mutate: createChallengeMutation } = useCreateChallengeMutation();
   const { mutate: uploadFileMutation } = useUploadFileMutation();
@@ -21,6 +19,7 @@ const CreateChallenge = () => {
   const {
     control,
     onSubmit,
+    handleSubmit,
     isValid,
     searchTerm,
     setSearchTerm,
@@ -66,6 +65,7 @@ const CreateChallenge = () => {
           <ChallengeForm
             control={control}
             onSubmit={onSubmit}
+            handleSubmit={handleSubmit}
             isValid={isValid}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}

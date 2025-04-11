@@ -34,7 +34,7 @@ export const useChallengeForm = (
     watch,
     reset,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm<TChallengeSchema>({
     defaultValues: initialValues,
     mode: "onChange",
@@ -75,7 +75,6 @@ export const useChallengeForm = (
   }, [selectedLessons, lessonList]);
 
   const onSubmit = async (data: TChallengeSchema) => {
-    console.log("das;dl;welkfp");
     const startDate = watch("startDate");
     const endDate = watch("endDate");
 

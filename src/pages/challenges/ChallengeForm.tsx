@@ -1,25 +1,28 @@
-import CTextField from "../../../components/atoms/CTextField/CTextField";
-import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
-import CButton from "../../../components/atoms/CButton/CButton";
+import CTextField from "../../components/atoms/CTextField/CTextField";
+import CTextArea from "../../components/atoms/CTextArea/CTextArea";
+import CButton from "../../components/atoms/CButton/CButton";
 import {
   Controller,
   SubmitHandler,
   UseFormHandleSubmit,
 } from "react-hook-form";
 import { Checkbox, Typography } from "@mui/material";
-import CDatePicker from "../../../components/atoms/CDatePicker/CDatePicker";
+import CDatePicker from "../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
-import NoDataSection from "../../common-pages/NoDataSection";
-import LessonCardSquare from "../../dashboard/components/LessonSection/LessonCard/LessonCardSquare";
+import NoDataSection from "../common-pages/NoDataSection";
+import LessonCardSquare from "../dashboard/components/LessonSection/LessonCard/LessonCardSquare";
 import { FaSearch } from "react-icons/fa";
 
-import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
-import { LessonDTO } from "../../../types/dtos/lesson.dto";
-import { TChallengeSchema } from "../../../validation/challenge.schema";
+import CUploadFile from "../../components/atoms/CUploadFile/CUploadFile";
+import { LessonDTO } from "../../types/dtos/lesson.dto";
+import { TChallengeSchema } from "../../validation/challenge.schema";
+import { FormEventHandler } from "react";
 
 export interface ChallengeFormProps {
   control: any;
-  handleSubmit: UseFormHandleSubmit<TChallengeSchema>;
+  handleSubmit: (
+    callback: SubmitHandler<TChallengeSchema>
+  ) => FormEventHandler<HTMLFormElement>;
   onSubmit: SubmitHandler<TChallengeSchema>;
   searchTerm: string;
   setSearchTerm: (s: string) => void;
@@ -28,6 +31,7 @@ export interface ChallengeFormProps {
   toggleLessonSelection: (id: string) => void;
   handleToggleAll: () => void;
   isAllSelected: boolean;
+  isValid: boolean;
   handleFileUpload: (file: File, type: "image" | "audio") => void;
 }
 
@@ -41,6 +45,7 @@ const ChallengeForm = ({
   filteredLessons,
   toggleLessonSelection,
   handleToggleAll,
+  isValid,
   isAllSelected,
   handleFileUpload,
 }: ChallengeFormProps) => {
@@ -235,7 +240,7 @@ const ChallengeForm = ({
           <NoDataSection />
         )}
       </div>
-      <CButton className="w-full" type="submit" isRounded>
+      <CButton className="w-full" type="submit" isRounded disabled={!isValid}>
         Save Challenge
       </CButton>
     </form>
