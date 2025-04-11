@@ -52,6 +52,7 @@ const EditChallenge = () => {
     mode: "onChange",
     resolver: zodResolver(ChallengeSchema),
   });
+
   const toggleLessonSelection = (lessonId: string) => {
     setSelectedLessons((prev) =>
       prev.some((lesson) => lesson === lessonId)
@@ -59,6 +60,7 @@ const EditChallenge = () => {
         : [...prev, lessonId]
     );
   };
+
   const onSubmit = async (data: TChallengeSchema) => {
     if (!id) {
       notify.error("Challenge ID is missing");
@@ -87,6 +89,7 @@ const EditChallenge = () => {
       }
     );
   };
+
   const handleFileUpload = async (file: File, type: "audio" | "image") => {
     uploadFileMutation(
       { file, type },
@@ -118,9 +121,11 @@ const EditChallenge = () => {
       lessonList.length > 0 && selectedLessons.length === lessonList.length
     );
   }, [selectedLessons, lessonList]);
+
   useEffect(() => {
     if (challenge) {
       reset(challenge);
+      console.log(watch());
       setSelectedLessons(challenge.lessons || []);
     }
   }, [challenge, reset]);
@@ -128,7 +133,7 @@ const EditChallenge = () => {
     <>
       {isAuth ? (
         <div>
-          <CPageTitle title=" Create a New Challenge" />
+          <CPageTitle title="Create a New Challenge" />
           <form
             className="flex flex-col space-y-6 mt-8"
             onSubmit={handleSubmit(onSubmit)}

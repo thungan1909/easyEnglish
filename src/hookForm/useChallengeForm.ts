@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useGetLessonList } from "../hooks/lesson/get-lesson.hook";
 import {
   ChallengeSchema,
@@ -33,6 +33,7 @@ export const useChallengeForm = (
     setValue,
     watch,
     reset,
+    handleSubmit,
     formState: { isValid },
   } = useForm<TChallengeSchema>({
     defaultValues: initialValues,
@@ -74,6 +75,7 @@ export const useChallengeForm = (
   }, [selectedLessons, lessonList]);
 
   const onSubmit = async (data: TChallengeSchema) => {
+    console.log("das;dl;welkfp");
     const startDate = watch("startDate");
     const endDate = watch("endDate");
 
@@ -85,23 +87,23 @@ export const useChallengeForm = (
     onSubmitCallback?.(data);
   };
 
-  // useEffect(() => {
-  //   if (defaultValues) {
-  //     reset(defaultValues);
-  //     setSelectedLessons(defaultValues.lessons || []);
-  //   }
-  // }, [defaultValues, reset]);
-
   useEffect(() => {
     if (defaultValues) {
-      reset(defaultValues);
-      setSelectedLessons(defaultValues.lessons || []);
+      if (defaultValues && Object.keys(defaultValues).length > 0) {
+        reset({
+          ...defaultValues,
+          lessons: defaultValues.lessons || [],
+        });
+
+        setSelectedLessons(defaultValues.lessons || []);
+      }
     }
   }, [defaultValues, reset]);
 
   return {
     control,
     onSubmit,
+    handleSubmit,
     isValid,
     searchTerm,
     setSearchTerm,

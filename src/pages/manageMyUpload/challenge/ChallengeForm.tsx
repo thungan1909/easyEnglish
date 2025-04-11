@@ -1,7 +1,11 @@
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import {
+  Controller,
+  SubmitHandler,
+  UseFormHandleSubmit,
+} from "react-hook-form";
 import { Checkbox, Typography } from "@mui/material";
 import CDatePicker from "../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
@@ -15,8 +19,8 @@ import { TChallengeSchema } from "../../../validation/challenge.schema";
 
 export interface ChallengeFormProps {
   control: any;
-  onSubmit: SubmitHandler<TChallengeSchema>; // Adjusted the type of onSubmit
-  isValid: boolean;
+  handleSubmit: UseFormHandleSubmit<TChallengeSchema>;
+  onSubmit: SubmitHandler<TChallengeSchema>;
   searchTerm: string;
   setSearchTerm: (s: string) => void;
   selectedLessons: string[];
@@ -29,8 +33,8 @@ export interface ChallengeFormProps {
 
 const ChallengeForm = ({
   control,
+  handleSubmit,
   onSubmit,
-  isValid,
   searchTerm,
   setSearchTerm,
   selectedLessons,
@@ -43,7 +47,7 @@ const ChallengeForm = ({
   return (
     <form
       className="flex flex-col space-y-6 mt-8"
-      onSubmit={onSubmit} // Use handleSubmit to wrap your onSubmit function
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className="grid md:grid-cols-2 gap-4">
         <Controller
@@ -126,10 +130,18 @@ const ChallengeForm = ({
           />
         </div>
       </div>
-      <CUploadFile
-        accept="image"
-        onChangeFileSelected={(file) => handleFileUpload(file, "image")}
-        title="Challenge's banner"
+
+      <Controller
+        name="imageFile"
+        control={control}
+        render={({ field }) => (
+          <CUploadFile
+            accept="image"
+            onChangeFileSelected={(file) => handleFileUpload(file, "image")}
+            title="Challenge's banner"
+            defaultFileURL={field.value}
+          />
+        )}
       />
 
       <div className="grid md:grid-cols-2 gap-4">
@@ -144,6 +156,7 @@ const ChallengeForm = ({
             />
           )}
         />
+
         <Controller
           name="endDate"
           control={control}
@@ -179,6 +192,7 @@ const ChallengeForm = ({
           </div>
         )}
       />
+
       <div className="">
         <div className="flex md:flex-row flex-col md:items-center items-start ">
           <Typography variant="h6" className="!my-4">
@@ -221,7 +235,7 @@ const ChallengeForm = ({
           <NoDataSection />
         )}
       </div>
-      <CButton className="w-full" type="submit" isRounded disabled={!isValid}>
+      <CButton className="w-full" type="submit" isRounded>
         Save Challenge
       </CButton>
     </form>

@@ -27,6 +27,7 @@ const EditChallenge = () => {
   const {
     control,
     onSubmit,
+    handleSubmit,
     isValid,
     searchTerm,
     setSearchTerm,
@@ -83,7 +84,7 @@ const EditChallenge = () => {
           <ChallengeForm
             control={control}
             onSubmit={onSubmit}
-            isValid={isValid}
+            handleSubmit={handleSubmit}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             selectedLessons={selectedLessons}
