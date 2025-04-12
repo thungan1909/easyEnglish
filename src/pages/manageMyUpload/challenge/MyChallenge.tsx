@@ -26,15 +26,16 @@ const MyChallenge = () => {
 
   return (
     <div className="flex flex-col">
-      <CPageTitle
-        title="Manage my upload challenges"
-        titleDescription="List of all my current uploaded challenges"
-      />
+      <CPageTitle title="Manage my upload challenges" />
 
       {currentLessonList?.length > 0 ? (
         <div className="grid md:grid-cols-3 grid-cols-2 gap-4 mt-4">
           {currentLessonList?.map((challenge) => (
-            <ChallengeItem challenge={challenge} type="mine" />
+            <ChallengeItem
+              challenge={challenge}
+              type="mine"
+              key={challenge._id}
+            />
           ))}
         </div>
       ) : (

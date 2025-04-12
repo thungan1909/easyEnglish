@@ -9,6 +9,7 @@ import {
   CompareLessonResponse,
   CompareListenLessonDTO,
   EditLessonResponse,
+  DeleteLessonResponse,
 } from "../types/dtos/lesson.dto";
 import {
   LessonSubmissionResult,
@@ -142,9 +143,9 @@ export const editLessonMutation = {
 
 export const deleteLessonMutation = {
   name: "deleteLesson",
-  fn: async (lessonId: string): Promise<EditLessonResponse> => {
+  fn: async (lessonId: string): Promise<DeleteLessonResponse> => {
     try {
-      return getOriginalResponseData<EditLessonResponse>(
+      return getOriginalResponseData<DeleteLessonResponse>(
         await getAxiosInstance().delete(
           END_POINTS.LESSON.DELETE.replace(":id", lessonId)
         )

@@ -55,3 +55,4 @@ export interface GetChallengesByLessonIdAPIResponse {
 
 export type UpdateChallengeDTO = Omit<ChallengeDTO, "_id">;
 export interface UpdateChallengeResponse {}
+export interface DeleteChallengeResponse {}

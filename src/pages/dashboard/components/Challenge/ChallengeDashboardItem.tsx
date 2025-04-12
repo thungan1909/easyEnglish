@@ -30,7 +30,7 @@ const ChallengeDashboardItem = ({ challenge }: ChallengeItemProps) => {
         <Typography variant="subtitle1" className="line-clamp-1">
           {challenge.title}
         </Typography>
-        <div className="md:flex text-xs justify-between">
+        <div className="md:flex text-xs justify-between flex-wrap">
           <CIconTextItem
             icon={FaMicrophone}
             value={challenge.lessons.length || 0}

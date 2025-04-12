@@ -3,6 +3,7 @@ import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
   ChallengeDTO,
   CreateChallengeResponse,
+  DeleteChallengeResponse,
   GetChallengesByLessonIdAPIResponse,
   UpdateChallengeDTO,
   UpdateChallengeResponse,
@@ -78,6 +79,21 @@ export const updateChallengeListMutation = {
     try {
       return getOriginalResponseData<UpdateChallengeResponse>(
         await getAxiosInstance().put(END_POINTS.CHALLENGE.UPDATE_LIST, data)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+export const deleteChallengeMutation = {
+  name: "deleteChallenge",
+  fn: async (challengeId: string): Promise<DeleteChallengeResponse> => {
+    try {
+      return getOriginalResponseData<DeleteChallengeResponse>(
+        await getAxiosInstance().delete(
+          END_POINTS.CHALLENGE.DELETE.replace(":id", challengeId)
+        )
       );
     } catch (error) {
       throw error;

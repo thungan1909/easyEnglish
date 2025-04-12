@@ -47,6 +47,7 @@ export const END_POINTS = {
     GET_LIST_BY_LESSON_ID: "/challenge/get-by-lesson/:id",
     UPDATE: "/challenge/update/:id",
     UPDATE_LIST: "/challenge/list/update",
+    DELETE: "challenge/delete/:id",
   },
 };
 

@@ -5,6 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import ActionButton from "../lesson/components/ActionButton";
 import { useDeleteLessonMutation } from "../../hooks/lesson/delete-lesson.hook";
 import { notify } from "../../utils/notify";
+import { useDeleteChallengeMutation } from "../../hooks/challenge/delete-challenge.hook";
 export interface MyUploadsActionsProps {
   id: string;
   type: "lesson" | "challenge";
@@ -12,7 +13,7 @@ export interface MyUploadsActionsProps {
 export const MyUploadsActions = ({ id, type }: MyUploadsActionsProps) => {
   const navigate = useNavigate();
   const { mutate: deleteLessonMutation } = useDeleteLessonMutation();
-  const { mutate: deleteChallengeMutation } = useDeleteLessonMutation();
+  const { mutate: deleteChallengeMutation } = useDeleteChallengeMutation();
 
   const handleDelete = (e: React.MouseEvent<Element, MouseEvent>) => {
     e.stopPropagation();
@@ -34,15 +35,15 @@ export const MyUploadsActions = ({ id, type }: MyUploadsActionsProps) => {
     } else {
       deleteChallengeMutation(
         {
-          lessonId: id,
+          challengeId: id,
         },
         {
           onSuccess: () => {
-            notify.success("Delete lesson successfully");
+            notify.success("Delete challenge successfully");
             navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.BASE);
           },
           onError: () => {
-            notify.error("Failed to edit lesson.");
+            notify.error("Failed to delete challenge.");
           },
         }
       );
