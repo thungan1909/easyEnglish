@@ -218,7 +218,7 @@ const ListenLesson = () => {
   if (isLessonError) return <LoadingFailPage />;
 
   return (
-    <div className="mt-32" key={id}>
+    <div key={id}>
       {lesson && (
         <CBreadcrumbs
           menuItem={generateBreadcrumbs("listenLesson", {

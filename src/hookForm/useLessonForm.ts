@@ -77,6 +77,14 @@ export const useLessonForm = (
     ?.split(wordSplitterRegex)
     .filter((word) => word.trim() || punctuationRegex.test(word));
 
+  useEffect(() => {
+    if (defaultValues) {
+      if (defaultValues && Object.keys(defaultValues).length > 0) {
+        reset(defaultValues);
+      }
+    }
+  }, [defaultValues, reset]);
+
   return {
     control,
     onSubmit,

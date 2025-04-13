@@ -1,10 +1,10 @@
 import { useMemo } from "react";
-import { useGetCurrentUser } from "../../../hooks/user/user.hook";
-import LoadingFailPage from "../../common-pages/LoadingFailPage";
-import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
-import NoDataSection from "../../common-pages/NoDataSection";
-import { useGetChallengeList } from "../../../hooks/challenge/get-challenge.hook";
-import ChallengeItem from "../../challenges/components/ChallengeItem";
+import { useGetCurrentUser } from "../../hooks/user/user.hook";
+import { useGetChallengeList } from "../../hooks/challenge/get-challenge.hook";
+import NoDataSection from "../common-pages/NoDataSection";
+import ChallengeItem from "../challenges/components/ChallengeItem";
+import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
+import LoadingFailPage from "../common-pages/LoadingFailPage";
 
 const MyChallenge = () => {
   const { data: currentUser, isError: isUserError } = useGetCurrentUser();
