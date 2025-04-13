@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useAuthentication } from "../../hooks/auth/login.hook";
-import { useCreateLessonMutation } from "../../hooks/lesson/create-lesson.hook";
-import { useUploadFileMutation } from "../../hooks/upload/upload-file.hook";
-import { useLessonForm } from "../../hookForm/useLessonForm";
-import { notify } from "../../utils/notify";
-import { ROUTES_CONSTANTS } from "../../routers/constants";
-import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
-import LessonForm from "./LessonForm";
-import LoginReminder from "../common-pages/LoginReminder";
+import { useAuthentication } from "../../../hooks/auth/login.hook";
+import { useCreateLessonMutation } from "../../../hooks/lesson/create-lesson.hook";
+import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
+import { notify } from "../../../utils/notify";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
+import LoginReminder from "../../common-pages/LoginReminder";
+import { useLessonForm } from "../components/useLessonForm";
+import LessonForm from "../components/LessonForm";
 
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();
@@ -75,6 +75,7 @@ const CreateLesson = () => {
             generateWords={generateWords}
             originalWords={originalWords}
             lessonContent={lessonContent}
+            isEdit={false}
           />
         </div>
       ) : (

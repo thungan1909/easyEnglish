@@ -48,14 +48,14 @@ export const LessonPage = withDynamicImport(
 );
 
 export const CreateLessonPage = withDynamicImport(
-  () => import("../pages/lesson/CreateLesson"),
+  () => import("../pages/lesson/create/CreateLesson"),
   {
     loading: true,
   }
 );
 
 export const LessonDetailPage = withDynamicImport(
-  () => import("../pages/lesson/LessonDetail"),
+  () => import("../pages/lesson/detail/LessonDetail"),
   {
     loading: true,
   }
@@ -105,7 +105,7 @@ export const LessonResultPage = withDynamicImport(
 
 // CHALLENGE
 export const ChallengePage = withDynamicImport(
-  () => import("../pages/challenges/Challenge"),
+  () => import("../pages/challenges/Challenges"),
   {
     loading: true,
   }
@@ -134,8 +134,8 @@ export const ManageMyUploadsPage = withDynamicImport(
   }
 );
 
-export const EditLessonPage = withDynamicImport(
-  () => import("../pages/lesson/EditLesson"),
+export const UpdateLessonPage = withDynamicImport(
+  () => import("../pages/lesson/update/UpdateLesson"),
   {
     loading: true,
   }

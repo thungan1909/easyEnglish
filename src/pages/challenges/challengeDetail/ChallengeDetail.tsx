@@ -11,6 +11,7 @@ import ChallengeStatisticSection from "./StatisticCardSection";
 const ChallengeDetail = () => {
   const { id } = useParams();
   const { data: challenge } = useGetChallengeById(id ?? "");
+
   return (
     <div className="flex flex-col">
       <CBreadcrumbs

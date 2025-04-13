@@ -22,12 +22,12 @@ import {
   ChallengePage,
   LessonResultPage,
   ManageMyUploadsPage,
-  EditLessonPage,
   NewsFeedPage,
   CreateChallengePage,
   AdminDashboardPage,
   RankingListPage,
   EditChallengePage,
+  UpdateLessonPage,
 } from "./lazyLoad";
 
 const simpleRoutes: RouteItemConfig[] = [
@@ -126,7 +126,7 @@ const mainRoutes: RouteItemConfig[] = [
   },
   {
     path: ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT.LESSON,
-    element: <EditLessonPage />,
+    element: <UpdateLessonPage />,
     showWithPermission: true,
   },
   {

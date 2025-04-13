@@ -1,6 +1,12 @@
-import { Chip, Divider, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import CButton from "../../components/atoms/CButton/CButton";
+import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
+import { useMemo, useState } from "react";
+import { useGetCurrentUser } from "../../../hooks/user/user.hook";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import LoadingFailPage from "../../common-pages/LoadingFailPage";
+import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
+import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
+import CButton from "../../../components/atoms/CButton/CButton";
 import {
   FaCalendar,
   FaCheck,
@@ -9,22 +15,17 @@ import {
   FaImage,
   FaLightbulb,
 } from "react-icons/fa";
+import { Chip, Divider, Typography } from "@mui/material";
 import { FaRepeat, FaUserGroup } from "react-icons/fa6";
-import { useGetLessonById } from "../../hooks/lesson/get-lesson.hook";
-import { ROUTES_CONSTANTS } from "../../routers/constants";
-import CBreadcrumbs from "../../components/atoms/CBreadcrumbs/CBreadcrumbs";
-import { generateBreadcrumbs } from "../../utils/helpers/breadcrumbs";
-import { useGetCurrentUser } from "../../hooks/user/user.hook";
-import { useMemo, useState } from "react";
-import CIconTextItem from "../../components/molecules/cIconTextItem/cIconTextItem";
-import CModal from "../../components/atoms/CModal/CModal";
-import LoadingFailPage from "../common-pages/LoadingFailPage";
+import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
+import CModal from "../../../components/atoms/CModal/CModal";
 
 const LessonDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: lesson } = useGetLessonById(id ?? "");
   const { data: currentUser, isError: isUserError } = useGetCurrentUser();
+
   const [openModalRevenge, setOpenModalRevenge] = useState(false);
 
   const {

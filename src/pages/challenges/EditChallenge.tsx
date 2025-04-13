@@ -13,10 +13,10 @@ import { useMemo } from "react";
 
 const EditChallenge = () => {
   const { isAuth } = useAuthentication();
-  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { data: challenge } = useGetChallengeById(id ?? "");
+  const navigate = useNavigate();
 
+  const { data: challenge } = useGetChallengeById(id ?? "");
   const { mutate: updateChallengeMutation } = useUpdateChallengeMutation();
   const { mutate: uploadFileMutation } = useUploadFileMutation();
 

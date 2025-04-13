@@ -1,18 +1,12 @@
-import CTextField from "../../components/atoms/CTextField/CTextField";
-import CTextArea from "../../components/atoms/CTextArea/CTextArea";
-import CButton from "../../components/atoms/CButton/CButton";
-import {
-  Controller,
-  SubmitHandler,
-  UseFormReset,
-  UseFormSetValue,
-} from "react-hook-form";
+import { Controller, SubmitHandler } from "react-hook-form";
 import { Typography } from "@mui/material";
-
-import CUploadFile from "../../components/atoms/CUploadFile/CUploadFile";
 import { FormEventHandler, useState } from "react";
-import { TLessonSchema } from "../../validation/lesson.schema";
-import CWordInput from "../../components/atoms/CWordInput/CWordInput";
+import CTextField from "../../../components/atoms/CTextField/CTextField";
+import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
+import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
+import CButton from "../../../components/atoms/CButton/CButton";
+import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
+import { TLessonSchema } from "../../../validation/lesson.schema";
 
 export interface LessonFormProps {
   control: any;
@@ -30,6 +24,7 @@ export interface LessonFormProps {
   generateWords: (withSuggestions: boolean) => void;
   originalWords: string[];
   lessonContent: string;
+  isEdit: boolean;
 }
 
 const LessonForm = ({
@@ -43,8 +38,9 @@ const LessonForm = ({
   generateWords,
   originalWords,
   lessonContent,
+  isEdit,
 }: LessonFormProps) => {
-  const [isUpdateLessonContent, setIsUpdateLessonContent] = useState(false);
+  const [isUpdateLessonContent, setIsUpdateLessonContent] = useState(!isEdit);
 
   return (
     <form
@@ -145,18 +141,20 @@ const LessonForm = ({
           </div>
         )}
       />
-      <div className="flex flex-col items-center">
-        <CButton
-          onClick={() => setIsUpdateLessonContent((prev) => !prev)}
-          isRounded
-          size="medium"
-          className="w-[50%]"
-        >
-          {`${
-            isUpdateLessonContent ? `Disable` : `Enable`
-          } edit lesson content`}
-        </CButton>
-      </div>
+      {isEdit && (
+        <div className="flex flex-col items-center">
+          <CButton
+            onClick={() => setIsUpdateLessonContent((prev) => !prev)}
+            isRounded
+            size="medium"
+            className="w-[50%]"
+          >
+            {`${
+              isUpdateLessonContent ? `Disable` : `Enable`
+            } edit lesson content`}
+          </CButton>
+        </div>
+      )}
       {isUpdateLessonContent && (
         <>
           <Controller

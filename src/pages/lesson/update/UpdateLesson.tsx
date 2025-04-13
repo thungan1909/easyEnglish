@@ -1,24 +1,24 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetLessonById } from "../../hooks/lesson/get-lesson.hook";
-import { useUploadFileMutation } from "../../hooks/upload/upload-file.hook";
-import { useEditLessonMutation } from "../../hooks/lesson/edit-lesson.hook";
-import { notify } from "../../utils/notify";
-import { useLessonForm } from "../../hookForm/useLessonForm";
-import { ROUTES_CONSTANTS } from "../../routers/constants";
-import { useAuthentication } from "../../hooks/auth/login.hook";
-import LoginReminder from "../common-pages/LoginReminder";
-import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
-import LessonForm from "./LessonForm";
+import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
+import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
+import { useUpdateLessonMutation } from "../../../hooks/lesson/edit-lesson.hook";
+import { notify } from "../../../utils/notify";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { useAuthentication } from "../../../hooks/auth/login.hook";
+import LoginReminder from "../../common-pages/LoginReminder";
+import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 import { useMemo } from "react";
+import { useLessonForm } from "../components/useLessonForm";
+import LessonForm from "../components/LessonForm";
 
-const EditLesson = () => {
+const UpdateLesson = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { isAuth } = useAuthentication();
 
   const { data: lesson } = useGetLessonById(id ?? "");
   const { mutate: uploadFile } = useUploadFileMutation();
-  const { mutate: editLesson } = useEditLessonMutation();
+  const { mutate: updateLesson } = useUpdateLessonMutation();
 
   const defaultValues = useMemo(() => {
     return { ...lesson };
@@ -40,7 +40,7 @@ const EditLesson = () => {
       notify.error("Lesson ID is missing");
       return;
     }
-    editLesson(
+    updateLesson(
       { lessonId: id, data },
       {
         onSuccess: () => {
@@ -90,6 +90,7 @@ const EditLesson = () => {
             generateWords={generateWords}
             originalWords={originalWords}
             lessonContent={lessonContent}
+            isEdit={true}
           />
         </div>
       ) : (
@@ -99,4 +100,4 @@ const EditLesson = () => {
   );
 };
 
-export default EditLesson;
+export default UpdateLesson;
