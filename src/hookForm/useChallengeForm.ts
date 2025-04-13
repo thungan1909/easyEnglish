@@ -34,7 +34,7 @@ export const useChallengeForm = (
     watch,
     reset,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = useForm<TChallengeSchema>({
     defaultValues: initialValues,
     mode: "onChange",

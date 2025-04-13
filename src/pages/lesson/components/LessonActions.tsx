@@ -1,19 +1,19 @@
 import { FaHeart, FaList, FaPlus } from "react-icons/fa";
-import ActionButton from "./ActionButton";
+import CActionButton from "../../../components/molecules/cActionButton/cActionButton";
 
 const LessonActions = () => (
   <>
-    <ActionButton
+    <CActionButton
       title="Favorite"
       onClick={(e) => e.stopPropagation()}
       icon={<FaHeart />}
     />
-    <ActionButton
+    <CActionButton
       title="Add to waiting list"
       onClick={(e) => e.stopPropagation()}
       icon={<FaList />}
     />
-    <ActionButton
+    <CActionButton
       title="Add to playlist"
       onClick={(e) => e.stopPropagation()}
       icon={<FaPlus />}

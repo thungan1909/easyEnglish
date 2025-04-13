@@ -132,7 +132,7 @@ const EditLesson = () => {
 
   return (
     <form
-      className="mt-16 p-8 md:p-16 flex flex-col space-y-6 "
+      className="flex flex-col space-y-6 "
       onSubmit={handleSubmit(onSubmit)}
     >
       <CPageTitle

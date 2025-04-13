@@ -13,8 +13,8 @@ const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
 
-  const { mutate: createChallengeMutation } = useCreateChallengeMutation();
-  const { mutate: uploadFileMutation } = useUploadFileMutation();
+  const { mutate: createChallenge } = useCreateChallengeMutation();
+  const { mutate: uploadFile } = useUploadFileMutation();
 
   const {
     control,
@@ -30,7 +30,7 @@ const CreateChallenge = () => {
     isAllSelected,
     setValue,
   } = useChallengeForm({}, (data) =>
-    createChallengeMutation(data, {
+    createChallenge(data, {
       onSuccess: () => {
         notify.success("Challenge created successfully");
         navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
@@ -42,7 +42,7 @@ const CreateChallenge = () => {
   );
 
   const handleFileUpload = async (file: File, type: "audio" | "image") => {
-    uploadFileMutation(
+    uploadFile(
       { file, type },
       {
         onSuccess: (data) => {

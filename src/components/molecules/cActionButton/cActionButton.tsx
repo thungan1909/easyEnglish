@@ -1,6 +1,6 @@
 import CButton from "../../../components/atoms/CButton/CButton";
 import { Tooltip } from "@mui/material";
-const ActionButton = ({
+const CActionButton = ({
   title,
   onClick,
   icon,
@@ -11,10 +11,10 @@ const ActionButton = ({
 }) => (
   <Tooltip title={title}>
     <span>
-      <CButton isRounded variant="outlined" size="small" onClick={onClick}>
+      <CButton isRounded variant="outlined" size="medium" onClick={onClick}>
         {icon}
       </CButton>
     </span>
   </Tooltip>
 );
-export default ActionButton;
+export default CActionButton;
