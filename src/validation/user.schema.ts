@@ -98,7 +98,7 @@ export type TChangeEmailSchema = zod.infer<typeof ChangeEmailSchema>;
 export const UserChangePasswordSchema = zod
   .object({
     email: zod.string().email(invalidEmailMsg),
-    oldPassword: zod.string().min(6, invalidPasswordMsg),
+    currentPassword: zod.string().min(6, invalidPasswordMsg),
     newPassword: zod.string().min(6, invalidPasswordMsg),
     confirmPassword: zod.string().min(6, invalidConfirmPasswordMsg),
   })

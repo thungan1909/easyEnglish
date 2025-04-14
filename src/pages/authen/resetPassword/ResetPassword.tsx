@@ -36,7 +36,7 @@ const ForgotPassword = () => {
   );
   const { isAuth } = useAuthentication();
 
-  const { mutate: getResetCodeMutation } = useGetResetCode();
+  const { mutate: sendResetCodeMutation } = useGetResetCode();
 
   const { mutate: resetPasswordMutation } = useResetPasswordMutation();
 
@@ -51,7 +51,7 @@ const ForgotPassword = () => {
   });
 
   const handleSubmitEmail = (data: TGetVerifyCodeSchema) => {
-    getResetCodeMutation(
+    sendResetCodeMutation(
       {
         email: data.email,
       },

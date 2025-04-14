@@ -28,7 +28,7 @@ const VerifyAccount = () => {
   );
   const { isAuth } = useAuthentication();
 
-  const { mutate: getVerifyCodeMutation } = useGetVerifyCode();
+  const { mutate: sendResetPasswordCodeMutation } = useGetVerifyCode();
 
   const formInstance = useForm<TGetVerifyCodeSchema>({
     mode: "onChange",
@@ -36,7 +36,7 @@ const VerifyAccount = () => {
   });
 
   const handleSubmitAuthenInfo = (data: TGetVerifyCodeSchema) => {
-    getVerifyCodeMutation(
+    sendResetPasswordCodeMutation(
       {
         email: data.email,
       },

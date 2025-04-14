@@ -1,15 +1,15 @@
 import { IOriginalResponse } from "./http";
 
-export interface CheckExistEmailDTO {
+export interface CheckEmailDTO {
   email: string;
 }
 
-export interface CheckExistEmailResponse {
+export interface CheckEmailResponse {
   exists: boolean;
 }
 
-export interface SignUpResponse {}
-export interface SignUpDTO {
+export interface RegisterUserResponse {}
+export interface RegisterUserDTO {
   email: string;
   username: string;
   password: string;
@@ -35,11 +35,11 @@ export interface GetVerifyCodeDTO {
 
 export interface GetVerifyCodeResponse {}
 
-export interface GetResetCodeDTO extends GetVerifyCodeDTO {
+export interface SendResetCodeDTO extends GetVerifyCodeDTO {
   email: string;
 }
 
-export interface getResetCodeResponse {}
+export interface SendResetCodeResponse {}
 
 export interface ResetPasswordDTO {
   email: string;

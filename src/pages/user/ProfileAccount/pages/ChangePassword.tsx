@@ -69,7 +69,7 @@ const ChangePassword = () => {
         </div>
         <div>
           <Controller
-            name="oldPassword"
+            name="currentPassword"
             control={control}
             render={({ field, fieldState }) => (
               <>

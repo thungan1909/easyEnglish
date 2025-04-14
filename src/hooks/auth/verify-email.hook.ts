@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import {
-  getVerifyCodeMutation,
+  sendResetPasswordCodeMutation,
   verifyAccountMutation,
 } from "../../apis/auth.api";
 import {
@@ -22,7 +22,7 @@ export const useVerifyAccountMutation = () => {
 export const useGetVerifyCode = () => {
   return useMutation<GetVerifyCodeResponse, IHttpError, GetVerifyCodeDTO>({
     mutationFn: async (data: GetVerifyCodeDTO) => {
-      return getVerifyCodeMutation.fn(data);
+      return sendResetPasswordCodeMutation.fn(data);
     },
   });
 };

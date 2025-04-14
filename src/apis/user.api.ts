@@ -69,9 +69,14 @@ export const changePasswordMutation = {
   fn: async (
     data: TUserChangePasswordSchema
   ): Promise<ChangePasswordResponse> => {
+    const { currentPassword, newPassword } = data;
+
     try {
       return getOriginalResponseData<UpdateUserResponse>(
-        await getAxiosInstance().post(END_POINTS.USER.CHANGE_PASSWORD, data)
+        await getAxiosInstance().post(END_POINTS.AUTH.CHANGE_PASSWORD, {
+          currentPassword,
+          newPassword,
+        })
       );
     } catch (error) {
       throw error;

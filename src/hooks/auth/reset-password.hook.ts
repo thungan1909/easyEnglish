@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import {
-  GetResetCodeDTO,
-  getResetCodeResponse,
+  SendResetCodeDTO,
+  SendResetCodeResponse,
   ResetPasswordDTO,
   ResetPasswordResponse,
   VerifyResetCodeDTO,
@@ -9,15 +9,15 @@ import {
 } from "../../types/dtos/auth.dto";
 import { IHttpError } from "../../types/dtos/http";
 import {
-  getResetCodeMutation,
+  sendResetCodeMutation,
   resetPasswordMutation,
   verifyResetCodeMutation,
 } from "../../apis/auth.api";
 
 export const useGetResetCode = () => {
-  return useMutation<getResetCodeResponse, IHttpError, GetResetCodeDTO>({
-    mutationFn: async (data: GetResetCodeDTO) => {
-      return getResetCodeMutation.fn(data);
+  return useMutation<SendResetCodeResponse, IHttpError, SendResetCodeDTO>({
+    mutationFn: async (data: SendResetCodeDTO) => {
+      return sendResetCodeMutation.fn(data);
     },
   });
 };
