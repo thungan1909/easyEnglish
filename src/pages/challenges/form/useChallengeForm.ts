@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { useGetLessonList } from "../hooks/lesson/get-lesson.hook";
+import { useGetLessonList } from "../../../hooks/lesson/get-lesson.hook";
 import {
   ChallengeSchema,
   TChallengeSchema,
-} from "../validation/challenge.schema";
+} from "../../../validation/challenge.schema";
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { notify } from "../utils/notify";
-import { validateDateRange } from "../utils/helpers/periodDateValidation";
+import { notify } from "../../../utils/notify";
+import { validateDateRange } from "../../../utils/helpers/periodDateValidation";
 
 export const useChallengeForm = (
   defaultValues: Partial<TChallengeSchema>,

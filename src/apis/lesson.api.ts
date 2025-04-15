@@ -16,7 +16,7 @@ import {
   LessonSubmissionResultDetail,
   TopScoresResponse,
 } from "../types/dtos/submission.dto";
-import { TLessonSchema, TLessonSchema } from "../validation/lesson.schema";
+import { TLessonSchema } from "../validation/lesson.schema";
 
 export const createLessonMutation = {
   name: "createLesson",

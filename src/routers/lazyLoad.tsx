@@ -119,7 +119,7 @@ export const ChallengeDetailPage = withDynamicImport(
 );
 
 export const CreateChallengePage = withDynamicImport(
-  () => import("../pages/challenges/CreateChallenge"),
+  () => import("../pages/challenges/create/CreateChallenge"),
   {
     loading: true,
   }
@@ -141,8 +141,8 @@ export const UpdateLessonPage = withDynamicImport(
   }
 );
 
-export const EditChallengePage = withDynamicImport(
-  () => import("../pages/challenges/EditChallenge"),
+export const UpdateChallengePage = withDynamicImport(
+  () => import("../pages/challenges/update/UpdateChallenge"),
   {
     loading: true,
   }

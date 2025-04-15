@@ -1,24 +1,24 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuthentication } from "../../hooks/auth/login.hook";
-import { useUpdateChallengeMutation } from "../../hooks/challenge/update-challenge.hook";
-import { useUploadFileMutation } from "../../hooks/upload/upload-file.hook";
-import { useChallengeForm } from "../../hookForm/useChallengeForm";
-import { notify } from "../../utils/notify";
-import { ROUTES_CONSTANTS } from "../../routers/constants";
-import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
-import ChallengeForm from "./ChallengeForm";
-import LoginReminder from "../common-pages/LoginReminder";
-import { useGetChallengeById } from "../../hooks/challenge/get-challenge.hook";
+import { useAuthentication } from "../../../hooks/auth/login.hook";
+import { useGetChallengeById } from "../../../hooks/challenge/get-challenge.hook";
+import { useUpdateChallengeMutation } from "../../../hooks/challenge/update-challenge.hook";
+import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
 import { useMemo } from "react";
+import { useChallengeForm } from "../form/useChallengeForm";
+import { notify } from "../../../utils/notify";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
+import ChallengeForm from "../form/ChallengeForm";
+import LoginReminder from "../../common-pages/LoginReminder";
 
-const EditChallenge = () => {
+const UpdateChallenge = () => {
   const { isAuth } = useAuthentication();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const { data: challenge } = useGetChallengeById(id ?? "");
-  const { mutate: updateChallengeMutation } = useUpdateChallengeMutation();
-  const { mutate: uploadFileMutation } = useUploadFileMutation();
+  const { mutate: updateChallenge } = useUpdateChallengeMutation();
+  const { mutate: uploadFile } = useUploadFileMutation();
 
   const defaultValues = useMemo(() => {
     return { ...challenge };
@@ -43,7 +43,7 @@ const EditChallenge = () => {
       return;
     }
 
-    updateChallengeMutation(
+    updateChallenge(
       {
         challengeId: id,
         data,
@@ -61,7 +61,7 @@ const EditChallenge = () => {
   });
 
   const handleFileUpload = async (file: File, type: "audio" | "image") => {
-    uploadFileMutation(
+    uploadFile(
       { file, type },
       {
         onSuccess: (data) => {
@@ -79,8 +79,8 @@ const EditChallenge = () => {
   return (
     <>
       {isAuth ? (
-        <div>
-          <CPageTitle title="Edit Challenge" />
+        <>
+          <CPageTitle title="Update Challenge" />
           <ChallengeForm
             control={control}
             onSubmit={onSubmit}
@@ -95,7 +95,7 @@ const EditChallenge = () => {
             isAllSelected={isAllSelected}
             handleFileUpload={handleFileUpload}
           />
-        </div>
+        </>
       ) : (
         <LoginReminder />
       )}
@@ -103,4 +103,4 @@ const EditChallenge = () => {
   );
 };
 
-export default EditChallenge;
+export default UpdateChallenge;

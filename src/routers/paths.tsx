@@ -26,7 +26,7 @@ import {
   CreateChallengePage,
   AdminDashboardPage,
   RankingListPage,
-  EditChallengePage,
+  UpdateChallengePage,
   UpdateLessonPage,
 } from "./lazyLoad";
 
@@ -131,7 +131,7 @@ const mainRoutes: RouteItemConfig[] = [
   },
   {
     path: ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.EDIT.CHALLENGE,
-    element: <EditChallengePage />,
+    element: <UpdateChallengePage />,
     showWithPermission: true,
   },
   {

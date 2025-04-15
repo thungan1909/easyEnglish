@@ -1,13 +1,13 @@
-import { useCreateChallengeMutation } from "../../hooks/challenge/create-challenge.hook";
-import { notify } from "../../utils/notify";
 import { useNavigate } from "react-router-dom";
-import { useUploadFileMutation } from "../../hooks/upload/upload-file.hook";
-import { ROUTES_CONSTANTS } from "../../routers/constants";
-import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
-import { useChallengeForm } from "../../hookForm/useChallengeForm";
-import { useAuthentication } from "../../hooks/auth/login.hook";
-import ChallengeForm from "./ChallengeForm";
-import LoginReminder from "../common-pages/LoginReminder";
+import { useAuthentication } from "../../../hooks/auth/login.hook";
+import { useCreateChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";
+import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
+import { useChallengeForm } from "../form/useChallengeForm";
+import { notify } from "../../../utils/notify";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import LoginReminder from "../../common-pages/LoginReminder";
+import ChallengeForm from "../form/ChallengeForm";
+import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 
 const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
@@ -60,7 +60,7 @@ const CreateChallenge = () => {
   return (
     <>
       {isAuth ? (
-        <div>
+        <>
           <CPageTitle title=" Create a New Challenge" />
           <ChallengeForm
             control={control}
@@ -76,7 +76,7 @@ const CreateChallenge = () => {
             isAllSelected={isAllSelected}
             handleFileUpload={handleFileUpload}
           />
-        </div>
+        </>
       ) : (
         <LoginReminder />
       )}
