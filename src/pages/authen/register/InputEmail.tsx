@@ -7,8 +7,8 @@ import { defaultErrorMsg } from "../../../constants/errorMessage";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { emailRegex } from "../../../constants/regex";
 import { useNavigate } from "react-router-dom";
-import { useCheckExistEmailMutation } from "../../../hooks/auth/signup.hook";
 import { FaEnvelope } from "react-icons/fa";
+import { useCheckExistEmailMutation } from "../../../hooks/auth/signup.hook";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;
@@ -22,7 +22,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [disableButton, setDisable] = useState(true);
-  const { mutate: checkExistEmailMutation } = useCheckExistEmailMutation();
+  const { mutate: checkEmailMutation } = useCheckExistEmailMutation();
 
   const handleNextStep = () => {
     const trimmedEmail = email.trim();
@@ -31,7 +31,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
       return;
     }
 
-    checkExistEmailMutation(
+    checkEmailMutation(
       { email: trimmedEmail },
       {
         onSuccess: (data) => {

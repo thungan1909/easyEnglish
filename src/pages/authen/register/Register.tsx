@@ -18,8 +18,8 @@ import {
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
 import InputEmail from "./InputEmail";
 import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
-import { useSignUpMutation } from "../../../hooks/auth/signup.hook";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
+import { useRegisterUserMutation } from "../../../hooks/auth/signup.hook";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);
@@ -30,7 +30,7 @@ const Register = () => {
   );
   const { isAuth } = useAuthentication();
 
-  const { mutate: signUpMutation } = useSignUpMutation();
+  const { mutate: registerMutation } = useRegisterUserMutation();
 
   const formInstance = useForm<TUserSignUpSchema>({
     mode: "onChange",
@@ -44,7 +44,7 @@ const Register = () => {
   };
 
   const handleSubmitAuthenInfo = (data: TUserSignUpSchema) => {
-    signUpMutation(
+    registerMutation(
       {
         email: data.email,
         username: data.username,

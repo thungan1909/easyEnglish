@@ -4,19 +4,23 @@ export const BASE_URL = "http://localhost:5000/v1";
 export const END_POINTS = {
   AUTH: {
     LOGIN: "/auth/login",
-    CHECK_EXIST_EMAIL: "/auth/check-exist-email",
-    SIGN_UP: "/auth/sign-up",
+    REGISTER: "/auth/register",
+    CHECK_EMAIL: "/auth/check-email",
     GET_USER_INFO: "/auth/me",
-    VERIFY_ACCOUNT: "/auth/verify-account",
-    GET_VERIFY_CODE: "/auth/get-verify-code",
-    GET_RESET_CODE: "/auth/get-reset-code",
-    VERIFY_RESET_CODE: "/auth/verify-reset-code",
-    RESET_PASSWORD: "/auth/reset-password",
+
+    // Email Verification
+    SEND_VERIFY_CODE: "/auth/email/send-code",
+    VERIFY_ACCOUNT: "/auth/email/verify",
+
+    // Password Reset
+    SEND_RESET_CODE: "/auth/password/send-reset-code",
+    VERIFY_RESET_CODE: "/auth/password/verify-reset-code",
+    RESET_PASSWORD: "/auth/password/reset",
+    CHANGE_PASSWORD: "/auth/password/change",
   },
   USER: {
     UPDATE_INFO: "/user/update",
     UPDATE_AVATAR: "/user/update-avatar",
-    CHANGE_PASSWORD: "/user/change-password",
     CHANGE_EMAIL: "/user/change-email",
     GET_BY_ID: "/user/:id",
     GET_BY_IDS: "/user/ids",

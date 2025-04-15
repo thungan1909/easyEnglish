@@ -33,8 +33,8 @@ const InputVerificationCode = ({
   const { mutate: verifyResetCodeMutation } = useVerifyResetCodeMutation();
   const { mutate: verifyAccountMutation } = useVerifyAccountMutation();
 
-  const { mutate: getVerifyCodeMutation } = useGetVerifyCode();
-  const { mutate: getResetCodeMutation } = useGetResetCode();
+  const { mutate: sendResetPasswordCodeMutation } = useGetVerifyCode();
+  const { mutate: sendResetCodeMutation } = useGetResetCode();
 
   const handleChange = useCallback(
     (index: number, value: string) => {
@@ -110,7 +110,7 @@ const InputVerificationCode = ({
       type === VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT ||
       type === VERIFY_ACCOUNT_STEP.REGISTER
     ) {
-      getVerifyCodeMutation(
+      sendResetPasswordCodeMutation(
         {
           email,
         },
@@ -120,7 +120,7 @@ const InputVerificationCode = ({
         }
       );
     } else if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
-      getResetCodeMutation(
+      sendResetCodeMutation(
         {
           email,
         },
@@ -130,7 +130,7 @@ const InputVerificationCode = ({
         }
       );
     }
-  }, [email, getVerifyCodeMutation, getResetCodeMutation]);
+  }, [email, sendResetPasswordCodeMutation, sendResetCodeMutation]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">
