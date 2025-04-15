@@ -10,15 +10,12 @@ import {
   UpdateUserResponse,
   UserDTO,
 } from "../types/dtos/user.dto";
-import {
-  TChangeEmailSchema,
-  TUserChangePasswordSchema,
-} from "../validation/user.schema";
+import { createPatchMutation, createPostMutation } from "../utils/helpers/createMutation";
+import { TChangeEmailSchema, TUserChangePasswordSchema } from "../validation/user.schema";
 
 export const getUserInfoMutation = {
   name: "getUserInfo",
   fn: async (): Promise<GetUserDTO | null> => {
-    try {
       const token = localStorage.getItem("ACCESS_TOKEN");
 
       const response = await getAxiosInstance().get(
@@ -27,42 +24,25 @@ export const getUserInfoMutation = {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      
       const userData =
         getOriginalResponseData<typeof response.data>(response)?.user;
       if (!userData) throw new Error("Invalid response: User data not found");
 
       return userData;
-    } catch (error) {
-      throw error;
-    }
   },
 };
 
 export const updateUserMutation = {
   name: "updateUser",
-  fn: async (data: UpdateUserDTO): Promise<UpdateUserResponse> => {
-    try {
-      return getOriginalResponseData<UpdateUserResponse>(
-        await getAxiosInstance().post(END_POINTS.USER.UPDATE_INFO, data)
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  ...createPatchMutation<UpdateUserDTO, UpdateUserResponse>(END_POINTS.USER.UPDATE_INFO)
 };
 
 export const updateUserAvatarMutation = {
   name: "updateUserAvatar",
-  fn: async (data: UpdateUserAvatarDTO): Promise<UpdateUserAvatarResponse> => {
-    try {
-      return getOriginalResponseData<UpdateUserAvatarResponse>(
-        await getAxiosInstance().post(END_POINTS.USER.UPDATE_AVATAR, data)
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  ...createPostMutation<UpdateUserAvatarDTO, UpdateUserAvatarResponse>(END_POINTS.USER.UPDATE_AVATAR)
 };
+
 
 export const changePasswordMutation = {
   name: "changePassword",
@@ -86,15 +66,7 @@ export const changePasswordMutation = {
 
 export const changeEmailMutation = {
   name: "changeEmail",
-  fn: async (data: TChangeEmailSchema): Promise<ChangeEmailResponse> => {
-    try {
-      return getOriginalResponseData<ChangeEmailResponse>(
-        await getAxiosInstance().post(END_POINTS.USER.CHANGE_EMAIL, data)
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  ...createPostMutation<TChangeEmailSchema, ChangeEmailResponse>(END_POINTS.USER.CHANGE_EMAIL)
 };
 
 export const getUsersByIds = {

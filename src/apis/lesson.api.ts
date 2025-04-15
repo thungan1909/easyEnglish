@@ -16,6 +16,7 @@ import {
   LessonSubmissionResultDetail,
   TopScoresResponse,
 } from "../types/dtos/submission.dto";
+import { createPostMutation } from "../utils/helpers/createMutation";
 import { TLessonSchema } from "../validation/lesson.schema";
 
 export const createLessonMutation = {
@@ -57,33 +58,12 @@ export const getLessonByIdQuery = {
 
 export const submitListenLessonMutation = {
   name: "submitListenLesson",
-  fn: async (
-    data: SubmitListenLessonDTO
-  ): Promise<SubmitListenLessonResponse> => {
-    try {
-      return getOriginalResponseData<SubmitListenLessonResponse>(
-        await getAxiosInstance().post(END_POINTS.SUBMISSION.LISTEN.SUBMIT, data)
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  ...createPostMutation<SubmitListenLessonDTO, SubmitListenLessonResponse>(END_POINTS.SUBMISSION.LISTEN.SUBMIT)
 };
 
 export const compareListenLessonMutation = {
   name: "compareListenLesson",
-  fn: async (data: CompareListenLessonDTO): Promise<CompareLessonResponse> => {
-    try {
-      return getOriginalResponseData<CompareLessonResponse>(
-        await getAxiosInstance().post(
-          END_POINTS.SUBMISSION.LISTEN.COMPARE,
-          data
-        )
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  ...createPostMutation<CompareListenLessonDTO, CompareLessonResponse>(END_POINTS.SUBMISSION.LISTEN.COMPARE)
 };
 
 export const getLessonResultById = {

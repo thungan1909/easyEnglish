@@ -1,12 +1,13 @@
+import { AxiosRequestConfig } from "axios";
 import {
   getAxiosInstance,
   getOriginalResponseData,
 } from "../../providers/axios";
 
 const createPostMutation = <TRequest, TResponse>(url: string) => ({
-  fn: async (data: TRequest): Promise<TResponse> =>
+  fn: async (data: TRequest, config?: AxiosRequestConfig): Promise<TResponse> =>
     getOriginalResponseData<TResponse>(
-      await getAxiosInstance().post(url, data)
+      await getAxiosInstance().post(url, data, config)
     ),
 });
 
@@ -22,4 +23,11 @@ const createPutMutation = <TRequest, TResponse>(
   },
 });
 
-export { createPostMutation, createPutMutation };
+const createPatchMutation = <TRequest, TResponse>(url: string) => ({
+  fn: async (data: TRequest): Promise<TResponse> =>
+    getOriginalResponseData<TResponse>(
+      await getAxiosInstance().patch(url, data)
+    ),
+});
+
+export { createPostMutation, createPutMutation, createPatchMutation };
