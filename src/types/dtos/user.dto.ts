@@ -1,3 +1,7 @@
+import { TUserChangePasswordSchema } from "../../validation/user.schema";
+
+// ─── Core User DTO ────────────────────────────────────────────────────────────
+
 export interface UserDTO {
   _id: string;
   username: string;
@@ -28,13 +32,13 @@ export interface UserDTO {
   }[];
 }
 
-// UpdateUserDTO now extends UserDTO but removes 'avatarUrl'
+// ─── User Extensions and Modifications ────────────────────────────────────────
+
 export type UpdateUserDTO = Omit<
   UserDTO,
   "avatarUrl" | "_id" | "totalScore" | "weeklyScores"
 >;
 
-// Separate DTO for updating only the avatar
 export interface UpdateUserAvatarDTO {
   avatarUrl: string | File;
 }
@@ -44,6 +48,13 @@ export interface GetUserDTO extends UserDTO {
   createdAt: string;
   updatedAt: string;
 }
+
+export type UserChangePasswordDTO = Omit<
+  TUserChangePasswordSchema,
+  "email" | "confirmPassword"
+>;
+
+// ─── API Responses ────────────────────────────────────────────────────────────
 
 export interface UserResponse {}
 export interface UpdateUserResponse extends UserResponse {}

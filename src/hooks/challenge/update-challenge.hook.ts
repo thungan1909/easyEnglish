@@ -4,16 +4,17 @@ import {
   UpdateChallengeDTO,
   UpdateChallengeResponse,
 } from "../../types/dtos/challenge.dto";
-import { CHALLENGE_QUERY_KEY } from "../../constants";
 import {
   updateChallengeMutation,
   updateChallengeListMutation,
   getChallengeByIdQuery,
+  getChallengeListQuery,
 } from "../../apis/challenge.api";
 import { TChallengeSchema } from "../../validation/challenge.schema";
 
 export const useUpdateChallengeMutation = () => {
   const queryClient = useQueryClient();
+
   return useMutation<
     UpdateChallengeResponse,
     IHttpError,
@@ -32,6 +33,7 @@ export const useUpdateChallengeMutation = () => {
 
 export const useUpdateChallengeListMutation = () => {
   const queryClient = useQueryClient();
+
   return useMutation<UpdateChallengeResponse, IHttpError, UpdateChallengeDTO[]>(
     {
       mutationFn: async (data: UpdateChallengeDTO[]) => {
@@ -39,7 +41,7 @@ export const useUpdateChallengeListMutation = () => {
       },
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: CHALLENGE_QUERY_KEY,
+          queryKey: [getChallengeListQuery.name],
         });
       },
     }

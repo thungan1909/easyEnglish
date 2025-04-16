@@ -1,4 +1,4 @@
-import { END_POINTS } from "../constants";
+import { END_POINTS } from "../constants/endpoint";
 import { WeeklyRecordDTO } from "../types/dtos/leaderboard.dto";
 import { createGetQuery } from "../utils/helpers/createMutation";
 

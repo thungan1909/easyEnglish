@@ -10,7 +10,7 @@ import {
   IOriginalResponse,
 } from "../types/dtos/http";
 import { getPersistToken } from "./auth";
-import { BASE_URL } from "../constants";
+import { BASE_URL } from "../constants/endpoint";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

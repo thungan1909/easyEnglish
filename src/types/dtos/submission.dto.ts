@@ -1,6 +1,14 @@
 import { LessonDTO } from "./lesson.dto";
 import { UserDTO } from "./user.dto";
 
+// ─── Submission DTOs ──────────────────────────────────────────────────────────
+
+export interface LessonSubmissionDTO {
+  id: string;
+}
+
+// ─── Submission Responses ─────────────────────────────────────────────────────
+
 export interface LessonSubmissionResponse {
   accuracy: number;
   correct_answers: number;
@@ -14,15 +22,6 @@ export interface LessonSubmissionResponse {
   submittedAt: string;
   createdAt: string;
   updatedAt: string;
-}
-
-export interface LessonSubmissionResultDetail {
-  lessonId: string;
-  title: string;
-  userSubmission?: LessonSubmissionResponse;
-}
-export interface LessonSubmissionResult {
-  submission: LessonSubmissionResultResponse | null;
 }
 
 export interface LessonSubmissionResultResponse {
@@ -40,9 +39,17 @@ export interface LessonSubmissionResultResponse {
   updatedAt: string;
 }
 
-export interface LessonSubmissionDTO {
-  id: string;
+export interface LessonSubmissionResult {
+  submission: LessonSubmissionResultResponse | null;
 }
+
+export interface LessonSubmissionResultDetail {
+  lessonId: string;
+  title: string;
+  userSubmission?: LessonSubmissionResponse;
+}
+
+// ─── Top Scores ───────────────────────────────────────────────────────────────
 
 export interface TopScoresResponse {
   topScores: {

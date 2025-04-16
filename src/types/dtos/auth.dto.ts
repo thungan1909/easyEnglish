@@ -8,45 +8,11 @@ export interface CheckEmailResponse {
   exists: boolean;
 }
 
-export interface RegisterUserResponse {}
-export interface RegisterUserDTO {
-  email: string;
-  username: string;
-  password: string;
-}
-
-export interface VerifyAccountResponse {}
-
-export interface VerifyAccountDTO {
-  email: string;
-  verifyCode: string;
-}
-
-export interface VerifyResetCodeResponse {}
-
-export interface VerifyResetCodeDTO {
-  email: string;
-  resetCode: string;
-}
-
 export interface GetVerifyCodeDTO {
   email: string;
 }
 
 export interface GetVerifyCodeResponse {}
-
-export interface SendResetCodeDTO extends GetVerifyCodeDTO {
-  email: string;
-}
-
-export interface SendResetCodeResponse {}
-
-export interface ResetPasswordDTO {
-  email: string;
-  password: string;
-}
-
-export interface ResetPasswordResponse {}
 
 export interface LoginDTO {
   username: string;
@@ -67,3 +33,36 @@ export interface LoginOriginalResponse extends IOriginalResponse {
 }
 
 export interface LogOutDTO {}
+
+export interface RegisterUserDTO {
+  email: string;
+  username: string;
+  password: string;
+}
+
+export interface RegisterUserResponse {}
+
+export interface ResetPasswordDTO {
+  email: string;
+  password: string;
+}
+
+export interface ResetPasswordResponse {}
+
+export interface SendResetCodeDTO extends GetVerifyCodeDTO {}
+
+export interface SendResetCodeResponse {}
+
+export interface VerifyAccountDTO {
+  email: string;
+  verifyCode: string;
+}
+
+export interface VerifyAccountResponse {}
+
+export interface VerifyResetCodeDTO {
+  email: string;
+  resetCode: string;
+}
+
+export interface VerifyResetCodeResponse {}

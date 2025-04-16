@@ -7,7 +7,6 @@ import {
   AUTHENTICATION_QUERY_KEY,
   LOCALSTORAGE_AUTHINFO_KEY,
   TOKEN_STALE_TIME,
-  USER_QUERY_KEY,
 } from "../../constants";
 import { getUserInfoMutation } from "../../apis/user.api";
 import { AuthenticationInfoType } from "../../types/auth";
@@ -54,7 +53,7 @@ export const useLoginMutation = () => {
         });
 
         const userInfo = await getUserInfoMutation.fn();
-        queryClient.setQueryData(USER_QUERY_KEY, userInfo);
+        queryClient.setQueryData([getUserInfoMutation.name], userInfo);
       } catch (error) {
         console.error(fetchUserInfoErrorMsg, error);
       }

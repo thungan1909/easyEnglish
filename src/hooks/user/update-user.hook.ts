@@ -7,10 +7,10 @@ import {
 } from "../../types/dtos/user.dto";
 import { IHttpError } from "../../types/dtos/http";
 import {
+  getUserInfoMutation,
   updateUserAvatarMutation,
   updateUserMutation,
 } from "../../apis/user.api";
-import { USER_QUERY_KEY } from "../../constants";
 
 export const useUpdateUserMutation = () => {
   const queryClient = useQueryClient();
@@ -20,7 +20,7 @@ export const useUpdateUserMutation = () => {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: USER_QUERY_KEY,
+        queryKey: [getUserInfoMutation.name],
       });
     },
   });
@@ -35,7 +35,7 @@ export const useUpdateUserAvatarMutation = () => {
       },
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: USER_QUERY_KEY,
+          queryKey: [getUserInfoMutation.name],
         });
       },
     }

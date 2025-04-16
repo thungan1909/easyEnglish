@@ -1,4 +1,4 @@
-import { END_POINTS } from "../constants";
+import { END_POINTS } from "../constants/endpoint";
 import {
   CreateLessonResponse,
   LessonDTO,

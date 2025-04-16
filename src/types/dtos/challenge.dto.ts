@@ -1,6 +1,8 @@
 import { LessonSubmissionResponse } from "./submission.dto";
 import { UserDTO } from "./user.dto";
 
+// ─── Challenge Interfaces ─────────────────────────────────────────────────────
+
 export interface ChallengeDTO {
   _id: string;
   title: string;
@@ -25,11 +27,6 @@ export interface ChallengeDTO {
   createdAt: string;
 }
 
-export interface CreateChallengeResponse {
-  message: string;
-  challenge: ChallengeDTO;
-}
-
 export interface ChallengeParticipantDTO {
   userId: string;
   username?: string;
@@ -41,18 +38,29 @@ export interface ChallengeParticipantDTO {
   lessonResults: LessonSubmissionResponse[];
 }
 
-export interface SubmissionResponse {
-  submissionId: string;
-  lessonId: string;
-  score: number;
-  accuracy: number;
+// ─── Challenge API Responses ──────────────────────────────────────────────────
+
+export interface CreateChallengeResponse {
+  message: string;
+  challenge: ChallengeDTO;
 }
+
+export interface UpdateChallengeResponse {}
+
+export interface DeleteChallengeResponse {}
 
 export interface GetChallengesByLessonIdAPIResponse {
   challenges: ChallengeDTO[];
   exists: boolean;
 }
 
+// ─── Utility Types ────────────────────────────────────────────────────────────
+
 export type UpdateChallengeDTO = Omit<ChallengeDTO, "_id">;
-export interface UpdateChallengeResponse {}
-export interface DeleteChallengeResponse {}
+
+export interface SubmissionResponse {
+  submissionId: string;
+  lessonId: string;
+  score: number;
+  accuracy: number;
+}

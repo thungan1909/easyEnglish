@@ -1,4 +1,5 @@
-import { COOKIES, END_POINTS } from "../constants";
+import { COOKIES } from "../constants";
+import { END_POINTS } from "../constants/endpoint";
 import { userNotfoundErrorMsg } from "../constants/message/errorMsg";
 import { UserChangePasswordDTO } from "../hooks/user/change-password.hook";
 import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
