@@ -8,7 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CTextField from "../../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../../components/atoms/CButton/CButton";
 import { FaEnvelope, FaKey } from "react-icons/fa";
-import { useChangePasswordMutation } from "../../../../hooks/user/change-password.hook";
+import {
+  useChangePasswordMutation,
+  UserChangePasswordDTO,
+} from "../../../../hooks/user/change-password.hook";
 import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
 
 const ChangePassword = () => {
@@ -27,7 +30,11 @@ const ChangePassword = () => {
   });
 
   const onSubmitProfile = (data: TUserChangePasswordSchema) => {
-    changePasswordMutation(data, {
+    const dataSend: UserChangePasswordDTO = {
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword,
+    };
+    changePasswordMutation(dataSend, {
       onSuccess: () => {},
     });
   };

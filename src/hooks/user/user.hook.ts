@@ -1,8 +1,6 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { USER_QUERY_KEY } from "../../constants";
-import { getUserInfoMutation, getUsersByIds } from "../../apis/user.api";
-import { UserDTO } from "../../types/dtos/user.dto";
-import { IHttpError } from "../../types/dtos/http";
+import { getUserInfoMutation } from "../../apis/user.api";
 
 export const useGetCurrentUser = () => {
   return useQuery({
@@ -12,8 +10,8 @@ export const useGetCurrentUser = () => {
   });
 };
 
-export const useGetUsersByIds = () => {
-  return useMutation<UserDTO[], IHttpError, string[]>({
-    mutationFn: (ids: string[]) => getUsersByIds.fn(ids),
-  });
-};
+// export const useGetUsersByIds = () => {
+//   return useMutation<UserDTO[], IHttpError, string[]>({
+//     mutationFn: (ids: string[]) => getUsersByIds.fn(ids),
+//   });
+// };

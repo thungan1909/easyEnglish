@@ -23,7 +23,7 @@ export const useChallengeForm = (
     ...defaultValues,
   };
 
-  const { data: lessonList = [] } = useGetLessonList({});
+  const { data: lessonList = [] } = useGetLessonList();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLessons, setSelectedLessons] = useState<string[]>([]);
   const [isAllSelected, setIsAllSelected] = useState(false);

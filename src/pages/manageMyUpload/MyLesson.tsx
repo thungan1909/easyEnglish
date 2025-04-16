@@ -9,10 +9,7 @@ import NoDataSection from "../common-pages/NoDataSection";
 
 const MyLesson = () => {
   const { data: currentUser, isError: isUserError } = useGetCurrentUser();
-
-  const { data: lessonList = [], isError: isLessonError } = useGetLessonList(
-    {}
-  );
+  const { data: lessonList = [], isError: isLessonError } = useGetLessonList();
 
   const currentLessonList = useMemo(() => {
     if (currentUser?._id) {

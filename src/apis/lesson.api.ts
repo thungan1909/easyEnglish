@@ -1,8 +1,6 @@
 import { END_POINTS } from "../constants";
-import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
   CreateLessonResponse,
-  LessonListQueryFilter,
   LessonDTO,
   SubmitListenLessonDTO,
   SubmitListenLessonResponse,
@@ -16,133 +14,84 @@ import {
   LessonSubmissionResultDetail,
   TopScoresResponse,
 } from "../types/dtos/submission.dto";
-import { createPostMutation } from "../utils/helpers/createMutation";
+import {
+  createDeleteMutation,
+  createGetByIdQuery,
+  createGetQuery,
+  createGetWithQueryArray,
+  createPostMutation,
+  createPutWithIdMutation,
+} from "../utils/helpers/createMutation";
 import { TLessonSchema } from "../validation/lesson.schema";
 
 export const createLessonMutation = {
   name: "createLesson",
-  fn: async (formData: TLessonSchema): Promise<CreateLessonResponse> => {
-    try {
-      return getOriginalResponseData<CreateLessonResponse>(
-        await getAxiosInstance().post(END_POINTS.LESSON.CREATE, formData, {
-          headers: { "Content-Type": "multipart/form-data" }, // Ensure proper format
-        })
-      );
-    } catch (error) {
-      throw error;
+  ...createPostMutation<TLessonSchema, CreateLessonResponse>(
+    END_POINTS.LESSON.CREATE,
+    {
+      headers: { "Content-Type": "multipart/form-data" },
     }
-  },
+  ),
 };
 
 export const getLessonListQuery = {
   name: "getLessonListQuery",
-  fn: async (filter: LessonListQueryFilter): Promise<LessonDTO[]> => {
-    return getOriginalResponseData<LessonDTO[]>(
-      await getAxiosInstance().get(END_POINTS.LESSON.GET_LIST_LESSON, {
-        data: filter,
-      })
-    );
-  },
+  ...createGetQuery<LessonDTO[]>(END_POINTS.LESSON.GET_LIST_LESSON),
 };
 
 export const getLessonByIdQuery = {
   name: "getLessonByIdQuery",
-  fn: async (id: string): Promise<LessonDTO> => {
-    return getOriginalResponseData<LessonDTO>(
-      await getAxiosInstance().get(
-        END_POINTS.LESSON.GET_LESSON_BY_ID.replace(":id", id)
-      )
-    );
-  },
+  ...createGetByIdQuery<LessonDTO>(END_POINTS.LESSON.GET_LESSON_BY_ID),
 };
 
 export const submitListenLessonMutation = {
   name: "submitListenLesson",
-  ...createPostMutation<SubmitListenLessonDTO, SubmitListenLessonResponse>(END_POINTS.SUBMISSION.LISTEN.SUBMIT)
+  ...createPostMutation<SubmitListenLessonDTO, SubmitListenLessonResponse>(
+    END_POINTS.SUBMISSION.LISTEN.SUBMIT
+  ),
 };
 
 export const compareListenLessonMutation = {
   name: "compareListenLesson",
-  ...createPostMutation<CompareListenLessonDTO, CompareLessonResponse>(END_POINTS.SUBMISSION.LISTEN.COMPARE)
+  ...createPostMutation<CompareListenLessonDTO, CompareLessonResponse>(
+    END_POINTS.SUBMISSION.LISTEN.COMPARE
+  ),
 };
-
 export const getLessonResultById = {
   name: "getLessonResultById",
-  fn: async (id: string): Promise<LessonSubmissionResult> => {
-    try {
-      return getOriginalResponseData<LessonSubmissionResult>(
-        await getAxiosInstance().get(END_POINTS.SUBMISSION.LISTEN.GET_RESULT, {
-          params: { lessonId: id },
-        })
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  ...createGetByIdQuery<LessonSubmissionResult>(
+    END_POINTS.SUBMISSION.LISTEN.GET_RESULT
+  ),
 };
 
 export const getTopScores = {
   name: "getTopScores",
-  fn: async (id: string): Promise<TopScoresResponse> => {
-    try {
-      return getOriginalResponseData<TopScoresResponse>(
-        await getAxiosInstance().get(
-          END_POINTS.SUBMISSION.LISTEN.GET_TOP_SCORE,
-          {
-            params: { lessonId: id },
-          }
-        )
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  ...createGetByIdQuery<TopScoresResponse>(
+    END_POINTS.SUBMISSION.LISTEN.GET_TOP_SCORE
+  ),
 };
 
 export const editLessonMutation = {
   name: "editLesson",
-  fn: async (
-    lessonId: string,
-    formData: TLessonSchema
-  ): Promise<EditLessonResponse> => {
-    try {
-      return getOriginalResponseData<EditLessonResponse>(
-        await getAxiosInstance().put(
-          END_POINTS.LESSON.EDIT.replace(":id", lessonId),
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        )
-      );
-    } catch (error) {
-      throw error;
+  ...createPutWithIdMutation<TLessonSchema, EditLessonResponse>(
+    END_POINTS.LESSON.EDIT,
+    {
+      headers: { "Content-Type": "multipart/form-data" },
     }
-  },
+  ),
 };
 
 export const deleteLessonMutation = {
   name: "deleteLesson",
-  fn: async (lessonId: string): Promise<DeleteLessonResponse> => {
-    try {
-      return getOriginalResponseData<DeleteLessonResponse>(
-        await getAxiosInstance().delete(
-          END_POINTS.LESSON.DELETE.replace(":id", lessonId)
-        )
-      );
-    } catch (error) {
-      throw error;
-    }
-  },
+  ...createDeleteMutation<string, DeleteLessonResponse>(
+    END_POINTS.CHALLENGE.DELETE
+  ),
 };
 
 export const getLessonByIdList = {
   name: "getLessonByIdList",
-  fn: async (idsQuery: string): Promise<LessonSubmissionResultDetail[]> => {
-    return getOriginalResponseData<LessonSubmissionResultDetail[]>(
-      await getAxiosInstance().get(
-        `${END_POINTS.LESSON.GET_LESSON_BY_ID_LIST}?ids=${idsQuery}`
-      )
-    );
-  },
+  ...createGetWithQueryArray<LessonSubmissionResultDetail[]>(
+    END_POINTS.LESSON.GET_LESSON_BY_ID_LIST,
+    "ids"
+  ),
 };

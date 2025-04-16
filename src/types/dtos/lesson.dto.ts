@@ -4,10 +4,6 @@ export interface CreateLessonResponse {}
 export interface EditLessonResponse {}
 export interface DeleteLessonResponse {}
 
-export interface LessonListQueryFilter {
-  scope?: string;
-}
-
 export interface LessonDTO {
   _id: string;
   code: string;

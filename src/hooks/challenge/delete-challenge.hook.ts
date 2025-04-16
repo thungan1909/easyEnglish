@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getLessonListQuery } from "../../apis/lesson.api";
 import { IHttpError } from "../../types/dtos/http";
 import { DeleteChallengeResponse } from "../../types/dtos/challenge.dto";
 import {

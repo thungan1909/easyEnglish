@@ -3,7 +3,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-import { LessonDTO, LessonListQueryFilter } from "../../types/dtos/lesson.dto";
+import { LessonDTO } from "../../types/dtos/lesson.dto";
 import { IHttpError } from "../../types/dtos/http";
 import {
   getLessonByIdList,
@@ -13,12 +13,11 @@ import {
 import { LessonSubmissionResultDetail } from "../../types/dtos/submission.dto";
 
 export const useGetLessonList = (
-  filter: LessonListQueryFilter,
   options?: UseQueryOptions<LessonDTO[], IHttpError>
 ): UseQueryResult<LessonDTO[], IHttpError> => {
   return useQuery<LessonDTO[], IHttpError>({
-    queryKey: [getLessonListQuery.name, filter],
-    queryFn: async () => getLessonListQuery.fn(filter),
+    queryKey: [getLessonListQuery.name],
+    queryFn: async () => getLessonListQuery.fn(),
     ...options,
     refetchOnWindowFocus: false,
     retry: 3,
@@ -39,10 +38,10 @@ export const useGetLessonById = (
 };
 
 export const useGetLessonByIdList = (
-  idsQuery: string
+  idsQuery: string[]
 ): UseQueryResult<LessonSubmissionResultDetail[], IHttpError> => {
   return useQuery<LessonSubmissionResultDetail[], IHttpError>({
-    queryKey: [getLessonByIdList.name],
+    queryKey: [getLessonByIdList.name, idsQuery],
     queryFn: async () => getLessonByIdList.fn(idsQuery),
     refetchOnWindowFocus: false,
     retry: 3,

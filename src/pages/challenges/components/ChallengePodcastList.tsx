@@ -22,8 +22,7 @@ export interface ChallengePodcastListProps {
 
 const ChallengePodcastList = ({ lessonList }: ChallengePodcastListProps) => {
   const navigate = useNavigate();
-  const idsQuery = lessonList.join(",");
-  const { data: lessonDataList } = useGetLessonByIdList(idsQuery ?? "");
+  const { data: lessonDataList } = useGetLessonByIdList(lessonList || []);
 
   return (
     <>

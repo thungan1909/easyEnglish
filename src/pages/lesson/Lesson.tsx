@@ -17,9 +17,7 @@ const Lesson = () => {
 
   const { data: currentUser, isError: isUserError } = useGetCurrentUser();
 
-  const { data: lessonList = [], isError: isLessonError } = useGetLessonList(
-    {}
-  );
+  const { data: lessonList = [], isError: isLessonError } = useGetLessonList();
 
   const currentLessonList = useMemo(() => {
     if (scope === "listened" && currentUser?._id) {

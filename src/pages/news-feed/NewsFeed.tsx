@@ -6,7 +6,7 @@ import LessonLayout from "../dashboard/components/LessonSection/LessonLayout";
 
 const NewsFeed = () => {
   const { data: currentUser } = useGetCurrentUser();
-  const { data: lessonList = [] } = useGetLessonList({});
+  const { data: lessonList = [] } = useGetLessonList();
 
   return (
     <div className="container mt-24 px-8">

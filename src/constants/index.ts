@@ -37,8 +37,8 @@ export const END_POINTS = {
     LISTEN: {
       SUBMIT: "/submission/listen/submit",
       COMPARE: "/submission/listen/compare",
-      GET_RESULT: "/submission/result",
-      GET_TOP_SCORE: "/submission/top-score",
+      GET_RESULT: "/submission/result/:id",
+      GET_TOP_SCORE: "/submission/top-score/:id",
     },
   },
   LEADERBOARD: {

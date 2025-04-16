@@ -1,12 +1,8 @@
 import { END_POINTS } from "../constants";
-import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import { WeeklyRecordDTO } from "../types/dtos/leaderboard.dto";
+import { createGetQuery } from "../utils/helpers/createMutation";
 
 export const getTopWeeklyRecords = {
   name: "getTopWeeklyRecords",
-  fn: async (): Promise<WeeklyRecordDTO[]> => {
-    return getOriginalResponseData<WeeklyRecordDTO[]>(
-      await getAxiosInstance().get(END_POINTS.LEADERBOARD.GET_TOP_WEEKLY)
-    );
-  },
+  ...createGetQuery<WeeklyRecordDTO[]>(END_POINTS.LEADERBOARD.GET_TOP_WEEKLY),
 };

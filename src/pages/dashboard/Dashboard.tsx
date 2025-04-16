@@ -11,7 +11,7 @@ import WeeklyRankingList from "./components/RankingList";
 
 const Dashboard = () => {
   const { isAuth } = useAuthentication();
-  const { data: lessonList = [] } = useGetLessonList({});
+  const { data: lessonList = [] } = useGetLessonList();
   const { data: challengeList = [] } = useGetChallengeList();
   const { data: currentUser } = useGetCurrentUser();
 
