@@ -33,6 +33,9 @@ import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
 import { useUpdateChallengeListMutation } from "../../../hooks/challenge/update-challenge.hook";
 import { useGetChallengesByLessonId } from "../../../hooks/challenge/get-challenge.hook";
 import { generateBreadcrumbs } from "../../../helpers/generateBreadcrumbs";
+import { lessonSubmitSuccessMsg } from "../../../constants/message/successMsg";
+import { submitLessonErrorMsg } from "../../../constants/message/errorMsg";
+import { invalidLessonIdMsg } from "../../../constants/message/validationMsg";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -152,9 +155,14 @@ const ListenLesson = () => {
   };
 
   const handleSubmit = () => {
+    if (!id) {
+      notify.error(invalidLessonIdMsg);
+      return;
+    }
+
     const payload: SubmitListenLessonDTO = {
-      lessonId: id || "",
-      original_array: wordsList ? wordsList : [],
+      lessonId: id,
+      original_array: wordsList || [],
       result_array: originalWords,
       user_array: userInputs,
     };
@@ -170,7 +178,8 @@ const ListenLesson = () => {
           );
           updateChallengeListMutation(updatedChallenges);
         }
-        notify.success("Submission successful!");
+        notify.success(lessonSubmitSuccessMsg);
+
         if (id) {
           navigate({
             pathname: ROUTES_CONSTANTS.LESSON.LISTEN.RESULT.replace(":id", id),
@@ -178,7 +187,7 @@ const ListenLesson = () => {
         }
       },
       onError: () => {
-        notify.error("Submission failed. Please try again.");
+        notify.error(submitLessonErrorMsg);
       },
     });
   };

@@ -61,8 +61,3 @@ export const changeEmailMutation = {
     END_POINTS.USER.CHANGE_EMAIL
   ),
 };
-
-// export const getUsersByIds = {
-//   name: "getUsersByIds",
-//   ...createGetWithQueryArray<UserDTO[]>(END_POINTS.USER.GET_BY_IDS, "ids"),
-// };

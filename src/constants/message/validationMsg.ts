@@ -7,7 +7,6 @@ export const invalidPhoneMsg = "Phone number format is invalid.";
 
 export const confirmPasswordNotMatchMsg =
   "The password and confirmation password must match.";
-export const defaultErrorMsg = "Something went wrong!";
 
 export const invalidLessonTitleMsg = "Lesson's title is required";
 export const invalidLessonContentMsg = "Lesson's content is required";
@@ -19,3 +18,5 @@ export const invalidChallengeTitleMsg = "Lesson's title is required";
 export const coinFeeChallengeMsg = "Fee must be 0 or greater.";
 export const coinAwardChallengeMsg = "Award must be 0 or greater.";
 export const invalidChallengeLessonMsg = "Lesson list is required";
+
+export const invalidLessonIdMsg = "Lesson ID is required.";

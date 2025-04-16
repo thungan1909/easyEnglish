@@ -84,7 +84,7 @@ export const editLessonMutation = {
 export const deleteLessonMutation = {
   name: "deleteLesson",
   ...createDeleteMutation<string, DeleteLessonResponse>(
-    END_POINTS.CHALLENGE.DELETE
+    END_POINTS.LESSON.DELETE
   ),
 };
 

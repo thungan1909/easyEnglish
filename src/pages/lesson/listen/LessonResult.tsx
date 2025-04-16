@@ -13,9 +13,9 @@ import LoadingFailPage from "../../common-pages/LoadingFailPage";
 import TopRecord from "./component/TopRecord";
 import ResultCard from "./component/ResultCard";
 import { useGetCurrentUser } from "../../../hooks/user/user.hook";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { useEffect } from "react";
 import { generateBreadcrumbs } from "../../../helpers/generateBreadcrumbs";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const LessonResult = () => {
   const { id } = useParams();
@@ -32,6 +32,7 @@ const LessonResult = () => {
     : undefined;
 
   useEffect(() => {
+    console.log(isUserLoading, currentUser, hasListened, id, navigate);
     if (!isUserLoading && currentUser && id && !hasListened) {
       navigate(ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", id));
     }
@@ -46,7 +47,6 @@ const LessonResult = () => {
 
   return (
     <div className="flex flex-col gap-8">
-      {/* Breadcrumbs & Title */}
       <div className="flex flex-col gap-4">
         <CBreadcrumbs
           menuItem={generateBreadcrumbs("listenLessonResult", {
@@ -57,7 +57,6 @@ const LessonResult = () => {
         <Typography variant="h5">{lesson?.title || "Title"}</Typography>
       </div>
 
-      {/* Progress & Top Scores */}
       <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
         <div className="flex flex-col gap-4">
           <ProgressBarSection score={score} accuracy={accuracy} />
@@ -71,7 +70,6 @@ const LessonResult = () => {
         <TopRecord topScores={topScores} />
       </div>
 
-      {/* Result & User Listening */}
       <div className="grid md:grid-cols-2 md:gap-16 grid-cols-1 gap-4">
         <ResultCard
           icon={<FaBook className="text-green-500" />}
