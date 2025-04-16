@@ -35,8 +35,8 @@ const createPutWithIdMutation = <TRequest, TResponse>(
   url: string,
   config?: AxiosRequestConfig
 ) => ({
-  fn: async (id: string, data: TRequest): Promise<TResponse> => {
-    const finalUrl = url.replace(":id", id);
+  fn: async (data: TRequest, id?: string): Promise<TResponse> => {
+    const finalUrl = id ? url.replace(":id", id) : url;
     return getOriginalResponseData<TResponse>(
       await getAxiosInstance().put(finalUrl, data, config)
     );

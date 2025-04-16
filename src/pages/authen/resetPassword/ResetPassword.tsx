@@ -19,7 +19,7 @@ import InputVerificationEmail from "../shared/InputVerificationEmail";
 import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 import InputResetPassword from "./InputResetPassword";
 import { notify } from "../../../utils/notify";
-import { defaultErrorMsg } from "../../../constants/errorMessage";
+import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import {
   useGetResetCode,
   useResetPasswordMutation,

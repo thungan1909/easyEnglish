@@ -3,7 +3,7 @@ import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { useState } from "react";
 import { notify } from "../../../utils/notify";
-import { defaultErrorMsg } from "../../../constants/errorMessage";
+import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { emailRegex } from "../../../constants/regex";
 import { useNavigate } from "react-router-dom";

@@ -1,4 +1,5 @@
-import { END_POINTS } from "../constants";
+import { COOKIES, END_POINTS } from "../constants";
+import { userNotfoundErrorMsg } from "../constants/message/errorMsg";
 import { UserChangePasswordDTO } from "../hooks/user/change-password.hook";
 import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
@@ -18,7 +19,7 @@ import { TChangeEmailSchema } from "../validation/user.schema";
 export const getUserInfoMutation = {
   name: "getUserInfo",
   fn: async (): Promise<GetUserDTO | null> => {
-    const token = localStorage.getItem("ACCESS_TOKEN");
+    const token = localStorage.getItem(COOKIES.ACCESS_TOKEN);
 
     const response = await getAxiosInstance().get(
       END_POINTS.AUTH.GET_USER_INFO,
@@ -29,7 +30,7 @@ export const getUserInfoMutation = {
 
     const userData =
       getOriginalResponseData<typeof response.data>(response)?.user;
-    if (!userData) throw new Error("Invalid response: User data not found");
+    if (!userData) throw new Error(userNotfoundErrorMsg);
 
     return userData;
   },

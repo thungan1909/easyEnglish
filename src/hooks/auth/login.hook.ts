@@ -12,6 +12,10 @@ import {
 import { getUserInfoMutation } from "../../apis/user.api";
 import { AuthenticationInfoType } from "../../types/auth";
 import { tryCatch } from "../../utils/helpers/try-catch";
+import {
+  fetchUserInfoErrorMsg,
+  loginMissingUserIdMsg,
+} from "../../constants/message/errorMsg";
 
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();
@@ -22,13 +26,12 @@ export const useLoginMutation = () => {
     },
     onSuccess: async (data) => {
       try {
-        const { access_token, refresh_token, user } = data; // Extract user info from response
+        const { access_token, refresh_token, user } = data;
 
         if (!user?.id) {
-          throw new Error("User ID is missing in login response");
+          throw new Error(loginMissingUserIdMsg);
         }
 
-        // Store tokens & userId in localStorage or state
         persistToken({
           accessToken: access_token,
           refreshToken: refresh_token,
@@ -53,7 +56,7 @@ export const useLoginMutation = () => {
         const userInfo = await getUserInfoMutation.fn();
         queryClient.setQueryData(USER_QUERY_KEY, userInfo);
       } catch (error) {
-        console.error("Failed to fetch user info:", error);
+        console.error(fetchUserInfoErrorMsg, error);
       }
     },
   });

@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { notify } from "../../../utils/notify";
 import { useNavigate } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
-import { defaultErrorMsg } from "../../../constants/errorMessage";
+import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import {

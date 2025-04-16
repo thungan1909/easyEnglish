@@ -4,7 +4,7 @@ import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { notify } from "../../../utils/notify";
-import { defaultErrorMsg } from "../../../constants/errorMessage";
+import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { EVerifyStep } from "./constant";
 import InputVerificationCode from "../shared/InputVerificationCode";

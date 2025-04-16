@@ -5,7 +5,7 @@ import {
   invalidLessonImageFileMsg,
   invalidLessonTitleMsg,
   invalidLessonWordListMsg,
-} from "../constants/errorMessage";
+} from "../constants/message/validationMsg";
 
 export const LessonSchema = zod.object({
   title: zod.string().min(1, invalidLessonTitleMsg),

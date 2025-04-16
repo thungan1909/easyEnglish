@@ -20,7 +20,7 @@ export const useUpdateChallengeMutation = () => {
     { challengeId: string; data: TChallengeSchema }
   >({
     mutationFn: async ({ challengeId, data }) => {
-      return updateChallengeMutation.fn(challengeId, data);
+      return updateChallengeMutation.fn(data, challengeId);
     },
     onSuccess: async (_, { challengeId }) => {
       await queryClient.invalidateQueries({
