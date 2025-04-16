@@ -5,7 +5,6 @@ import { Controller, useForm } from "react-hook-form";
 import { notify } from "../../../utils/notifyUtils";
 import { useNavigate } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
-import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import {
@@ -19,6 +18,7 @@ import {
   useLoginMutation,
 } from "../../../hooks/auth/login.hook";
 import { FaKey, FaUser } from "react-icons/fa";
+import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 
 const resolver = zodResolver(UserSignInSchema);
 

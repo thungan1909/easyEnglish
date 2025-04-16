@@ -20,7 +20,6 @@ import {
 } from "../../../types/dtos/lesson.dto";
 import { notify } from "../../../utils/notifyUtils";
 import { useSubmitListenLessonMutation } from "../../../hooks/lesson/submit-lesson.hook";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import AudioSection from "./component/AudioSection";
 import LoadingFailPage from "../../common-pages/LoadingFailPage";
 import CModal from "../../../components/atoms/CModal/CModal";
@@ -36,6 +35,7 @@ import { generateBreadcrumbs } from "../../../helpers/generateBreadcrumbs";
 import { lessonSubmitSuccessMsg } from "../../../constants/message/successMsg";
 import { submitLessonErrorMsg } from "../../../constants/message/errorMsg";
 import { invalidLessonIdMsg } from "../../../constants/message/validationMsg";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -109,18 +109,21 @@ const ListenLesson = () => {
     submission: LessonSubmissionResponse
   ): ChallengeDTO => {
     const { userId, score, accuracy, lessonId } = submission;
-
+    debugger;
     const updatedParticipants = [...challenge.participants];
 
     const existingParticipant = updatedParticipants.find((participant) => {
       return String(participant?.userId) === String(userId);
     });
 
+    console.log(existingParticipant, "existingParticipant");
+
     if (existingParticipant) {
       const existingLesson = existingParticipant.lessonResults.find(
         (lr) => lr.lessonId?.toString() === lessonId?.toString()
       );
 
+      console.log(existingLesson);
       if (existingLesson) {
         existingParticipant.totalScore -= existingLesson.score;
         existingLesson.score = score;
