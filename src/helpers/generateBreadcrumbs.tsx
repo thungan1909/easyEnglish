@@ -1,0 +1,94 @@
+import { FaHome } from "react-icons/fa";
+import { JSX } from "react";
+import { ROUTES_CONSTANTS } from "../routers/constants";
+
+// ─── Type Definitions ───────────────────────────────────────────────────────
+
+export type TBreadcrumbItem = {
+  href: string;
+  label: string;
+  icon?: JSX.Element;
+};
+
+// ─── Breadcrumb Generator ────────────────────────────────────────────────────
+
+export const generateBreadcrumbs = (
+  pageType:
+    | "lesson"
+    | "listenLesson"
+    | "listenLessonResult"
+    | "profile"
+    | "settings"
+    | "challenge",
+  options?: { id?: string; title?: string; type?: string }
+): TBreadcrumbItem[] => {
+  const breadcrumbs: TBreadcrumbItem[] = [
+    { href: ROUTES_CONSTANTS.DASHBOARD, label: "Home", icon: <FaHome /> },
+  ];
+
+  switch (pageType) {
+    case "lesson":
+      breadcrumbs.push({ href: ROUTES_CONSTANTS.LESSON.BASE, label: "Lesson" });
+      if (options?.id) {
+        breadcrumbs.push({
+          href: ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", options.id),
+          label: options.title || "Lesson Detail",
+        });
+      }
+      break;
+
+    case "challenge":
+      breadcrumbs.push({
+        href: ROUTES_CONSTANTS.CHALLENGE.BASE,
+        label: "Challenge",
+      });
+      if (options?.id) {
+        breadcrumbs.push({
+          href: ROUTES_CONSTANTS.CHALLENGE.DETAIL.replace(":id", options.id),
+          label: options.title || "Challenge Detail",
+        });
+      }
+      break;
+
+    case "listenLesson":
+      breadcrumbs.push({ href: ROUTES_CONSTANTS.LESSON.BASE, label: "Lesson" });
+      if (options?.id) {
+        breadcrumbs.push({
+          href: ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", options.id),
+          label: options.title || "Lesson Details",
+        });
+      }
+      breadcrumbs.push({
+        href: `${ROUTES_CONSTANTS.LESSON.LISTEN.BASE}?id=${options?.id}`,
+        label: options?.type
+          ? `Listen (${
+              options.type === "withoutHint" ? "Without Hint" : "Hint"
+            })`
+          : "Listen",
+      });
+      break;
+
+    case "listenLessonResult":
+      breadcrumbs.push({ href: ROUTES_CONSTANTS.LESSON.BASE, label: "Lesson" });
+      if (options?.id) {
+        breadcrumbs.push({
+          href: ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", options.id),
+          label: options.title || "Lesson Details",
+        });
+      }
+      breadcrumbs.push({
+        href: ROUTES_CONSTANTS.LESSON.LISTEN.RESULT,
+        label: "Result",
+      });
+      break;
+
+    case "settings":
+      breadcrumbs.push({
+        href: ROUTES_CONSTANTS.USER.SETTINGS,
+        label: "Settings",
+      });
+      break;
+  }
+
+  return breadcrumbs;
+};

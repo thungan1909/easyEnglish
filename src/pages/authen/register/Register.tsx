@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import InputBasicInfo from "./InputBasicInfo";
 import InputVerificationCode from "../shared/InputVerificationCode";
 import AuthenticationSuccessful from "../shared/AuthenticationSuccessful";
-import { notify } from "../../../utils/notify";
+import { notify } from "../../../utils/notifyUtils";
 import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import {

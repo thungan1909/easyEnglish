@@ -3,7 +3,7 @@ import { useAuthentication } from "../../../hooks/auth/login.hook";
 import { useCreateChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
 import { useChallengeForm } from "../form/useChallengeForm";
-import { notify } from "../../../utils/notify";
+import { notify } from "../../../utils/notifyUtils";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import LoginReminder from "../../common-pages/LoginReminder";
 import ChallengeForm from "../form/ChallengeForm";

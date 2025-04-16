@@ -12,14 +12,13 @@ import { Typography } from "@mui/material";
 import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
 import CWordInput from "../../../components/atoms/CWordInput/CWordInput";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
-import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   CompareLessonResponse,
   CompareListenLessonDTO,
   SubmitListenLessonDTO,
 } from "../../../types/dtos/lesson.dto";
-import { notify } from "../../../utils/notify";
+import { notify } from "../../../utils/notifyUtils";
 import { useSubmitListenLessonMutation } from "../../../hooks/lesson/submit-lesson.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import AudioSection from "./component/AudioSection";
@@ -33,6 +32,7 @@ import {
 import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
 import { useUpdateChallengeListMutation } from "../../../hooks/challenge/update-challenge.hook";
 import { useGetChallengesByLessonId } from "../../../hooks/challenge/get-challenge.hook";
+import { generateBreadcrumbs } from "../../../helpers/generateBreadcrumbs";
 
 const ListenLesson = () => {
   const { id } = useParams();

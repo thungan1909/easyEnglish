@@ -21,7 +21,7 @@ import {
   createGetWithQueryArray,
   createPostMutation,
   createPutWithIdMutation,
-} from "../utils/helpers/createMutation";
+} from "../utils/axiosUtils";
 import { TLessonSchema } from "../validation/lesson.schema";
 
 export const createLessonMutation = {

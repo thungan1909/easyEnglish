@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { menuItems } from "./constants";
-import { getLinkClassName } from "../../utils/helpers/style";
 import LessonItem from "./components/LessonItem";
 import { useGetLessonList } from "../../hooks/lesson/get-lesson.hook";
 import { Divider } from "@mui/material";
@@ -9,6 +8,7 @@ import { useMemo } from "react";
 import LoadingFailPage from "../common-pages/LoadingFailPage";
 import NoDataSection from "../common-pages/NoDataSection";
 import CPageTitle from "../../components/atoms/CPageTitle/CPageTitle";
+import { getLinkClassName } from "../../utils/activeLinkUtils";
 
 const Lesson = () => {
   const location = useLocation();

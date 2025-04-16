@@ -5,7 +5,6 @@ import { useGetCurrentUser } from "../../../hooks/user/user.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import LoadingFailPage from "../../common-pages/LoadingFailPage";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
-import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 import CButton from "../../../components/atoms/CButton/CButton";
 import {
   FaCalendar,
@@ -19,6 +18,7 @@ import { Chip, Divider, Typography } from "@mui/material";
 import { FaRepeat, FaUserGroup } from "react-icons/fa6";
 import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 import CModal from "../../../components/atoms/CModal/CModal";
+import { generateBreadcrumbs } from "../../../helpers/generateBreadcrumbs";
 
 const LessonDetail = () => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import { FaPenToSquare } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import { useDeleteLessonMutation } from "../../hooks/lesson/delete-lesson.hook";
 import { useDeleteChallengeMutation } from "../../hooks/challenge/delete-challenge.hook";
-import { notify } from "../../utils/notify";
+import { notify } from "../../utils/notifyUtils";
 import CActionButton from "../../components/molecules/cActionButton/cActionButton";
 
 export interface MyUploadsActionsProps {

@@ -17,7 +17,7 @@ import CButton from "../../atoms/CButton/CButton";
 import CUserProfileAvatar from "../CUserProfile/cUserProfile";
 import MoreMenu from "./MoreMenu";
 import { menuItems, primaryMenuItems } from "./constants";
-import { getLinkClassName } from "../../../utils/helpers/style";
+import { getLinkClassName } from "../../../utils/activeLinkUtils";
 
 interface NavbarProps {
   isAuth: Boolean;

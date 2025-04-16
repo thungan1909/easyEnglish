@@ -7,8 +7,8 @@ import {
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { notify } from "../../../utils/notify";
-import { validateDateRange } from "../../../utils/helpers/periodDateValidation";
+import { notify } from "../../../utils/notifyUtils";
+import { validateDateRange } from "../../../utils/dateUtils";
 
 export const useChallengeForm = (
   defaultValues: Partial<TChallengeSchema>,

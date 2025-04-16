@@ -1,8 +1,8 @@
 import { Avatar, Typography } from "@mui/material";
 import { FaMedal, FaTrophy } from "react-icons/fa";
 import SeeMoreButton from "../../../../components/molecules/CSeeMoreButton/CSeeMoreButton";
-import { getFirstCharAvatar } from "../../../../utils/helpers/getFirstCharAvatar";
 import { TopScoresResponse } from "../../../../types/dtos/submission.dto";
+import { getFirstCharAvatar } from "../../../../utils/avatarUtils";
 
 const TopRecord = ({ topScores }: TopScoresResponse) => {
   const sortedScores = [...topScores].sort((a, b) => b.score - a.score);

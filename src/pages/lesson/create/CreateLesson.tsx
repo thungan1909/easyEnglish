@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
 import { useCreateLessonMutation } from "../../../hooks/lesson/create-lesson.hook";
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
-import { notify } from "../../../utils/notify";
+import { notify } from "../../../utils/notifyUtils";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 import LoginReminder from "../../common-pages/LoginReminder";

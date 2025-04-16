@@ -10,11 +10,11 @@ import {
 } from "../../constants";
 import { getUserInfoMutation } from "../../apis/user.api";
 import { AuthenticationInfoType } from "../../types/auth";
-import { tryCatch } from "../../utils/helpers/try-catch";
 import {
   fetchUserInfoErrorMsg,
   loginMissingUserIdMsg,
 } from "../../constants/message/errorMsg";
+import { tryCatch } from "../../utils/tryCatchUtils";
 
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();

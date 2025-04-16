@@ -13,7 +13,7 @@ import {
   createGetQuery,
   createPostMutation,
   createPutWithIdMutation,
-} from "../utils/helpers/createMutation";
+} from "../utils/axiosUtils";
 import { TChallengeSchema } from "../validation/challenge.schema";
 
 export const getChallengeByIdQuery = {

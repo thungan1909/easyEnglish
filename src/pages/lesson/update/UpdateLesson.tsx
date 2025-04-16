@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
 import { useUpdateLessonMutation } from "../../../hooks/lesson/update-lesson.hook";
-import { notify } from "../../../utils/notify";
+import { notify } from "../../../utils/notifyUtils";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
 import LoginReminder from "../../common-pages/LoginReminder";

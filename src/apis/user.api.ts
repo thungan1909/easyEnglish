@@ -1,7 +1,6 @@
 import { COOKIES } from "../constants";
 import { END_POINTS } from "../constants/endpoint";
 import { userNotfoundErrorMsg } from "../constants/message/errorMsg";
-import { UserChangePasswordDTO } from "../hooks/user/change-password.hook";
 import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
   ChangeEmailResponse,
@@ -10,11 +9,9 @@ import {
   UpdateUserAvatarResponse,
   UpdateUserDTO,
   UpdateUserResponse,
+  UserChangePasswordDTO,
 } from "../types/dtos/user.dto";
-import {
-  createPatchMutation,
-  createPostMutation,
-} from "../utils/helpers/createMutation";
+import { createPatchMutation, createPostMutation } from "../utils/axiosUtils";
 import { TChangeEmailSchema } from "../validation/user.schema";
 
 export const getUserInfoMutation = {

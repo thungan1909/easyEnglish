@@ -18,7 +18,7 @@ import { EResetPasswordStep } from "./constants";
 import InputVerificationEmail from "../shared/InputVerificationEmail";
 import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 import InputResetPassword from "./InputResetPassword";
-import { notify } from "../../../utils/notify";
+import { notify } from "../../../utils/notifyUtils";
 import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import {
   useGetResetCode,

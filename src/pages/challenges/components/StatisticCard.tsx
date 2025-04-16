@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import clsx from "clsx";
 import { JSX } from "react";
-import formatNumber from "../../../utils/helpers/formatNumber";
+import { formatNumber } from "../../../utils/numberUtils";
 
 export interface StatisticCardProps {
   icon: JSX.Element;

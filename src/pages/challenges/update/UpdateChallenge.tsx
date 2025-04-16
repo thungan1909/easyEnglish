@@ -5,7 +5,7 @@ import { useUpdateChallengeMutation } from "../../../hooks/challenge/update-chal
 import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
 import { useMemo } from "react";
 import { useChallengeForm } from "../form/useChallengeForm";
-import { notify } from "../../../utils/notify";
+import { notify } from "../../../utils/notifyUtils";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 import ChallengeForm from "../form/ChallengeForm";

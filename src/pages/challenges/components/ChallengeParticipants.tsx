@@ -7,8 +7,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import formatNumber from "../../../utils/helpers/formatNumber";
 import { ChallengeParticipantDTO } from "../../../types/dtos/challenge.dto";
+import { formatNumber } from "../../../utils/numberUtils";
 
 export interface ChallengeParticipantsProps {
   participants: ChallengeParticipantDTO[];

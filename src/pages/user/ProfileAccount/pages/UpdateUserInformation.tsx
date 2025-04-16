@@ -15,7 +15,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
-import { notify } from "../../../../utils/notify";
+import { notify } from "../../../../utils/notifyUtils";
 import CTextField from "../../../../components/atoms/CTextField/CTextField";
 import CDatePicker from "../../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";

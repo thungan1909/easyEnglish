@@ -1,8 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import {
-  getAxiosInstance,
-  getOriginalResponseData,
-} from "../../providers/axios";
+import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 
 const createGetByIdQuery = <TResponse>(url: string) => ({
   fn: async (id: string): Promise<TResponse> => {

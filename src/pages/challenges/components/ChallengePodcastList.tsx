@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { FaPlay } from "react-icons/fa";
 import { useGetLessonByIdList } from "../../../hooks/lesson/get-lesson.hook";
-import formatNumber from "../../../utils/helpers/formatNumber";
+import { formatNumber } from "../../../utils/numberUtils";
 
 export interface ChallengePodcastListProps {
   lessonList: string[];

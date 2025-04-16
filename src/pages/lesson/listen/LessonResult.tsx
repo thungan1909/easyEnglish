@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import CBreadcrumbs from "../../../components/atoms/CBreadcrumbs/CBreadcrumbs";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
-import { generateBreadcrumbs } from "../../../utils/helpers/breadcrumbs";
 import { Typography } from "@mui/material";
 import {
   useGetLessonResultById,
@@ -16,6 +15,7 @@ import ResultCard from "./component/ResultCard";
 import { useGetCurrentUser } from "../../../hooks/user/user.hook";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { useEffect } from "react";
+import { generateBreadcrumbs } from "../../../helpers/generateBreadcrumbs";
 
 const LessonResult = () => {
   const { id } = useParams();

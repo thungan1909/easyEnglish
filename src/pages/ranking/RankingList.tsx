@@ -1,9 +1,9 @@
 import { Avatar } from "@mui/material";
 import { useGetTopWeekly } from "../../hooks/leaderboard/get-top-weekly.hook";
-import { getFirstCharAvatar } from "../../utils/helpers/getFirstCharAvatar";
 import { FaRankingStar } from "react-icons/fa6";
 import NoDataSection from "../common-pages/NoDataSection";
 import { FaTrophy } from "react-icons/fa";
+import { getFirstCharAvatar } from "../../utils/avatarUtils";
 
 const RankingList = () => {
   const { data: topWeekly = [] } = useGetTopWeekly();

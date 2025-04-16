@@ -3,7 +3,7 @@ import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { useCallback, useRef, useState } from "react";
 
-import { notify } from "../../../utils/notify";
+import { notify } from "../../../utils/notifyUtils";
 import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { CODE_LENGTH, VERIFY_ACCOUNT_STEP } from "./constants";
 import {

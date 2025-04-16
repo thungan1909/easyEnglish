@@ -17,7 +17,7 @@ import {
   VerifyResetCodeDTO,
   VerifyResetCodeResponse,
 } from "../types/dtos/auth.dto";
-import { createPostMutation } from "../utils/helpers/createMutation";
+import { createPostMutation } from "../utils/axiosUtils";
 
 export const loginMutation = {
   name: "login",

@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 
 import { Controller, useForm } from "react-hook-form";
-import { notify } from "../../../utils/notify";
+import { notify } from "../../../utils/notifyUtils";
 import { useNavigate } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { defaultErrorMsg } from "../../../constants/message/validationMsg";
