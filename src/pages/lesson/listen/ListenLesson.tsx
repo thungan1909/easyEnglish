@@ -109,21 +109,17 @@ const ListenLesson = () => {
     submission: LessonSubmissionResponse
   ): ChallengeDTO => {
     const { userId, score, accuracy, lessonId } = submission;
-    debugger;
     const updatedParticipants = [...challenge.participants];
 
     const existingParticipant = updatedParticipants.find((participant) => {
       return String(participant?.userId) === String(userId);
     });
 
-    console.log(existingParticipant, "existingParticipant");
-
     if (existingParticipant) {
       const existingLesson = existingParticipant.lessonResults.find(
         (lr) => lr.lessonId?.toString() === lessonId?.toString()
       );
 
-      console.log(existingLesson);
       if (existingLesson) {
         existingParticipant.totalScore -= existingLesson.score;
         existingLesson.score = score;

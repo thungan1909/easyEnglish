@@ -13,14 +13,14 @@ const RankingList = () => {
   );
 
   return (
-    <div className="bg-white shadow rounded-2xl p-4">
+    <>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Weekly Ranking List</h2>
       </div>
-      {/* Top 3 */}
+
       <div className="flex flex-col items-center relative mb-16">
         {sortedTopWeekly.length > 0 && (
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center cursor-pointer">
             <Avatar
               alt="user-avatar"
               src={sortedTopWeekly[0].avatarUrl}
@@ -43,12 +43,16 @@ const RankingList = () => {
         )}
 
         {sortedTopWeekly.length > 1 && (
-          <div className="flex gap-32 absolute top-16">
+          <div className="flex gap-32">
             {sortedTopWeekly.slice(1, 3).map((user, index) => (
-              <div key={index} className="flex flex-col items-center">
+              <div
+                key={index}
+                className="flex flex-col items-center cursor-pointer"
+              >
                 <Avatar
                   alt="user-avatar"
                   src={user.avatarUrl}
+                  className="border-amber-400 border-2"
                   sx={{ width: 64, height: 64 }}
                 >
                   {!user.avatarUrl && getFirstCharAvatar(user.username)}
@@ -64,7 +68,7 @@ const RankingList = () => {
         )}
       </div>
 
-      <div className="grid gap-3 mt-6">
+      <div className="grid gap-3 mt-12">
         {sortedTopWeekly.length > 0 ? (
           sortedTopWeekly.map((user, index) => (
             <div
@@ -83,7 +87,7 @@ const RankingList = () => {
 
               <div className="flex space-x-2 items-center ml-auto">
                 <span className="text-sm">{user.totalWeeklyScore}</span>
-                <FaRankingStar />
+                <FaRankingStar className="text-amber-400" />
               </div>
             </div>
           ))
@@ -91,7 +95,7 @@ const RankingList = () => {
           <NoDataSection />
         )}
       </div>
-    </div>
+    </>
   );
 };
 

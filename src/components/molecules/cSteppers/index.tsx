@@ -51,6 +51,7 @@ const CSteppers = forwardRef(
 
           return (
             <Step
+              key={idx}
               completed={isCompleted}
               index={idx}
               sx={{

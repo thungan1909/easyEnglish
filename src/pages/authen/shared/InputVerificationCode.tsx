@@ -4,7 +4,6 @@ import CButton from "../../../components/atoms/CButton/CButton";
 import { useCallback, useRef, useState } from "react";
 
 import { notify } from "../../../utils/notifyUtils";
-import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { CODE_LENGTH, VERIFY_ACCOUNT_STEP } from "./constants";
 import {
   useGetResetCode,
@@ -14,6 +13,7 @@ import {
   useGetVerifyCode,
   useVerifyAccountMutation,
 } from "../../../hooks/auth/verify-email.hook";
+import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 
 export interface InputVerificationCodeProps {
   email: string;

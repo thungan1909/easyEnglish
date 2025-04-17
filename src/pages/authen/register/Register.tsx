@@ -9,7 +9,6 @@ import InputBasicInfo from "./InputBasicInfo";
 import InputVerificationCode from "../shared/InputVerificationCode";
 import AuthenticationSuccessful from "../shared/AuthenticationSuccessful";
 import { notify } from "../../../utils/notifyUtils";
-import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import {
   TUserSignUpSchema,
@@ -20,6 +19,7 @@ import InputEmail from "./InputEmail";
 import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
 import { useRegisterUserMutation } from "../../../hooks/auth/signup.hook";
+import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 
 const Register = () => {
   const CStepperRef = useRef<ISteppersRef>(null);

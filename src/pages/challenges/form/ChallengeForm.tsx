@@ -13,7 +13,7 @@ import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import { ChallengeFormProps } from "./types";
 
 const ChallengeForm = ({
-  control, 
+  control,
   handleSubmit,
   onSubmit,
   searchTerm,
@@ -204,7 +204,7 @@ const ChallengeForm = ({
         {filteredLessons.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
             {filteredLessons.map((lesson) => (
-              <div key={lesson._id} className="flex flex-col items-center">
+              <div key={lesson._id} className="flex flex-col ">
                 <LessonCardSquare lesson={lesson} isShowSource={false} />
                 <Checkbox
                   checked={selectedLessons.some((l) => l === lesson._id)}

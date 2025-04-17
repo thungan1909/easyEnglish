@@ -3,12 +3,12 @@ import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { useState } from "react";
 import { notify } from "../../../utils/notifyUtils";
-import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { emailRegex } from "../../../constants/regex";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 import { useCheckExistEmailMutation } from "../../../hooks/auth/signup.hook";
+import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;

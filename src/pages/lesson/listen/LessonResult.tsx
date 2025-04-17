@@ -32,7 +32,6 @@ const LessonResult = () => {
     : undefined;
 
   useEffect(() => {
-    console.log(isUserLoading, currentUser, hasListened, id, navigate);
     if (!isUserLoading && currentUser && id && !hasListened) {
       navigate(ROUTES_CONSTANTS.LESSON.DETAIL.replace(":id", id));
     }
