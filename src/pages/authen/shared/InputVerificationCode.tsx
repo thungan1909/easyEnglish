@@ -14,6 +14,7 @@ import {
   useVerifyAccountMutation,
 } from "../../../hooks/auth/verify-email.hook";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
+import { verificationCodeSentSuccessMsg } from "../../../constants/message/successMsg";
 
 export interface InputVerificationCodeProps {
   email: string;
@@ -38,7 +39,7 @@ const InputVerificationCode = ({
 
   const handleChange = useCallback(
     (index: number, value: string) => {
-      if (!/^\d?$/.test(value)) return; // Only allow digits
+      if (!/^\d?$/.test(value)) return;
 
       const newCode = [...code];
       newCode[index] = value;
@@ -115,7 +116,7 @@ const InputVerificationCode = ({
           email,
         },
         {
-          onSuccess: () => notify.success("Verification code resent."),
+          onSuccess: () => notify.success(verificationCodeSentSuccessMsg),
           onError: (error) => notify.error(error.message || defaultErrorMsg),
         }
       );
@@ -125,7 +126,7 @@ const InputVerificationCode = ({
           email,
         },
         {
-          onSuccess: () => notify.success("Verification code resent."),
+          onSuccess: () => notify.success(verificationCodeSentSuccessMsg),
           onError: (error) => notify.error(error.message || defaultErrorMsg),
         }
       );

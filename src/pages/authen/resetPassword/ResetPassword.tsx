@@ -19,12 +19,12 @@ import InputVerificationEmail from "../shared/InputVerificationEmail";
 import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 import InputResetPassword from "./InputResetPassword";
 import { notify } from "../../../utils/notifyUtils";
-import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import {
   useGetResetCode,
   useResetPasswordMutation,
 } from "../../../hooks/auth/reset-password.hook";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
+import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 
 const ForgotPassword = () => {
   const CStepperRef = useRef<ISteppersRef>(null);

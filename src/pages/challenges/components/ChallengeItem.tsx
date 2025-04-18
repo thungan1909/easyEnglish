@@ -21,7 +21,7 @@ const ChallengeItem = ({ challenge, type }: ChallengeItemProps) => {
 
   return (
     <div
-      className="w-full flex flex-col shadow rounded-2xl bg-white p-4"
+      className="w-full flex flex-col shadow rounded-2xl bg-white p-4 cursor-pointer"
       onClick={handleClickOnChallengeItem}
     >
       <img

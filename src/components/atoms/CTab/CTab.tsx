@@ -1,29 +1,40 @@
 import { Tabs, Tab } from "@mui/material";
 
-export interface ITab {
-  value: any;
-  onChange?: (event: React.SyntheticEvent, value: any) => void;
+export interface ITabOption {
+  label?: string;
+  value?: string;
 }
 
-const CTab = ({ value, onChange }: ITab) => {
+export interface ITab {
+  value: string;
+  onChange?: (event: React.SyntheticEvent, value: string) => void;
+  tabOptions?: ITabOption[];
+}
+
+const CTab = ({ value, onChange, tabOptions }: ITab) => {
   return (
-    <Tabs value={value} onChange={onChange} centered>
-      <Tab
-        label="Lesson"
-        value="lesson"
-        sx={{
-          color: "gray",
-          "&.Mui-selected": { color: "purple" },
-        }}
-      />
-      <Tab
-        label="Challenge"
-        value="challenge"
-        sx={{
-          color: "gray",
-          "&.Mui-selected": { color: "purple" },
-        }}
-      />
+    <Tabs
+      value={value}
+      onChange={onChange}
+      centered
+      sx={{
+        "& .MuiTabs-indicator": {
+          backgroundColor: "purple",
+        },
+      }}
+    >
+      {tabOptions?.map((tab) => (
+        <Tab
+          key={tab.value}
+          label={tab.label}
+          value={tab.value}
+          sx={{
+            "&.Mui-selected": {
+              color: "purple",
+            },
+          }}
+        />
+      ))}
     </Tabs>
   );
 };

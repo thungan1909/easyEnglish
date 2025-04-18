@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Tab, Tabs } from "@mui/material";
 import MyLesson from "./MyLesson";
 import MyChallenge from "./MyChallenge";
+import CTab from "../../components/atoms/CTab/CTab";
 
 export enum UploadTypeEnum {
   challenge = "CHALLENGE",
@@ -15,21 +15,22 @@ const ManageMyUpload = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <Tabs
+      <CTab
         value={uploadValue}
         onChange={(_, newUploadValue: string) =>
           setUploadValue(newUploadValue as UploadTypeEnum)
         }
-        centered
-        sx={{
-          "MuiButtonBase-root-MuiTab-root.Mui-selected": {
-            color: "purple",
+        tabOptions={[
+          {
+            label: "Lesson",
+            value: UploadTypeEnum.lesson,
           },
-        }}
-      >
-        <Tab label="Lesson" value={UploadTypeEnum.lesson} />
-        <Tab label="Challenge" value={UploadTypeEnum.challenge} />
-      </Tabs>
+          {
+            label: "Challenge",
+            value: UploadTypeEnum.challenge,
+          },
+        ]}
+      />
       {uploadValue === UploadTypeEnum.lesson ? <MyLesson /> : <MyChallenge />}
     </div>
   );

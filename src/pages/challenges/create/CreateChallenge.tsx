@@ -8,6 +8,7 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import LoginReminder from "../../common-pages/LoginReminder";
 import ChallengeForm from "../form/ChallengeForm";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
+import { createChallengeSuccessMsg } from "../../../constants/message/successMsg";
 
 const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
@@ -32,7 +33,7 @@ const CreateChallenge = () => {
   } = useChallengeForm({}, (data) =>
     createChallenge(data, {
       onSuccess: () => {
-        notify.success("Challenge created successfully");
+        notify.success(createChallengeSuccessMsg);
         navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
       },
       onError: () => {

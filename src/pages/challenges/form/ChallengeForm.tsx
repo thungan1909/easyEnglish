@@ -2,7 +2,7 @@ import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CTextArea from "../../../components/atoms/CTextArea/CTextArea";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { Controller } from "react-hook-form";
-import { Checkbox, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import CDatePicker from "../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
 import NoDataSection from "../../common-pages/NoDataSection";
@@ -11,6 +11,7 @@ import { FaSearch } from "react-icons/fa";
 
 import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import { ChallengeFormProps } from "./types";
+import CCheckbox from "../../../components/atoms/CCheckbox/CCheckbox";
 
 const ChallengeForm = ({
   control,
@@ -183,7 +184,7 @@ const ChallengeForm = ({
 
           <div className="flex md:flex-row flex-col md:ml-auto">
             <div className="flex items-center">
-              <Checkbox checked={isAllSelected} onChange={handleToggleAll} />
+              <CCheckbox checked={isAllSelected} onChange={handleToggleAll} />
               <Typography variant="body2">
                 {selectedLessons.length} selected lessons
               </Typography>
@@ -202,14 +203,19 @@ const ChallengeForm = ({
         </div>
 
         {filteredLessons.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-4">
             {filteredLessons.map((lesson) => (
-              <div key={lesson._id} className="flex flex-col ">
+              <div
+                key={lesson._id}
+                className=" flex flex-col justify-center items-center"
+              >
                 <LessonCardSquare lesson={lesson} isShowSource={false} />
-                <Checkbox
-                  checked={selectedLessons.some((l) => l === lesson._id)}
-                  onChange={() => toggleLessonSelection(lesson._id)}
-                />
+                <div>
+                  <CCheckbox
+                    checked={selectedLessons.some((l) => l === lesson._id)}
+                    onChange={() => toggleLessonSelection(lesson._id)}
+                  />
+                </div>
               </div>
             ))}
           </div>

@@ -23,6 +23,7 @@ const Challenges = () => {
       />
 
       {newestChallenge && <ChallengeBanner challenge={newestChallenge} />}
+
       {challengeList.length > 0 ? (
         <div className="grid md:grid-cols-3 grid-cols-2 gap-4">
           {challengeList.map((item: ChallengeDTO) => (

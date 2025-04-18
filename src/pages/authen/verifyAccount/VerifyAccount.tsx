@@ -4,7 +4,6 @@ import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { notify } from "../../../utils/notifyUtils";
-import { defaultErrorMsg } from "../../../constants/message/validationMsg";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { EVerifyStep } from "./constant";
 import InputVerificationCode from "../shared/InputVerificationCode";
@@ -18,6 +17,7 @@ import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
 import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 import { useGetVerifyCode } from "../../../hooks/auth/verify-email.hook";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
+import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 
 const VerifyAccount = () => {
   const CStepperRef = useRef<ISteppersRef>(null);

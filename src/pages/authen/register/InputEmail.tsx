@@ -8,7 +8,11 @@ import { emailRegex } from "../../../constants/regex";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 import { useCheckExistEmailMutation } from "../../../hooks/auth/signup.hook";
-import { defaultErrorMsg } from "../../../constants/message/errorMsg";
+import {
+  defaultErrorMsg,
+  existEmailErrorMsg,
+} from "../../../constants/message/errorMsg";
+import { invalidEmailMsg } from "../../../constants/message/validationMsg";
 
 export interface InputEmailProps {
   onInputEmail: (email: string) => void;
@@ -27,7 +31,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
   const handleNextStep = () => {
     const trimmedEmail = email.trim();
     if (!trimmedEmail || !validateEmail(email)) {
-      setError("Invalid email format");
+      setError(invalidEmailMsg);
       return;
     }
 
@@ -36,7 +40,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
       {
         onSuccess: (data) => {
           if (data.exists) {
-            setError("This email is already in use. Please try another email");
+            setError(existEmailErrorMsg);
           } else {
             onInputEmail(trimmedEmail);
           }

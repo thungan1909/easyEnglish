@@ -15,7 +15,7 @@ const LessonCardSquare = ({
   onClick,
   isShowSource = true,
 }: DashboardLessonItemProps) => {
-  const itemClass = `${dashboardItemBackground} flex flex-col items-center p-2 gap-2`;
+  const itemClass = `${dashboardItemBackground} flex flex-col items-center p-2 gap-2 min-w-[100%] min-h-[70%]`;
 
   return (
     <div
@@ -34,7 +34,7 @@ const LessonCardSquare = ({
         <FaImage className="md:w-32 md:h-32 w-24 h-24" />
       )}
       <div className="flex flex-col text-center items-center gap-2">
-        <Typography variant="body2">
+        <Typography variant="body2" className="line-clamp-3">
           {lesson.code} - {lesson.title}
         </Typography>
         {isShowSource ? (

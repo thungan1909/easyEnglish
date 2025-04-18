@@ -1,17 +1,27 @@
 import { Typography } from "@mui/material";
 import { FaCalendar, FaCoins, FaHourglass, FaMicrophone } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
-import CButton from "../../../components/atoms/CButton/CButton";
 import CIconTextItem from "../../../components/molecules/cIconTextItem/cIconTextItem";
 import { ChallengeDTO } from "../../../types/dtos/challenge.dto";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { useNavigate } from "react-router-dom";
 
 export interface ChallengeBannerProps {
   challenge: ChallengeDTO;
 }
 
 const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
+  const navigate = useNavigate();
+
+  const handleClickOnChallengeItem = () => {
+    navigate(ROUTES_CONSTANTS.CHALLENGE.DETAIL.replace(":id", challenge._id));
+  };
+
   return (
-    <div className="flex gap-4 p-4 shadow rounded-2xl bg-white">
+    <div
+      className="flex gap-4 p-4 shadow rounded-2xl bg-white cursor-pointer"
+      onClick={handleClickOnChallengeItem}
+    >
       <img
         src={challenge.imageFile}
         className="md:w-96 md:h-56 w-48 h-80 object-cover rounded-2xl"
@@ -84,10 +94,6 @@ const ChallengeBanner = ({ challenge }: ChallengeBannerProps) => {
             </div>
           </div>
         </div>
-
-        <CButton textTransform="capitalize" isRounded>
-          Learn more
-        </CButton>
       </div>
     </div>
   );

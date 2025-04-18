@@ -5,3 +5,7 @@ export const defaultErrorMsg = "Something went wrong!";
 
 // LESSON
 export const submitLessonErrorMsg = "Submission failed. Please try again.";
+// USER
+
+export const existEmailErrorMsg =
+  "This email is already in use. Please try another email";
