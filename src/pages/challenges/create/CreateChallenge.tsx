@@ -9,6 +9,10 @@ import LoginReminder from "../../common-pages/LoginReminder";
 import ChallengeForm from "../form/ChallengeForm";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 import { createChallengeSuccessMsg } from "../../../constants/message/successMsg";
+import {
+  createChalllengeErrorMsg,
+  uploadFileErrorMsg,
+} from "../../../constants/message/errorMsg";
 
 const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
@@ -37,7 +41,7 @@ const CreateChallenge = () => {
         navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
       },
       onError: () => {
-        notify.error("Failed to create challenge.");
+        notify.error(createChalllengeErrorMsg);
       },
     })
   );
@@ -52,7 +56,7 @@ const CreateChallenge = () => {
           });
         },
         onError: () => {
-          notify.error("Upload failed. Please try again.");
+          notify.error(uploadFileErrorMsg);
         },
       }
     );

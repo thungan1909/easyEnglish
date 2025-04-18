@@ -1,3 +1,4 @@
+import { uploadFileErrorMsg } from "../constants/message/errorMsg";
 import { UploadFileDTO, UploadFileResponse } from "../types/dtos/upload.dto";
 
 export const uploadFileMutation = {
@@ -19,7 +20,7 @@ export const uploadFileMutation = {
       const response = await res.json();
       return { secureUrl: response.secure_url, type: data.type };
     } catch (error) {
-      throw new Error("Upload failed");
+      throw new Error(uploadFileErrorMsg);
     }
   },
 };

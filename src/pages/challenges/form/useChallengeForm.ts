@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { notify } from "../../../utils/notifyUtils";
 import { validateDateRange } from "../../../utils/dateUtils";
+import { invalidDateChallengeMsg } from "../../../constants/message/validationMsg";
 
 export const useChallengeForm = (
   defaultValues: Partial<TChallengeSchema>,
@@ -79,7 +80,7 @@ export const useChallengeForm = (
     const endDate = watch("endDate");
 
     if (!startDate || !endDate) {
-      notify.error("Start date and end date are required.");
+      notify.error(invalidDateChallengeMsg);
       return;
     }
     if (!validateDateRange(startDate, endDate)) return;

@@ -10,6 +10,12 @@ import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 import { useMemo } from "react";
 import { useLessonForm } from "../components/useLessonForm";
 import LessonForm from "../components/LessonForm";
+import { invalidLessonIdMsg } from "../../../constants/message/validationMsg";
+import { editLessonSuccessMsg } from "../../../constants/message/successMsg";
+import {
+  editLessonErrorMsg,
+  uploadFileErrorMsg,
+} from "../../../constants/message/errorMsg";
 
 const UpdateLesson = () => {
   const navigate = useNavigate();
@@ -37,18 +43,18 @@ const UpdateLesson = () => {
     lessonContent,
   } = useLessonForm(defaultValues, (data) => {
     if (!id) {
-      notify.error("Lesson ID is missing");
+      notify.error(invalidLessonIdMsg);
       return;
     }
     updateLesson(
       { lessonId: id, data },
       {
         onSuccess: () => {
-          notify.success("Edit lesson successfully");
+          notify.success(editLessonSuccessMsg);
           navigate(ROUTES_CONSTANTS.MANAGE_MY_UPLOAD.BASE);
         },
         onError: () => {
-          notify.error("Failed to edit lesson.");
+          notify.error(editLessonErrorMsg);
         },
       }
     );
@@ -68,7 +74,7 @@ const UpdateLesson = () => {
           );
         },
         onError: () => {
-          notify.error("Upload failed. Please try again.");
+          notify.error(uploadFileErrorMsg);
         },
       }
     );

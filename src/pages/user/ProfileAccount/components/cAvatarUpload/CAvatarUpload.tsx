@@ -8,6 +8,15 @@ import { UploadFileResponse } from "../../../../../types/dtos/upload.dto";
 import { useUpdateUserAvatarMutation } from "../../../../../hooks/user/update-user.hook";
 import { notify } from "../../../../../utils/notifyUtils";
 import { getFirstCharAvatar } from "../../../../../utils/avatarUtils";
+import {
+  invalidFileSizeUploadMsg,
+  invalidFileUploadMsg,
+} from "../../../../../constants/message/validationMsg";
+import {
+  updateAvatarErrorMsg,
+  uploadFileErrorMsg,
+} from "../../../../../constants/message/errorMsg";
+import { updateAvatarSuccessMsg } from "../../../../../constants/message/successMsg";
 
 export interface CAvatarUploadProps {
   avatarUrl?: string;
@@ -29,12 +38,12 @@ const CAvatarUpload = ({ avatarUrl, username }: CAvatarUploadProps) => {
 
     const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
     if (!allowedTypes.includes(file.type)) {
-      notify.error("Invalid file type. Only JPG, PNG, and WEBP are allowed.");
+      notify.error(invalidFileUploadMsg);
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
       // 5MB limit
-      notify.error("File size exceeds 5MB. Please choose a smaller file.");
+      notify.error(invalidFileSizeUploadMsg);
       return;
     }
 
@@ -62,14 +71,14 @@ const CAvatarUpload = ({ avatarUrl, username }: CAvatarUploadProps) => {
             },
             {
               onSuccess: () => {
-                notify.success("Update avatar successfully");
+                notify.success(updateAvatarSuccessMsg);
                 setSelectedFile(null);
               },
-              onError: () => notify.error("Failed to update avatar"),
+              onError: () => notify.error(updateAvatarErrorMsg),
             }
           );
         },
-        onError: () => notify.error("Upload failed. Please try again."),
+        onError: () => notify.error(uploadFileErrorMsg),
       }
     );
   };

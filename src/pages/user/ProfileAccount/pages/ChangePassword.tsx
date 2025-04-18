@@ -8,11 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CTextField from "../../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../../components/atoms/CButton/CButton";
 import { FaEnvelope, FaKey } from "react-icons/fa";
-import {
-  useChangePasswordMutation,
-  UserChangePasswordDTO,
-} from "../../../../hooks/user/change-password.hook";
+import { useChangePasswordMutation } from "../../../../hooks/user/change-password.hook";
 import { useGetCurrentUser } from "../../../../hooks/user/user.hook";
+import { UserChangePasswordDTO } from "../../../../types/dtos/user.dto";
 
 const ChangePassword = () => {
   const { data: currentUser } = useGetCurrentUser();

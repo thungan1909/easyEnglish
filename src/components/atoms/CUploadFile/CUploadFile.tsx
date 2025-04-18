@@ -107,6 +107,7 @@ const CUploadFile = ({
           </div>
         </div>
       )}
+
       {error && (
         <Typography color="error" variant="caption">
           {error}

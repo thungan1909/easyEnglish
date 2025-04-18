@@ -10,6 +10,12 @@ import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 import ChallengeForm from "../form/ChallengeForm";
 import LoginReminder from "../../common-pages/LoginReminder";
+import { invalidChallengeIdMsg } from "../../../constants/message/validationMsg";
+import { updateChallengeSuccessMsg } from "../../../constants/message/successMsg";
+import {
+  updateChalllengeErrorMsg,
+  uploadFileErrorMsg,
+} from "../../../constants/message/errorMsg";
 
 const UpdateChallenge = () => {
   const { isAuth } = useAuthentication();
@@ -39,7 +45,7 @@ const UpdateChallenge = () => {
     setValue,
   } = useChallengeForm(defaultValues, (data) => {
     if (!id) {
-      notify.error("Challenge ID is missing");
+      notify.error(invalidChallengeIdMsg);
       return;
     }
 
@@ -50,11 +56,11 @@ const UpdateChallenge = () => {
       },
       {
         onSuccess: () => {
-          notify.success("Challenge update successfully");
+          notify.success(updateChallengeSuccessMsg);
           navigate(ROUTES_CONSTANTS.CHALLENGE.DETAIL.replace(":id", id));
         },
         onError: () => {
-          notify.error("Failed to update challenge.");
+          notify.error(updateChalllengeErrorMsg);
         },
       }
     );
@@ -70,7 +76,7 @@ const UpdateChallenge = () => {
           });
         },
         onError: () => {
-          notify.error("Upload failed. Please try again.");
+          notify.error(uploadFileErrorMsg);
         },
       }
     );

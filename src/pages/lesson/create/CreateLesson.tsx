@@ -8,6 +8,11 @@ import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 import LoginReminder from "../../common-pages/LoginReminder";
 import { useLessonForm } from "../components/useLessonForm";
 import LessonForm from "../components/LessonForm";
+import { createLessonSuccessMsg } from "../../../constants/message/successMsg";
+import {
+  createLessonErrorMsg,
+  uploadFileErrorMsg,
+} from "../../../constants/message/errorMsg";
 
 const CreateLesson = () => {
   const { isAuth } = useAuthentication();
@@ -30,11 +35,11 @@ const CreateLesson = () => {
   } = useLessonForm({}, (data) =>
     createLesson(data, {
       onSuccess: () => {
-        notify.success("Lesson created successfully");
+        notify.success(createLessonSuccessMsg);
         navigate(ROUTES_CONSTANTS.LESSON.BASE);
       },
       onError: () => {
-        notify.error("Failed to create lesson.");
+        notify.error(createLessonErrorMsg);
       },
     })
   );
@@ -53,7 +58,7 @@ const CreateLesson = () => {
           );
         },
         onError: () => {
-          notify.error("Upload failed. Please try again.");
+          notify.error(uploadFileErrorMsg);
         },
       }
     );

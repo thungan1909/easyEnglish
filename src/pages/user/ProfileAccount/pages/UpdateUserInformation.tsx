@@ -22,6 +22,7 @@ import dayjs from "dayjs";
 import CSelect from "../../../../components/atoms/CSelect/CSelect";
 import { genderOptions } from "../constant";
 import CButton from "../../../../components/atoms/CButton/CButton";
+import { updateProfileSuccessMsg } from "../../../../constants/message/successMsg";
 
 const UpdateUserInformation = () => {
   const { data: currentUser } = useGetCurrentUser();
@@ -39,7 +40,7 @@ const UpdateUserInformation = () => {
 
   const onSubmitProfile = (data: TUpdateUserSchema) => {
     updateUserMutation(data, {
-      onSuccess: () => notify.success("Update profile successfully"),
+      onSuccess: () => notify.success(updateProfileSuccessMsg),
     });
   };
 
