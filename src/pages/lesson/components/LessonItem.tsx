@@ -2,9 +2,9 @@ import { FaHeart, FaImage, FaList, FaPlus } from "react-icons/fa";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { Tooltip, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { LessonDTO } from "../../../types/dtos/lesson.dto";
 import MyUploadsActions from "../../manageMyUpload/MyUploadsActions";
+import { ROUTES_CONSTANTS } from "../../../routers/constants";
 
 interface LessonItemProps {
   lesson: LessonDTO;

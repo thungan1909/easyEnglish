@@ -193,7 +193,7 @@ const LessonForm = ({
               Generate hint
             </CButton>
 
-            <Typography color="info" variant="caption">
+            <Typography className="text-purple-400">
               Please generate hint before click on Save button
             </Typography>
           </div>

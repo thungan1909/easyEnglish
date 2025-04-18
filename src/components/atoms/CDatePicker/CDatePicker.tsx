@@ -15,12 +15,12 @@ const CDatePicker = ({ onChange, value, label }: IDatePicker) => {
       sx={{
         "& .MuiOutlinedInput-root": {
           "&:hover fieldset, &.Mui-focused fieldset": {
-            borderColor: "purple",
+            borderColor: "var(--color-purple-400)",
           },
         },
         "& .MuiInputLabel-root": {
           "&.Mui-focused": {
-            color: "purple",
+            color: "var(--color-purple-400)",
           },
         },
       }}

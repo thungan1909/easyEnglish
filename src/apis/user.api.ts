@@ -1,6 +1,6 @@
 import { COOKIES } from "../constants";
 import { END_POINTS } from "../constants/endpoint";
-import { userNotfoundErrorMsg } from "../constants/message/errorMsg";
+import { userNotFoundErrorMsg } from "../constants/message/errorMsg";
 import { getAxiosInstance, getOriginalResponseData } from "../providers/axios";
 import {
   ChangeEmailResponse,
@@ -28,7 +28,7 @@ export const getUserInfoMutation = {
 
     const userData =
       getOriginalResponseData<typeof response.data>(response)?.user;
-    if (!userData) throw new Error(userNotfoundErrorMsg);
+    if (!userData) throw new Error(userNotFoundErrorMsg);
 
     return userData;
   },

@@ -56,7 +56,6 @@ const CWordInput = ({
         },
         "& fieldset": {
           border: "none !important",
-
           borderBottom: "1px solid black !important",
           borderRadius: "0 !important",
         },

@@ -4,7 +4,7 @@ export interface ModalProps {
   title?: string | ReactNode;
   description?: string | ReactNode;
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   onConfirm?: () => void;
   onCancel?: () => void;
   confirmText?: string;

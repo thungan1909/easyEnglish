@@ -88,13 +88,13 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
               borderColor: "gray",
             },
             "&:hover fieldset, &.Mui-focused fieldset": {
-              borderColor: "purple",
+              borderColor: "var(--color-purple-400)",
             },
           },
           "& .MuiInputLabel-root": {
             fontFamily: "inherit",
             "&.Mui-focused": {
-              color: "purple",
+              color: "var(--color-purple-400)",
             },
           },
           "& input[type='number']": {

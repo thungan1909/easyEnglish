@@ -10,7 +10,7 @@ import ChallengeForm from "../form/ChallengeForm";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
 import { createChallengeSuccessMsg } from "../../../constants/message/successMsg";
 import {
-  createChalllengeErrorMsg,
+  createChallengeErrorMsg,
   uploadFileErrorMsg,
 } from "../../../constants/message/errorMsg";
 
@@ -41,7 +41,7 @@ const CreateChallenge = () => {
         navigate(ROUTES_CONSTANTS.CHALLENGE.BASE);
       },
       onError: () => {
-        notify.error(createChalllengeErrorMsg);
+        notify.error(createChallengeErrorMsg);
       },
     })
   );
