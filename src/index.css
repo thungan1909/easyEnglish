@@ -5,8 +5,10 @@
   font-weight: 400;
   font-synthesis: none;
   --font-family: 'Playwrite IT Moderna', sans-serif;
-  --main-color: 'oklch(71.4% 0.203 305.504)';
+  /* --main-color: 'oklch(71.4% 0.203 305.504)'; */
   font-family: var(--font-family);
+  --main-color: #ff754b; /* Set your main color here */
+  --main-text-purple: #7c3aed; /* Define a custom variable for text-purple-500 */
 }
 
 

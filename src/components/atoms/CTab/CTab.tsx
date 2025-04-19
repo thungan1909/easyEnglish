@@ -19,7 +19,7 @@ const CTab = ({ value, onChange, tabOptions }: ITab) => {
       centered
       sx={{
         "& .MuiTabs-indicator": {
-          backgroundColor: "var(--color-purple-400)",
+          backgroundColor: "var(--main-color)",
         },
       }}
     >
@@ -30,7 +30,7 @@ const CTab = ({ value, onChange, tabOptions }: ITab) => {
           value={tab.value}
           sx={{
             "&.Mui-selected": {
-              color: "var(--color-purple-400)",
+              color: "var(--main-color)",
             },
           }}
         />

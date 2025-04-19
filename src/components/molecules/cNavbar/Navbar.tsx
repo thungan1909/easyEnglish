@@ -5,7 +5,6 @@ import {
   FaChartBar,
   FaCoins,
   FaFire,
-  FaSearch,
   FaTimes,
 } from "react-icons/fa";
 import logo from "../../../assets/logo.png";
@@ -18,6 +17,7 @@ import CUserProfileAvatar from "../CUserProfile/cUserProfile";
 import MoreMenu from "./MoreMenu";
 import { menuItems, primaryMenuItems } from "./constants";
 import { getLinkClassName } from "../../../utils/activeLinkUtils";
+import { CSearchbox } from "../../atoms/CSearchbox/CSearchbox";
 
 interface NavbarProps {
   isAuth: Boolean;
@@ -27,6 +27,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [openMenu, setOpenMenu] = useState<"mobile" | "more" | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,6 +38,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+    
   return (
     <nav className="flex items-center shadow px-6 py-3 fixed top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
       <div className="flex items-center gap-x-6">
@@ -103,15 +105,13 @@ const Navbar = ({ isAuth }: NavbarProps) => {
       </div>
 
       <div className="ml-auto flex items-center space-x-4">
-        <div className="hidden md:flex items-center relative ml-auto">
-          <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500" />
-          <input
-            type="text"
-            placeholder="Search something..."
-            className="bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-purple-400"
-          />
-        </div>
-
+        <CSearchbox
+          className="hidden md:flex ml-auto"
+          value={searchTerm}
+          onChange={setSearchTerm}
+          placeholder="Search something..."
+        />
+      
         {isAuth ? (
           <>
             <div className="hidden md:flex items-center space-x-4">

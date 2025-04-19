@@ -104,7 +104,7 @@ const AudioSection = ({ fileURL }: AudioSectionProps) => {
         value={progress}
         onChange={(_, newValue) => handleSeek(_, newValue)}
         aria-label="Audio progress"
-        style={{ color: "var(--color-purple-600)", width: "50%" }}
+        style={{ color: "var(--main-color)", width: "50%" }}
       />
       <audio
         ref={audioRef}

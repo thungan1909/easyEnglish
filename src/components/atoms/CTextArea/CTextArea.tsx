@@ -28,7 +28,7 @@ const CTextArea = ({
         border: "1px solid",
         borderRadius: "1rem",
         padding: "16px",
-        borderColor: "var(--color-purple-400)",
+        borderColor: "var(--main-color)",
         pointerEvents: disabled ? "none" : "auto",
         opacity: disabled ? 0.6 : 1,
         backgroundColor: disabled ? "#f0f0f0" : "white",

@@ -24,12 +24,12 @@ const CSelect = ({
       sx={{
         "& .MuiOutlinedInput-root": {
           "&.Mui-focused fieldset": {
-            borderColor: "var(--color-purple-400)",
+            borderColor: "var(--main-color)",
           },
         },
         "& .MuiInputLabel-root": {
           "&.Mui-focused": {
-            color: "var(--color-purple-400)",
+            color: "var(--main-color)",
           },
         },
       }}
@@ -55,14 +55,14 @@ const CSelect = ({
             disabled={item.disabled}
             sx={{
               "&.Mui-selected": {
-                backgroundColor: "var(--color-purple-400)",
+                backgroundColor: "var(--main-color)",
                 color: "white",
               },
               "&.Mui-focusVisible": {
-                backgroundColor: "var(--color-purple-400)",
+                backgroundColor: "var(--main-color)",
               },
               "&.Mui-selected.Mui-focusVisible": {
-                backgroundColor: "var(--color-purple-400)",
+                backgroundColor: "var(--main-color)",
               },
             }}
           >

@@ -42,7 +42,7 @@ const CButton = ({
     text: {
       background: "transparent",
       padding: "0px",
-      color: "var(--color-purple-600)",
+      color: "var(--main-color)",
       "&:hover": {
         color: "var(--color-black-600)",
       },

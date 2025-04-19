@@ -10,15 +10,25 @@ const CBreadcrumbs = ({ menuItem, className }: IBreadcrumbs) => {
             key={index}
             href={item.href}
             underline="hover"
-            sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 0.5,
+              color: "var(--main-color)",
+            }}
           >
             {item.icon} {item.label}
           </Link>
         ) : (
           <Typography
             key={index}
-            color="text.primary"
-            sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+            // color="text.primary"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 0.5,
+              color: "var(--main-color)",
+            }}
           >
             {item.icon} {item.label}
           </Typography>

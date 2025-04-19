@@ -7,11 +7,11 @@ import CDatePicker from "../../../components/atoms/CDatePicker/CDatePicker";
 import dayjs from "dayjs";
 import NoDataSection from "../../common-pages/NoDataSection";
 import LessonCardSquare from "../../dashboard/components/LessonSection/LessonCard/LessonCardSquare";
-import { FaSearch } from "react-icons/fa";
 
 import CUploadFile from "../../../components/atoms/CUploadFile/CUploadFile";
 import { ChallengeFormProps } from "./types";
 import CCheckbox from "../../../components/atoms/CCheckbox/CCheckbox";
+import { CSearchbox } from "../../../components/atoms/CSearchbox/CSearchbox";
 
 const ChallengeForm = ({
   control,
@@ -182,23 +182,18 @@ const ChallengeForm = ({
             Select lessons for this challenge
           </Typography>
 
-          <div className="flex md:flex-row flex-col md:ml-auto">
+          <div className="flex md:flex-row flex-col md:ml-auto gap-2">
             <div className="flex items-center">
               <CCheckbox checked={isAllSelected} onChange={handleToggleAll} />
               <Typography variant="body2">
                 {selectedLessons.length} selected lessons
               </Typography>
             </div>
-            <div className="flex items-center justify-center relative ">
-              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-500" />
-              <input
-                type="text"
-                placeholder="Search lessons..."
-                className="bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-purple-400"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
+            <CSearchbox
+              value={searchTerm}
+              onChange={setSearchTerm}
+              placeholder="Search lessons..."
+            />
           </div>
         </div>
 

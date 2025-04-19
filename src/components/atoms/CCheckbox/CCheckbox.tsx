@@ -16,9 +16,9 @@ const CCheckbox = ({ checked = false, onChange, ...rest }: ICheckbox) => {
       onChange={onChange}
       {...rest}
       sx={{
-        color: "var(--color-purple-600)",
+        color: "var(--main-color)",
         "&.Mui-checked": {
-          color: "var(--color-purple-600)",
+          color: "var(--main-color)",
         },
       }}
     />
