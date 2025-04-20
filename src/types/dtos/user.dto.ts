@@ -17,6 +17,8 @@ export interface UserDTO {
   university?: string;
   major?: string;
   avatarUrl: string;
+  streak?: number;
+  lastStreakDate?: Date;
 
   // Lesson history
   listenedLessons?: {

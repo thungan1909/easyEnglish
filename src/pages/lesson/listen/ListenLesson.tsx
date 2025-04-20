@@ -36,6 +36,7 @@ import { lessonSubmitSuccessMsg } from "../../../constants/message/successMsg";
 import { submitLessonErrorMsg } from "../../../constants/message/errorMsg";
 import { invalidLessonIdMsg } from "../../../constants/message/validationMsg";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
+import { useUpdateUserStreakMutation } from "../../../hooks/user/update-streak.hook";
 
 const ListenLesson = () => {
   const { id } = useParams();
@@ -51,6 +52,7 @@ const ListenLesson = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const { data: lesson, isError: isLessonError } = useGetLessonById(id ?? "");
+  const { mutate: updateUserStreak } = useUpdateUserStreakMutation();
   const { mutate: submitListenLessonMutation } =
     useSubmitListenLessonMutation();
   const { mutate: compareLessonMutation } = useCompareLessonMutation();
@@ -69,7 +71,7 @@ const ListenLesson = () => {
   const handleKeyDown = useCallback(
     (index: number, e: React.KeyboardEvent) => {
       const keysToMoveForward = ["Enter", "ArrowRight", " "];
-      const keysToMoveBackward = ["Backspace", "ArrowLeft"];
+      const keysToMoveBackward = ["ArrowLeft"];
 
       if (keysToMoveForward.includes(e.key)) {
         e.preventDefault();
@@ -89,7 +91,6 @@ const ListenLesson = () => {
         inputRefs.current[nextIndex]?.focus();
       } else if (
         keysToMoveBackward.includes(e.key) &&
-        !userInputs[index] &&
         index > 0
       ) {
         let prevIndex = index - 1;
@@ -177,6 +178,7 @@ const ListenLesson = () => {
           );
           updateChallengeListMutation(updatedChallenges);
         }
+        updateUserStreak()
         notify.success(lessonSubmitSuccessMsg);
 
         if (id) {

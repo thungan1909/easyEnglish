@@ -21,6 +21,7 @@ export const END_POINTS = {
     UPDATE_INFO: "/user/update",
     UPDATE_AVATAR: "/user/update-avatar",
     CHANGE_EMAIL: "/user/change-email",
+    UPDATE_STREAK: "/user/update-streak",
     GET_BY_ID: "/user/:id",
     GET_BY_IDS: "/user/ids",
   },

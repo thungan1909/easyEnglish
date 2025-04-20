@@ -18,6 +18,7 @@ import MoreMenu from "./MoreMenu";
 import { menuItems, primaryMenuItems } from "./constants";
 import { getLinkClassName } from "../../../utils/activeLinkUtils";
 import { CSearchbox } from "../../atoms/CSearchbox/CSearchbox";
+import { useGetCurrentUser } from "../../../hooks/user/user.hook";
 
 interface NavbarProps {
   isAuth: Boolean;
@@ -27,6 +28,8 @@ const Navbar = ({ isAuth }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [openMenu, setOpenMenu] = useState<"mobile" | "more" | null>(null);
+  const { data: currentUser } = useGetCurrentUser();
+
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -38,7 +41,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-    
+
   return (
     <nav className="flex items-center shadow px-6 py-3 fixed top-0 w-full backdrop-blur-md bg-white z-50 h-16 space-x-4">
       <div className="flex items-center gap-x-6">
@@ -111,7 +114,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
           onChange={setSearchTerm}
           placeholder="Search something..."
         />
-      
+
         {isAuth ? (
           <>
             <div className="hidden md:flex items-center space-x-4">
@@ -123,7 +126,7 @@ const Navbar = ({ isAuth }: NavbarProps) => {
 
               <div className="flex items-center space-x-1 bg-red-100 text-red-600 px-3 py-2 rounded-full hover:bg-red-200 cursor-pointer">
                 <FaFire />
-                <span className="font-semibold">100</span>
+                <span className="font-semibold">{currentUser?.streak || 0}</span>
               </div>
 
               {/* Icons */}
