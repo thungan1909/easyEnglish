@@ -22,7 +22,7 @@ const ChallengeParticipants = ({
       <Typography variant="h6">Members Joined</Typography>
       <TableContainer className="flex flex-col gap-4 rounded-2xl overflow-hidden shadow-lg">
         <Table className="rounded-2xl bg-white" aria-label="simple table">
-          <TableHead className="bg-purple-300">
+          <TableHead style={{ backgroundColor: "var(--main-color)" }}>
             <TableRow>
               <TableCell align="center">Member Name</TableCell>
               <TableCell align="center">Total Score</TableCell>

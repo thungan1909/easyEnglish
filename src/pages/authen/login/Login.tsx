@@ -62,7 +62,9 @@ const Login = () => {
         <Typography variant="h5">Login</Typography>
         <Typography className="text-center">
           Welcome to
-          <span className="ml-1 text-purple-600">Easy English</span>
+          <span className="ml-1" style={{ color: "var(--main-purple-600)" }}>
+            Easy English
+          </span>
         </Typography>
         <form
           className="flex flex-col gap-6 w-full"

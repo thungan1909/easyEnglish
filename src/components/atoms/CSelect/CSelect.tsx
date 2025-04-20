@@ -23,7 +23,10 @@ const CSelect = ({
       fullWidth
       sx={{
         "& .MuiOutlinedInput-root": {
-          "&.Mui-focused fieldset": {
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: "var(--main-color)",
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: "var(--main-color)",
           },
         },
@@ -54,6 +57,10 @@ const CSelect = ({
             value={item.value}
             disabled={item.disabled}
             sx={{
+              "&:hover": {
+                backgroundColor: "var(--main-color)",
+                color: "white",
+              },
               "&.Mui-selected": {
                 backgroundColor: "var(--main-color)",
                 color: "white",

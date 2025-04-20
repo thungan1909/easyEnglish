@@ -23,7 +23,8 @@ const WeeklyRankingList = () => {
           sortedTopWeekly.map((user, index) => (
             <div
               key={index}
-              className="flex items-center shadow rounded-2xl p-4 bg-purple-400 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
+              className="flex items-center shadow rounded-2xl p-4 text-white space-x-3 hover:bg-purple-500 cursor-pointer transition duration-300"
+              style={{ backgroundColor: "var(--main-color)" }}
             >
               <span>{index + 1}.</span>
               <Avatar

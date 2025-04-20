@@ -65,7 +65,10 @@ const CUploadFile = ({
   }, [defaultFileURL]);
 
   return (
-    <div className="border-2 border-dashed border-purple-600 p-6 flex flex-col gap-3 rounded-2xl items-center">
+    <div
+      className="border-2 border-dashed  p-6 flex flex-col gap-3 rounded-2xl items-center"
+      style={{ borderColor: "var(--main-purple-600)" }}
+    >
       <Typography variant="h6" className="!mb-2">
         {title}
       </Typography>
@@ -89,7 +92,10 @@ const CUploadFile = ({
       )}
 
       {uploadFileName && (
-        <div className="relative bg-purple-300 p-4 rounded-2xl">
+        <div
+          className="relative  p-4 rounded-2xl"
+          style={{ backgroundColor: "var(--main-color)" }}
+        >
           <CButton
             className="!absolute right-1 top-1"
             variant="text"

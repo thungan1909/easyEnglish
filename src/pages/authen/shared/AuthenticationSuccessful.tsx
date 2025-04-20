@@ -28,7 +28,12 @@ const AuthenticationSuccessful = ({ type }: AuthenticationSuccessfulProps) => {
       </Typography>
       <Typography className="text-center">
         Welcome to
-        <span className="ml-1 font-semibold text-purple-600">Easy English</span>
+        <span
+          className="ml-1 font-semibold"
+          style={{ color: "var(--main-purple-600)" }}
+        >
+          Easy English
+        </span>
       </Typography>
 
       <CButton

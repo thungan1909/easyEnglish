@@ -26,7 +26,8 @@ const InputResetPassword = ({
       <Typography variant="h5">Reset Password</Typography>
       <Typography className="text-center">
         Enter new password for
-        <span className="ml-1 text-purple-600">
+        <span className="ml-1"
+        style={{ color: "var(--main-purple-600)" }}>
           {getValues("email") || "Unknown"}
         </span>
       </Typography>

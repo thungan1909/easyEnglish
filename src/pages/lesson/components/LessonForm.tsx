@@ -193,7 +193,7 @@ const LessonForm = ({
               Generate hint
             </CButton>
 
-            <Typography className="text-purple-400">
+            <Typography style={{ color: "var(--main-color)" }}>
               Please generate hint before click on Save button
             </Typography>
           </div>

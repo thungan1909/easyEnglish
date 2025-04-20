@@ -144,7 +144,9 @@ const InputVerificationCode = ({
       </Typography>
       <Typography className="text-center">
         A verification email has been sent to
-        <span className="ml-1 text-purple-600">{email}</span>
+        <span className="ml-1" style={{ color: "var(--main-purple-600)" }}>
+          {email}
+        </span>
       </Typography>
 
       <div className="flex flex-col gap-6 w-full">

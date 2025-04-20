@@ -22,8 +22,9 @@ const FeedColumn = ({ currentUser }: FeedColumnProps) => {
         <input
           type="text"
           placeholder="Share your thought..."
-          className="flex-1 px-4 py-2 rounded-full border border-purple-400 focus:outline-none  focus:ring-purple-400"
-        />
+          className="flex-1 px-4 py-2 rounded-full border focus:outline-none focus:ring-purple-400"
+          style={{ borderColor: "var(--main-color)" }}
+          />
       </div>
 
       {mockPosts.map((post) => (

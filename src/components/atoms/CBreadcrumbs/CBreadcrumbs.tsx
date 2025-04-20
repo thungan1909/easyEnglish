@@ -22,7 +22,6 @@ const CBreadcrumbs = ({ menuItem, className }: IBreadcrumbs) => {
         ) : (
           <Typography
             key={index}
-            // color="text.primary"
             sx={{
               display: "flex",
               alignItems: "center",

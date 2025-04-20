@@ -98,7 +98,7 @@ const CAvatarUpload = ({ avatarUrl, username }: CAvatarUploadProps) => {
       >
         <Avatar
           alt="user-avatar"
-          className="!bg-purple-400"
+          style={{ backgroundColor: "var(--main-color)" }}
           src={fileURL || avatarUrl}
           sx={{ width: 72, height: 72 }}
         >

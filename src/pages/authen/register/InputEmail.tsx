@@ -57,7 +57,12 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
       <Typography variant="h5">Register</Typography>
       <Typography>
         Welcome to
-        <span className="ml-1 text-purple-600">Easy English</span>
+        <span
+          className="ml-1"
+          style={{ color: "var(--main-purple-600)" }}
+        >
+          Easy English
+        </span>
       </Typography>
 
       <div className="flex flex-col w-full gap-6">
