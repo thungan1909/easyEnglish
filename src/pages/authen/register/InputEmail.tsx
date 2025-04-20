@@ -57,10 +57,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
       <Typography variant="h5">Register</Typography>
       <Typography>
         Welcome to
-        <span
-          className="ml-1"
-          style={{ color: "var(--main-purple-600)" }}
-        >
+        <span className="ml-1" style={{ color: "var(--main-600)" }}>
           Easy English
         </span>
       </Typography>

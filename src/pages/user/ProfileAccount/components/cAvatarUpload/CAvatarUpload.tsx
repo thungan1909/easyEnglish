@@ -106,7 +106,10 @@ const CAvatarUpload = ({ avatarUrl, username }: CAvatarUploadProps) => {
         </Avatar>
 
         {isHovered && (
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-200 bg-gradient-600 flex items-center justify-center rounded-full">
+          <div
+            className="absolute inset-0 flex items-center justify-center rounded-full"
+            style={{ color: "var(--main-200)" }}
+          >
             <IconButton
               size="medium"
               onClick={triggerFileInput}

@@ -20,7 +20,8 @@ const TopRecord = ({ topScores }: TopScoresResponse) => {
         {sortedScores.map((score, index) => (
           <div
             key={score.user._id}
-            className="flex items-center shadow rounded-2xl p-3 space-x-3 text-black bg-purple-200  cursor-pointer transition duration-300"
+            className="flex items-center shadow rounded-2xl p-3 space-x-3 cursor-pointer transition duration-300"
+            style={{ backgroundColor: "var(--main-200)" }}
           >
             <span>{index + 1}.</span>
             <Avatar

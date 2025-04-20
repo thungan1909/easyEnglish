@@ -39,7 +39,7 @@ const CUserProfileAvatar = () => {
     <div className="relative">
       <Avatar
         alt="user-avatar"
-        style={{ backgroundColor: "var(--main-purple-500)" }}
+        style={{ backgroundColor: "var(--main-500)" }}
         className="cursor-pointer"
         src={currentUser?.avatarUrl}
         onClick={() => setOpenMenu((prev) => !prev)}
@@ -57,7 +57,7 @@ const CUserProfileAvatar = () => {
           <div className="flex gap-2 cursor-pointer mb-2">
             <Avatar
               alt="user-avatar"
-              style={{ backgroundColor: "var(--main-purple-500)" }}
+              style={{ backgroundColor: "var(--main-500)" }}
               src={currentUser?.avatarUrl}
             >
               {getFirstCharAvatar(currentUser?.username)}
@@ -71,9 +71,7 @@ const CUserProfileAvatar = () => {
             </div>
           </div>
           <Divider />
-          <div
-            className="flex flex-col gap-2 mt-2 items-start px-2"
-          >
+          <div className="flex flex-col gap-2 mt-2 items-start px-2">
             <CButton
               variant="text"
               textTransform="capitalize"

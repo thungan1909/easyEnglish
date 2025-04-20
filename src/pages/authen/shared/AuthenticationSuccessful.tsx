@@ -30,7 +30,7 @@ const AuthenticationSuccessful = ({ type }: AuthenticationSuccessfulProps) => {
         Welcome to
         <span
           className="ml-1 font-semibold"
-          style={{ color: "var(--main-purple-600)" }}
+          style={{ color: "var(--main-600)" }}
         >
           Easy English
         </span>

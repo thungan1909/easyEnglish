@@ -67,7 +67,7 @@ const CUploadFile = ({
   return (
     <div
       className="border-2 border-dashed  p-6 flex flex-col gap-3 rounded-2xl items-center"
-      style={{ borderColor: "var(--main-purple-600)" }}
+      style={{ borderColor: "var(--main-600)" }}
     >
       <Typography variant="h6" className="!mb-2">
         {title}

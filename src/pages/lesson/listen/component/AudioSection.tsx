@@ -71,7 +71,10 @@ const AudioSection = ({ fileURL }: AudioSectionProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center p-3 bg-purple-100">
+    <div
+      className="flex flex-col items-center p-3"
+      style={{ backgroundColor: "var(--main-200)" }}
+    >
       <div>
         <CButton
           startIcon={<FaRepeat />}

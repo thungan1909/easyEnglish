@@ -27,7 +27,7 @@ const InputBasicInfo = ({
       <Typography variant="h5">Register</Typography>
       <Typography className="text-center">
         You registered with email
-        <span className="ml-1" style={{ color: "var(--main-purple-600)" }}>
+        <span className="ml-1" style={{ color: "var(--main-600)" }}>
           {getValues("email") || "Unknown"}
         </span>
       </Typography>

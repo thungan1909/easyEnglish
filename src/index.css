@@ -6,10 +6,16 @@
   font-synthesis: none;
   --font-family: "Playwrite IT Moderna", sans-serif;
   font-family: var(--font-family);
-  --main-purple-300: oklch(82.7% 0.119 306.383); /* purple-300 */
-  --main-color: oklch(71.4% 0.203 305.504); /* purple-400 */
-  --main-purple-500: oklch(62.7% 0.265 303.9); /* purple-500*/
-  --main-purple-600: oklch(55.8% 0.288 302.321); /* purple-600 */
+  /* purple-200 */
+  --main-200: oklch(90.2% 0.063 306.703);
+  /* purple-300 */
+  --main-300: oklch(82.7% 0.119 306.383);
+  /* purple-400 */
+  --main-color: oklch(71.4% 0.203 305.504);
+  /* purple-500*/
+  --main-500: oklch(62.7% 0.265 303.9);
+  /* purple-600 */
+  --main-600: oklch(55.8% 0.288 302.321);
 }
 
 html,
