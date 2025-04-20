@@ -13,7 +13,7 @@ import LoginReminder from "../../common-pages/LoginReminder";
 import { invalidChallengeIdMsg } from "../../../constants/message/validationMsg";
 import { updateChallengeSuccessMsg } from "../../../constants/message/successMsg";
 import {
-  updateChalllengeErrorMsg,
+  updateChallengeErrorMsg,
   uploadFileErrorMsg,
 } from "../../../constants/message/errorMsg";
 
@@ -60,7 +60,7 @@ const UpdateChallenge = () => {
           navigate(ROUTES_CONSTANTS.CHALLENGE.DETAIL.replace(":id", id));
         },
         onError: () => {
-          notify.error(updateChalllengeErrorMsg);
+          notify.error(updateChallengeErrorMsg);
         },
       }
     );
