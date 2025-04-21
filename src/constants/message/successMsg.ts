@@ -1,9 +1,10 @@
 // SUCCESS MESSAGES
 
 // GENERAL
-export const lessonSubmitSuccessMsg = "Lesson submitted successfully!";
+// export const lessonSubmitSuccessMsg = "Lesson submitted successfully!";
 export const verificationCodeSentSuccessMsg =
   "Verification code sent successfully.";
+  export const updateStreakSuccessMsg = "Lesson submitted successfully!";
 
 // CHALLENGE
 export const createChallengeSuccessMsg = "Challenge created successfully.";

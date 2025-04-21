@@ -63,3 +63,4 @@ export interface UpdateUserResponse extends UserResponse {}
 export interface UpdateUserAvatarResponse extends UserResponse {}
 export interface ChangePasswordResponse extends UserResponse {}
 export interface ChangeEmailResponse extends UserResponse {}
+export interface UpdateUserStreakResponse extends UserResponse {}

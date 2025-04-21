@@ -9,8 +9,8 @@ import {
   UpdateUserAvatarResponse,
   UpdateUserDTO,
   UpdateUserResponse,
+  UpdateUserStreakResponse,
   UserChangePasswordDTO,
-  UserResponse,
 } from "../types/dtos/user.dto";
 import { createPatchMutation, createPostMutation } from "../utils/axiosUtils";
 import { TChangeEmailSchema } from "../validation/user.schema";
@@ -65,7 +65,7 @@ export const changeEmailMutation = {
 
 export const updateUserStreakMutation = {
   name: "updateUserStreak",
-  ...createPatchMutation<void, UserResponse>(
+  ...createPatchMutation<void, UpdateUserStreakResponse>(
     END_POINTS.USER.UPDATE_STREAK
   ),
 };

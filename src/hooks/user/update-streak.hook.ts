@@ -4,12 +4,14 @@ import {
   updateUserStreakMutation,
 } from "../../apis/user.api";
 import { IHttpError } from "../../types/dtos/http";
-import { UserResponse } from "../../types/dtos/user.dto";
+import { UpdateUserStreakResponse } from "../../types/dtos/user.dto";
+import { notify } from "../../utils/notifyUtils";
+import { updateStreakSuccessMsg } from "../../constants/message/successMsg";
 
 export const useUpdateUserStreakMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<UserResponse, IHttpError, void>({
+  return useMutation<UpdateUserStreakResponse, IHttpError, void>({
     mutationFn: async () => {
       return updateUserStreakMutation.fn();
     },
@@ -17,6 +19,7 @@ export const useUpdateUserStreakMutation = () => {
       await queryClient.invalidateQueries({
         queryKey: [getUserInfoMutation.name],
       });
+      notify.success(updateStreakSuccessMsg);
     },
   });
 };

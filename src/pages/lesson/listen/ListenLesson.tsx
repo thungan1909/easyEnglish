@@ -32,7 +32,6 @@ import { LessonSubmissionResponse } from "../../../types/dtos/submission.dto";
 import { useUpdateChallengeListMutation } from "../../../hooks/challenge/update-challenge.hook";
 import { useGetChallengesByLessonId } from "../../../hooks/challenge/get-challenge.hook";
 import { generateBreadcrumbs } from "../../../helpers/generateBreadcrumbs";
-import { lessonSubmitSuccessMsg } from "../../../constants/message/successMsg";
 import { submitLessonErrorMsg } from "../../../constants/message/errorMsg";
 import { invalidLessonIdMsg } from "../../../constants/message/validationMsg";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
@@ -178,8 +177,8 @@ const ListenLesson = () => {
           );
           updateChallengeListMutation(updatedChallenges);
         }
-        updateUserStreak()
-        notify.success(lessonSubmitSuccessMsg);
+        
+        updateUserStreak();
 
         if (id) {
           navigate({
