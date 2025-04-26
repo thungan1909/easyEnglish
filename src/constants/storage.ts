@@ -1,0 +1,1 @@
+export const MENU_CACHE_KEY = 'm'

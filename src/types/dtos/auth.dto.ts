@@ -66,3 +66,11 @@ export interface VerifyResetCodeDTO {
 }
 
 export interface VerifyResetCodeResponse {}
+
+export interface ProgramAuthDTO {
+  roleCode?: string;
+  programId?: string;
+  programUrl?: string;
+  programName?: string;
+  rights?: string;
+}

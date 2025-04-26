@@ -1,6 +1,6 @@
 import PersistCache from ".";
 import { ACCESS_TOKEN_KEY } from "../../constants/authentications";
-import { handleDecrypt, handleEncrypt } from "../encryptionUtils";
+import { handleDecrypt, handleEncrypt } from "../encrypt";
 
 export const setAccessToken = (accessToken: string) => {
   if (!accessToken) {
