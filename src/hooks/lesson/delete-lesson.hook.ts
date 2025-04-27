@@ -6,7 +6,7 @@ import {
 import { IHttpError } from "../../types/dtos/http";
 import { DeleteLessonResponse } from "../../types/dtos/lesson.dto";
 
-export const useDeleteLessonMutation = () => {
+export const useDeleteLesson = () => {
   const queryClient = useQueryClient();
 
   return useMutation<DeleteLessonResponse, IHttpError, { lessonId: string }>({

@@ -3,7 +3,7 @@ import { useGetCurrentUser } from "../../../hooks/user/user.hook";
 import { useEffect, useRef, useState } from "react";
 import CButton from "../../atoms/CButton/CButton";
 import { FaCog, FaFolder, FaSignOutAlt } from "react-icons/fa";
-import { useLogoutMutation } from "../../../hooks/auth/logout.hook";
+import { useLogout } from "../../../hooks/auth/logout.hook";
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { getFirstCharAvatar } from "../../../utils/avatarUtils";
@@ -13,10 +13,10 @@ const CUserProfileAvatar = () => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const { mutate: logoutMutation } = useLogoutMutation();
+  const { mutate: exeLogout } = useLogout();
 
   const handleLogout = () => {
-    logoutMutation({});
+    exeLogout({});
   };
 
   useEffect(() => {

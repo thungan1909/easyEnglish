@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
-import { useCreateLessonMutation } from "../../../hooks/lesson/create-lesson.hook";
-import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
+import { useCreateLesson } from "../../../hooks/lesson/create-lesson.hook";
+import { useUploadFile } from "../../../hooks/upload/upload-file.hook";
 import { notify } from "../../../utils/notifyUtils";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import CPageTitle from "../../../components/atoms/CPageTitle/CPageTitle";
@@ -18,8 +18,8 @@ const CreateLesson = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
 
-  const { mutate: createLesson } = useCreateLessonMutation();
-  const { mutate: uploadFile } = useUploadFileMutation();
+  const { mutate: createLesson } = useCreateLesson();
+  const { mutate: uploadFile } = useUploadFile();
 
   const {
     control,

@@ -4,7 +4,7 @@ import { IHttpError } from "../../types/dtos/http";
 import { createChallengeMutation } from "../../apis/challenge.api";
 import { TChallengeSchema } from "../../validation/challenge.schema";
 
-export const useCreateChallengeMutation = () => {
+export const useCreateChallenge = () => {
   return useMutation<CreateLessonResponse, IHttpError, TChallengeSchema>({
     mutationFn: async (formData: TChallengeSchema) => {
       return createChallengeMutation.fn(formData);

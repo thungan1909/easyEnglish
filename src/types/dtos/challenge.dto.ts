@@ -49,7 +49,7 @@ export interface UpdateChallengeResponse {}
 
 export interface DeleteChallengeResponse {}
 
-export interface GetChallengesByLessonIdAPIResponse {
+export interface GetChallengesByLessonIdResponse {
   challenges: ChallengeDTO[];
   exists: boolean;
 }

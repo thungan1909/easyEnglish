@@ -13,10 +13,7 @@ import {
 } from "../../../validation/user.schema";
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
 import { useEffect } from "react";
-import {
-  useAuthentication,
-  useLoginMutation,
-} from "../../../hooks/auth/login.hook";
+import { useAuthentication, useLogin } from "../../../hooks/auth/login.hook";
 import { FaKey, FaUser } from "react-icons/fa";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 
@@ -25,7 +22,7 @@ const resolver = zodResolver(UserSignInSchema);
 const Login = () => {
   const navigate = useNavigate();
   const { isAuth } = useAuthentication();
-  const { mutate: loginMutation } = useLoginMutation();
+  const { mutate: exeLogin } = useLogin();
 
   const {
     control,
@@ -40,7 +37,7 @@ const Login = () => {
   });
 
   const onSubmitLogin = (data: TUserSignInSchema) => {
-    loginMutation(data, {
+    exeLogin(data, {
       onError: (error) => {
         notify.error(error.message || defaultErrorMsg);
       },

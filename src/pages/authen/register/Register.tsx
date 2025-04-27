@@ -18,7 +18,7 @@ import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
 import InputEmail from "./InputEmail";
 import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
-import { useRegisterUserMutation } from "../../../hooks/auth/signup.hook";
+import { useRegisterUser } from "../../../hooks/auth/signup.hook";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 
 const Register = () => {
@@ -30,7 +30,7 @@ const Register = () => {
   );
   const { isAuth } = useAuthentication();
 
-  const { mutate: registerMutation } = useRegisterUserMutation();
+  const { mutate: register } = useRegisterUser();
 
   const formInstance = useForm<TUserSignUpSchema>({
     mode: "onChange",
@@ -44,7 +44,7 @@ const Register = () => {
   };
 
   const handleSubmitAuthenInfo = (data: TUserSignUpSchema) => {
-    registerMutation(
+    register(
       {
         email: data.email,
         username: data.username,

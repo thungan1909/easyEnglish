@@ -6,7 +6,7 @@ import {
 import { IHttpError } from "../../types/dtos/http";
 import { compareListenLessonMutation } from "../../apis/lesson.api";
 
-export const useCompareLessonMutation = () => {
+export const useCompareLesson = () => {
   return useMutation<CompareLessonResponse, IHttpError, CompareListenLessonDTO>(
     {
       mutationFn: async (data: CompareListenLessonDTO) => {

@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
 import { useGetChallengeById } from "../../../hooks/challenge/get-challenge.hook";
-import { useUpdateChallengeMutation } from "../../../hooks/challenge/update-challenge.hook";
-import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
+import { useUpdateChallenge } from "../../../hooks/challenge/update-challenge.hook";
+import { useUploadFile } from "../../../hooks/upload/upload-file.hook";
 import { useMemo } from "react";
 import { useChallengeForm } from "../form/useChallengeForm";
 import { notify } from "../../../utils/notifyUtils";
@@ -23,8 +23,8 @@ const UpdateChallenge = () => {
   const navigate = useNavigate();
 
   const { data: challenge } = useGetChallengeById(id ?? "");
-  const { mutate: updateChallenge } = useUpdateChallengeMutation();
-  const { mutate: uploadFile } = useUploadFileMutation();
+  const { mutate: updateChallenge } = useUpdateChallenge();
+  const { mutate: uploadFile } = useUploadFile();
 
   const defaultValues = useMemo(() => {
     return { ...challenge };

@@ -6,7 +6,7 @@ import {
   getChallengeListQuery,
 } from "../../apis/challenge.api";
 
-export const useDeleteChallengeMutation = () => {
+export const useDeleteChallenge = () => {
   const queryClient = useQueryClient();
 
   return useMutation<

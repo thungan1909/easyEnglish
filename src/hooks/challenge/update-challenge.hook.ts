@@ -12,7 +12,7 @@ import {
 } from "../../apis/challenge.api";
 import { TChallengeSchema } from "../../validation/challenge.schema";
 
-export const useUpdateChallengeMutation = () => {
+export const useUpdateChallenge = () => {
   const queryClient = useQueryClient();
 
   return useMutation<

@@ -4,7 +4,7 @@ import { IHttpError } from "../../types/dtos/http";
 import { TLessonSchema } from "../../validation/lesson.schema";
 import { EditLessonResponse } from "../../types/dtos/lesson.dto";
 
-export const useUpdateLessonMutation = () => {
+export const useUpdateLesson = () => {
   const queryClient = useQueryClient();
 
   return useMutation<

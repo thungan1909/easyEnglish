@@ -3,7 +3,7 @@ import {
   ChallengeDTO,
   CreateChallengeResponse,
   DeleteChallengeResponse,
-  GetChallengesByLessonIdAPIResponse,
+  GetChallengesByLessonIdResponse,
   UpdateChallengeDTO,
   UpdateChallengeResponse,
 } from "../types/dtos/challenge.dto";
@@ -33,9 +33,9 @@ export const getChallengeListQuery = {
   ...createGetQuery<ChallengeDTO[]>(END_POINTS.CHALLENGE.GET_LIST_CHALLENGE),
 };
 
-export const getChallengesByLessonIdAPI = {
-  name: "getChallengesByLessonIdAPI",
-  ...createGetByIdQuery<GetChallengesByLessonIdAPIResponse>(
+export const getChallengesByLessonId = {
+  name: "getChallengesByLessonId",
+  ...createGetByIdQuery<GetChallengesByLessonIdResponse>(
     END_POINTS.CHALLENGE.GET_LIST_BY_LESSON_ID
   ),
 };

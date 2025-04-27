@@ -11,7 +11,7 @@ import {
 } from "../../types/dtos/auth.dto";
 import { IHttpError } from "../../types/dtos/http";
 
-export const useVerifyAccountMutation = () => {
+export const useVerifyAccount = () => {
   return useMutation<VerifyAccountResponse, IHttpError, VerifyAccountDTO>({
     mutationFn: async (data: VerifyAccountDTO) => {
       return verifyAccountMutation.fn(data);

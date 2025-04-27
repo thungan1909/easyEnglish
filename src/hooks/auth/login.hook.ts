@@ -16,7 +16,7 @@ import {
 } from "../../constants/message/errorMsg";
 import { tryCatch } from "../../utils/tryCatchUtils";
 
-export const useLoginMutation = () => {
+export const useLogin = () => {
   const queryClient = useQueryClient();
 
   return useMutation<LoginOriginalResponse, IHttpError, LoginDTO>({

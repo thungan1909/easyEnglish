@@ -5,8 +5,8 @@ import {
   getChallengeByIdQuery,
   getChallengeListQuery,
 } from "../../apis/challenge.api";
-import { GetChallengesByLessonIdAPIResponse } from "../../types/dtos/challenge.dto";
-import { getChallengesByLessonIdAPI } from "../../apis/challenge.api";
+import { GetChallengesByLessonIdResponse } from "../../types/dtos/challenge.dto";
+import { getChallengesByLessonId } from "../../apis/challenge.api";
 
 export const useGetChallengeList = (): UseQueryResult<
   ChallengeDTO[],
@@ -35,10 +35,10 @@ export const useGetChallengeById = (
 
 export const useGetChallengesByLessonId = (
   id: string
-): UseQueryResult<GetChallengesByLessonIdAPIResponse, IHttpError> => {
-  return useQuery<GetChallengesByLessonIdAPIResponse, IHttpError>({
-    queryKey: [getChallengesByLessonIdAPI.name, id],
-    queryFn: async () => getChallengesByLessonIdAPI.fn(id),
+): UseQueryResult<GetChallengesByLessonIdResponse, IHttpError> => {
+  return useQuery<GetChallengesByLessonIdResponse, IHttpError>({
+    queryKey: [getChallengesByLessonId.name, id],
+    queryFn: async () => getChallengesByLessonId.fn(id),
     refetchOnWindowFocus: false,
     retry: 3,
     retryDelay: 3000,

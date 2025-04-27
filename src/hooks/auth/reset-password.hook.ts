@@ -22,7 +22,7 @@ export const useGetResetCode = () => {
   });
 };
 
-export const useVerifyResetCodeMutation = () => {
+export const useVerifyResetCode = () => {
   return useMutation<VerifyResetCodeResponse, IHttpError, VerifyResetCodeDTO>({
     mutationFn: async (data: VerifyResetCodeDTO) => {
       return verifyResetCodeMutation.fn(data);
@@ -30,7 +30,7 @@ export const useVerifyResetCodeMutation = () => {
   });
 };
 
-export const useResetPasswordMutation = () => {
+export const useResetPassword = () => {
   return useMutation<ResetPasswordResponse, IHttpError, ResetPasswordDTO>({
     mutationFn: async (data: ResetPasswordDTO) => {
       return resetPasswordMutation.fn(data);

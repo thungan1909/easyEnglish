@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../routers/constants";
 import { FaPenToSquare } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
-import { useDeleteLessonMutation } from "../../hooks/lesson/delete-lesson.hook";
-import { useDeleteChallengeMutation } from "../../hooks/challenge/delete-challenge.hook";
+import { useDeleteLesson } from "../../hooks/lesson/delete-lesson.hook";
+import { useDeleteChallenge } from "../../hooks/challenge/delete-challenge.hook";
 import { notify } from "../../utils/notifyUtils";
 import CActionButton from "../../components/molecules/cActionButton/cActionButton";
 import CModal from "../../components/atoms/CModal/CModal";
@@ -20,8 +20,8 @@ export const MyUploadsActions = ({ id, type }: MyUploadsActionsProps) => {
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  const { mutate: deleteLesson } = useDeleteLessonMutation();
-  const { mutate: deleteChallenge } = useDeleteChallengeMutation();
+  const { mutate: deleteLesson } = useDeleteLesson();
+  const { mutate: deleteChallenge } = useDeleteChallenge();
 
   const handleDeleteConfirm = () => {
     const onSuccess = () => {

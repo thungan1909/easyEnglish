@@ -4,7 +4,7 @@ import { IHttpError } from "../../types/dtos/http";
 import { createLessonMutation } from "../../apis/lesson.api";
 import { TLessonSchema } from "../../validation/lesson.schema";
 
-export const useCreateLessonMutation = () => {
+export const useCreateLesson = () => {
   return useMutation<CreateLessonResponse, IHttpError, TLessonSchema>({
     mutationFn: async (formData: TLessonSchema) => {
       return createLessonMutation.fn(formData);

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
-import { useCreateChallengeMutation } from "../../../hooks/challenge/create-challenge.hook";
-import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
+import { useCreateChallenge } from "../../../hooks/challenge/create-challenge.hook";
+import { useUploadFile } from "../../../hooks/upload/upload-file.hook";
 import { useChallengeForm } from "../form/useChallengeForm";
 import { notify } from "../../../utils/notifyUtils";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
@@ -18,8 +18,8 @@ const CreateChallenge = () => {
   const { isAuth } = useAuthentication();
   const navigate = useNavigate();
 
-  const { mutate: createChallenge } = useCreateChallengeMutation();
-  const { mutate: uploadFile } = useUploadFileMutation();
+  const { mutate: createChallenge } = useCreateChallenge();
+  const { mutate: uploadFile } = useUploadFile();
 
   const {
     control,

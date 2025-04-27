@@ -3,7 +3,7 @@ import { FaCamera } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import CButton from "../../../../../components/atoms/CButton/CButton";
 import { FaFloppyDisk } from "react-icons/fa6";
-import { useUploadFileMutation } from "../../../../../hooks/upload/upload-file.hook";
+import { useUploadFile } from "../../../../../hooks/upload/upload-file.hook";
 import { UploadFileResponse } from "../../../../../types/dtos/upload.dto";
 import { useUpdateUserAvatarMutation } from "../../../../../hooks/user/update-user.hook";
 import { notify } from "../../../../../utils/notifyUtils";
@@ -29,7 +29,7 @@ const CAvatarUpload = ({ avatarUrl, username }: CAvatarUploadProps) => {
   const [fileURL, setFileURL] = useState<string | null>(avatarUrl ?? null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const { mutate: uploadFileMutation } = useUploadFileMutation();
+  const { mutate: uploadFileMutation } = useUploadFile();
   const { mutate: updateUserAvatarMutation } = useUpdateUserAvatarMutation();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -21,7 +21,7 @@ import InputResetPassword from "./InputResetPassword";
 import { notify } from "../../../utils/notifyUtils";
 import {
   useGetResetCode,
-  useResetPasswordMutation,
+  useResetPassword,
 } from "../../../hooks/auth/reset-password.hook";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
@@ -34,11 +34,10 @@ const ForgotPassword = () => {
   const [currentStep, setCurrentStep] = useState<EResetPasswordStep>(
     EResetPasswordStep.InputEmail
   );
+  
   const { isAuth } = useAuthentication();
-
-  const { mutate: sendResetCodeMutation } = useGetResetCode();
-
-  const { mutate: resetPasswordMutation } = useResetPasswordMutation();
+  const { mutate: sendResetCode } = useGetResetCode();
+  const { mutate: resetPassword } = useResetPassword();
 
   const formInstanceResetPassword = useForm<TUserResetPasswordSchema>({
     mode: "onChange",
@@ -51,7 +50,7 @@ const ForgotPassword = () => {
   });
 
   const handleSubmitEmail = (data: TGetVerifyCodeSchema) => {
-    sendResetCodeMutation(
+    sendResetCode(
       {
         email: data.email,
       },
@@ -69,7 +68,7 @@ const ForgotPassword = () => {
   };
 
   const onSubmitPassword = (data: TUserResetPasswordSchema) => {
-    resetPasswordMutation(
+    resetPassword(
       {
         email: data.email,
         password: data.password,

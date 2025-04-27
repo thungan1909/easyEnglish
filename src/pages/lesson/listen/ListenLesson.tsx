@@ -19,11 +19,11 @@ import {
   SubmitListenLessonDTO,
 } from "../../../types/dtos/lesson.dto";
 import { notify } from "../../../utils/notifyUtils";
-import { useSubmitListenLessonMutation } from "../../../hooks/lesson/submit-lesson.hook";
+import { useSubmitListenLesson } from "../../../hooks/lesson/submit-lesson.hook";
 import AudioSection from "./component/AudioSection";
 import LoadingFailPage from "../../common-pages/LoadingFailPage";
 import CModal from "../../../components/atoms/CModal/CModal";
-import { useCompareLessonMutation } from "../../../hooks/lesson/compare-lesson.hook";
+import { useCompareLesson } from "../../../hooks/lesson/compare-lesson.hook";
 import {
   ChallengeDTO,
   ChallengeParticipantDTO,
@@ -52,9 +52,8 @@ const ListenLesson = () => {
 
   const { data: lesson, isError: isLessonError } = useGetLessonById(id ?? "");
   const { mutate: updateUserStreak } = useUpdateUserStreakMutation();
-  const { mutate: submitListenLessonMutation } =
-    useSubmitListenLessonMutation();
-  const { mutate: compareLessonMutation } = useCompareLessonMutation();
+  const { mutate: submitListenLessonMutation } = useSubmitListenLesson();
+  const { mutate: compareLessonMutation } = useCompareLesson();
   const { data: challengeList } = useGetChallengesByLessonId(id ?? "");
   const { mutate: updateChallengeListMutation } =
     useUpdateChallengeListMutation();
@@ -88,10 +87,7 @@ const ListenLesson = () => {
         }
 
         inputRefs.current[nextIndex]?.focus();
-      } else if (
-        keysToMoveBackward.includes(e.key) &&
-        index > 0
-      ) {
+      } else if (keysToMoveBackward.includes(e.key) && index > 0) {
         let prevIndex = index - 1;
 
         while (prevIndex >= 0 && !inputRefs.current[prevIndex]) {
@@ -177,7 +173,7 @@ const ListenLesson = () => {
           );
           updateChallengeListMutation(updatedChallenges);
         }
-        
+
         updateUserStreak();
 
         if (id) {

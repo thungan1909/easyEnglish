@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
-import { useUploadFileMutation } from "../../../hooks/upload/upload-file.hook";
-import { useUpdateLessonMutation } from "../../../hooks/lesson/update-lesson.hook";
+import { useUploadFile } from "../../../hooks/upload/upload-file.hook";
+import { useUpdateLesson } from "../../../hooks/lesson/update-lesson.hook";
 import { notify } from "../../../utils/notifyUtils";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
@@ -23,8 +23,8 @@ const UpdateLesson = () => {
   const { isAuth } = useAuthentication();
 
   const { data: lesson } = useGetLessonById(id ?? "");
-  const { mutate: uploadFile } = useUploadFileMutation();
-  const { mutate: updateLesson } = useUpdateLessonMutation();
+  const { mutate: uploadFile } = useUploadFile();
+  const { mutate: updateLesson } = useUpdateLesson();
 
   const defaultValues = useMemo(() => {
     return { ...lesson };

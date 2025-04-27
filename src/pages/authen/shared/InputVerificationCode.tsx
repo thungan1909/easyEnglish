@@ -7,11 +7,11 @@ import { notify } from "../../../utils/notifyUtils";
 import { CODE_LENGTH, VERIFY_ACCOUNT_STEP } from "./constants";
 import {
   useGetResetCode,
-  useVerifyResetCodeMutation,
+  useVerifyResetCode,
 } from "../../../hooks/auth/reset-password.hook";
 import {
   useGetVerifyCode,
-  useVerifyAccountMutation,
+  useVerifyAccount,
 } from "../../../hooks/auth/verify-email.hook";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 import { verificationCodeSentSuccessMsg } from "../../../constants/message/successMsg";
@@ -31,11 +31,11 @@ const InputVerificationCode = ({
   const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(""));
   const [disableButton, setDisableButton] = useState(true);
 
-  const { mutate: verifyResetCodeMutation } = useVerifyResetCodeMutation();
-  const { mutate: verifyAccountMutation } = useVerifyAccountMutation();
+  const { mutate: exeVerifyResetCode } = useVerifyResetCode();
+  const { mutate: exeVerifyAccount } = useVerifyAccount();
 
-  const { mutate: sendResetPasswordCodeMutation } = useGetVerifyCode();
-  const { mutate: sendResetCodeMutation } = useGetResetCode();
+  const { mutate: exeSendResetPasswordCode } = useGetVerifyCode();
+  const { mutate: exeSendResetCode } = useGetResetCode();
 
   const handleChange = useCallback(
     (index: number, value: string) => {
@@ -68,7 +68,7 @@ const InputVerificationCode = ({
 
     if (codeString?.length === CODE_LENGTH) {
       if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
-        verifyResetCodeMutation(
+        exeVerifyResetCode(
           {
             email: email,
             resetCode: codeString,
@@ -87,7 +87,7 @@ const InputVerificationCode = ({
         type === VERIFY_ACCOUNT_STEP.REGISTER ||
         type === VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT
       ) {
-        verifyAccountMutation(
+        exeVerifyAccount(
           {
             email: email,
             verifyCode: codeString,
@@ -104,14 +104,14 @@ const InputVerificationCode = ({
         );
       }
     }
-  }, [code, email, onSuccessVerify, verifyResetCodeMutation]);
+  }, [code, email, onSuccessVerify, exeVerifyResetCode]);
 
   const handleResendVerifyCode = useCallback(() => {
     if (
       type === VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT ||
       type === VERIFY_ACCOUNT_STEP.REGISTER
     ) {
-      sendResetPasswordCodeMutation(
+      exeSendResetPasswordCode(
         {
           email,
         },
@@ -121,7 +121,7 @@ const InputVerificationCode = ({
         }
       );
     } else if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
-      sendResetCodeMutation(
+      exeSendResetCode(
         {
           email,
         },
@@ -131,7 +131,7 @@ const InputVerificationCode = ({
         }
       );
     }
-  }, [email, sendResetPasswordCodeMutation, sendResetCodeMutation]);
+  }, [email, exeSendResetPasswordCode, exeSendResetCode]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">

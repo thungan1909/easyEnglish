@@ -13,9 +13,7 @@ type UseLogoutParams = {
   redirect?: boolean;
 };
 
-export const useLogoutMutation = (
-  params: UseLogoutParams = { redirect: true }
-) => {
+export const useLogout = (params: UseLogoutParams = { redirect: true }) => {
   const { redirect } = params || {};
   const queryClient = useQueryClient();
 

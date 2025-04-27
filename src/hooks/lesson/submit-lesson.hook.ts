@@ -7,7 +7,7 @@ import { IHttpError } from "../../types/dtos/http";
 import { submitListenLessonMutation } from "../../apis/lesson.api";
 import { getUserInfoMutation } from "../../apis/user.api";
 
-export const useSubmitListenLessonMutation = () => {
+export const useSubmitListenLesson = () => {
   const queryClient = useQueryClient();
 
   return useMutation<
