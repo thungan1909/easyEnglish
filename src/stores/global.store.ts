@@ -1,8 +1,9 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import { USER_THEME_KEY } from '../constants/cookies';
+import { getUserCacheAttribute } from '../utils/cacheHandler/user';
 
-import { USER_THEME_KEY } from '@/constants/cookies';
-import { getUserCacheAttribute } from '@/utils/cacheHandler/user';
+
 
 interface State {
   theme: 'light' | 'dark';

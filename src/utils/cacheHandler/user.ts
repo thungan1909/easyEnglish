@@ -1,4 +1,5 @@
-import CacheHandler from '@/utils/cacheHandler';
+import CacheHandler from ".";
+
 
 export const setUserCacheAttribute = (key: string, att: string) => {
   CacheHandler.write(key, att);
