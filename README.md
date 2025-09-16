@@ -19,6 +19,26 @@ A React + TypeScript web app for learning English, built with modern tools and b
 
 ---
 
+---
+
+## 📸 Screenshots
+
+### 🔑 Login
+![Login](./assets/login.png)
+
+### 📝 Register
+![Register](./assets/register.png)
+
+### 🏠 Home
+![Home](./assets/home.png)
+
+### ➕ Create New Lesson
+![Create New Lesson](./assets/create-lesson.png)
+
+### 🎧 Learn Lesson
+![Learn Lesson](./assets/learn-lesson.png)
+
+
 ## 📂 Project Structure
 
 ```
