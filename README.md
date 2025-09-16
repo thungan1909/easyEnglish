@@ -24,19 +24,30 @@ A React + TypeScript web app for learning English, built with modern tools and b
 ## 📸 Screenshots
 
 ### 🔑 Login
-![Login](./assets/login.png)
+
+![Login](https://github.com/user-attachments/assets/8da9b885-ee71-45fd-9cae-9813e4615fd5)
+
 
 ### 📝 Register
-![Register](./assets/register.png)
+| Enter email | Validation email |
+|---------------|--------------|
+| ![Enter email ](https://github.com/user-attachments/assets/c7467f31-d148-4b31-bb32-2f8df383c289) | ![Validation email](https://github.com/user-attachments/assets/29a8d02a-170c-4bfb-b9be-8795b0c57268) |
 
 ### 🏠 Home
 ![Home](./assets/home.png)
 
 ### ➕ Create New Lesson
-![Create New Lesson](./assets/create-lesson.png)
+
+| Create Lesson | Generate hint |
+|---------------|--------------|
+| ![Create Lesson](https://github.com/user-attachments/assets/ee5a02ed-2bcc-4ab1-8014-c4902862927a) | ![Generate hint](https://github.com/user-attachments/assets/a1bc60f5-8def-4f83-9ff3-3b2f646c8a77) |
+
 
 ### 🎧 Learn Lesson
-![Learn Lesson](./assets/learn-lesson.png)
+
+| Learn Lesson | View result|
+|---------------|--------------|
+| ![Learn Lesson](https://github.com/user-attachments/assets/89f11a82-c649-411b-9935-3953c58450ac) | ![View result](https://github.com/user-attachments/assets/5eacf889-8730-4713-9ea7-cddc2ec8ca82)
 
 
 ## 📂 Project Structure
