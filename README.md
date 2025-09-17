@@ -4,6 +4,22 @@ A React + TypeScript web app for learning English, built with modern tools and b
 
 ---
 
+## ✨ Features
+
+🔐 Authentication – Login, Register, Forgot Password, Verify Email
+
+🏠 Homepage – Display playlists, newest lessons, and most-listened lessons
+
+🔥 Daily Streak – Track daily learning activity, reset automatically if missed
+
+📝 Lessons – Create lesson, take test, view results, ranking board
+
+🏆 Challenges – Create challenge, join challenge
+
+👤 Profile Management – Update user information, change password, manage settings
+
+---
+
 ## 🚀 Live Demo
 
 [👉 Try it here](https://easy-english-psi.vercel.app/)
@@ -22,10 +38,14 @@ A React + TypeScript web app for learning English, built with modern tools and b
 ---
 
 ## 📸 Screenshots
+### 🏠 Home
+![Home](https://github.com/user-attachments/assets/40713fa2-78a0-40fc-83df-8de62471d0d0)
 
-### 🔑 Login
+### 🔑 Authentication
 
-![Login](https://github.com/user-attachments/assets/8da9b885-ee71-45fd-9cae-9813e4615fd5)
+| Login | Forgot password |
+|---------------|--------------|
+| ![Login](https://github.com/user-attachments/assets/8da9b885-ee71-45fd-9cae-9813e4615fd5) | ![Forgot password](https://github.com/user-attachments/assets/576a288f-8b3c-4c9d-a5d1-362eaf941ee1) |
 
 
 ### 📝 Register
@@ -33,8 +53,6 @@ A React + TypeScript web app for learning English, built with modern tools and b
 |---------------|--------------|
 | ![Enter email ](https://github.com/user-attachments/assets/c7467f31-d148-4b31-bb32-2f8df383c289) | ![Validation email](https://github.com/user-attachments/assets/29a8d02a-170c-4bfb-b9be-8795b0c57268) |
 
-### 🏠 Home
-![Home](./assets/home.png)
 
 ### ➕ Create New Lesson
 
@@ -47,7 +65,13 @@ A React + TypeScript web app for learning English, built with modern tools and b
 
 | Learn Lesson | View result|
 |---------------|--------------|
-| ![Learn Lesson](https://github.com/user-attachments/assets/89f11a82-c649-411b-9935-3953c58450ac) | ![View result](https://github.com/user-attachments/assets/5eacf889-8730-4713-9ea7-cddc2ec8ca82)
+| ![Learn Lesson](https://github.com/user-attachments/assets/89f11a82-c649-411b-9935-3953c58450ac) | ![View result](https://github.com/user-attachments/assets/5eacf889-8730-4713-9ea7-cddc2ec8ca82) |
+
+### ➕ Challenge
+
+| Create New Challenge | View challenge |
+|---------------|--------------|
+| ![Create New Challenge](https://github.com/user-attachments/assets/72e4cd1a-69e7-4fbe-b862-080e7742ed9a) | ![View challenge](https://github.com/user-attachments/assets/0109ad96-bea0-45f7-bf3e-222ce1f50765) |
 
 
 ## 📂 Project Structure
@@ -118,4 +142,5 @@ Runs at [http://localhost:5173](http://localhost:5173) (default Vite port).
 
 ## 🙋‍♀️ Author
 
-Developed by [**thungan1909**](https://github.com/thungan1909)  
+Developed with ❤️ by [**thungan1909**](https://github.com/thungan1909)  
+
