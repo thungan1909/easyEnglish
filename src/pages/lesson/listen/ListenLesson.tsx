@@ -1,12 +1,6 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CButton from "../../../components/atoms/CButton/CButton";
-import {
-  FaClipboardCheck,
-  FaExclamationTriangle,
-  FaLightbulb,
-  FaPaperPlane,
-  FaRegSave,
-} from "react-icons/fa";
+import { FaClipboardCheck, FaPaperPlane } from "react-icons/fa";
 import { useGetLessonById } from "../../../hooks/lesson/get-lesson.hook";
 import { Typography } from "@mui/material";
 import { punctuationRegex, wordSplitterRegex } from "../../../constants/regex";
@@ -236,7 +230,7 @@ const ListenLesson = () => {
       )}
       <div className="!space-y-8 md:px-16 flex flex-col p-8 ">
         <Typography variant="h5">{lesson?.title || "Title"}</Typography>
-        <div className="flex md:gap-8 gap-4 flex-wrap items-center justify-center">
+        <div className="flex md:gap-8 gap-4 flex-wrap items-center justify-end">
           <CButton
             startIcon={<FaPaperPlane />}
             textTransform="capitalize"
@@ -254,30 +248,30 @@ const ListenLesson = () => {
           >
             Check Results
           </CButton>
-          <CButton
+          {/* <CButton
             startIcon={<FaExclamationTriangle />}
             textTransform="capitalize"
             className="!px-4"
             variant="outlined"
           >
             Show Mistakes
-          </CButton>
-          <CButton
+          </CButton> */}
+          {/* <CButton
             startIcon={<FaRegSave />}
             textTransform="capitalize"
             className="!px-4"
             variant="outlined"
           >
             Save Draft
-          </CButton>
-          <CButton
+          </CButton> */}
+          {/* <CButton
             startIcon={<FaLightbulb />}
             textTransform="capitalize"
             className="!px-4"
             variant="outlined"
           >
             Hint Words
-          </CButton>
+          </CButton> */}
         </div>
         <div className="flex gap-2 flex-wrap !mb-32">
           {wordsList?.map((word, index) => {
@@ -297,7 +291,7 @@ const ListenLesson = () => {
           })}
         </div>
       </div>
-      <div className="fixed bottom-0 w-full">
+      <div className="fixed bottom-0 w-full left-0">
         {lesson?.audioFile && (
           <AudioSection fileURL={lesson?.audioFile as string} />
         )}
