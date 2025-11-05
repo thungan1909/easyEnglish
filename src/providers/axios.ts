@@ -10,11 +10,10 @@ import {
   IOriginalResponse,
 } from "../types/dtos/http";
 import { getPersistToken } from "./auth";
-import { BASE_URL } from "../constants/endpoint";
 
 const axiosInstance = axios.create({
-  baseURL: BASE_URL, //local
-  // baseURL: import.meta.env.VITE_API_URL,//Deploy: Update use VITE_API_URL
+  // baseURL: BASE_URL, //local
+  baseURL: import.meta.env.VITE_API_URL, //Deploy: Update use VITE_API_URL
   headers: {
     "Content-Type": "application/json",
     ...(import.meta.env.PROD && {
