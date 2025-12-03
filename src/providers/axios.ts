@@ -12,8 +12,7 @@ import {
 import { getPersistToken } from "./auth";
 
 const axiosInstance = axios.create({
-  // baseURL: BASE_URL, //local
-  baseURL: import.meta.env.VITE_API_URL, //Deploy: Update use VITE_API_URL
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
     ...(import.meta.env.PROD && {
