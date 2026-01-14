@@ -20,6 +20,7 @@ export const uploadFileMutation = {
       const response = await res.json();
       return { secureUrl: response.secure_url, type: data.type };
     } catch (error) {
+      console.log(error);
       throw new Error(uploadFileErrorMsg);
     }
   },

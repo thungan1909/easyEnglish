@@ -63,8 +63,10 @@ export const useLogin = () => {
 
 const _useAuthenticationCache = () => {
   // https://stackoverflow.com/questions/64896159/react-query-reuse-an-item-from-cache-of-items
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const queryClient = useQueryClient();
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery<AuthenticationInfoType>({
     queryKey: AUTHENTICATION_QUERY_KEY,
     initialData: tryCatch<AuthenticationInfoType>(() => {
