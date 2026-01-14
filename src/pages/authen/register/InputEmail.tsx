@@ -2,16 +2,10 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 import { useState } from "react";
-import { notify } from "../../../utils/notifyUtils";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { emailRegex } from "../../../constants/regex";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
-import { useCheckExistEmail } from "../../../hooks/auth/signup.hook";
-import {
-  defaultErrorMsg,
-  existEmailErrorMsg,
-} from "../../../constants/message/errorMsg";
 import { invalidEmailMsg } from "../../../constants/message/validationMsg";
 
 export interface InputEmailProps {
@@ -25,31 +19,32 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
 
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const [disableButton, setDisable] = useState(true);
-  const { mutate: checkEmail } = useCheckExistEmail();
+  // const { mutate: checkEmail } = useCheckExistEmail();
 
   const handleNextStep = () => {
     const trimmedEmail = email.trim();
-    if (!trimmedEmail || !validateEmail(email)) {
+    if (!trimmedEmail || !validateEmail(trimmedEmail)) {
       setError(invalidEmailMsg);
       return;
     }
+    onInputEmail(trimmedEmail);
 
-    checkEmail(
-      { email: trimmedEmail },
-      {
-        onSuccess: (data) => {
-          if (data.exists) {
-            setError(existEmailErrorMsg);
-          } else {
-            onInputEmail(trimmedEmail);
-          }
-        },
-        onError: (error) => {
-          notify.error(error.message || defaultErrorMsg);
-        },
-      }
-    );
+    //14012026 - Removed email existence check to avoid email enumeration
+    // checkEmail(
+    //   { email: trimmedEmail },
+    //   {
+    //     onSuccess: (data) => {
+    //       if (data.exists) {
+    //         setError(existEmailErrorMsg);
+    //       } else {
+    //         onInputEmail(trimmedEmail);
+    //       }
+    //     },
+    //     onError: (error) => {
+    //       notify.error(error.message || defaultErrorMsg);
+    //     },
+    //   }
+    // );
   };
 
   return (
@@ -73,7 +68,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
             startIcon={<FaEnvelope />}
             onChange={(e) => {
               setEmail(e.target.value);
-              setDisable(false);
+              if (error) setError(null);
             }}
             maxLength={50}
           />
@@ -84,8 +79,8 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
           )}
         </div>
         <CButton
-          disabled={disableButton}
-          onClick={() => handleNextStep()}
+          disabled={!email.trim()}
+          onClick={handleNextStep}
           className="w-full"
           isRounded
         >
