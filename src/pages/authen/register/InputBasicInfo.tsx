@@ -8,11 +8,13 @@ import { FaKey, FaUser } from "react-icons/fa";
 
 export interface InputBasicInfoProps {
   onSubmitProfile: (data: TUserSignUpSchema) => void;
+  goBack: () => void;
   formInstance: UseFormReturn<TUserSignUpSchema>;
 }
 
 const InputBasicInfo = ({
   onSubmitProfile,
+  goBack,
   formInstance,
 }: InputBasicInfoProps) => {
   const {
@@ -112,9 +114,24 @@ const InputBasicInfo = ({
             />
           </div>
         </div>
-        <CButton type="submit" disabled={!isValid} className="w-full" isRounded>
-          Next
-        </CButton>
+        <div className="flex gap-2">
+          <CButton
+            className="w-full"
+            isRounded
+            variant="outlined"
+            onClick={goBack}
+          >
+            Back
+          </CButton>
+          <CButton
+            type="submit"
+            disabled={!isValid}
+            className="w-full"
+            isRounded
+          >
+            Next
+          </CButton>
+        </div>
       </form>
     </div>
   );

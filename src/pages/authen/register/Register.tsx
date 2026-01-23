@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { ESignUpStep } from "./constant";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ESignUpStep, SIGN_UP_STEP } from "./constant";
 import CSteppers from "../../../components/molecules/cSteppers";
 import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 
@@ -20,16 +20,19 @@ import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
 import { useRegisterUser } from "../../../hooks/auth/signup.hook";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
+import { useStepper } from "./useStepper.hook";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const CStepperRef = useRef<ISteppersRef>(null);
-  const [step, setStep] = useState(0);
-  const [verificationState, setVerificationState] = useState(false);
-  const [currentStep, setCurrentStep] = useState<ESignUpStep>(
-    ESignUpStep.InputEmail
-  );
-  const { isAuth } = useAuthentication();
+  const navigate = useNavigate();
 
+  const CStepperRef = useRef<ISteppersRef>(null);
+  const [verificationState, setVerificationState] = useState(false);
+
+  const { currentStep, stepIndex, goNext, goBack, goToIndex } =
+    useStepper(SIGN_UP_STEP);
+
+  const { isAuth } = useAuthentication();
   const { mutate: register } = useRegisterUser();
 
   const formInstance = useForm<TUserSignUpSchema>({
@@ -37,76 +40,76 @@ const Register = () => {
     resolver: zodResolver(UserSignUpSchema),
   });
 
-  const handleSetEmail = (email: string) => {
-    setCurrentStep(ESignUpStep.InputBasicInfo);
-    formInstance.setValue("email", email);
-    CStepperRef.current?.handleNextStep();
-  };
+  const handleSetEmail = useCallback(
+    (email: string) => {
+      formInstance.setValue("email", email);
+      goNext();
+    },
+    [formInstance, goNext],
+  );
 
-  const handleSubmitAuthenInfo = (data: TUserSignUpSchema) => {
-    register(
-      {
-        email: data.email,
-        username: data.username,
-        password: data.password,
-      },
-      {
-        onSuccess: () => {
-          setCurrentStep(ESignUpStep.InputVerificationCode);
-          CStepperRef.current?.handleNextStep();
+  const handleSubmitAuthenInfo = useCallback(
+    (data: TUserSignUpSchema) => {
+      register(
+        {
+          email: data.email,
+          username: data.username,
+          password: data.password,
         },
-        onError: (error) => {
-          notify.error(error.message || defaultErrorMsg);
+        {
+          onSuccess: goNext,
+          onError: (error) => notify.error(error.message || defaultErrorMsg),
         },
-      }
-    );
-  };
+      );
+    },
+    [register, goNext],
+  );
 
   useEffect(() => {
-    if (verificationState) {
-      setCurrentStep(ESignUpStep.AuthenticationSuccessful);
-      CStepperRef.current?.handleNextStep();
-    }
-  }, [verificationState]);
+    if (verificationState) goNext();
+  }, [verificationState, goNext]);
 
   useEffect(() => {
-    if (isAuth) {
-      window.location.href = ROUTES_CONSTANTS.DASHBOARD;
-    }
-  }, [isAuth]);
+    if (isAuth) navigate(ROUTES_CONSTANTS.DASHBOARD);
+  }, [isAuth, navigate]);
+
+  const STEP_COMPONENTS = useMemo(
+    () => ({
+      [ESignUpStep.InputEmail]: <InputEmail onInputEmail={handleSetEmail} />,
+      [ESignUpStep.InputBasicInfo]: (
+        <InputBasicInfo
+          onSubmitProfile={handleSubmitAuthenInfo}
+          goBack={goBack}
+          formInstance={formInstance}
+        />
+      ),
+      [ESignUpStep.InputVerificationCode]: (
+        <InputVerificationCode
+          email={formInstance.getValues("email")}
+          onSuccessVerify={setVerificationState}
+          goBack={goBack}
+          type={VERIFY_ACCOUNT_STEP.REGISTER}
+        />
+      ),
+      [ESignUpStep.AuthenticationSuccessful]: (
+        <AuthenticationSuccessful type={VERIFY_ACCOUNT_STEP.REGISTER} />
+      ),
+    }),
+    [formInstance, goBack, handleSetEmail, handleSubmitAuthenInfo],
+  );
 
   return (
     <AuthenticationLayout
       stepperSection={
         <CSteppers
-          numberStep={4}
-          currentStep={step}
-          changeCurrentStep={setStep}
+          numberStep={SIGN_UP_STEP.length}
+          currentStep={stepIndex}
+          onStepChange={goToIndex}
           ref={CStepperRef}
         />
       }
     >
-      {currentStep === ESignUpStep.InputEmail && (
-        <InputEmail onInputEmail={handleSetEmail} />
-      )}
-
-      {currentStep === ESignUpStep.InputBasicInfo && (
-        <InputBasicInfo
-          onSubmitProfile={handleSubmitAuthenInfo}
-          formInstance={formInstance}
-        />
-      )}
-
-      {currentStep === ESignUpStep.InputVerificationCode && (
-        <InputVerificationCode
-          email={formInstance.getValues("email")}
-          onSuccessVerify={setVerificationState}
-          type={VERIFY_ACCOUNT_STEP.REGISTER}
-        />
-      )}
-      {currentStep === ESignUpStep.AuthenticationSuccessful && (
-        <AuthenticationSuccessful type={VERIFY_ACCOUNT_STEP.REGISTER} />
-      )}
+      {STEP_COMPONENTS[currentStep]}
     </AuthenticationLayout>
   );
 };

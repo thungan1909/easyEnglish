@@ -5,4 +5,11 @@ enum ESignUpStep {
   AuthenticationSuccessful = 3,
 }
 
-export { ESignUpStep };
+const SIGN_UP_STEP = [
+  ESignUpStep.InputEmail,
+  ESignUpStep.InputBasicInfo,
+  ESignUpStep.InputVerificationCode,
+  ESignUpStep.AuthenticationSuccessful,
+] as const;
+
+export { ESignUpStep, SIGN_UP_STEP };

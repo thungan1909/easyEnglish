@@ -20,11 +20,13 @@ export interface InputVerificationCodeProps {
   email: string;
   type?: keyof typeof VERIFY_ACCOUNT_STEP;
   onSuccessVerify: (isVerified: boolean) => void;
+  goBack: () => void;
 }
 
 const InputVerificationCode = ({
   email,
   type,
+  goBack,
   onSuccessVerify,
 }: InputVerificationCodeProps) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -51,7 +53,7 @@ const InputVerificationCode = ({
 
       setDisableButton(newCode.includes(""));
     },
-    [code]
+    [code],
   );
 
   const handleKeyDown = useCallback(
@@ -60,11 +62,11 @@ const InputVerificationCode = ({
         inputRefs.current[index - 1]?.focus();
       }
     },
-    [code]
+    [code],
   );
 
   const handleVerificationEmail = useCallback(() => {
-    let codeString = code.join("");
+    const codeString = code.join("");
 
     if (codeString?.length === CODE_LENGTH) {
       if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
@@ -81,7 +83,7 @@ const InputVerificationCode = ({
               notify.error(error.message || defaultErrorMsg);
               setCode(Array(CODE_LENGTH).fill(""));
             },
-          }
+          },
         );
       } else if (
         type === VERIFY_ACCOUNT_STEP.REGISTER ||
@@ -100,7 +102,7 @@ const InputVerificationCode = ({
               notify.error(error.message || defaultErrorMsg);
               setCode(Array(CODE_LENGTH).fill(""));
             },
-          }
+          },
         );
       }
     }
@@ -118,7 +120,7 @@ const InputVerificationCode = ({
         {
           onSuccess: () => notify.success(verificationCodeSentSuccessMsg),
           onError: (error) => notify.error(error.message || defaultErrorMsg),
-        }
+        },
       );
     } else if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
       exeSendResetCode(
@@ -128,7 +130,7 @@ const InputVerificationCode = ({
         {
           onSuccess: () => notify.success(verificationCodeSentSuccessMsg),
           onError: (error) => notify.error(error.message || defaultErrorMsg),
-        }
+        },
       );
     }
   }, [email, exeSendResetPasswordCode, exeSendResetCode]);
@@ -139,8 +141,8 @@ const InputVerificationCode = ({
         {type === VERIFY_ACCOUNT_STEP.REGISTER
           ? "Register"
           : type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD
-          ? "Reset password"
-          : "Verify account"}
+            ? "Reset password"
+            : "Verify account"}
       </Typography>
       <Typography className="text-center">
         A verification email has been sent to
@@ -169,18 +171,28 @@ const InputVerificationCode = ({
             />
           ))}
         </div>
-        <CButton
-          disabled={disableButton}
-          className="w-full"
-          onClick={handleVerificationEmail}
-          isRounded
-        >
-          {type === VERIFY_ACCOUNT_STEP.REGISTER
-            ? "Register"
-            : type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD
-            ? "Next"
-            : "Verify account"}
-        </CButton>
+        <div className="flex gap-2">
+          <CButton
+            className="w-full"
+            isRounded
+            variant="outlined"
+            onClick={goBack}
+          >
+            Back
+          </CButton>
+          <CButton
+            disabled={disableButton}
+            className="w-full"
+            onClick={handleVerificationEmail}
+            isRounded
+          >
+            {type === VERIFY_ACCOUNT_STEP.REGISTER
+              ? "Register"
+              : type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD
+                ? "Next"
+                : "Verify account"}
+          </CButton>
+        </div>
 
         <Typography className="text-center">
           Don't recieved any message?
