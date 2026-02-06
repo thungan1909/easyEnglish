@@ -7,27 +7,23 @@ import { emailRegex } from "../../../constants/regex";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 import { invalidEmailMsg } from "../../../constants/message/validationMsg";
-
-export interface InputEmailProps {
-  onInputEmail: (email: string) => void;
-}
+import { InputEmailProps } from "./types";
 
 const validateEmail = (email: string) => emailRegex.test(email);
 
-const InputEmail = ({ onInputEmail }: InputEmailProps) => {
+const InputEmail = ({ onSubmitEmail }: InputEmailProps) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  // const { mutate: checkEmail } = useCheckExistEmail();
 
-  const handleNextStep = () => {
+  const handleSubmitEmail = () => {
     const trimmedEmail = email.trim();
     if (!trimmedEmail || !validateEmail(trimmedEmail)) {
       setError(invalidEmailMsg);
       return;
     }
-    onInputEmail(trimmedEmail);
+    onSubmitEmail(trimmedEmail);
 
     //14012026 - Removed email existence check to avoid email enumeration
     // checkEmail(
@@ -37,7 +33,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
     //       if (data.exists) {
     //         setError(existEmailErrorMsg);
     //       } else {
-    //         onInputEmail(trimmedEmail);
+    //         onSubmitEmail(trimmedEmail);
     //       }
     //     },
     //     onError: (error) => {
@@ -80,7 +76,7 @@ const InputEmail = ({ onInputEmail }: InputEmailProps) => {
         </div>
         <CButton
           disabled={!email.trim()}
-          onClick={handleNextStep}
+          onClick={handleSubmitEmail}
           className="w-full"
           isRounded
         >

@@ -29,7 +29,8 @@ const CTextField = forwardRef<HTMLInputElement | null, ITextField>(
     return (
       <TextField
         {...props}
-        ref={ref}
+        // ref={ref}
+        inputRef={ref}
         label={label}
         placeholder={placeholder}
         type={isPasswordField && !showPassword ? "password" : "text"}

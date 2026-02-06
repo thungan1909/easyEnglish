@@ -4,7 +4,12 @@ import CButton from "../../../components/atoms/CButton/CButton";
 import { useCallback, useRef, useState } from "react";
 
 import { notify } from "../../../utils/notifyUtils";
-import { CODE_LENGTH, VERIFY_ACCOUNT_STEP } from "./constants";
+import {
+  CODE_LENGTH,
+  VERIFY_BUTTON_MAP,
+  VERIFY_TITLE_MAP,
+  VerifyAccountType,
+} from "./constants";
 import {
   useGetResetCode,
   useVerifyResetCode,
@@ -15,13 +20,7 @@ import {
 } from "../../../hooks/auth/verify-email.hook";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 import { verificationCodeSentSuccessMsg } from "../../../constants/message/successMsg";
-
-export interface InputVerificationCodeProps {
-  email: string;
-  type?: keyof typeof VERIFY_ACCOUNT_STEP;
-  onSuccessVerify: (isVerified: boolean) => void;
-  goBack: () => void;
-}
+import { InputVerificationCodeProps } from "./types";
 
 const InputVerificationCode = ({
   email,
@@ -29,16 +28,24 @@ const InputVerificationCode = ({
   goBack,
   onSuccessVerify,
 }: InputVerificationCodeProps) => {
+  /* ------------------------------- Refs ------------------------------ */
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  /* ------------------------------- State ----------------------------- */
   const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(""));
-  const [disableButton, setDisableButton] = useState(true);
 
-  const { mutate: exeVerifyResetCode } = useVerifyResetCode();
-  const { mutate: exeVerifyAccount } = useVerifyAccount();
+  /* -------------------------- Derived State -------------------------- */
+  const isDisabled = code.includes("");
 
-  const { mutate: exeSendResetPasswordCode } = useGetVerifyCode();
-  const { mutate: exeSendResetCode } = useGetResetCode();
+  /* ------------------------------- APIs ------------------------------ */
+  const { mutate: sendResetCode } = useGetResetCode();
+  const { mutate: verifyResetCode } = useVerifyResetCode();
 
+  const { mutate: sendVerifyCode } = useGetVerifyCode();
+  const { mutate: verifyAccount } = useVerifyAccount();
+
+  /* ------------------------------ Handlers --------------------------- */
+  // Handle input change & auto-focus next field
   const handleChange = useCallback(
     (index: number, value: string) => {
       if (!/^\d?$/.test(value)) return;
@@ -50,12 +57,11 @@ const InputVerificationCode = ({
       if (value && index < CODE_LENGTH - 1) {
         inputRefs.current[index + 1]?.focus();
       }
-
-      setDisableButton(newCode.includes(""));
     },
     [code],
   );
 
+  // Handle backspace navigation
   const handleKeyDown = useCallback(
     (index: number, e: React.KeyboardEvent) => {
       if (e.key === "Backspace" && !code[index] && index > 0) {
@@ -65,85 +71,61 @@ const InputVerificationCode = ({
     [code],
   );
 
-  const handleVerificationEmail = useCallback(() => {
+  // Verify entered code based on flow type
+  const handleVerifyCode = useCallback(() => {
     const codeString = code.join("");
+    if (codeString.length !== CODE_LENGTH) return;
 
-    if (codeString?.length === CODE_LENGTH) {
-      if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
-        exeVerifyResetCode(
-          {
-            email: email,
-            resetCode: codeString,
+    if (type === VerifyAccountType.RESET_PASSWORD) {
+      verifyResetCode(
+        { email, resetCode: codeString },
+        {
+          onSuccess: onSuccessVerify,
+          onError: (error) => {
+            notify.error(error.message || defaultErrorMsg);
+            setCode(Array(CODE_LENGTH).fill(""));
           },
-          {
-            onSuccess: () => {
-              onSuccessVerify(true);
-            },
-            onError: (error) => {
-              notify.error(error.message || defaultErrorMsg);
-              setCode(Array(CODE_LENGTH).fill(""));
-            },
-          },
-        );
-      } else if (
-        type === VERIFY_ACCOUNT_STEP.REGISTER ||
-        type === VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT
-      ) {
-        exeVerifyAccount(
-          {
-            email: email,
-            verifyCode: codeString,
-          },
-          {
-            onSuccess: () => {
-              onSuccessVerify(true);
-            },
-            onError: (error) => {
-              notify.error(error.message || defaultErrorMsg);
-              setCode(Array(CODE_LENGTH).fill(""));
-            },
-          },
-        );
-      }
+        },
+      );
+      return;
     }
-  }, [code, email, onSuccessVerify, exeVerifyResetCode]);
+    verifyAccount(
+      { email, verifyCode: codeString },
+      {
+        onSuccess: onSuccessVerify,
+        onError: (error) => {
+          notify.error(error.message || defaultErrorMsg);
+          setCode(Array(CODE_LENGTH).fill(""));
+        },
+      },
+    );
+  }, [code, type, verifyResetCode, email, onSuccessVerify, verifyAccount]);
 
+  // Resend verification code
   const handleResendVerifyCode = useCallback(() => {
     if (
-      type === VERIFY_ACCOUNT_STEP.VERIFY_ACCOUNT ||
-      type === VERIFY_ACCOUNT_STEP.REGISTER
+      type === VerifyAccountType.VERIFY_ACCOUNT ||
+      type === VerifyAccountType.REGISTER
     ) {
-      exeSendResetPasswordCode(
-        {
-          email,
-        },
+      sendVerifyCode(
+        { email },
         {
           onSuccess: () => notify.success(verificationCodeSentSuccessMsg),
           onError: (error) => notify.error(error.message || defaultErrorMsg),
         },
       );
-    } else if (type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD) {
-      exeSendResetCode(
-        {
-          email,
-        },
-        {
-          onSuccess: () => notify.success(verificationCodeSentSuccessMsg),
-          onError: (error) => notify.error(error.message || defaultErrorMsg),
-        },
-      );
+      return;
     }
-  }, [email, exeSendResetPasswordCode, exeSendResetCode]);
+
+    sendResetCode(email, {
+      onSuccess: () => notify.success(verificationCodeSentSuccessMsg),
+      onError: (error) => notify.error(error.message || defaultErrorMsg),
+    });
+  }, [type, sendVerifyCode, email, sendResetCode]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">
-      <Typography variant="h5">
-        {type === VERIFY_ACCOUNT_STEP.REGISTER
-          ? "Register"
-          : type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD
-            ? "Reset password"
-            : "Verify account"}
-      </Typography>
+      <Typography variant="h5">{VERIFY_TITLE_MAP[type]}</Typography>
       <Typography className="text-center">
         A verification email has been sent to
         <span className="ml-1" style={{ color: "var(--main-600)" }}>
@@ -160,7 +142,7 @@ const InputVerificationCode = ({
               type="number"
               onChange={(e) => handleChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
-              inputRef={(el) => {
+              ref={(el) => {
                 inputRefs.current[index] = el;
               }}
               customStyle={{
@@ -181,16 +163,12 @@ const InputVerificationCode = ({
             Back
           </CButton>
           <CButton
-            disabled={disableButton}
+            disabled={isDisabled}
             className="w-full"
-            onClick={handleVerificationEmail}
+            onClick={handleVerifyCode}
             isRounded
           >
-            {type === VERIFY_ACCOUNT_STEP.REGISTER
-              ? "Register"
-              : type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD
-                ? "Next"
-                : "Verify account"}
+            {VERIFY_BUTTON_MAP[type]}
           </CButton>
         </div>
 

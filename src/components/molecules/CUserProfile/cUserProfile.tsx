@@ -13,10 +13,10 @@ const CUserProfileAvatar = () => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const { mutate: exeLogout } = useLogout();
+  const { mutate: logout } = useLogout();
 
   const handleLogout = () => {
-    exeLogout({});
+    logout({});
   };
 
   useEffect(() => {

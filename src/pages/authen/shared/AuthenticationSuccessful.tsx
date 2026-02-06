@@ -4,10 +4,8 @@ import checkImg from "../../../assets/check-img.png";
 
 import { useNavigate } from "react-router-dom";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
-import { VERIFY_ACCOUNT_STEP } from "./constants";
-interface AuthenticationSuccessfulProps {
-  type?: keyof typeof VERIFY_ACCOUNT_STEP;
-}
+import { SUCCESSFUL_TITLE_MAP } from "./constants";
+import { AuthenticationSuccessfulProps } from "./types";
 
 const AuthenticationSuccessful = ({ type }: AuthenticationSuccessfulProps) => {
   const navigate = useNavigate();
@@ -19,13 +17,8 @@ const AuthenticationSuccessful = ({ type }: AuthenticationSuccessfulProps) => {
         alt="Check successfully illustration"
         className="object-contain w-50"
       />
-      <Typography variant="h5">
-        {type === VERIFY_ACCOUNT_STEP.REGISTER
-          ? "Registration Successful"
-          : type === VERIFY_ACCOUNT_STEP.RESET_PASSWORD
-          ? "Reset Password Successful"
-          : "Verification Successful"}
-      </Typography>
+      <Typography variant="h5">{SUCCESSFUL_TITLE_MAP[type]}</Typography>
+
       <Typography className="text-center">
         Welcome to
         <span
@@ -37,7 +30,7 @@ const AuthenticationSuccessful = ({ type }: AuthenticationSuccessfulProps) => {
       </Typography>
 
       <CButton
-        onClick={() => navigate(ROUTES_CONSTANTS.AUTH.LOGIN)}
+        onClick={() => navigate(ROUTES_CONSTANTS.AUTH.LOGIN, { replace: true })}
         className="w-full"
         isRounded
       >

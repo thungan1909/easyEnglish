@@ -2,13 +2,8 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 
-import { Controller, UseFormReturn } from "react-hook-form";
-import { TUserResetPasswordSchema } from "../../../validation/user.schema";
-
-export interface InputResetPasswordProps {
-  onSubmitPassword: (data: TUserResetPasswordSchema) => void;
-  formInstance: UseFormReturn<TUserResetPasswordSchema>;
-}
+import { Controller } from "react-hook-form";
+import { InputResetPasswordProps } from "./types";
 
 const InputResetPassword = ({
   onSubmitPassword,
@@ -17,9 +12,11 @@ const InputResetPassword = ({
   const {
     control,
     handleSubmit,
-    getValues,
+    watch,
     formState: { isValid },
   } = formInstance;
+
+  const email = watch("email");
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">
@@ -27,7 +24,7 @@ const InputResetPassword = ({
       <Typography className="text-center">
         Enter new password for
         <span className="ml-1" style={{ color: "var(--main-600)" }}>
-          {getValues("email") || "Unknown"}
+          {email || "Unknown"}
         </span>
       </Typography>
 
@@ -40,7 +37,6 @@ const InputResetPassword = ({
             <Controller
               name="password"
               control={control}
-              defaultValue=""
               render={({ field, fieldState }) => (
                 <>
                   <CTextField
@@ -64,7 +60,6 @@ const InputResetPassword = ({
             <Controller
               name="confirmPassword"
               control={control}
-              defaultValue=""
               render={({ field, fieldState }) => (
                 <>
                   <CTextField

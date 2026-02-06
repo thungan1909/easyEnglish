@@ -2,15 +2,9 @@ import { Typography } from "@mui/material";
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import CButton from "../../../components/atoms/CButton/CButton";
 
-import { Controller, UseFormReturn } from "react-hook-form";
-import { TUserSignUpSchema } from "../../../validation/user.schema";
+import { Controller } from "react-hook-form";
 import { FaKey, FaUser } from "react-icons/fa";
-
-export interface InputBasicInfoProps {
-  onSubmitProfile: (data: TUserSignUpSchema) => void;
-  goBack: () => void;
-  formInstance: UseFormReturn<TUserSignUpSchema>;
-}
+import { InputBasicInfoProps } from "./types";
 
 const InputBasicInfo = ({
   onSubmitProfile,

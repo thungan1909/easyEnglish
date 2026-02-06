@@ -44,7 +44,7 @@ export const verifyAccountMutation = {
   ),
 };
 
-export const sendResetPasswordCodeMutation = {
+export const sendVerifyCodeMutation = {
   name: "getVerifyCode",
   ...createPostMutation<GetVerifyCodeDTO, GetVerifyCodeResponse>(
     END_POINTS.AUTH.SEND_VERIFY_CODE,

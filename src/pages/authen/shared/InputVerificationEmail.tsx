@@ -1,18 +1,12 @@
-import { Controller, UseFormReturn } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 import CTextField from "../../../components/atoms/CTextField/CTextField";
 import { Typography } from "@mui/material";
 import CButton from "../../../components/atoms/CButton/CButton";
-import { TGetVerifyCodeSchema } from "../../../validation/user.schema";
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
-
-export interface InputVerificationEmailProps {
-  onSubmitForm: (data: TGetVerifyCodeSchema) => void;
-  formInstance: UseFormReturn<TGetVerifyCodeSchema>;
-  isVerify?: boolean;
-}
+import { InputVerificationEmailProps } from "./types";
 
 const InputVerificationEmail = ({
   onSubmitForm,
