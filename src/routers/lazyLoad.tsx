@@ -23,7 +23,7 @@ export const VerifyAccountPage = withDynamicImport(
 );
 
 export const ForgotPasswordPage = withDynamicImport(
-  () => import("../pages/authen/resetPassword/ResetPasswordPage"),
+  () => import("../pages/authen/forgotPassword/ForgotPasswordPage"),
   {
     loading: true,
   },

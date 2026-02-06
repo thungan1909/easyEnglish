@@ -21,5 +21,5 @@ export const VERIFY_TITLE_MAP: Record<VerifyAccountType, string> = {
 export const VERIFY_BUTTON_MAP: Record<VerifyAccountType, string> = {
   [VerifyAccountType.REGISTER]: "Register",
   [VerifyAccountType.RESET_PASSWORD]: "Next",
-  [VerifyAccountType.VERIFY_ACCOUNT]: "Verify account",
+  [VerifyAccountType.VERIFY_ACCOUNT]: "Verify Account",
 };

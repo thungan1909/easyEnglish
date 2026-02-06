@@ -1,10 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import CSteppers from "../../../components/molecules/cSteppers";
 import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { notify } from "../../../utils/notifyUtils";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import { EVerifyAccountStep, VERIFY_ACCOUNT_STEPS } from "./constant";
 import InputVerificationCode from "../shared/InputVerificationCode";
 import AuthenticationSuccessful from "../shared/AuthenticationSuccessful";
@@ -15,22 +14,19 @@ import {
 import InputVerificationEmail from "../shared/InputVerificationEmail";
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
 import { useGetVerifyCode } from "../../../hooks/auth/verify-email.hook";
-import { useAuthentication } from "../../../hooks/auth/login.hook";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 import { useStepper } from "../../../utils/useStepper.hook";
-import { useNavigate } from "react-router-dom";
 import { VerifyAccountType } from "../shared/constants";
 
 const VerifyAccountPage = () => {
   /* ----------------------------- router & refs ---------------------------- */
-  const navigate = useNavigate();
   const stepperRef = useRef<ISteppersRef>(null);
+
   /* ------------------------------- stepper -------------------------------- */
   const { currentStep, stepIndex, goNext, goBack, goToIndex } =
     useStepper(VERIFY_ACCOUNT_STEPS);
 
-  /* ------------------------------- auth & APIs ----------------------------------- */
-  const { isAuth } = useAuthentication();
+  /* ------------------------------- APIs ----------------------------------- */
   const { mutate: sendVerifyCode } = useGetVerifyCode();
 
   /* ------------------------------- forms ---------------------------------- */
@@ -50,12 +46,6 @@ const VerifyAccountPage = () => {
     );
   };
 
-  useEffect(() => {
-    if (isAuth) {
-      navigate(ROUTES_CONSTANTS.DASHBOARD, { replace: true });
-    }
-  }, [isAuth, navigate]);
-
   /* ----------------------------- render step ------------------------------ */
 
   const renderStep = () => {
@@ -65,7 +55,7 @@ const VerifyAccountPage = () => {
           <InputVerificationEmail
             onSubmitForm={handleSubmitEmail}
             formInstance={formInstance}
-            isVerify
+            isVerifyPage
           />
         );
 
@@ -79,7 +69,7 @@ const VerifyAccountPage = () => {
           />
         );
 
-      case EVerifyAccountStep.AuthenticationSuccessful:
+      case EVerifyAccountStep.VerifyAccountSuccess:
         return (
           <AuthenticationSuccessful type={VerifyAccountType.VERIFY_ACCOUNT} />
         );

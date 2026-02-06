@@ -5,7 +5,7 @@ import { VerifyAccountType } from "./constants";
 export interface InputVerificationEmailProps {
   onSubmitForm: (data: TGetVerifyCodeSchema) => void;
   formInstance: UseFormReturn<TGetVerifyCodeSchema>;
-  isVerify?: boolean;
+  isVerifyPage?: boolean;
 }
 
 export interface AuthenticationSuccessfulProps {

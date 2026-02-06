@@ -12,8 +12,7 @@ import {
   UserSignInSchema,
 } from "../../../validation/user.schema";
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
-import { useEffect } from "react";
-import { useAuthentication, useLogin } from "../../../hooks/auth/login.hook";
+import { useLogin } from "../../../hooks/auth/login.hook";
 import { FaKey, FaUser } from "react-icons/fa";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
 import { loginFormDefaultValue } from "./constants";
@@ -24,7 +23,6 @@ const LoginPage = () => {
   /* ----------------------------- router & auth ---------------------------- */
 
   const navigate = useNavigate();
-  const { isAuth } = useAuthentication();
   const { mutate: login } = useLogin();
 
   /* -------------------------------- form -------------------------------- */
@@ -50,13 +48,6 @@ const LoginPage = () => {
       },
     });
   };
-
-  /* -------------------------------- effects ------------------------------ */
-  useEffect(() => {
-    if (isAuth) {
-      navigate(ROUTES_CONSTANTS.DASHBOARD, { replace: true });
-    }
-  }, [isAuth, navigate]);
 
   /* -------------------------------- render ------------------------------- */
   return (
@@ -126,7 +117,7 @@ const LoginPage = () => {
             <div className="!text-end">
               <CButton
                 onClick={() => {
-                  navigate(ROUTES_CONSTANTS.AUTH.RESET_PASSWORD);
+                  navigate(ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD);
                 }}
                 variant="text"
                 size="large"

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef } from "react";
-import { ESignUpStep, SIGN_UP_STEP } from "./constant";
+import { useCallback, useRef } from "react";
+import { ESignUpStep, SIGN_UP_STEPS } from "./constant";
 import CSteppers from "../../../components/molecules/cSteppers";
 import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 
@@ -9,31 +9,26 @@ import InputBasicInfo from "./InputBasicInfo";
 import InputVerificationCode from "../shared/InputVerificationCode";
 import AuthenticationSuccessful from "../shared/AuthenticationSuccessful";
 import { notify } from "../../../utils/notifyUtils";
-import { ROUTES_CONSTANTS } from "../../../routers/constants";
 import {
   TUserSignUpSchema,
   UserSignUpSchema,
 } from "../../../validation/user.schema";
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
 import InputEmail from "./InputEmail";
-import { useAuthentication } from "../../../hooks/auth/login.hook";
 import { useRegisterUser } from "../../../hooks/auth/signup.hook";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
-import { useNavigate } from "react-router-dom";
 import { VerifyAccountType } from "../shared/constants";
 import { useStepper } from "../../../utils/useStepper.hook";
 
 const RegisterPage = () => {
   /* ----------------------------- router & refs ---------------------------- */
-  const navigate = useNavigate();
   const stepperRef = useRef<ISteppersRef>(null);
 
   /* ------------------------------- stepper -------------------------------- */
   const { currentStep, stepIndex, goNext, goBack, goToIndex } =
-    useStepper(SIGN_UP_STEP);
+    useStepper(SIGN_UP_STEPS);
 
-  /* ------------------------------- auth ----------------------------------- */
-  const { isAuth } = useAuthentication();
+  /* ------------------------------- APIs ----------------------------------- */
   const { mutate: register } = useRegisterUser();
 
   /* ------------------------------- forms ---------------------------------- */
@@ -51,7 +46,7 @@ const RegisterPage = () => {
     [formInstance, goNext],
   );
 
-  const handleSubmitAuthenInfo = useCallback(
+  const handleSubmitBasicInfo = useCallback(
     (data: TUserSignUpSchema) => {
       register(
         {
@@ -68,13 +63,6 @@ const RegisterPage = () => {
     [register, goNext],
   );
 
-  /* -------------------------------- effects -------------------------------- */
-  useEffect(() => {
-    if (isAuth) {
-      navigate(ROUTES_CONSTANTS.DASHBOARD, { replace: true });
-    }
-  }, [isAuth, navigate]);
-
   /* ----------------------------- render step ------------------------------ */
 
   const renderStep = () => {
@@ -85,7 +73,7 @@ const RegisterPage = () => {
       case ESignUpStep.InputBasicInfo:
         return (
           <InputBasicInfo
-            onSubmitProfile={handleSubmitAuthenInfo}
+            onSubmitProfile={handleSubmitBasicInfo}
             goBack={goBack}
             formInstance={formInstance}
           />
@@ -101,7 +89,7 @@ const RegisterPage = () => {
           />
         );
 
-      case ESignUpStep.AuthenticationSuccessful:
+      case ESignUpStep.SignUpSuccess:
         return <AuthenticationSuccessful type={VerifyAccountType.REGISTER} />;
 
       default:
@@ -113,7 +101,7 @@ const RegisterPage = () => {
     <AuthenticationLayout
       stepperSection={
         <CSteppers
-          numberStep={SIGN_UP_STEP.length}
+          numberStep={SIGN_UP_STEPS.length}
           currentStep={stepIndex}
           onStepChange={goToIndex}
           ref={stepperRef}

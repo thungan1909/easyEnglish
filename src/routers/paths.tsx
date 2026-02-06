@@ -171,7 +171,7 @@ const authenRoutes: RouteItemConfig[] = [
     showWithPermission: true,
   },
   {
-    path: ROUTES_CONSTANTS.AUTH.RESET_PASSWORD,
+    path: ROUTES_CONSTANTS.AUTH.FORGOT_PASSWORD,
     element: <ForgotPasswordPage />,
     showWithPermission: true,
   },

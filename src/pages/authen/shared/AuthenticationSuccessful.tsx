@@ -14,7 +14,7 @@ const AuthenticationSuccessful = ({ type }: AuthenticationSuccessfulProps) => {
     <div className="flex flex-col items-center justify-center gap-8">
       <img
         src={checkImg}
-        alt="Check successfully illustration"
+        alt="Success illustration"
         className="object-contain w-50"
       />
       <Typography variant="h5">{SUCCESSFUL_TITLE_MAP[type]}</Typography>
@@ -34,7 +34,7 @@ const AuthenticationSuccessful = ({ type }: AuthenticationSuccessfulProps) => {
         className="w-full"
         isRounded
       >
-        Go to Sign In
+        Go to Log In
       </CButton>
     </div>
   );
