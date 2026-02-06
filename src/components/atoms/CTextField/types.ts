@@ -10,9 +10,10 @@ export interface ITextField {
   placeholder?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   maxLength?: number;
-  inputRef?: React.Ref<HTMLInputElement>;
+  // inputRef?: React.Ref<HTMLInputElement>;
   sx?: SxProps<Theme>;
   startIcon?: JSX.Element | null;
 }

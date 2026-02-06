@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import CSteppers from "../../../components/molecules/cSteppers";
 import { ISteppersRef } from "../../../components/molecules/cSteppers/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { ROUTES_CONSTANTS } from "../../../routers/constants";
-import InputVerificationCode from "../shared/InputVerificationCode";
-import AuthenticationSuccessful from "../shared/AuthenticationSuccessful";
 import {
   GetVerifyCodeSchema,
   TGetVerifyCodeSchema,
@@ -14,10 +12,7 @@ import {
   UserResetPasswordSchema,
 } from "../../../validation/user.schema";
 import { AuthenticationLayout } from "../../../layout/AuthenticationLayout";
-import { EResetPasswordStep } from "./constants";
-import InputVerificationEmail from "../shared/InputVerificationEmail";
-import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
-import InputResetPassword from "./InputResetPassword";
+import { EResetPasswordStep, RESET_PASSWORD_STEP } from "./constants";
 import { notify } from "../../../utils/notifyUtils";
 import {
   useGetResetCode,
@@ -25,115 +20,137 @@ import {
 } from "../../../hooks/auth/reset-password.hook";
 import { useAuthentication } from "../../../hooks/auth/login.hook";
 import { defaultErrorMsg } from "../../../constants/message/errorMsg";
+import { useStepper } from "../register/useStepper.hook";
+import InputVerificationEmail from "../shared/InputVerificationEmail";
+import InputVerificationCode from "../shared/InputVerificationCode";
+import { VERIFY_ACCOUNT_STEP } from "../shared/constants";
+import InputResetPassword from "./InputResetPassword";
+import AuthenticationSuccessful from "../shared/AuthenticationSuccessful";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
+  /* ----------------------------- router & refs ---------------------------- */
+  const navigate = useNavigate();
   const CStepperRef = useRef<ISteppersRef>(null);
-  const [step, setStep] = useState(0);
-  const [verificationState, setVerificationState] = useState(false);
 
-  const [currentStep, setCurrentStep] = useState<EResetPasswordStep>(
-    EResetPasswordStep.InputEmail
-  );
-  
+  /* ------------------------------- stepper -------------------------------- */
+  const { currentStep, stepIndex, goNext, goBack, goToIndex } =
+    useStepper(RESET_PASSWORD_STEP);
+
+  /* ------------------------------- auth ----------------------------------- */
   const { isAuth } = useAuthentication();
   const { mutate: sendResetCode } = useGetResetCode();
   const { mutate: resetPassword } = useResetPassword();
 
+  /* ------------------------------- forms ---------------------------------- */
+  const formInstance = useForm<TGetVerifyCodeSchema>({
+    mode: "onChange",
+    shouldUnregister: false,
+    resolver: zodResolver(GetVerifyCodeSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+
   const formInstanceResetPassword = useForm<TUserResetPasswordSchema>({
     mode: "onChange",
+    shouldUnregister: false,
     resolver: zodResolver(UserResetPasswordSchema),
   });
 
-  const formInstance = useForm<TGetVerifyCodeSchema>({
-    mode: "onChange",
-    resolver: zodResolver(GetVerifyCodeSchema),
-  });
-
-  const handleSubmitEmail = (data: TGetVerifyCodeSchema) => {
-    sendResetCode(
-      {
-        email: data.email,
-      },
-      {
+  /* ------------------------------ handlers -------------------------------- */
+  const handleSubmitEmail = useCallback(
+    (data: TGetVerifyCodeSchema) => {
+      sendResetCode(data.email, {
         onSuccess: () => {
-          setCurrentStep(EResetPasswordStep.InputVerificationCode);
-          CStepperRef.current?.handleNextStep();
           formInstanceResetPassword.setValue("email", data.email);
+          goNext();
         },
         onError: (error) => {
           notify.error(error.message || defaultErrorMsg);
         },
-      }
-    );
-  };
+      });
+    },
+    [sendResetCode, goNext, formInstanceResetPassword],
+  );
 
-  const onSubmitPassword = (data: TUserResetPasswordSchema) => {
-    resetPassword(
-      {
-        email: data.email,
-        password: data.password,
-      },
-      {
-        onSuccess: () => {
-          setCurrentStep(EResetPasswordStep.ResetSuccessfully);
-          CStepperRef.current?.handleNextStep();
+  const onSubmitPassword = useCallback(
+    (data: TUserResetPasswordSchema) => {
+      resetPassword(
+        {
+          email: data.email,
+          password: data.password,
         },
-        onError: (error) => {
-          notify.error(error.message || defaultErrorMsg);
+        {
+          onSuccess: () => goNext(),
+          onError: (error) => {
+            notify.error(error.message || defaultErrorMsg);
+          },
         },
-      }
-    );
-  };
+      );
+    },
+    [goNext, resetPassword],
+  );
 
-  useEffect(() => {
-    if (verificationState) {
-      setCurrentStep(EResetPasswordStep.InputPassword);
-      CStepperRef.current?.handleNextStep();
-    }
-  }, [verificationState]);
-
+  /* -------------------------------- effects -------------------------------- */
   useEffect(() => {
     if (isAuth) {
-      window.location.href = ROUTES_CONSTANTS.DASHBOARD;
+      navigate(ROUTES_CONSTANTS.DASHBOARD);
     }
-  }, [isAuth]);
+  }, [isAuth, navigate]);
+
+  /* ----------------------------- render step ------------------------------ */
+
+  const renderStep = () => {
+    switch (currentStep) {
+      case EResetPasswordStep.InputEmail:
+        return (
+          <InputVerificationEmail
+            onSubmitForm={handleSubmitEmail}
+            formInstance={formInstance}
+          />
+        );
+
+      case EResetPasswordStep.InputVerificationCode:
+        return (
+          <InputVerificationCode
+            type={VERIFY_ACCOUNT_STEP.RESET_PASSWORD}
+            email={formInstance.getValues("email")}
+            onSuccessVerify={goNext}
+            goBack={goBack}
+          />
+        );
+
+      case EResetPasswordStep.InputPassword:
+        return (
+          <InputResetPassword
+            onSubmitPassword={onSubmitPassword}
+            formInstance={formInstanceResetPassword}
+          />
+        );
+
+      case EResetPasswordStep.ResetSuccessfully:
+        return (
+          <AuthenticationSuccessful type={VERIFY_ACCOUNT_STEP.RESET_PASSWORD} />
+        );
+
+      default:
+        return null;
+    }
+  };
 
   return (
     <AuthenticationLayout
       stepperSection={
         <CSteppers
-          numberStep={4}
-          currentStep={step}
-          changeCurrentStep={setStep}
+          numberStep={RESET_PASSWORD_STEP.length}
+          currentStep={stepIndex}
+          onStepChange={goToIndex}
           ref={CStepperRef}
         />
       }
     >
-      {currentStep === EResetPasswordStep.InputEmail && (
-        <InputVerificationEmail
-          onSubmitForm={handleSubmitEmail}
-          formInstance={formInstance}
-        />
-      )}
-
-      {currentStep === EResetPasswordStep.InputVerificationCode && (
-        <InputVerificationCode
-          type={VERIFY_ACCOUNT_STEP.RESET_PASSWORD}
-          email={formInstance.getValues("email")}
-          onSuccessVerify={setVerificationState}
-        />
-      )}
-
-      {currentStep === EResetPasswordStep.InputPassword && (
-        <InputResetPassword
-          onSubmitPassword={onSubmitPassword}
-          formInstance={formInstanceResetPassword}
-        />
-      )}
-
-      {currentStep === EResetPasswordStep.ResetSuccessfully && (
-        <AuthenticationSuccessful type={VERIFY_ACCOUNT_STEP.RESET_PASSWORD} />
-      )}
+      {renderStep()}
     </AuthenticationLayout>
   );
 };

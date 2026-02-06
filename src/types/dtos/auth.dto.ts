@@ -12,7 +12,7 @@ export interface GetVerifyCodeDTO {
   email: string;
 }
 
-export interface GetVerifyCodeResponse {}
+export type GetVerifyCodeResponse = object;
 
 export interface LoginDTO {
   username: string;
@@ -32,7 +32,7 @@ export interface LoginOriginalResponse extends IOriginalResponse {
   };
 }
 
-export interface LogOutDTO {}
+export type LogOutDTO = object;
 
 export interface RegisterUserDTO {
   email: string;
@@ -40,32 +40,30 @@ export interface RegisterUserDTO {
   password: string;
 }
 
-export interface RegisterUserResponse {}
+export type RegisterUserResponse = object;
 
 export interface ResetPasswordDTO {
   email: string;
   password: string;
 }
 
-export interface ResetPasswordResponse {}
+export type ResetPasswordResponse = object;
 
-export interface SendResetCodeDTO extends GetVerifyCodeDTO {}
-
-export interface SendResetCodeResponse {}
+export type SendResetCodeResponse = object;
 
 export interface VerifyAccountDTO {
   email: string;
   verifyCode: string;
 }
 
-export interface VerifyAccountResponse {}
+export type VerifyAccountResponse = object;
 
 export interface VerifyResetCodeDTO {
   email: string;
   resetCode: string;
 }
 
-export interface VerifyResetCodeResponse {}
+export type VerifyResetCodeResponse = object;
 
 export interface ProgramAuthDTO {
   roleCode?: string;

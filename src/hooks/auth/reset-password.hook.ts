@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 import {
-  SendResetCodeDTO,
   SendResetCodeResponse,
   ResetPasswordDTO,
   ResetPasswordResponse,
@@ -15,9 +14,9 @@ import {
 } from "../../apis/auth.api";
 
 export const useGetResetCode = () => {
-  return useMutation<SendResetCodeResponse, IHttpError, SendResetCodeDTO>({
-    mutationFn: async (data: SendResetCodeDTO) => {
-      return sendResetCodeMutation.fn(data);
+  return useMutation<SendResetCodeResponse, IHttpError, string>({
+    mutationFn: async (email: string) => {
+      return sendResetCodeMutation.fn({ email });
     },
   });
 };
